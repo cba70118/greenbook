@@ -316,10 +316,17 @@ function loadTournament(key) {
         });
     }
 
-    // Form Check (standalone)
+    // Form Check (standalone) — only players in this tournament's field
     var formDisplay = document.getElementById('form-check-display');
     if (formDisplay) {
-        var formPlayers = SCOUTING.map(function(p) {
+        // Build field list from composite + radar + FRL + odds board
+        var fieldNames = {};
+        if (t.composite) t.composite.forEach(function(p){fieldNames[p.name]=true});
+        if (t.radarPlayers) Object.keys(t.radarPlayers).forEach(function(n){fieldNames[n]=true});
+        if (t.frl) t.frl.forEach(function(p){fieldNames[p.player]=true});
+        if (t.oddsBoard) t.oddsBoard.forEach(function(p){fieldNames[p.name]=true});
+
+        var formPlayers = SCOUTING.filter(function(p){return fieldNames[p.name]}).map(function(p) {
             var fs = 50, sig = 'neutral', ctx = '';
             if (typeof PLAYER_STATUS !== 'undefined') {
                 var ps = PLAYER_STATUS.find(function(s){return s.player===p.name});
