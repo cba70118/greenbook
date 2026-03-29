@@ -56,9 +56,9 @@ const EW_TERMS = [
 // Current Houston card
 const HOUSTON_CARD = [
     { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "1/4 5pl", odds: "+2500", stake: 20, placed: "Mar 25", edge: "Meta #3", status: "2nd (-17)" },
-    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, placed: "Mar 25", edge: "APP #1 + 30% boost", status: "MC" },
+    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, placed: "Mar 25", edge: "APP #1 + 30% boost", status: "E (back of field)" },
     { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "Meta #2", status: "T10 (-9)" },
-    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "APP+OTT double", status: "MC" },
+    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "APP+OTT double", status: "T~25 (-5)" },
     { num: 5, player: "Wyndham Clark", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "T5 2025 + form", status: "MC" },
     { num: 6, player: "Stephan Jaeger", market: "Outright", terms: "1/5 8pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "2024 winner", status: "T12 (-8)" },
     { num: 7, player: "Max Greyserman", market: "Outright", terms: "1/5 8pl", odds: "+5500", stake: 10, placed: "Mar 25", edge: "T7 2024", status: "MC" },
