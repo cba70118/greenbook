@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Auth Gate -->
+    <div id="auth-gate">
+        <div class="auth-box">
+            <h1 class="auth-title">GREEN<strong>BOOK</strong></h1>
+            <p class="auth-sub">Golf Intelligence & Analytics</p>
+            <div class="auth-field">
+                <input type="password" id="auth-input" placeholder="Enter access code" autocomplete="off">
+                <button id="auth-btn">Enter</button>
+            </div>
+            <p id="auth-error" class="auth-error"></p>
+        </div>
+    </div>
+
+    <div id="app-content" style="display:none">
     <header>
         <div class="header-content">
             <h1>GREEN<strong>BOOK</strong></h1>
@@ -323,6 +337,9 @@
         </div>
     </section>
 
+    </div><!-- /app-content -->
+
+    <script src="auth.js"></script>
     <script src="data.js"></script>
     <script src="tournament-data.js"></script>
     <script src="settled-data.js"></script>
