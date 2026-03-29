@@ -621,7 +621,55 @@ function makeSparkline(name, stat) {
 // Skill Fit Renderer
 function renderSkillFit(t, skill) {
     var display = document.getElementById('skill-fit-display');
-    if (!display || !t.radarAxes || !t.radarPlayers) return;
+    if (!display) return;
+
+    // For surface and weekfit, pull from all SCOUTING players
+    if (skill === 'surface' || skill === 'weekfit') {
+        var surfScored;
+        if (skill === 'surface') {
+            var surfaces = [];
+            if (t && t.meta) {
+                if (t.meta.indexOf('Bermuda') >= 0) surfaces.push('putt_bermuda');
+                if (t.meta.indexOf('Poa') >= 0) surfaces.push('putt_poa');
+                if (t.meta.indexOf('Bent') >= 0) surfaces.push('putt_bent');
+            }
+            if (!surfaces.length) surfaces = ['putt_bermuda','putt_bent','putt_poa'];
+            var surfLabel = surfaces.map(function(s){return s.replace('putt_','').replace('bermuda','Bermuda').replace('bent','Bentgrass').replace('poa','Poa')}).join(' + ');
+
+            surfScored = SCOUTING.filter(function(p){return p[surfaces[0]] !== undefined}).map(function(p) {
+                var avg = surfaces.reduce(function(s,k){return s + (p[k]||0)},0) / surfaces.length;
+                return {name:p.name, score:Math.round((avg/0.7)*50+50), raw:avg};
+            }).sort(function(a,b){return b.score - a.score}).slice(0,25);
+
+            display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Ranked by SG:PUTT on <strong>'+surfLabel+'</strong> (this course\'s green surface). From career putting splits across all 85 profiled players.</p>' +
+                '<div class="skill-fit-list">' + surfScored.map(function(p,i) {
+                    var cls = p.score>=80?'sf-elite':p.score>=60?'sf-good':p.score>=40?'sf-avg':'sf-weak';
+                    return '<div class="sf-row"><span class="sf-rank">'+(i+1)+'</span><span class="sf-name"><strong>'+p.name+'</strong></span><div class="sf-bar-track"><div class="sf-bar '+cls+'" style="width:'+Math.max(5,p.score)+'%"></div></div><span class="sf-score">'+(p.raw>=0?'+':'')+p.raw.toFixed(2)+'</span></div>';
+                }).join('') + '</div>';
+            return;
+        }
+        if (skill === 'weekfit') {
+            // Pull from radar if available, otherwise use SCOUTING sorted by APP + ARG (general course fit)
+            if (t && t.radarPlayers) {
+                var radarNames = Object.keys(t.radarPlayers);
+                surfScored = radarNames.map(function(name) {
+                    var data = t.radarPlayers[name];
+                    var avg = data.reduce(function(s,v){return s+v},0)/data.length;
+                    return {name:name, score:Math.round(avg)};
+                }).sort(function(a,b){return b.score-a.score});
+            } else {
+                surfScored = SCOUTING.map(function(p){return {name:p.name, score:Math.round(((p.app+p.arg)/1.4)*50+50)}}).sort(function(a,b){return b.score-a.score}).slice(0,25);
+            }
+            display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Players ranked by overall fit for this week\'s course profile.</p>' +
+                '<div class="skill-fit-list">' + surfScored.map(function(p,i) {
+                    var cls = p.score>=80?'sf-elite':p.score>=60?'sf-good':p.score>=40?'sf-avg':'sf-weak';
+                    return '<div class="sf-row"><span class="sf-rank">'+(i+1)+'</span><span class="sf-name"><strong>'+p.name+'</strong></span><div class="sf-bar-track"><div class="sf-bar '+cls+'" style="width:'+Math.max(5,p.score)+'%"></div></div><span class="sf-score">'+p.score+'</span></div>';
+                }).join('') + '</div>';
+            return;
+        }
+    }
+
+    if (!t.radarAxes || !t.radarPlayers) return;
 
     var players = Object.keys(t.radarPlayers);
     var axes = t.radarAxes;
@@ -631,22 +679,7 @@ function renderSkillFit(t, skill) {
     var scored = players.map(function(name) {
         var data = t.radarPlayers[name];
         var score, label;
-        if (skill === 'surface') {
-            // Surface putting for this tournament's grass type
-            var surface = '';
-            if (t.meta) {
-                if (t.meta.indexOf('Bermuda') >= 0) surface = 'putt_bermuda';
-                else if (t.meta.indexOf('Poa') >= 0) surface = 'putt_poa';
-                else if (t.meta.indexOf('Bent') >= 0) surface = 'putt_bent';
-            }
-            if (surface) {
-                var p = SCOUTING.find(function(s){return s.name === name});
-                score = p && p[surface] !== undefined ? Math.round((p[surface] / 0.7) * 50 + 50) : 50;
-            } else { score = 50; }
-        } else if (skill === 'weekfit') {
-            // This week's overall fit from radar data
-            score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
-        } else if (skill === 'overall') {
+        if (skill === 'overall') {
             score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
             label = 'Avg across all categories';
         } else if (skill === 'app') {
