@@ -146,6 +146,22 @@ function loadTournament(key) {
         if (frlCard) frlCard.style.display = 'none';
     }
 
+    // Skill Fit Rankings
+    var skillCard = document.getElementById('skill-fit-card');
+    if (t.radarAxes && t.radarPlayers && Object.keys(t.radarPlayers).length > 0) {
+        if (skillCard) skillCard.style.display = '';
+        renderSkillFit(t, 'overall');
+        document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(btn) {
+            btn.onclick = function() {
+                document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
+                btn.classList.add('active');
+                renderSkillFit(t, btn.dataset.skill);
+            };
+        });
+    } else {
+        if (skillCard) skillCard.style.display = 'none';
+    }
+
     // Composite
     const cb = document.getElementById('composite-body');
     cb.innerHTML = '';
@@ -295,6 +311,53 @@ function renderWeather(data) {
             '<div class="weather-rain ' + rainCls + '">Rain: ' + rain + '%</div>' +
             '</div>';
     }).join('');
+}
+
+// Skill Fit Renderer
+function renderSkillFit(t, skill) {
+    var display = document.getElementById('skill-fit-display');
+    if (!display || !t.radarAxes || !t.radarPlayers) return;
+
+    var players = Object.keys(t.radarPlayers);
+    var axes = t.radarAxes;
+    var winner = t.winnerProfile;
+
+    // Map skill to axis index or compute overall
+    var scored = players.map(function(name) {
+        var data = t.radarPlayers[name];
+        var score, label;
+        if (skill === 'overall') {
+            score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
+            label = 'Avg across all categories';
+        } else if (skill === 'app') {
+            var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('app')>=0});
+            score = idx >= 0 ? data[idx] : 0;
+            label = axes[idx] || 'Approach';
+        } else if (skill === 'putt') {
+            var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('putt')>=0 || a.toLowerCase().indexOf('3-putt')>=0});
+            score = idx >= 0 ? data[idx] : 0;
+            label = axes[idx] || 'Putting';
+        } else if (skill === 'ott') {
+            var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('ott')>=0 || a.toLowerCase().indexOf('driver')>=0});
+            score = idx >= 0 ? data[idx] : 0;
+            label = axes[idx] || 'Off the Tee';
+        } else if (skill === 'arg') {
+            var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('arg')>=0 || a.toLowerCase().indexOf('short')>=0 || a.toLowerCase().indexOf('scrambl')>=0});
+            score = idx >= 0 ? data[idx] : 0;
+            label = axes[idx] || 'Short Game';
+        } else if (skill === 'dd') {
+            var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('dist')>=0 || a.toLowerCase().indexOf('carry')>=0});
+            score = idx >= 0 ? data[idx] : 0;
+            label = axes[idx] || 'Distance';
+        }
+        return { name: name, score: score };
+    }).sort(function(a,b){return b.score - a.score});
+
+    display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(p, i) {
+        var barWidth = Math.max(5, Math.min(100, p.score));
+        var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
+        return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name">' + p.name + '</span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
+    }).join('') + '</div>';
 }
 
 // Helpers

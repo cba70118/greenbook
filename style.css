@@ -994,3 +994,29 @@ canvas { max-height: 350px; }
     .notes-entry { font-size: 0.72rem; }
 }
 .notes-latest { padding: 0.5rem 0; border-bottom: none; }
+
+/* ═══ SKILL FIT RANKINGS ═══ */
+.skill-fit-list { max-width: 600px; }
+.sf-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 200px 35px;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+}
+.sf-row:last-child { border-bottom: none; }
+.sf-rank { font-family: var(--font-mono); color: var(--cream-500); font-size: 0.7rem; text-align: center; }
+.sf-name { font-weight: 600; }
+.sf-bar-track { height: 8px; background: rgba(109,196,142,0.06); border-radius: 4px; overflow: hidden; }
+.sf-bar { height: 100%; border-radius: 4px; transition: width 0.3s; }
+.sf-elite { background: var(--green-500); }
+.sf-good { background: var(--green-400); opacity: 0.7; }
+.sf-avg { background: var(--brass-500); opacity: 0.6; }
+.sf-weak { background: var(--scarlet); opacity: 0.5; }
+.sf-score { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; color: var(--cream-300); text-align: right; }
+
+@media (max-width: 768px) {
+    .sf-row { grid-template-columns: 24px 1fr 120px 30px; font-size: 0.7rem; }
+}
