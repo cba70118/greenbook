@@ -120,10 +120,16 @@
                 <span class="quick-tag" data-skill="arg">Short Game</span>
                 <span class="quick-tag" data-skill="dd">Distance</span>
                 <span class="quick-tag" data-skill="surface">Surface Putters</span>
-                <span class="quick-tag" data-skill="form">Form Check</span>
                 <span class="quick-tag" data-skill="weekfit">This Week's Fit</span>
             </div>
             <div id="skill-fit-display"></div>
+        </div>
+
+        <!-- Form Check (standalone section) -->
+        <div class="card" id="form-check-card">
+            <h3>Form Check</h3>
+            <p class="card-subtitle">Recent momentum signals. Who's trending up, who's flagged, who's cold.</p>
+            <div id="form-check-display"></div>
         </div>
 
         <!-- Stat Fingerprint + Radar -->
@@ -164,16 +170,15 @@
 
         <!-- 3-Ball / Player Comparison -->
         <div class="card">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Player Comparison / 3-Ball</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Select 2-3 players to compare skill profiles.</p>
+            <h3>Player Comparison / 3-Ball</h3>
+            <p class="card-subtitle">Select 2-3 players to compare skill profiles. Useful for 3-ball matchup analysis.</p>
             <div class="compare-selects">
                 <select id="tourney-compare-1" class="calc-input"></select>
                 <select id="tourney-compare-2" class="calc-input"></select>
                 <select id="tourney-compare-3" class="calc-input"></select>
             </div>
             <div id="tourney-compare-output"></div>
-        </div></div>
+        </div>
 
         <!-- Key Holes + Recent Winners (moved to bottom) -->
         <div class="grid-2">
