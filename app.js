@@ -57,6 +57,10 @@ function loadTournament(key) {
         document.getElementById('masked-list').innerHTML = (t.masked||[]).map(m => `<div class="mask-item">${m}</div>`).join('');
         document.getElementById('amplified-list').innerHTML = (t.amplified||[]).map(a => `<div class="amp-item">${a}</div>`).join('');
         document.getElementById('winner-dna').textContent = t.narrative.winnerDNA || '';
+        const corrEl = document.getElementById('correlated-courses');
+        if (t.narrative.correlated) {
+            corrEl.innerHTML = `<div style="font-family:var(--font-mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-500);margin-bottom:0.35rem">Correlated Courses</div><div class="narrative-text" style="font-size:0.78rem">${t.narrative.correlated}</div>`;
+        } else { corrEl.innerHTML = ''; }
         document.getElementById('key-holes').innerHTML = (t.narrative.keyHoles||[]).map(h => `<div class="key-hole"><span class="hole-num">${h.num}</span><span class="hole-meta">Par ${h.par} | ${h.yds} yds</span><span class="hole-note">${h.note}</span></div>`).join('');
         document.getElementById('recent-winners').innerHTML = (t.narrative.recentWinners||[]).map(w => `<div class="winner-row"><span class="winner-yr">${w.yr}</span><span class="winner-name">${w.name}</span><span class="winner-score">${w.score}</span><span class="winner-odds">${w.odds}</span><span class="winner-note">${w.note}</span></div>`).join('');
     } else { ns.style.display = 'none'; }
@@ -97,7 +101,11 @@ function loadTournament(key) {
 
     // Form chart
     if (formInst) { formInst.destroy(); formInst = null; }
+    const formPlaceholder = document.getElementById('form-chart-placeholder');
+    const formCanvas = document.getElementById('form-chart');
     if (t.formSignals && t.formSignals.length) {
+        if (formPlaceholder) formPlaceholder.style.display = 'none';
+        if (formCanvas) formCanvas.style.display = '';
         const sorted = [...t.formSignals].sort((a,b) => b.bhf - a.bhf);
         formInst = new Chart(document.getElementById('form-chart'), {
             type:'bar', data: { labels: sorted.map(d=>d.name.split(' ').pop()),
@@ -106,6 +114,9 @@ function loadTournament(key) {
                 { label:'BHF %', data:sorted.map(d=>d.bhf), backgroundColor:sorted.map(d=> d.signal==='TAILWIND'?GREEN_BAR:d.signal==='warm'?'rgba(109,196,142,0.5)':d.signal==='cool'?'rgba(201,160,70,0.5)':d.signal==='HEADWIND'?RED_BAR:'rgba(168,152,128,0.5)'), borderRadius:2 }
             ]}, options: { responsive:true, plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:9}}}}, scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:8}}}} }
         });
+    } else {
+        if (formPlaceholder) formPlaceholder.style.display = '';
+        if (formCanvas) formCanvas.style.display = 'none';
     }
 
     // Weakness masked
@@ -153,8 +164,23 @@ document.querySelectorAll('.timeline-btn').forEach(btn => {
     });
 });
 
-// Initial load
-loadTournament('masters');
+// Initial load — find the most current tournament (first live, then first upcoming)
+function getCurrentTournament() {
+    const timeline = document.querySelectorAll('.timeline-btn[data-t]');
+    for (const btn of timeline) {
+        if (btn.classList.contains('live')) return btn.dataset.t;
+    }
+    for (const btn of timeline) {
+        if (btn.classList.contains('upcoming')) return btn.dataset.t;
+    }
+    return 'masters';
+}
+const currentKey = getCurrentTournament();
+loadTournament(currentKey);
+// Set the matching timeline button as active
+document.querySelectorAll('.timeline-btn').forEach(b => b.classList.remove('active'));
+const activeBtn = document.querySelector(`.timeline-btn[data-t="${currentKey}"]`);
+if (activeBtn) activeBtn.classList.add('active');
 
 // ═══ DATA CENTER ═══
 

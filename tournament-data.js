@@ -9,6 +9,7 @@ const TOURNAMENT_DATA = {
         archetype: "Second-shot + Short game",
         narrative: {
             description: "MacKenzie/Jones masterpiece (1932). The most predictive course on Tour \— course history matters more here than anywhere else. Wide fairways with no real rough, but severely contoured elevated greens with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hurricane Helene (2025) removed many trees, opening sightlines and potentially changing wind patterns.",
+            correlated: "Quail Hollow, Muirfield Village, Torrey Pines (South), Pinehurst No. 2, Riviera, Bay Hill, Southern Hills, Memorial Park. Common thread: demanding second-shot courses with difficult ARG, elevation changes, and a premium on distance + iron play.",
             tags: ["Bentgrass Fast", "Par 5 Scoring", "Course History King", "Short-Grass ARG", "Elevated Greens", "No Rough Penalty", "Amen Corner", "Major"],
             keyHoles: [
                 { num: 10, par: 4, yds: 495, note: "Hardest hole. 100ft elevation drop into Amen Corner." },
@@ -303,6 +304,7 @@ const TOURNAMENT_DATA = {
         archetype: "Second-shot + Bomber",
         narrative: {
             description: "Tom Doak/Brooks Koepka redesign (2019) of a municipal course. Augusta-influenced green complexes with short-grass runoffs, false fronts, and elevated contoured greens. The 2nd longest course on Tour with only 21 bunkers and 1.25-inch ryegrass rough \— the lowest missed-fairway penalty anywhere. Defense comes entirely from the greens and the length. Poa Trivialis overseed since 2024; firm and fast at 12-13 stimp.",
+            correlated: "Augusta National (same Doak influence, short-grass ARG, elevated greens), Riviera (firm greens, approach precision), Quail Hollow (length + approach + ARG). Memorial Park was specifically designed as an Augusta prep course.",
             tags: ["Driver Heavy", "Short-Grass ARG", "Poa Putting", "Firm & Fast", "Low Rough Penalty", "Elevated Greens", "False Fronts"],
             keyHoles: [
                 { num: 1, par: 4, yds: 489, note: "2nd hardest. Immediate long-approach test." },

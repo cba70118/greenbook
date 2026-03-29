@@ -28,7 +28,7 @@
         <div class="timeline-strip">
             <div class="timeline-btn active upcoming" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
             <div class="timeline-btn upcoming" data-t="valero"><span class="tl-name">Valero</span><span class="tl-date">Apr 2</span></div>
-            <div class="timeline-btn live" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span></div>
+            <div class="timeline-btn live" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span><span class="tl-status">LIVE</span></div>
             <div class="tl-divider"></div>
             <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-date">Mar 19</span></div>
             <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-date">Mar 12</span></div>
@@ -53,20 +53,18 @@
 
         <!-- Course Narrative -->
         <div id="narrative-section">
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Course DNA</h3>
-                    <div id="course-description" class="narrative-text"></div>
-                    <div class="narrative-tags" id="course-tags"></div>
-                </div>
-                <div class="card">
-                    <div class="grid-2" style="gap:0.75rem">
+            <div class="card">
+                <h3>Course DNA</h3>
+                <div class="narrative-grid">
+                    <div class="narrative-main">
+                        <div id="course-description" class="narrative-text"></div>
+                        <div class="narrative-tags" id="course-tags" style="margin-top:0.5rem"></div>
+                        <div id="correlated-courses" style="margin-top:0.75rem"></div>
+                    </div>
+                    <div class="narrative-sidebar">
                         <div class="masked-box"><h4>Weakness Masked</h4><div id="masked-list"></div></div>
                         <div class="amplified-box"><h4>Strength Amplified</h4><div id="amplified-list"></div></div>
-                    </div>
-                    <div style="margin-top:0.75rem">
-                        <h4 style="font-family:var(--font-mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--brass-500);margin-bottom:0.5rem">Winner DNA</h4>
-                        <p class="narrative-text" id="winner-dna" style="margin:0"></p>
+                        <div class="narrative-box"><h4>Winner DNA</h4><p class="narrative-text" id="winner-dna" style="margin:0;font-size:0.78rem"></p></div>
                     </div>
                 </div>
             </div>
@@ -114,6 +112,8 @@
             </div>
             <div class="card">
                 <h3>DG Form Signals</h3>
+                <p class="card-subtitle">Baseline win% vs form-adjusted (BHF). Pulls from DataGolf API closer to tournament week.</p>
+                <div id="form-chart-placeholder" class="placeholder-msg">Form signal data populates from DataGolf API during tournament week analysis. Check back closer to the event.</div>
                 <canvas id="form-chart" height="300"></canvas>
             </div>
         </div>
