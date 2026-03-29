@@ -993,3 +993,4 @@ canvas { max-height: 350px; }
     .notes-bar { padding: 0 1rem; }
     .notes-entry { font-size: 0.72rem; }
 }
+.notes-latest { padding: 0.5rem 0; border-bottom: none; }
