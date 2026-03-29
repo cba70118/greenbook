@@ -496,7 +496,7 @@ function renderScoutCards(filter,tier,limit) {
     let list = [...SCOUTING].sort((a,b)=>b.sg_tot-a.sg_tot);
     if (filter) list = list.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()));
     if (tier) list = list.filter(p=>p.tier===tier);
-    const maxShow = (filter || tier) ? list.length : (limit || 20);
+    const maxShow = (filter || tier) ? list.length : (limit || list.length);
     if (!filter && !tier && list.length > maxShow) {
         list = list.slice(0, maxShow);
     }
