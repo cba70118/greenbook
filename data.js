@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 155,
+    totalBets: 160,
     settled: 137,
-    open: 18,
-    staked: 1306.50,
+    open: 23,
+    staked: 1322.75,
     returned: 1329.25,
     pl: 22.75,
-    roi: 1.9,
+    roi: 1.7,
     winners: 10
 };
 
@@ -72,6 +72,14 @@ const MASTERS_CARD = [
     { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", stake: 20, t10s: 2, comp: "#33", status: "Open" },
     { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", stake: 10, t10s: 3, comp: "#18", status: "Open" },
     { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", stake: 10, t10s: 4, comp: "#53", status: "Open" },
+];
+
+const VALERO_CARD = [
+    { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", stake: 1.25, edge: "Comp #2. Dark horse.", status: "Open" },
+    { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, edge: "Comp #4. APP elite.", status: "Open" },
+    { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, edge: "Comp #9. Anti-bias dark horse.", status: "Open" },
+    { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, edge: "Comp #5. Comp-course fit.", status: "Open" },
+    { num: 5, player: "Marco Penge", market: "Outright", terms: "Win", odds: "+5100", stake: 5, edge: "Comp #12. Bomber profile.", status: "Open" },
 ];
 
 // Player rotation data

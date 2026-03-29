@@ -138,7 +138,7 @@ function loadTournament(key) {
     // Bets
     const bb = document.getElementById('bets-body');
     bb.innerHTML = '';
-    const bets = key==='masters'?MASTERS_CARD:key==='houston'?HOUSTON_CARD:[];
+    const bets = key==='masters'?MASTERS_CARD:key==='houston'?HOUSTON_CARD:key==='valero'?VALERO_CARD:[];
     if (bets.length) {
         document.getElementById('bets-card').style.display = '';
         bets.forEach(d => { const sc=d.status==='Lost'?'neg':d.status==='Open'?'':'pos'; bb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td><td class="${sc}">${d.status}</td></tr>`; });

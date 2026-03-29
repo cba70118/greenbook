@@ -240,6 +240,15 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .timeline-btn.active .tl-name { color: var(--brass-400); font-weight: 700; }
 .tl-name { font-family: var(--font-mono); display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
 .tl-date { font-family: var(--font-mono); display: block; font-size: 0.6rem; color: var(--cream-700); }
+.tl-result { font-family: var(--font-mono); display: block; font-size: 0.6rem; margin-top: 0.15rem; }
+.timeline-btn.settled.won { border-color: var(--green-600); }
+.timeline-btn.settled.won .tl-name { color: var(--green-300); }
+.timeline-btn.settled.won .tl-result { color: var(--green-400); }
+.timeline-btn.settled.lost { border-color: rgba(192,57,43,0.3); }
+.timeline-btn.settled.lost .tl-name { color: var(--cream-500); }
+.timeline-btn.settled.lost .tl-result { color: var(--scarlet); }
+.timeline-btn.live .tl-result { color: var(--green-300); font-weight: 500; }
+.timeline-btn.upcoming .tl-result { color: var(--cream-700); }
 
 /* ─── COURSE BAR ──────────────────────────────────────────── */
 .week-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
