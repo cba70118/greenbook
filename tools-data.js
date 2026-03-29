@@ -1,0 +1,76 @@
+// Historical leaderboard data
+const VENUE_HISTORY = {
+    masters: {
+        name: "Augusta National (2010-2025)",
+        years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],
+        results: [
+            { player:"Rory McIlroy", finishes:[{yr:2011,pos:10},{yr:2015,pos:4},{yr:2017,pos:7},{yr:2018,pos:5},{yr:2022,pos:2},{yr:2025,pos:1}] },
+            { player:"Jordan Spieth", finishes:[{yr:2014,pos:2},{yr:2015,pos:1},{yr:2016,pos:2},{yr:2018,pos:3},{yr:2021,pos:3},{yr:2022,pos:3}] },
+            { player:"Jon Rahm", finishes:[{yr:2018,pos:4},{yr:2019,pos:9},{yr:2020,pos:7},{yr:2021,pos:5},{yr:2023,pos:1},{yr:2024,pos:45}] },
+            { player:"Scottie Scheffler", finishes:[{yr:2022,pos:1},{yr:2023,pos:10},{yr:2024,pos:1},{yr:2025,pos:5}] },
+            { player:"Dustin Johnson", finishes:[{yr:2015,pos:5},{yr:2016,pos:4},{yr:2019,pos:2},{yr:2020,pos:1}] },
+            { player:"Cameron Smith", finishes:[{yr:2018,pos:10},{yr:2020,pos:2},{yr:2021,pos:10},{yr:2022,pos:3},{yr:2024,pos:6}] },
+            { player:"Xander Schauffele", finishes:[{yr:2019,pos:2},{yr:2021,pos:3},{yr:2023,pos:10}] },
+            { player:"Hideki Matsuyama", finishes:[{yr:2015,pos:5},{yr:2016,pos:7},{yr:2021,pos:1},{yr:2024,pos:2}] },
+            { player:"Patrick Cantlay", finishes:[{yr:2019,pos:3},{yr:2020,pos:9},{yr:2021,pos:9},{yr:2024,pos:15}] },
+            { player:"Brooks Koepka", finishes:[{yr:2019,pos:2},{yr:2020,pos:7},{yr:2023,pos:2}] },
+            { player:"Justin Thomas", finishes:[{yr:2020,pos:5},{yr:2022,pos:8},{yr:2024,pos:8}] },
+            { player:"Collin Morikawa", finishes:[{yr:2022,pos:5},{yr:2023,pos:10},{yr:2024,pos:3}] },
+            { player:"Tommy Fleetwood", finishes:[{yr:2019,pos:17},{yr:2022,pos:7},{yr:2023,pos:10},{yr:2024,pos:3}] },
+            { player:"Patrick Reed", finishes:[{yr:2017,pos:10},{yr:2018,pos:1},{yr:2021,pos:8},{yr:2025,pos:3}] },
+            { player:"Shane Lowry", finishes:[{yr:2022,pos:3},{yr:2023,pos:20},{yr:2024,pos:22}] },
+            { player:"Adam Scott", finishes:[{yr:2011,pos:2},{yr:2013,pos:1},{yr:2017,pos:9}] },
+            { player:"Jason Day", finishes:[{yr:2011,pos:2},{yr:2013,pos:3},{yr:2019,pos:5},{yr:2025,pos:5}] },
+            { player:"Tony Finau", finishes:[{yr:2018,pos:10},{yr:2019,pos:5},{yr:2021,pos:5},{yr:2024,pos:8}] },
+            { player:"Will Zalatoris", finishes:[{yr:2021,pos:2},{yr:2022,pos:6},{yr:2024,pos:9}] },
+            { player:"Corey Conners", finishes:[{yr:2021,pos:8},{yr:2022,pos:6},{yr:2025,pos:5}] },
+            { player:"Sungjae Im", finishes:[{yr:2020,pos:2},{yr:2023,pos:8}] },
+            { player:"Ludvig Aberg", finishes:[{yr:2024,pos:2},{yr:2025,pos:3}] },
+            { player:"Tyrrell Hatton", finishes:[{yr:2020,pos:7},{yr:2024,pos:9}] },
+            { player:"Cameron Young", finishes:[{yr:2023,pos:7},{yr:2024,pos:9}] },
+            { player:"Max Homa", finishes:[{yr:2024,pos:3}] },
+            { player:"Bryson DeChambeau", finishes:[{yr:2024,pos:6},{yr:2025,pos:5}] },
+            { player:"Justin Rose", finishes:[{yr:2015,pos:2},{yr:2017,pos:2},{yr:2021,pos:7},{yr:2025,pos:2}] },
+            { player:"Akshay Bhatia", finishes:[] },
+        ],
+        field2026: ["Rory McIlroy","Scottie Scheffler","Xander Schauffele","Jon Rahm","Ludvig Aberg",
+            "Collin Morikawa","Tommy Fleetwood","Cameron Young","Matt Fitzpatrick","Hideki Matsuyama",
+            "Jordan Spieth","Patrick Cantlay","Brooks Koepka","Akshay Bhatia","Adam Scott","Jason Day",
+            "Shane Lowry","Corey Conners","Cameron Smith","Tyrrell Hatton","Justin Thomas","Tony Finau",
+            "Will Zalatoris","Bryson DeChambeau","Max Homa","Sungjae Im","Si Woo Kim","Russell Henley",
+            "Patrick Reed","Justin Rose","Dustin Johnson","Robert MacIntyre","Wyndham Clark"]
+    },
+    valero: {
+        name: "TPC San Antonio (2016-2025)",
+        years: [2016,2017,2018,2019,2021,2022,2023,2024,2025],
+        results: [
+            { player:"Jordan Spieth", finishes:[{yr:2021,pos:1},{yr:2023,pos:20},{yr:2025,pos:12}] },
+            { player:"Corey Conners", finishes:[{yr:2019,pos:1},{yr:2023,pos:1},{yr:2024,pos:15}] },
+            { player:"Akshay Bhatia", finishes:[{yr:2024,pos:1}] },
+            { player:"Brian Harman", finishes:[{yr:2025,pos:1}] },
+            { player:"J.J. Spaun", finishes:[{yr:2022,pos:1}] },
+            { player:"Ryan Gerard", finishes:[{yr:2025,pos:2}] },
+            { player:"Denny McCarthy", finishes:[{yr:2024,pos:2}] },
+            { player:"Maverick McNealy", finishes:[{yr:2025,pos:3}] },
+            { player:"Andrew Novak", finishes:[{yr:2025,pos:3}] },
+            { player:"Sam Stevens", finishes:[{yr:2023,pos:2}] },
+            { player:"Matt Kuchar", finishes:[{yr:2022,pos:3},{yr:2023,pos:3}] },
+            { player:"Charley Hoffman", finishes:[{yr:2016,pos:1},{yr:2021,pos:2}] },
+        ],
+        field2026: []
+    }
+};
+
+// Source attribution data (from tracker source tags)
+const SOURCE_PERFORMANCE = [
+    { source:"DataGolf", tagged:42, wins:3, places:2, pl:85, staked:380, bestHit:"Mitchell +2500 Cognizant" },
+    { source:"Rabbit Hole", tagged:35, wins:4, places:1, pl:320, staked:310, bestHit:"Echavarria +5000 Cognizant" },
+    { source:"Noonan", tagged:18, wins:2, places:1, pl:95, staked:185, bestHit:"Morikawa T10 +210 Genesis" },
+    { source:"Klos", tagged:8, wins:1, places:0, pl:30, staked:80, bestHit:"Fleetwood T10 +162 Genesis" },
+    { source:"Mayo/Stewart", tagged:22, wins:2, places:1, pl:45, staked:220, bestHit:"Gotterup 72H -110 AP Inv" },
+    { source:"Titanic", tagged:15, wins:2, places:0, pl:425, staked:100, bestHit:"Smotherman +10000 Cognizant" },
+    { source:"Multi-Consensus", tagged:12, wins:3, places:1, pl:280, staked:150, bestHit:"Castillo +2200 PRO" },
+    { source:"Course History", tagged:20, wins:2, places:1, pl:195, staked:175, bestHit:"Castillo +2200 PRO" },
+    { source:"Form-Surge", tagged:14, wins:1, places:0, pl:-45, staked:130, bestHit:"Clark TAILWIND (pending)" },
+    { source:"Weakness-Masked", tagged:8, wins:1, places:0, pl:140, staked:65, bestHit:"Jaeger +5500 (pending)" },
+];

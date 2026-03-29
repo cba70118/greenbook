@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Betting Intelligence</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>GREEN<strong>BOOK</strong></h1>
+            <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season</p>
+        </div>
+        <nav>
+            <button class="nav-btn active" data-section="thisweek">Tournaments</button>
+            <button class="nav-btn" data-section="datacenter">Data Center</button>
+            <button class="nav-btn" data-section="tools">Tools</button>
+            <button class="nav-btn" data-section="betting">My Betting</button>
+        </nav>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- THIS WEEK (focused on the current/upcoming tournament) -->
+    <!-- ============================================================ -->
+    <section id="thisweek" class="panel active">
+        <!-- Tournament Timeline -->
+        <div class="timeline-strip" id="timeline-strip">
+            <div class="timeline-btn settled" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-date">Feb 26</span></div>
+            <div class="timeline-btn settled" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-date">Mar 5</span></div>
+            <div class="timeline-btn settled" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-date">Mar 5</span></div>
+            <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-date">Mar 12</span></div>
+            <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-date">Mar 19</span></div>
+            <div class="timeline-btn live" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span></div>
+            <div class="timeline-btn upcoming" data-t="valero"><span class="tl-name">Valero</span><span class="tl-date">Apr 2</span></div>
+            <div class="timeline-btn active upcoming" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
+        </div>
+
+        <div class="week-header">
+            <h2 id="week-event-name">The Masters 2026</h2>
+            <span class="badge upcoming" id="week-badge">APR 10-13</span>
+        </div>
+        <div class="course-bar" id="week-course-bar">
+            <div class="course-bar-left">
+                <h3 id="week-course-name">Augusta National</h3>
+                <span class="course-meta-inline" id="week-course-meta">7,555 yds | Par 72 | Bentgrass (13.5 stimp) | Scoring: Difficult</span>
+            </div>
+            <div class="course-bar-right">
+                <div class="archetype-tag" id="week-archetype">Second-shot + Short game</div>
+            </div>
+        </div>
+
+        <!-- Quick Course Intel -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Course DNA</h3>
+                <div id="week-description" class="narrative-text"></div>
+                <div class="narrative-tags" id="week-tags" style="margin-top:0.75rem"></div>
+            </div>
+            <div class="card">
+                <div class="grid-2" style="gap:0.75rem">
+                    <div class="masked-box"><h4>Weakness Masked</h4><div id="week-masked"></div></div>
+                    <div class="amplified-box"><h4>Strength Amplified</h4><div id="week-amplified"></div></div>
+                </div>
+                <div style="margin-top:0.75rem">
+                    <h4 style="font-size:0.75rem;color:var(--blue);text-transform:uppercase;margin-bottom:0.5rem">Winner DNA</h4>
+                    <p class="narrative-text" id="week-winner-dna" style="margin:0"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radar + Fingerprint side by side -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Stat Fingerprint</h3>
+                <div class="fingerprint-grid" id="week-fingerprint"></div>
+            </div>
+            <div class="card">
+                <h3>Player-Course Fit</h3>
+                <div class="radar-controls">
+                    <select id="week-radar-1" class="calc-input" style="max-width:180px"></select>
+                    <select id="week-radar-2" class="calc-input" style="max-width:180px"></select>
+                </div>
+                <div class="radar-container" style="max-width:400px">
+                    <canvas id="week-radar-chart" height="350"></canvas>
+                </div>
+                <div class="radar-legend" id="week-radar-legend"></div>
+            </div>
+        </div>
+
+        <!-- Key Holes + Recent Winners -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Key Holes</h3>
+                <div id="week-key-holes"></div>
+            </div>
+            <div class="card">
+                <h3>Recent Winners</h3>
+                <div id="week-recent-winners"></div>
+            </div>
+        </div>
+
+        <!-- Odds Board -->
+        <div class="card" id="odds-board-card">
+            <h3>Odds Board</h3>
+            <p class="card-subtitle">Our composite-implied fair odds vs best available book price. Green = we see value. Red = overpriced by the market.</p>
+            <table class="data-table" id="odds-table">
+                <thead>
+                    <tr>
+                        <th>Rk</th>
+                        <th>Player</th>
+                        <th>Our Fair</th>
+                        <th>Best Book</th>
+                        <th>b365 E/W</th>
+                        <th>Edge</th>
+                        <th>Form</th>
+                        <th>Verdict</th>
+                    </tr>
+                </thead>
+                <tbody id="odds-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Current Bets for This Tournament -->
+        <div class="card" id="week-bets-card">
+            <h3>Current Bets</h3>
+            <table class="data-table">
+                <thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Thesis</th><th>Status</th></tr></thead>
+                <tbody id="week-bets-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Tournament Archive is now integrated into the timeline above -->
+    <!-- This section retains the deep-dive components for the selected tournament -->
+    <section id="tournament" class="panel" style="display:none">
+
+        <!-- Tournament Selector -->
+        <div class="tournament-selector">
+            <select id="tourney-select">
+                <option value="masters">The Masters — Augusta National (Apr 10)</option>
+                <option value="valero">Valero Texas Open — TPC San Antonio (Apr 2)</option>
+                <option value="houston">Houston Open — Memorial Park GC (Mar 26)</option>
+                <option value="valspar">Valspar Championship — Copperhead (Mar 19)</option>
+                <option value="players">The Players — TPC Sawgrass (Mar 12)</option>
+                <option value="arnoldpalmer">Arnold Palmer Inv — Bay Hill (Mar 5)</option>
+                <option value="puertorico">Puerto Rico Open — Grand Reserve (Mar 5)</option>
+                <option value="cognizant">Cognizant Classic — PGA National (Feb 26)</option>
+            </select>
+        </div>
+
+        <!-- Course Profile Bar -->
+        <div class="course-bar" id="course-bar">
+            <div class="course-bar-left">
+                <h2 id="course-name">Memorial Park GC</h2>
+                <span class="course-meta-inline" id="course-meta">7,475 yds | Par 70 | Poa Trivialis | Scoring: Hard</span>
+            </div>
+            <div class="course-bar-right">
+                <div class="archetype-tag" id="course-archetype">Second-shot + Bomber</div>
+            </div>
+        </div>
+
+        <!-- Course Narrative -->
+        <div class="card" id="course-narrative-card">
+            <div class="narrative-grid">
+                <div class="narrative-main">
+                    <h3>Course Profile</h3>
+                    <div id="course-description" class="narrative-text"></div>
+                    <div class="narrative-tags" id="course-tags"></div>
+                </div>
+                <div class="narrative-sidebar">
+                    <div class="narrative-box">
+                        <h4>Key Holes</h4>
+                        <div id="key-holes-list"></div>
+                    </div>
+                    <div class="narrative-box">
+                        <h4>Winner DNA</h4>
+                        <div id="winner-dna"></div>
+                    </div>
+                    <div class="narrative-box">
+                        <h4>Recent Winners</h4>
+                        <div id="recent-winners"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stat Fingerprint -->
+        <div class="card">
+            <h3>Course Stat Fingerprint</h3>
+            <div class="fingerprint-grid" id="fingerprint-grid"></div>
+            <div class="grid-2" style="margin-top:1rem">
+                <div class="masked-box">
+                    <h4>Weakness Masked</h4>
+                    <div id="masked-list"></div>
+                </div>
+                <div class="amplified-box">
+                    <h4>Strength Amplified</h4>
+                    <div id="amplified-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radar Charts: Player Fit vs Course + Win Profile -->
+        <div class="card">
+            <h3>Player-Course Fit Radar</h3>
+            <p class="card-subtitle">How does each player's SG profile match what this course rewards? Compared against the average winner profile.</p>
+            <div class="radar-controls">
+                <select id="radar-player-1" class="calc-input" style="max-width:220px"></select>
+                <select id="radar-player-2" class="calc-input" style="max-width:220px"></select>
+                <select id="radar-player-3" class="calc-input" style="max-width:220px"></select>
+            </div>
+            <div class="radar-container">
+                <canvas id="radar-chart" height="400"></canvas>
+            </div>
+            <div class="radar-legend" id="radar-legend"></div>
+        </div>
+
+        <!-- Blind Composite -->
+        <div class="card">
+            <h3>Phase 2.5 — Blind Composite Rankings</h3>
+            <p class="card-subtitle">Model inputs only. No narratives, no familiarity bias. Anti-bias protocol applied.</p>
+            <div class="density-bar" id="density-bar"></div>
+            <div class="field-filters">
+                <label><input type="checkbox" id="filter-top30" checked> Top 30 only</label>
+                <label><input type="checkbox" id="filter-hungry"> Motivation flag</label>
+                <label><input type="checkbox" id="filter-spikes"> Model spikes only</label>
+            </div>
+            <table class="data-table" id="composite-table">
+                <thead>
+                    <tr>
+                        <th>Rk</th><th>Player</th><th>Composite</th><th>Form</th><th>Signal</th>
+                        <th>APP</th><th>OTT</th><th>DD</th><th>ARG</th><th>PUTT</th>
+                        <th>T10%</th><th>Spikes</th><th>Flag</th>
+                    </tr>
+                </thead>
+                <tbody id="composite-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Source Comparison -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>RH Model Heatmap</h3>
+                <p class="card-subtitle">Rank in each Rabbit Hole model. Green = top 10. Yellow = top 25.</p>
+                <table class="data-table compact" id="rh-heatmap">
+                    <thead>
+                        <tr><th>Player</th><th>M15</th><th>M16</th><th>M17</th><th>M18</th><th>M19</th><th>Meta</th></tr>
+                    </thead>
+                    <tbody id="rh-body"></tbody>
+                </table>
+            </div>
+            <div class="card">
+                <h3>DG Form Signals</h3>
+                <p class="card-subtitle">Baseline vs BHF win probability. Ratio = recent form momentum.</p>
+                <canvas id="form-chart" height="300"></canvas>
+            </div>
+        </div>
+
+        <!-- Weakness Masked Analysis -->
+        <div class="card">
+            <h3>Weakness-Masked Overlay</h3>
+            <p class="card-subtitle">Players whose primary weakness aligns with what the course masks, and whose strengths align with what the course amplifies.</p>
+            <table class="data-table" id="masked-table">
+                <thead>
+                    <tr><th>Player</th><th>Weakness</th><th>Masked?</th><th>Strength</th><th>Amplified?</th><th>Comp Rk</th><th>Form</th><th>Verdict</th></tr>
+                </thead>
+                <tbody id="masked-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Narrative Cross-Reference -->
+        <div class="card">
+            <h3>Narrative Source Matrix</h3>
+            <p class="card-subtitle">Which sources back which players. Consensus (3+) = higher conviction.</p>
+            <table class="data-table compact" id="narrative-table">
+                <thead>
+                    <tr><th>Player</th><th>Noonan</th><th>Klos</th><th>Mayo</th><th>Stewart</th><th>Titanic</th><th>Count</th><th>Comp Rk</th></tr>
+                </thead>
+                <tbody id="narrative-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Course History -->
+        <div class="card">
+            <h3>Venue History</h3>
+            <p class="card-subtitle">Performance at this specific course. Sorted by SG:TOT rank.</p>
+            <table class="data-table" id="history-table">
+                <thead>
+                    <tr><th>Rk</th><th>Player</th><th>Rounds</th><th>TOT</th><th>APP</th><th>ARG</th><th>PUTT</th><th>OTT</th><th>Masters?</th></tr>
+                </thead>
+                <tbody id="history-body"></tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TOOLS -->
+    <!-- ============================================================ -->
+    <section id="tools" class="panel">
+
+        <!-- Historical Leaderboard Overlay -->
+        <div class="card">
+            <h3>Historical Leaderboard Overlay</h3>
+            <p class="card-subtitle">Every finish at this venue across all years in the dataset. Repeaters jump out.</p>
+            <div class="grid-2">
+                <div>
+                    <select id="history-venue-select">
+                        <option value="masters">Augusta National (2010-2025)</option>
+                        <option value="valero">TPC San Antonio (2016-2025)</option>
+                    </select>
+                </div>
+                <div class="field-filters">
+                    <label><input type="checkbox" id="hist-top10" checked> Top 10 finishers only</label>
+                    <label><input type="checkbox" id="hist-in-field"> In 2026 field only</label>
+                </div>
+            </div>
+            <canvas id="history-scatter" height="400"></canvas>
+            <div class="card" style="margin-top:1rem;background:var(--surface-hover)">
+                <h4 style="font-size:0.85rem">Repeat Performers</h4>
+                <table class="data-table compact">
+                    <thead><tr><th>Player</th><th>Starts</th><th>T5</th><th>T10</th><th>T20</th><th>T10%</th><th>Best</th><th>Finishes</th></tr></thead>
+                    <tbody id="repeaters-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- E/W Payout Calculator -->
+        <div class="card">
+            <h3>E/W Payout Calculator</h3>
+            <p class="card-subtitle">Enter odds, terms, and stake to see payout scenarios and implied edge.</p>
+            <div class="calc-grid">
+                <div class="calc-input-group">
+                    <label>Player Odds (American)</label>
+                    <input type="text" id="calc-odds" value="+5000" class="calc-input">
+                </div>
+                <div class="calc-input-group">
+                    <label>E/W Fraction</label>
+                    <select id="calc-fraction" class="calc-input">
+                        <option value="0.25">1/4</option>
+                        <option value="0.20">1/5</option>
+                    </select>
+                </div>
+                <div class="calc-input-group">
+                    <label>Places</label>
+                    <select id="calc-places" class="calc-input">
+                        <option value="5">5</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <div class="calc-input-group">
+                    <label>Total Stake ($)</label>
+                    <input type="number" id="calc-stake" value="10" class="calc-input">
+                </div>
+                <div class="calc-input-group">
+                    <label>Your Win Prob (%)</label>
+                    <input type="number" id="calc-win-prob" value="2.5" step="0.1" class="calc-input">
+                </div>
+                <div class="calc-input-group">
+                    <label>Your Place Prob (%)</label>
+                    <input type="number" id="calc-place-prob" value="12" step="0.5" class="calc-input">
+                </div>
+            </div>
+            <button class="calc-btn" id="calc-btn">Calculate</button>
+            <div class="calc-results" id="calc-results"></div>
+        </div>
+
+
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MY BETTING (moved from old main sections) -->
+    <!-- ============================================================ -->
+    <section id="betting" class="panel">
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-value">155</div><div class="stat-label">Total Bets</div></div>
+            <div class="stat-card positive"><div class="stat-value">+$22.75</div><div class="stat-label">Season P/L</div></div>
+            <div class="stat-card"><div class="stat-value">+1.9%</div><div class="stat-label">ROI</div></div>
+            <div class="stat-card positive"><div class="stat-value">+293.7%</div><div class="stat-label">E/W 1/4 5pl ROI</div></div>
+            <div class="stat-card negative"><div class="stat-value">-39.3%</div><div class="stat-label">Win-Only ROI</div></div>
+            <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Winners</div></div>
+        </div>
+        <div class="grid-2">
+            <div class="card"><h3>Tournament P/L</h3><canvas id="tournament-pl-chart"></canvas></div>
+            <div class="card"><h3>Cumulative P/L</h3><canvas id="cumulative-pl-chart"></canvas></div>
+        </div>
+        <div class="grid-2">
+            <div class="card"><h3>By Market Type</h3><canvas id="market-chart"></canvas></div>
+            <div class="card"><h3>By E/W Terms</h3><canvas id="ew-chart"></canvas></div>
+        </div>
+        <div class="card">
+            <h3>Current Cards</h3>
+            <div class="sub-tabs">
+                <button class="sub-tab active" data-subtab="houston-card">Houston (Live)</button>
+                <button class="sub-tab" data-subtab="masters-card">Masters (Upcoming)</button>
+            </div>
+            <div id="houston-card" class="sub-panel active">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Form</th><th>Edge</th><th>Status</th></tr></thead>
+                    <tbody id="current-card-table"></tbody>
+                </table>
+            </div>
+            <div id="masters-card" class="sub-panel">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Aug T10s</th><th>Comp</th><th>Status</th></tr></thead>
+                    <tbody id="masters-card-table"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Phase Analysis</h3>
+            <div class="phase-grid">
+                <div class="phase-card negative"><h4>Phase 1 (AMEX - WM Open)</h4><div class="phase-stat">0-44 | -$319.50 | -96.9% ROI</div><p>Pre-process. No course-fit weighting.</p></div>
+                <div class="phase-card positive"><h4>Phase 2 (Genesis - Present)</h4><div class="phase-stat">10W | +$342.25 | +44.9% ROI</div><p>Course-fit composite + E/W structure + form signals.</p></div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Winners Log</h3>
+            <table class="data-table"><thead><tr><th>Tournament</th><th>Player</th><th>Market</th><th>Odds</th><th>Stake</th><th>Return</th><th>P/L</th></tr></thead><tbody id="winners-table"></tbody></table>
+        </div>
+        <div class="card">
+            <h3>Rotation Status</h3>
+            <div class="grid-3">
+                <div class="rotation-card active-status"><h4>Active</h4><div id="active-players"></div></div>
+                <div class="rotation-card soft-rotate"><h4>Soft Rotate</h4><div id="soft-players"></div></div>
+                <div class="rotation-card hard-rotate"><h4>Hard Rotate</h4><div id="hard-players"></div></div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="card"><h3>Player P/L</h3><canvas id="player-pl-chart"></canvas></div>
+            <div class="card">
+                <h3>Repeat Target Tracker</h3>
+                <table class="data-table"><thead><tr><th>Player</th><th>Bets</th><th>W</th><th>P/L</th><th>ROI</th><th>CL</th><th>Status</th></tr></thead><tbody id="repeat-table"></tbody></table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Source Attribution</h3>
+            <p class="card-subtitle">Which information sources are producing winning bets?</p>
+            <div class="grid-2">
+                <div><canvas id="source-roi-chart" height="250"></canvas></div>
+                <div><canvas id="source-winrate-chart" height="250"></canvas></div>
+            </div>
+            <table class="data-table" style="margin-top:1rem">
+                <thead><tr><th>Source</th><th>Tagged</th><th>Wins</th><th>Places</th><th>Win%</th><th>P/L</th><th>ROI</th><th>Best Hit</th></tr></thead>
+                <tbody id="source-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- DATA CENTER (long-term golfer intelligence, tournament-neutral) -->
+    <!-- ============================================================ -->
+    <section id="datacenter" class="panel">
+        <div class="dc-header">
+            <h2>Data Center</h2>
+            <p class="card-subtitle">Tournament-neutral golfer intelligence. Skill profiles, career trends, surface performance, and course-type fit analysis.</p>
+        </div>
+
+        <!-- At a Glance: Top performers in each SG category -->
+        <div class="stats-row" style="margin-bottom:1.5rem">
+            <div class="stat-card" id="dc-best-tot"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:Total</div></div>
+            <div class="stat-card" id="dc-best-app"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:APP</div></div>
+            <div class="stat-card" id="dc-best-ott"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:OTT</div></div>
+            <div class="stat-card" id="dc-best-arg"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:ARG</div></div>
+            <div class="stat-card" id="dc-best-putt"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:PUTT</div></div>
+            <div class="stat-card" id="dc-best-dd"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Longest Driver</div></div>
+        </div>
+
+        <!-- Quick viz: Top 10 SG comparison -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Tour Elite: SG Component Breakdown</h3>
+                <p class="card-subtitle">Top 10 players by SG:Total with stacked component breakdown.</p>
+                <canvas id="dc-stacked-chart" height="300"></canvas>
+            </div>
+            <div class="card">
+                <h3>Skill Scatter: Approach vs Putting</h3>
+                <p class="card-subtitle">The two most important skills in golf. Top-right quadrant = elite at both.</p>
+                <canvas id="dc-scatter-chart" height="300"></canvas>
+            </div>
+        </div>
+
+        <!-- Player Search + Scouting Cards -->
+        <div class="card">
+            <h3>Player Profiles</h3>
+            <div class="scout-search">
+                <input type="text" id="scout-search-input" placeholder="Search by name..." class="calc-input" style="max-width:300px">
+                <select id="scout-tier-filter" class="calc-input" style="max-width:150px;margin-left:0.5rem">
+                    <option value="">All Tiers</option>
+                    <option value="Elite">Elite</option>
+                    <option value="Contender">Contender</option>
+                    <option value="Mid-field">Mid-field</option>
+                    <option value="Veteran">Veteran</option>
+                </select>
+            </div>
+            <div class="scout-grid" id="scout-grid"></div>
+        </div>
+
+        <!-- Course Type Fit Matrix -->
+        <div class="card">
+            <h3>Course Archetype Fit Matrix</h3>
+            <p class="card-subtitle">Which players fit which course types. Rows = players, columns = archetypes. Higher score = better fit.</p>
+            <table class="data-table compact" id="archetype-matrix">
+                <thead>
+                    <tr><th>Player</th><th>Second-Shot</th><th>Bomber</th><th>Bermuda</th><th>Poa</th><th>Grinder</th><th>Short Game</th><th>Wind</th></tr>
+                </thead>
+                <tbody id="archetype-body"></tbody>
+            </table>
+        </div>
+
+        <!-- SG Leaderboard -->
+        <div class="card">
+            <h3>Tour SG Leaderboard</h3>
+            <p class="card-subtitle">Current DG skill ratings across the full Tour. Sorted by SG:Total.</p>
+            <div class="field-filters">
+                <label><input type="checkbox" id="sg-top30" checked> Top 30 only</label>
+            </div>
+            <table class="data-table" id="sg-leaderboard">
+                <thead>
+                    <tr><th>Rk</th><th>Player</th><th>TOT</th><th>APP</th><th>OTT</th><th>ARG</th><th>PUTT</th><th>DrDist</th><th>Tier</th></tr>
+                </thead>
+                <tbody id="sg-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Course Intelligence Library (moved here) -->
+        <div class="card">
+            <h3>Course Intelligence Library</h3>
+            <div class="course-grid" id="course-grid"></div>
+        </div>
+    </section>
+
+    <!-- courses section merged into Data Center -->
+
+    <script src="data.js"></script>
+    <script src="tournament-data.js"></script>
+    <script src="settled-data.js"></script>
+    <script src="tools-data.js"></script>
+    <script src="app.js"></script>
+    <script src="tools.js"></script>
+</body>
+</html>
