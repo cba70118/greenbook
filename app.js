@@ -438,7 +438,7 @@ function buildDataCenter() {
         var display = document.getElementById('dc-archetype-display');
         if (!display) return;
         var scored = SCOUTING.map(function(p) {
-            return { name: p.name, tier: p.tier, score: Math.max(0, Math.min(100, calcArchScore(p, type))) };
+            return { name: p.name, tier: p.tier, score: Math.max(0, Math.min(100, calcArchFit(p, type))) };
         }).sort(function(a,b){return b.score - a.score}).slice(0, 20);
 
         display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(s, i) {
@@ -448,18 +448,15 @@ function buildDataCenter() {
         }).join('') + '</div>';
     }
 
-    // Use the calcArchScore from tools.js if available, otherwise define inline
-    if (typeof calcArchScore === 'undefined') {
-        window.calcArchScore = function(p, type) {
-            if (type==='secondshot') return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
-            if (type==='bomber') return Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
-            if (type==='bermuda') return Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
-            if (type==='poa') return Math.min(100,(p.putt/0.6)*40+(p.app/0.9)*35+25);
-            if (type==='grinder') return Math.min(100,50+(p.arg/0.4)*25+(p.putt/0.6)*25-(p.dd/20)*10);
-            if (type==='shortgame') return Math.min(100,(p.arg/0.4)*45+(p.putt/0.6)*30+25);
-            if (type==='wind') return Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
-            return 50;
-        };
+    function calcArchFit(p, type) {
+        if (type==='secondshot') return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
+        if (type==='bomber') return Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
+        if (type==='bermuda') return Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
+        if (type==='poa') return Math.min(100,(p.putt/0.6)*40+(p.app/0.9)*35+25);
+        if (type==='grinder') return Math.min(100,50+(p.arg/0.4)*25+(p.putt/0.6)*25-(p.dd/20)*10);
+        if (type==='shortgame') return Math.min(100,(p.arg/0.4)*45+(p.putt/0.6)*30+25);
+        if (type==='wind') return Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
+        return 50;
     }
 
     renderArchetypeFit('secondshot');
