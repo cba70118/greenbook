@@ -541,6 +541,81 @@ function loadTournament(key) {
         });
     } else { cb.innerHTML = '<tr><td colspan="13" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">Composite data populates closer to tournament week</td></tr>'; }
 
+    // Top Placement Pricing
+    var placementsCard = document.getElementById('placements-card');
+    var placementsBody = document.getElementById('placements-body');
+    if (placementsCard && placementsBody) {
+        placementsBody.innerHTML = '';
+        // Check if any odds board entry has t5 or t20 data
+        var hasPlaceData = t.oddsBoard && t.oddsBoard.some(function(o) { return o.t5 || o.t20; });
+        if (hasPlaceData && t.composite && t.composite.length) {
+            placementsCard.style.display = '';
+            // Build market rank by outright implied probability
+            var sortedOdds = (t.oddsBoard || []).slice().sort(function(a, b) {
+                var aOdds = parseInt((a.best || '').replace(/[^0-9+-]/g, '')) || 99999;
+                var bOdds = parseInt((b.best || '').replace(/[^0-9+-]/g, '')) || 99999;
+                return aOdds - bOdds;
+            });
+            var mktRanks = {};
+            sortedOdds.forEach(function(o, i) { mktRanks[o.name] = i + 1; });
+
+            // For each composite player, find their odds board entry
+            t.composite.forEach(function(p) {
+                var ob = (t.oddsBoard || []).find(function(o) { return o.name === p.name; });
+                if (!ob || (!ob.t5 && !ob.t20)) return;
+
+                var mktRank = mktRanks[p.name] || '-';
+                var gap = typeof mktRank === 'number' ? mktRank - p.rank : 0;
+                var gapStr = gap > 0 ? '+' + gap : '' + gap;
+                var gapCls = gap >= 5 ? 'pos' : gap >= 3 ? 'form-warm' : gap <= -3 ? 'neg' : '';
+
+                // Calculate T20 implied probability
+                var t20Str = ob.t20 || '';
+                var t20Val = parseInt(t20Str);
+                var t20Imp = '';
+                if (!isNaN(t20Val)) {
+                    var imp;
+                    if (t20Val < 0) imp = Math.abs(t20Val) / (Math.abs(t20Val) + 100) * 100;
+                    else imp = 100 / (t20Val + 100) * 100;
+                    t20Imp = imp.toFixed(0) + '%';
+                }
+
+                var formCls = sigCls(p.signal);
+                var outright = ob.best || '';
+                var t5Display = ob.t5 ? (parseInt(ob.t5) > 0 ? '+' : '') + ob.t5 : '-';
+                var t20Display = ob.t20 ? (parseInt(ob.t20) > 0 ? '+' : '') + ob.t20 : '-';
+                var flagNote = p.flag ? ' <span style="font-size:0.6rem;color:var(--brass-500)">(' + p.flag + ')</span>' : '';
+
+                placementsBody.innerHTML += '<tr' + (gap >= 5 ? ' style="background:rgba(0,100,0,0.08)"' : '') + '><td>' + p.rank + '</td><td><strong>' + p.name + '</strong>' + flagNote + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + outright + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t5Display + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t20Display + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t20Imp + '</td><td class="' + formCls + '">' + p.signal + '</td><td>' + mktRank + '</td><td class="' + gapCls + '" style="font-weight:600">' + gapStr + '</td></tr>';
+            });
+
+            // Also add non-composite players from odds board that have notable T5/T20 pricing
+            var compositeNames = {};
+            t.composite.forEach(function(p) { compositeNames[p.name] = true; });
+            var extras = (t.oddsBoard || []).filter(function(o) {
+                return !compositeNames[o.name] && (o.t5 || o.t20) && (o.form === 'TAILWIND' || o.form === 'HEADWIND');
+            });
+            if (extras.length) {
+                placementsBody.innerHTML += '<tr><td colspan="9" style="font-family:var(--font-mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-500);padding:0.6rem 0.4rem;border-top:1px solid var(--border)">Notable non-composite players</td></tr>';
+                extras.forEach(function(o) {
+                    var t20Val = parseInt(o.t20);
+                    var t20Imp = '';
+                    if (!isNaN(t20Val)) {
+                        var imp = t20Val < 0 ? Math.abs(t20Val) / (Math.abs(t20Val) + 100) * 100 : 100 / (t20Val + 100) * 100;
+                        t20Imp = imp.toFixed(0) + '%';
+                    }
+                    var mktRank = mktRanks[o.name] || '-';
+                    var formCls = sigCls(o.form);
+                    var t5Display = o.t5 ? (parseInt(o.t5) > 0 ? '+' : '') + o.t5 : '-';
+                    var t20Display = o.t20 ? (parseInt(o.t20) > 0 ? '+' : '') + o.t20 : '-';
+                    placementsBody.innerHTML += '<tr style="opacity:0.8"><td>-</td><td>' + o.name + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + (o.best||'') + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t5Display + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t20Display + '</td><td style="font-family:var(--font-mono);font-size:0.75rem">' + t20Imp + '</td><td class="' + formCls + '">' + o.form + '</td><td>' + mktRank + '</td><td>-</td></tr>';
+                });
+            }
+        } else {
+            placementsCard.style.display = 'none';
+        }
+    }
+
     // RH Heatmap — dynamic columns
     const rb = document.getElementById('rh-body');
     const rhHeader = document.getElementById('rh-header');
