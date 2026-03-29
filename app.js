@@ -375,12 +375,16 @@ function getStatusFlag(name) {
     return '<div class="player-status-flag '+sevCls+'">'+icon+' '+ps.status+' <span style="color:var(--cream-700);font-size:0.6rem">('+ps.updated+')</span></div>';
 }
 
-function renderScoutCards(filter,tier) {
+function renderScoutCards(filter,tier,limit) {
     const grid = document.getElementById('scout-grid');
     grid.innerHTML = '';
-    let list = SCOUTING;
+    let list = [...SCOUTING].sort((a,b)=>b.sg_tot-a.sg_tot);
     if (filter) list = list.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()));
     if (tier) list = list.filter(p=>p.tier===tier);
+    const maxShow = (filter || tier) ? list.length : (limit || 20);
+    if (!filter && !tier && list.length > maxShow) {
+        list = list.slice(0, maxShow);
+    }
     list.forEach(p => {
         const tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':p.tier==='Mid-field'?'tier-midfield':'tier-veteran';
         const bars = [{l:'APP',v:p.app,m:1},{l:'OTT',v:p.ott,m:1},{l:'ARG',v:p.arg,m:0.5},{l:'PUTT',v:p.putt,m:0.7}];
@@ -391,7 +395,7 @@ function renderScoutCards(filter,tier) {
     });
 }
 
-document.getElementById('scout-search-input').addEventListener('input', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value); });
+document.getElementById('scout-search-input').addEventListener('input', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value, 999); });
 document.getElementById('scout-tier-filter').addEventListener('change', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value); });
 
 // Quick tags
