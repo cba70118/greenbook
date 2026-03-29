@@ -316,6 +316,27 @@ function renderWeather(data) {
     }).join('');
 }
 
+// Sparkline Generator
+function makeSparkline(name, stat) {
+    if (typeof SPARKLINES === 'undefined' || !SPARKLINES[name]) return '';
+    var data = SPARKLINES[name];
+    if (data.length < 2) return '';
+    var key = stat || 'form';
+    var vals = data.map(function(d){return d[key]||0});
+    var min = Math.min.apply(null, vals);
+    var max = Math.max.apply(null, vals);
+    var range = max - min || 1;
+    var w = 50, h = 16;
+    var points = vals.map(function(v,i){
+        var x = (i/(vals.length-1))*w;
+        var y = h - ((v-min)/range)*h;
+        return x+','+y;
+    }).join(' ');
+    var trending = vals[vals.length-1] > vals[0];
+    var color = trending ? '#3D9E64' : '#C0392B';
+    return '<svg width="'+w+'" height="'+h+'" style="vertical-align:middle;margin-left:0.35rem"><polyline points="'+points+'" fill="none" stroke="'+color+'" stroke-width="1.5"/></svg>';
+}
+
 // Skill Fit Renderer
 function renderSkillFit(t, skill) {
     var display = document.getElementById('skill-fit-display');
@@ -506,7 +527,7 @@ function renderScoutCards(filter,tier,limit) {
         const hasSurface = p.putt_bermuda !== undefined;
         const surfaceHtml = hasSurface ? `<div class="surface-putting"><span class="sp-label">Putting by surface:</span><span class="sp-val ${p.putt_bermuda>=0?'pos':'neg'}">Bermuda ${p.putt_bermuda>=0?'+':''}${p.putt_bermuda.toFixed(2)}</span><span class="sp-val ${p.putt_bent>=0?'pos':'neg'}">Bent ${p.putt_bent>=0?'+':''}${p.putt_bent.toFixed(2)}</span><span class="sp-val ${p.putt_poa>=0?'pos':'neg'}">Poa ${p.putt_poa>=0?'+':''}${p.putt_poa.toFixed(2)}</span></div>` : '';
         var sflag = getStatusFlag(p.name);
-        grid.innerHTML += `<div class="scout-card"><div class="scout-header"><h4>${p.name}</h4><span class="tier-badge ${tc}">${p.tier}</span></div>${sflag}<div class="scout-sg-bars">${bars.map(b=>{const pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);const cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return `<div class="sg-bar-row"><span class="sg-bar-label">${b.l}</span><div class="sg-bar-track"><div class="sg-bar-fill ${cls}" style="width:${pct}%"></div></div><span class="sg-bar-val ${b.v>=0?'pos':'neg'}">${b.v>=0?'+':''}${b.v.toFixed(2)}</span></div>`;}).join('')}</div><div class="scout-meta"><span>TOT ${p.sg_tot>=0?'+':''}${p.sg_tot.toFixed(2)}</span><span>DD ${p.dd>=0?'+':''}${p.dd.toFixed(1)}</span><span>${p.shape}</span><span>${p.surface}</span></div>${surfaceHtml}<div class="scout-section"><strong class="pos">Strengths:</strong> ${p.strengths}</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> ${p.weaknesses}</div><div class="scout-section scout-notes">${p.notes}</div></div>`;
+        grid.innerHTML += `<div class="scout-card"><div class="scout-header"><h4>${p.name}</h4><span class="tier-badge ${tc}">${p.tier}</span></div>${sflag}<div class="scout-sg-bars">${bars.map(b=>{const pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);const cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return `<div class="sg-bar-row"><span class="sg-bar-label">${b.l}</span><div class="sg-bar-track"><div class="sg-bar-fill ${cls}" style="width:${pct}%"></div></div><span class="sg-bar-val ${b.v>=0?'pos':'neg'}">${b.v>=0?'+':''}${b.v.toFixed(2)}</span></div>`;}).join('')}</div><div class="scout-meta"><span>TOT ${p.sg_tot>=0?'+':''}${p.sg_tot.toFixed(2)}${makeSparkline(p.name,'sg_tot')}</span><span>DD ${p.dd>=0?'+':''}${p.dd.toFixed(1)}</span><span>${p.shape}</span><span>${p.surface}</span></div>${surfaceHtml}<div class="scout-section"><strong class="pos">Strengths:</strong> ${p.strengths}</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> ${p.weaknesses}</div><div class="scout-section scout-notes">${p.notes}</div></div>`;
     });
 }
 
@@ -521,7 +542,7 @@ function renderScoutCardsFromList(list) {
         var hasSurface = p.putt_bermuda !== undefined;
         var surfaceHtml = hasSurface ? '<div class="surface-putting"><span class="sp-label">Putting by surface:</span><span class="sp-val '+(p.putt_bermuda>=0?'pos':'neg')+'">Bermuda '+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</span><span class="sp-val '+(p.putt_bent>=0?'pos':'neg')+'">Bent '+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</span><span class="sp-val '+(p.putt_poa>=0?'pos':'neg')+'">Poa '+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</span></div>' : '';
         var sflag = getStatusFlag(p.name);
-        grid.innerHTML += '<div class="scout-card"><div class="scout-header"><h4>'+p.name+'</h4><span class="tier-badge '+tc+'">'+p.tier+'</span></div>'+sflag+'<div class="scout-sg-bars">'+bars.map(function(b){var pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);var cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return '<div class="sg-bar-row"><span class="sg-bar-label">'+b.l+'</span><div class="sg-bar-track"><div class="sg-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="sg-bar-val '+(b.v>=0?'pos':'neg')+'">'+(b.v>=0?'+':'')+b.v.toFixed(2)+'</span></div>';}).join('')+'</div><div class="scout-meta"><span>TOT '+(p.sg_tot>=0?'+':'')+p.sg_tot.toFixed(2)+'</span><span>DD '+(p.dd>=0?'+':'')+p.dd.toFixed(1)+'</span><span>'+p.shape+'</span><span>'+p.surface+'</span></div>'+surfaceHtml+'<div class="scout-section"><strong class="pos">Strengths:</strong> '+p.strengths+'</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> '+p.weaknesses+'</div><div class="scout-section scout-notes">'+p.notes+'</div></div>';
+        grid.innerHTML += '<div class="scout-card"><div class="scout-header"><h4>'+p.name+'</h4><span class="tier-badge '+tc+'">'+p.tier+'</span></div>'+sflag+'<div class="scout-sg-bars">'+bars.map(function(b){var pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);var cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return '<div class="sg-bar-row"><span class="sg-bar-label">'+b.l+'</span><div class="sg-bar-track"><div class="sg-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="sg-bar-val '+(b.v>=0?'pos':'neg')+'">'+(b.v>=0?'+':'')+b.v.toFixed(2)+'</span></div>';}).join('')+'</div><div class="scout-meta"><span>TOT '+(p.sg_tot>=0?'+':'')+p.sg_tot.toFixed(2)+makeSparkline(p.name,'sg_tot')+'</span><span>DD '+(p.dd>=0?'+':'')+p.dd.toFixed(1)+'</span><span>'+p.shape+'</span><span>'+p.surface+'</span></div>'+surfaceHtml+'<div class="scout-section"><strong class="pos">Strengths:</strong> '+p.strengths+'</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> '+p.weaknesses+'</div><div class="scout-section scout-notes">'+p.notes+'</div></div>';
     });
 }
 
@@ -626,7 +647,7 @@ function renderScoutCardsFromList(list) {
         const hasSurface = p.putt_bermuda !== undefined;
         const surfaceHtml = hasSurface ? `<div class="surface-putting"><span class="sp-label">Putting by surface:</span><span class="sp-val ${p.putt_bermuda>=0?'pos':'neg'}">Bermuda ${p.putt_bermuda>=0?'+':''}${p.putt_bermuda.toFixed(2)}</span><span class="sp-val ${p.putt_bent>=0?'pos':'neg'}">Bent ${p.putt_bent>=0?'+':''}${p.putt_bent.toFixed(2)}</span><span class="sp-val ${p.putt_poa>=0?'pos':'neg'}">Poa ${p.putt_poa>=0?'+':''}${p.putt_poa.toFixed(2)}</span></div>` : '';
         var sflag = getStatusFlag(p.name);
-        grid.innerHTML += `<div class="scout-card"><div class="scout-header"><h4>${p.name}</h4><span class="tier-badge ${tc}">${p.tier}</span></div>${sflag}<div class="scout-sg-bars">${bars.map(b=>{const pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);const cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return `<div class="sg-bar-row"><span class="sg-bar-label">${b.l}</span><div class="sg-bar-track"><div class="sg-bar-fill ${cls}" style="width:${pct}%"></div></div><span class="sg-bar-val ${b.v>=0?'pos':'neg'}">${b.v>=0?'+':''}${b.v.toFixed(2)}</span></div>`;}).join('')}</div><div class="scout-meta"><span>TOT ${p.sg_tot>=0?'+':''}${p.sg_tot.toFixed(2)}</span><span>DD ${p.dd>=0?'+':''}${p.dd.toFixed(1)}</span><span>${p.shape}</span><span>${p.surface}</span></div>${surfaceHtml}<div class="scout-section"><strong class="pos">Strengths:</strong> ${p.strengths}</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> ${p.weaknesses}</div><div class="scout-section scout-notes">${p.notes}</div></div>`;
+        grid.innerHTML += `<div class="scout-card"><div class="scout-header"><h4>${p.name}</h4><span class="tier-badge ${tc}">${p.tier}</span></div>${sflag}<div class="scout-sg-bars">${bars.map(b=>{const pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);const cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return `<div class="sg-bar-row"><span class="sg-bar-label">${b.l}</span><div class="sg-bar-track"><div class="sg-bar-fill ${cls}" style="width:${pct}%"></div></div><span class="sg-bar-val ${b.v>=0?'pos':'neg'}">${b.v>=0?'+':''}${b.v.toFixed(2)}</span></div>`;}).join('')}</div><div class="scout-meta"><span>TOT ${p.sg_tot>=0?'+':''}${p.sg_tot.toFixed(2)}${makeSparkline(p.name,'sg_tot')}</span><span>DD ${p.dd>=0?'+':''}${p.dd.toFixed(1)}</span><span>${p.shape}</span><span>${p.surface}</span></div>${surfaceHtml}<div class="scout-section"><strong class="pos">Strengths:</strong> ${p.strengths}</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> ${p.weaknesses}</div><div class="scout-section scout-notes">${p.notes}</div></div>`;
     });
 }
 

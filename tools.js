@@ -236,6 +236,17 @@ document.getElementById('calc-btn').addEventListener('click', () => {
         <div class="calc-breakeven">
             <strong>Breakeven:</strong> Win prob >${(100/(odds+100)).toFixed(1)}% OR place prob >${(totalStake/2 / (placeStake * (placeDecimal-1)) * 100).toFixed(1)}% to be +EV on place leg alone
         </div>
+        ${(() => {
+            const bankroll = parseFloat(document.getElementById('calc-bankroll').value) || 400;
+            const kellyFrac = parseFloat(document.getElementById('calc-kelly').value) || 0.25;
+            const edge = winProb - (100/(odds+100))/100;
+            if (edge <= 0) return '<div class="calc-breakeven" style="margin-top:0.5rem"><strong>Kelly:</strong> No edge detected. No recommended stake.</div>';
+            const kellyPct = (edge / ((odds/100))) * kellyFrac;
+            const kellyStake = Math.max(0, bankroll * kellyPct);
+            const kellyPctDisplay = (kellyPct * 100).toFixed(2);
+            const warn = kellyPct > 0.03 ? ' <span class="neg">(exceeds 3% of bankroll)</span>' : '';
+            return '<div class="calc-breakeven" style="margin-top:0.5rem"><strong>Kelly Stake:</strong> $' + kellyStake.toFixed(2) + ' (' + kellyPctDisplay + '% of $' + bankroll.toFixed(0) + ' bankroll, ' + (kellyFrac === 0.25 ? 'quarter' : kellyFrac === 0.5 ? 'half' : 'full') + ' Kelly)' + warn + '</div>';
+        })()}
     `;
 });
 

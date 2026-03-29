@@ -1020,3 +1020,15 @@ canvas { max-height: 350px; }
 @media (max-width: 768px) {
     .sf-row { grid-template-columns: 24px 1fr 120px 30px; font-size: 0.7rem; }
 }
+
+/* ═══ COLLAPSIBLE SECTIONS ═══ */
+.collapsible-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.collapsible-header:hover h3 { color: var(--brass-400); }
+.collapsible-arrow { font-size: 0.7rem; color: var(--cream-500); transition: transform 0.2s; }
+.collapsible-content.collapsed { display: none; }
+.collapsible-arrow.open { transform: rotate(180deg); }
