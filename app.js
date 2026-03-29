@@ -377,27 +377,21 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
 });
 
 // Render bet cards
-function renderBetTable(data, tbodyId) {
+function renderBetCard(data, tbodyId, book) {
     const tb = document.getElementById(tbodyId);
     if (!tb) return;
     data.forEach(d => {
         const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
-        const units = (d.stake / 20).toFixed(2);
-        tb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td>${units}u</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td><td class="${sc}">${d.status}</td></tr>`;
+        // Clean bet description
+        let betType = d.market || 'Outright';
+        if (d.terms && d.terms !== 'Win') betType += ' ' + d.terms;
+        const bk = book || d.book || 'bet365';
+        tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td class="${sc}">${d.status}</td></tr>`;
     });
 }
-// Active Bets tab
-renderBetTable(HOUSTON_CARD, 'ab-houston');
-renderBetTable(VALERO_CARD, 'ab-valero');
-// Masters with Augusta T10s column
-const mBody = document.getElementById('ab-masters');
-if (mBody) {
-    MASTERS_CARD.forEach(d => {
-        const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
-        const units = (d.stake / 20).toFixed(2);
-        mBody.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td>${units}u</td><td>${d.t10s!==undefined?d.t10s:''}</td><td class="${sc}">${d.status}</td></tr>`;
-    });
-}
+renderBetCard(HOUSTON_CARD, 'ab-houston', 'bet365');
+renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
+renderBetCard(MASTERS_CARD, 'ab-masters', 'bet365');
 
 // Odds board in My Betting
 function renderBettingOdds(key) {
