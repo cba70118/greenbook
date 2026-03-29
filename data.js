@@ -80,7 +80,6 @@ const VALERO_CARD = [
     { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "Open" },
     { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, placed: "Mar 28", edge: "Comp #9. Dark horse.", status: "Open" },
     { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, placed: "Mar 28", edge: "Comp #5. Course fit.", status: "Open" },
-    { num: 5, player: "Marco Penge", market: "Outright", terms: "Win", odds: "+5100", stake: 5, placed: "Mar 28", edge: "Cashed out", status: "Void" },
 ];
 
 // Player rotation data
