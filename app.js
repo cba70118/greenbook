@@ -700,8 +700,14 @@ function renderSkillFit(t, skill) {
             label = axes[idx] || 'Short Game';
         } else if (skill === 'dd') {
             var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('dist')>=0 || a.toLowerCase().indexOf('carry')>=0});
-            score = idx >= 0 ? data[idx] : 0;
-            label = axes[idx] || 'Distance';
+            if (idx < 0) {
+                // Fallback: pull from SCOUTING dd field directly
+                var sp = SCOUTING.find(function(s){return s.name===name});
+                score = sp ? Math.round((sp.dd / 20) * 50 + 50) : 50;
+            } else {
+                score = data[idx];
+            }
+            label = 'Distance';
         }
         return { name: name, score: score };
     }).sort(function(a,b){return b.score - a.score});
