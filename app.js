@@ -340,7 +340,13 @@ function renderComparisonWithAnalysis(prefix, outputId, tourneyData) {
     var selected = [prefix+'-1',prefix+'-2',prefix+'-3']
         .map(function(id){return document.getElementById(id)})
         .filter(function(el){return el && el.value})
-        .map(function(el){return SCOUTING.find(function(p){return p.name===el.value})})
+        .map(function(el){
+            var name = el.value;
+            var found = SCOUTING.find(function(p){return p.name===name});
+            if (found) return found;
+            // Fallback: create basic profile from name if not in SCOUTING
+            return {name:name, tier:'Unknown', sg_tot:0, app:0, ott:0, arg:0, putt:0, dd:0, shape:'-', surface:'-', strengths:'Not in player database', weaknesses:'-', notes:'-'};
+        })
         .filter(Boolean);
     var out = document.getElementById(outputId);
     if (!out || !selected.length) { if(out) out.innerHTML = ''; return; }
