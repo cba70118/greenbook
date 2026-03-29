@@ -124,10 +124,12 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .stat-card { padding: 0.6rem; }
     .stat-value { font-size: 1.2rem; }
     .stat-label { font-size: 0.55rem; }
-    .timeline-strip { gap: 0.25rem; }
-    .timeline-btn { min-width: 72px; padding: 0.4rem 0.5rem; }
-    .tl-name { font-size: 0.6rem; }
-    .tl-date { font-size: 0.5rem; }
+    .tourney-nav-upcoming { flex-direction: column; }
+    .tourney-nav-upcoming .tl-name { font-size: 0.85rem; }
+    .tourney-nav-settled { gap: 0.2rem; }
+    .tourney-nav-settled .timeline-btn { padding: 0.25rem 0.4rem; }
+    .tourney-nav-settled .tl-name { font-size: 0.55rem; }
+    .tl-settled-result { font-size: 0.45rem; }
     .course-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.75rem; }
     .card { padding: 0.75rem; margin-bottom: 1rem; }
     .card h3 { font-size: 1rem; }
@@ -255,51 +257,89 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .flag-hungry { color: var(--brass-400); font-weight: 600; }
 
 /* ─── TIMELINE ────────────────────────────────────────────── */
-.timeline-strip {
+/* ─── TOURNAMENT NAV ─────────────────────────────────────── */
+.tourney-nav { margin-bottom: 1.25rem; }
+.tourney-nav-upcoming {
     display: flex;
-    gap: 0.35rem;
-    overflow-x: auto;
-    padding-bottom: 0.75rem;
-    margin-bottom: 1.25rem;
-    scrollbar-width: thin;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
 }
-.timeline-btn {
-    flex-shrink: 0;
-    padding: 0.5rem 0.75rem;
+.tourney-nav-upcoming .timeline-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     border: 1px solid var(--border);
     background: var(--surface);
-    text-align: center;
-    min-width: 90px;
     transition: all 0.2s;
 }
-.timeline-btn:hover { border-color: var(--brass-500); }
-.timeline-btn.active { border-color: var(--brass-500); background: rgba(201, 160, 70, 0.08); }
-.timeline-btn.settled { opacity: 0.65; }
-.timeline-btn.settled .tl-name { color: var(--cream-500); }
-.timeline-btn.live .tl-name { color: var(--green-300); }
-.timeline-btn.upcoming .tl-name { color: var(--brass-400); }
-.timeline-btn.active .tl-name { color: var(--brass-400); font-weight: 700; }
-.tl-name { font-family: var(--font-mono); display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
-.tl-date { font-family: var(--font-mono); display: block; font-size: 0.6rem; color: var(--cream-700); }
-.tl-status { font-family:var(--font-mono); display:block; font-size:0.55rem; color:var(--green-300); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.1rem; }
-.tl-result { font-family:var(--font-mono); display:block; font-size:0.52rem; color:var(--green-400); letter-spacing:0.04em; margin-top:0.1rem; }
-.timeline-btn.settled.recent { opacity: 0.85; border-color: var(--green-800); }
-.timeline-btn.settled.recent .tl-name { color: var(--cream-300); }
-.tl-divider {
-    flex-shrink: 0;
+.tourney-nav-upcoming .timeline-btn:hover { border-color: var(--brass-500); }
+.tourney-nav-upcoming .timeline-btn.active { border-color: var(--brass-500); background: rgba(201, 160, 70, 0.08); }
+.tourney-nav-upcoming .tl-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brass-500);
+    margin-bottom: 0.2rem;
+}
+.tourney-nav-upcoming .tl-name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream-200);
+    letter-spacing: 0.02em;
+}
+.tourney-nav-upcoming .timeline-btn.active .tl-name { color: var(--brass-400); }
+.tourney-nav-upcoming .tl-date {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--cream-600);
+    margin-top: 0.15rem;
+}
+.tourney-nav-settled {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 1px;
-    padding: 0;
-    background: var(--border-accent);
-    opacity: 0.4;
-    align-self: stretch;
-    margin: 0 0.15rem;
-    font-size: 0;
-    overflow: hidden;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+.settled-label {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cream-700);
+    margin-right: 0.2rem;
+}
+.tourney-nav-settled .timeline-btn {
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    opacity: 0.6;
+    transition: all 0.2s;
+}
+.tourney-nav-settled .timeline-btn:hover { opacity: 0.9; border-color: var(--brass-500); }
+.tourney-nav-settled .timeline-btn.active { opacity: 1; border-color: var(--brass-500); background: rgba(201, 160, 70, 0.08); }
+.tourney-nav-settled .timeline-btn.recent { opacity: 0.8; border-color: var(--green-800); }
+.tourney-nav-settled .tl-name {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--cream-400);
+    letter-spacing: 0.03em;
+}
+.tl-settled-result {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    color: var(--green-500);
+    margin-top: 0.1rem;
 }
 
 /* ─── COURSE BAR ──────────────────────────────────────────── */
@@ -707,10 +747,10 @@ canvas { max-height: 350px; }
     .stat-card { padding: 0.5rem; }
     .stat-value { font-size: 1.1rem; }
     .stat-label { font-size: 0.5rem; }
-    .timeline-strip { gap: 0.2rem; padding-bottom: 0.5rem; }
-    .timeline-btn { min-width: 68px; padding: 0.35rem 0.4rem; }
-    .tl-name { font-size: 0.58rem; }
-    .tl-date, .tl-status { font-size: 0.48rem; }
+    .tourney-nav-upcoming .timeline-btn { padding: 0.4rem 0.6rem; }
+    .tourney-nav-upcoming .tl-name { font-size: 0.8rem; }
+    .tourney-nav-settled .tl-name { font-size: 0.5rem; }
+    .tl-settled-result { font-size: 0.42rem; }
     .course-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.75rem; }
     .course-bar h2, .course-bar h3 { font-size: 1rem; }
     .card { padding: 0.75rem; margin-bottom: 0.75rem; }
@@ -755,7 +795,7 @@ canvas { max-height: 350px; }
     .nav-btn { padding: 0.25rem 0.4rem; font-size: 0.52rem; }
     .data-table { overflow-x: auto; display: block; }
     canvas { max-height: 240px; }
-    .timeline-btn { min-width: 60px; }
+    .tourney-nav-settled .timeline-btn { padding: 0.2rem 0.35rem; }
 }
 
 /* ═══ AUTH GATE ═══ */

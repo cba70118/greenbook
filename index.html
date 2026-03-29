@@ -94,17 +94,29 @@
     <!-- ═══ TOURNAMENTS ═══ -->
     <section id="tournament" class="panel active">
 
-        <!-- Timeline: upcoming/live first (right-to-left chronology so current is visible without scrolling) -->
-        <div class="timeline-strip">
-            <div class="timeline-btn upcoming" data-t="valero"><span class="tl-name">Valero</span><span class="tl-date">Apr 2</span></div>
-            <div class="timeline-btn upcoming" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
-            <div class="tl-divider">Settled</div>
-            <div class="timeline-btn settled recent" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span><span class="tl-result">Woodland -21</span></div>
-            <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-date">Mar 19</span></div>
-            <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-date">Mar 12</span></div>
-            <div class="timeline-btn settled" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-date">Mar 5</span></div>
-            <div class="timeline-btn settled" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-date">Mar 5</span></div>
-            <div class="timeline-btn settled" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-date">Feb 26</span></div>
+        <!-- Tournament Nav -->
+        <div class="tourney-nav">
+            <div class="tourney-nav-upcoming">
+                <div class="timeline-btn upcoming" data-t="valero">
+                    <span class="tl-label">This Week</span>
+                    <span class="tl-name">Valero Texas Open</span>
+                    <span class="tl-date">Apr 2-5 | TPC San Antonio</span>
+                </div>
+                <div class="timeline-btn upcoming" data-t="masters">
+                    <span class="tl-label">Next</span>
+                    <span class="tl-name">The Masters</span>
+                    <span class="tl-date">Apr 10-13 | Augusta National</span>
+                </div>
+            </div>
+            <div class="tourney-nav-settled">
+                <span class="settled-label">Completed</span>
+                <div class="timeline-btn settled recent" data-t="houston"><span class="tl-name">Houston</span><span class="tl-settled-result">Woodland -21</span></div>
+                <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-settled-result">Fitzpatrick -11</span></div>
+                <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-settled-result">C. Young -14</span></div>
+                <div class="timeline-btn settled" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-settled-result">Bhatia -12</span></div>
+                <div class="timeline-btn settled" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-settled-result">Castillo -17</span></div>
+                <div class="timeline-btn settled" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-settled-result">Echavarria -17</span></div>
+            </div>
         </div>
 
         <!-- Result Banner (injected by JS) -->
