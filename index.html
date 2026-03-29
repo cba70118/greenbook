@@ -17,7 +17,8 @@
             <button class="nav-btn active" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
             <button class="nav-btn" data-section="tools">Tools (WIP)</button>
-            <button class="nav-btn" data-section="betting">My Betting</button>
+            <button class="nav-btn" data-section="activebets">Active Bets</button>
+            <button class="nav-btn" data-section="betting">Season P/L</button>
         </nav>
     </header>
 
@@ -138,19 +139,9 @@
 
     <!-- ═══ DATA CENTER ═══ -->
     <section id="datacenter" class="panel">
-        <div class="dc-header"><h2>Data Center</h2><p class="card-subtitle">Tournament-neutral golfer intelligence.</p></div>
-        <div class="stats-row">
-            <div class="stat-card" id="dc-best-tot"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:Total</div></div>
-            <div class="stat-card" id="dc-best-app"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:APP</div></div>
-            <div class="stat-card" id="dc-best-ott"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:OTT</div></div>
-            <div class="stat-card" id="dc-best-arg"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:ARG</div></div>
-            <div class="stat-card" id="dc-best-putt"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Best SG:PUTT</div></div>
-            <div class="stat-card" id="dc-best-dd"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Longest Driver</div></div>
-        </div>
-        <div class="grid-2">
-            <div class="card"><h3>Tour Elite: SG Breakdown</h3><p class="card-subtitle">Career skill ratings, not tournament-specific. Top 10 by SG:Total.</p><canvas id="dc-stacked-chart" height="300"></canvas></div>
-            <div class="card"><h3>Approach vs Putting</h3><p class="card-subtitle">Career skill ratings across all 52 profiled players. Green = Elite, Blue = Contender, Gray = Mid-field.</p><canvas id="dc-scatter-chart" height="300"></canvas></div>
-        </div>
+        <div class="dc-header"><h2>Data Center</h2><p class="card-subtitle">Tournament-neutral golfer intelligence. Career skill profiles, surface performance, and course-type analysis.</p></div>
+
+        <!-- Player Profiles FIRST -->
         <div class="card">
             <h3>Player Profiles</h3>
             <!-- Quick-access tags -->
@@ -176,10 +167,44 @@
             </div>
             <div class="scout-grid" id="scout-grid"></div>
         </div>
-        <div class="card"><h3>Course Archetype Fit Matrix</h3>
-            <table class="data-table compact"><thead><tr><th>Player</th><th>2nd Shot</th><th>Bomber</th><th>Bermuda</th><th>Poa</th><th>Grinder</th><th>Short Gm</th><th>Wind</th></tr></thead>
-            <tbody id="archetype-body"></tbody></table>
+        <!-- Skill Analysis section -->
+        <div class="card">
+            <h3>Skill Analysis</h3>
+            <p class="card-subtitle">Career SG ratings across all profiled players. Use these to understand player archetypes and compare skill profiles.</p>
+            <div class="sub-tabs">
+                <button class="sub-tab active" data-subtab="chart-breakdown">SG Breakdown</button>
+                <button class="sub-tab" data-subtab="chart-appvputt">Approach vs Putting</button>
+                <button class="sub-tab" data-subtab="chart-archetype">Course-Type Fit</button>
+            </div>
+            <div id="chart-breakdown" class="sub-panel active">
+                <p class="card-subtitle">Top 10 by SG:Total with component breakdown. Shows where each player's strokes come from.</p>
+                <canvas id="dc-stacked-chart" height="300"></canvas>
+            </div>
+            <div id="chart-appvputt" class="sub-panel">
+                <p class="card-subtitle">The two most decisive skills in golf. Green = Elite tier, Blue = Contender, Gray = Mid-field. Top-right = elite at both.</p>
+                <canvas id="dc-scatter-chart" height="300"></canvas>
+            </div>
+            <div id="chart-archetype" class="sub-panel">
+                <p class="card-subtitle">How well each player fits different course types. Higher score = better fit. Use this to match players to venues.</p>
+                <table class="data-table compact"><thead><tr><th>Player</th><th>2nd Shot</th><th>Bomber</th><th>Bermuda</th><th>Poa</th><th>Grinder</th><th>Short Gm</th><th>Wind</th></tr></thead>
+                <tbody id="archetype-body"></tbody></table>
+            </div>
         </div>
+
+        <!-- Stat Leaders (pushed down) -->
+        <div class="card">
+            <h3>Stat Leaders</h3>
+            <p class="card-subtitle">Top performer in each career SG category across all profiled players.</p>
+            <div class="stats-row">
+                <div class="stat-card" id="dc-best-tot"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:Total</div></div>
+                <div class="stat-card" id="dc-best-app"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:APP</div></div>
+                <div class="stat-card" id="dc-best-ott"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:OTT</div></div>
+                <div class="stat-card" id="dc-best-arg"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:ARG</div></div>
+                <div class="stat-card" id="dc-best-putt"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:PUTT</div></div>
+                <div class="stat-card" id="dc-best-dd"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Longest Driver</div></div>
+            </div>
+        </div>
+
         <div class="card"><h3>Course Intelligence Library</h3><div class="course-grid" id="course-grid"></div></div>
     </section>
 
@@ -206,7 +231,49 @@
         </div>
     </section>
 
-    <!-- ═══ MY BETTING ═══ -->
+    <!-- ═══ ACTIVE BETS ═══ -->
+    <section id="activebets" class="panel">
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.5rem">Active Bets</h2>
+
+        <!-- Houston (Live) -->
+        <div class="card">
+            <h3>Houston Open <span class="badge live">LIVE</span></h3>
+            <p class="card-subtitle">Memorial Park GC | 7,475 yds | Par 70 | Second-shot + Bomber | 11 bets, $130 staked</p>
+            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Thesis</th><th>Status</th></tr></thead>
+            <tbody id="ab-houston"></tbody></table>
+        </div>
+
+        <!-- Valero (Upcoming) -->
+        <div class="card">
+            <h3>Valero Texas Open <span class="badge upcoming">APR 2</span></h3>
+            <p class="card-subtitle">TPC San Antonio | 7,438 yds | Par 72 | Second-shot + Wind | 5 bets, $16.25 staked</p>
+            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Thesis</th><th>Status</th></tr></thead>
+            <tbody id="ab-valero"></tbody></table>
+        </div>
+
+        <!-- Masters (Upcoming) -->
+        <div class="card">
+            <h3>The Masters <span class="badge upcoming">APR 10</span></h3>
+            <p class="card-subtitle">Augusta National | 7,555 yds | Par 72 | Second-shot + Short game | 4 bets, $50 staked</p>
+            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Augusta T10s</th><th>Status</th></tr></thead>
+            <tbody id="ab-masters"></tbody></table>
+        </div>
+
+        <!-- Odds Board -->
+        <div class="card">
+            <h3>Odds Board</h3>
+            <p class="card-subtitle">Composite-implied fair odds vs book price.</p>
+            <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
+                <option value="masters">Masters</option>
+                <option value="houston">Houston Open</option>
+                <option value="valero">Valero Texas Open</option>
+            </select>
+            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
+            <tbody id="odds-body"></tbody></table>
+        </div>
+    </section>
+
+    <!-- ═══ SEASON P/L ═══ -->
     <section id="betting" class="panel">
         <div class="stats-row">
             <div class="stat-card"><div class="stat-value">160</div><div class="stat-label">Total Bets (23 open)</div></div>
@@ -240,41 +307,6 @@
                 <div class="rotation-card hard-rotate"><h4>Hard Rotate</h4><div id="hard-players"></div></div>
             </div>
         </div>
-        <!-- Odds Board (per tournament, betting-focused) -->
-        <div class="card" id="betting-odds-card">
-            <h3>Odds Board</h3>
-            <p class="card-subtitle">Composite-implied fair odds vs book price. Select tournament above.</p>
-            <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
-                <option value="masters">Masters</option>
-                <option value="houston">Houston Open</option>
-                <option value="valero">Valero Texas Open</option>
-            </select>
-            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
-            <tbody id="odds-body"></tbody></table>
-        </div>
-
-        <!-- Per-Tournament Bet Cards -->
-        <div class="card">
-            <h3>Active Bet Cards</h3>
-            <div class="sub-tabs">
-                <button class="sub-tab active" data-subtab="bet-masters">Masters (4)</button>
-                <button class="sub-tab" data-subtab="bet-houston">Houston (11)</button>
-                <button class="sub-tab" data-subtab="bet-valero">Valero (5)</button>
-            </div>
-            <div id="bet-masters" class="sub-panel active">
-                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
-                <tbody id="masters-bets-body"></tbody></table>
-            </div>
-            <div id="bet-houston" class="sub-panel">
-                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
-                <tbody id="houston-bets-body"></tbody></table>
-            </div>
-            <div id="bet-valero" class="sub-panel">
-                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
-                <tbody id="valero-bets-body"></tbody></table>
-            </div>
-        </div>
-
         <div class="card"><h3>Source Attribution</h3>
             <div class="grid-2">
                 <div><canvas id="source-roi-chart" height="250"></canvas></div>
