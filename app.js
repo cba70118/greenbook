@@ -185,12 +185,20 @@ function loadTournament(key) {
         });
     } else { cb.innerHTML = '<tr><td colspan="13" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">Composite data populates closer to tournament week</td></tr>'; }
 
-    // RH Heatmap
+    // RH Heatmap — dynamic columns
     const rb = document.getElementById('rh-body');
+    const rhHeader = document.getElementById('rh-header');
     rb.innerHTML = '';
+    if (t.rhModelNames && rhHeader) {
+        rhHeader.innerHTML = '<tr><th>Player</th>' + t.rhModelNames.map(n => '<th>'+n+'</th>').join('') + '<th>Meta</th></tr>';
+    }
     if (t.rhModels && t.rhModels.length) {
-        t.rhModels.forEach(p => { rb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${hc(p.m15)}${hc(p.m16)}${hc(p.m17)}${hc(p.m18)}${hc(p.m19)}<td><strong>${p.meta}</strong></td></tr>`; });
-    } else { rb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">RH model data loads with tournament analysis</td></tr>'; }
+        var modelKeys = t.rhModelNames ? t.rhModelNames.map((n,i) => 'm'+(i+1)) : ['m15','m16','m17','m18','m19'];
+        t.rhModels.forEach(p => {
+            var cells = modelKeys.map(k => hc(p[k] || 999)).join('');
+            rb.innerHTML += '<tr><td><strong>'+p.name+'</strong></td>'+cells+'<td><strong>'+p.meta+'</strong></td></tr>';
+        });
+    } else { rb.innerHTML = '<tr><td colspan="'+(t.rhModelNames?t.rhModelNames.length+2:7)+'" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Model heatmap loads with tournament analysis</td></tr>'; }
 
     // Form chart
     if (formInst) { formInst.destroy(); formInst = null; }
