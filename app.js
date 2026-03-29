@@ -109,13 +109,17 @@ function loadTournament(key) {
         weatherCard.style.display = 'none';
     }
 
-    // FRL
+    // FRL — only show for upcoming tournaments, not live or settled
     var frlCard = document.getElementById('frl-card');
     var frlBody = document.getElementById('frl-body');
     var frlWave = document.getElementById('frl-wave-summary');
     if (frlBody) frlBody.innerHTML = '';
     if (frlWave) frlWave.innerHTML = '';
-    if (t.frl && t.frl.length) {
+    var isUpcoming = !t.result2026;
+    var activeBtn = document.querySelector('.timeline-btn.active');
+    var isLive = activeBtn && activeBtn.classList.contains('live');
+    var iSettled = activeBtn && activeBtn.classList.contains('settled');
+    if (t.frl && t.frl.length && isUpcoming && !isLive) {
         if (frlCard) frlCard.style.display = '';
         var amPlayers = t.frl.filter(function(f){return f.wave==='AM'});
         var pmPlayers = t.frl.filter(function(f){return f.wave==='PM'});
