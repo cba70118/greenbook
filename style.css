@@ -885,3 +885,17 @@ canvas { max-height: 350px; }
     .weather-grid { grid-template-columns: repeat(2, 1fr); }
     #frl-wave-summary { flex-direction: column; }
 }
+
+/* ═══ PLAYER STATUS FLAGS ═══ */
+.player-status-flag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 0.35rem 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    border-left: 3px solid;
+    line-height: 1.5;
+}
+.player-status-flag.neg { background: rgba(192,57,43,0.08); border-color: var(--scarlet); }
+.player-status-flag.form-cool { background: rgba(201,160,70,0.06); border-color: var(--brass-500); }
+.player-status-flag.form-neutral { background: rgba(109,196,142,0.04); border-color: var(--green-600); }

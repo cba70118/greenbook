@@ -269,6 +269,20 @@ const SCOUTING = [
       weaknesses:"Putting is a major weakness (-0.20). ARG +0.08 near zero. The flat stick consistently costs him contention.", notes:"Young ball-striker whose putting holds him back. Profile is similar to early-career Morikawa — irons carry, putter drags." },
 ];
 
+// Player status flags (updated from conversation intel, podcasts, news)
+// Types: injury, rest, travel, motivation, equipment, form, note
+const PLAYER_STATUS = [
+    { player: "Collin Morikawa", type: "injury", status: "Back spasm. WD after 1 hole at Players. Returned at Valero but status unclear.", severity: "caution", updated: "Mar 28" },
+    { player: "Ryan Gerard", type: "rest", status: "Burned out from playing every week including international travel. WD from Valero. Taking time off before Masters.", severity: "info", updated: "Mar 28" },
+    { player: "Akshay Bhatia", type: "travel", status: "In India for Hero Indian Open (sponsor obligation). MC there. Flying back 2 weeks before Masters. Circadian rhythm concern.", severity: "caution", updated: "Mar 28" },
+    { player: "Pierceson Coody", type: "injury", status: "Back injury. WD from Houston after R1. May play Valero if healthy. Needs win to qualify for Masters.", severity: "warning", updated: "Mar 27" },
+    { player: "Scottie Scheffler", type: "rest", status: "WD from Houston (birth of second child). Preparing for Masters. Fully healthy.", severity: "info", updated: "Mar 25" },
+    { player: "Xander Schauffele", type: "injury", status: "Returning from early-season injury. Showed form at Valspar (T4). Putting rank 76th this year.", severity: "caution", updated: "Mar 22" },
+    { player: "Will Zalatoris", type: "injury", status: "Back from injury. First return at Houston. MC on the number. Approach play looked ok, driving and chipping did not.", severity: "caution", updated: "Mar 27" },
+    { player: "Nicolai Hojgaard", type: "motivation", status: "Fighting for Masters qualification via OWGR top 50. Strong Houston showing could clinch it. May WD from Valero if qualified.", severity: "info", updated: "Mar 27" },
+    { player: "Michael Thorbjornsen", type: "motivation", status: "World #56, needs strong Houston finish to crack top 50 for Masters. Currently T4 at Houston.", severity: "info", updated: "Mar 27" },
+];
+
 // Course library
 const COURSES = [
     {
