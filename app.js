@@ -149,6 +149,17 @@ function loadTournament(key) {
         if (frlCard) frlCard.style.display = 'none';
     }
 
+    // Tournament comparison tool
+    if (t.radarPlayers) {
+        var tCompNames = Object.keys(t.radarPlayers).sort();
+        ['tourney-compare-1','tourney-compare-2','tourney-compare-3'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.innerHTML = '<option value="">-- Select --</option>' + tCompNames.map(function(n){return '<option value="'+n+'">'+n+'</option>'}).join('');
+            el.onchange = function() { renderComparisonWithAnalysis('tourney-compare', 'tourney-compare-output', t); };
+        });
+    }
+
     // Skill Fit Rankings
     var skillCard = document.getElementById('skill-fit-card');
     if (t.radarAxes && t.radarPlayers && Object.keys(t.radarPlayers).length > 0) {
@@ -322,6 +333,94 @@ function renderWeather(data) {
             '<div class="weather-rain ' + rainCls + '">Rain: ' + rain + '%</div>' +
             '</div>';
     }).join('');
+}
+
+// Comparison with Analysis
+function renderComparisonWithAnalysis(prefix, outputId, tourneyData) {
+    var selected = [prefix+'-1',prefix+'-2',prefix+'-3']
+        .map(function(id){return document.getElementById(id)})
+        .filter(function(el){return el && el.value})
+        .map(function(el){return SCOUTING.find(function(p){return p.name===el.value})})
+        .filter(Boolean);
+    var out = document.getElementById(outputId);
+    if (!out || !selected.length) { if(out) out.innerHTML = ''; return; }
+
+    // Build comparison cards
+    var stats = [{l:'APP',k:'app',m:1},{l:'OTT',k:'ott',m:1},{l:'ARG',k:'arg',m:0.5},{l:'PUTT',k:'putt',m:0.7},{l:'TOT',k:'sg_tot',m:2.6},{l:'DD',k:'dd',m:20}];
+    var html = '<div class="compare-cards">';
+    selected.forEach(function(p) {
+        var tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':'tier-midfield';
+        var surf = p.putt_bermuda !== undefined;
+        html += '<div class="compare-card"><h4>'+p.name+' <span class="tier-badge '+tc+'" style="font-size:0.5rem">'+p.tier+'</span></h4>';
+        stats.forEach(function(s) {
+            var v = p[s.k]; var pct = Math.max(5,Math.min(95,(v/s.m)*50+50));
+            var cls = v>s.m*0.3?'sg-positive':v>0?'sg-neutral':'sg-negative';
+            var vStr = s.k==='dd'?v.toFixed(1):v.toFixed(2);
+            html += '<div class="compare-stat-row"><span class="compare-stat-label">'+s.l+'</span><div class="compare-bar-track"><div class="compare-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="'+(v>=0?'pos':'neg')+'">'+(v>=0?'+':'')+vStr+'</span></div>';
+        });
+        if (surf) html += '<div style="margin-top:0.4rem;font-family:var(--font-mono);font-size:0.6rem"><span style="color:var(--cream-500)">Surf:</span> <span class="'+(p.putt_bermuda>=0?'pos':'neg')+'">B '+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</span> <span class="'+(p.putt_bent>=0?'pos':'neg')+'">G '+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</span> <span class="'+(p.putt_poa>=0?'pos':'neg')+'">P '+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</span></div>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    // Auto-analysis for 3 players (3-ball context)
+    if (selected.length >= 2) {
+        html += '<div class="compare-analysis">';
+
+        // Find advantages per stat
+        var advantages = stats.map(function(s) {
+            var best = selected.reduce(function(a,b){return a[s.k]>b[s.k]?a:b});
+            var margin = best[s.k] - selected.reduce(function(a,b){return a[s.k]<b[s.k]?a:b})[s.k];
+            return {stat:s.l, winner:best.name, margin:margin};
+        }).filter(function(a){return a.margin > 0.05});
+
+        // Overall best
+        var bestTot = selected.reduce(function(a,b){return a.sg_tot>b.sg_tot?a:b});
+        var bestApp = selected.reduce(function(a,b){return a.app>b.app?a:b});
+        var bestPutt = selected.reduce(function(a,b){return a.putt>b.putt?a:b});
+
+        html += '<h4 style="font-family:var(--font-display);margin:0.75rem 0 0.5rem">Analysis</h4>';
+        html += '<div class="note-item"><span class="note-badge pos">&#9650; BEST OVERALL</span><strong>'+bestTot.name+'</strong> <span class="note-text">leads in SG:Total at +'+bestTot.sg_tot.toFixed(2)+'. Strongest all-around game in this group.</span></div>';
+
+        if (bestApp.name !== bestTot.name) {
+            html += '<div class="note-item"><span class="note-badge form-warm">IRON PLAY</span><strong>'+bestApp.name+'</strong> <span class="note-text">has the best approach game (APP +'+bestApp.app.toFixed(2)+'). At approach-dominant courses, this could override overall SG advantage.</span></div>';
+        }
+
+        if (bestPutt.name !== bestTot.name) {
+            html += '<div class="note-item"><span class="note-badge form-warm">PUTTING</span><strong>'+bestPutt.name+'</strong> <span class="note-text">is the best putter (PUTT +'+bestPutt.putt.toFixed(2)+'). On a putting-separating week, this player has the highest ceiling.</span></div>';
+        }
+
+        // Surface-specific putting edge if tournament data available
+        if (tourneyData && tourneyData.meta) {
+            var surface = '';
+            if (tourneyData.meta.indexOf('Bermuda') >= 0) surface = 'bermuda';
+            else if (tourneyData.meta.indexOf('Poa') >= 0) surface = 'poa';
+            else if (tourneyData.meta.indexOf('Bent') >= 0) surface = 'bent';
+
+            if (surface && selected[0].putt_bermuda !== undefined) {
+                var key = 'putt_' + (surface === 'bermuda' ? 'bermuda' : surface === 'poa' ? 'poa' : 'bent');
+                var surfBest = selected.reduce(function(a,b){return (a[key]||0)>(b[key]||0)?a:b});
+                var surfName = surface === 'bermuda' ? 'Bermuda' : surface === 'poa' ? 'Poa' : 'Bentgrass';
+                html += '<div class="note-item"><span class="note-badge form-neutral">THIS WEEK</span><strong>'+surfBest.name+'</strong> <span class="note-text">putts best on '+surfName+' (+'+(surfBest[key]||0).toFixed(2)+'), which is the green surface at this course.</span></div>';
+            }
+        }
+
+        // Weaknesses
+        selected.forEach(function(p) {
+            var weak = [];
+            if (p.app < 0) weak.push('approach');
+            if (p.putt < -0.1) weak.push('putting');
+            if (p.arg < -0.1) weak.push('short game');
+            if (p.ott < -0.1) weak.push('driving');
+            if (weak.length) {
+                html += '<div class="note-item"><span class="note-badge neg">&#9660; RISK</span><strong>'+p.name+'</strong> <span class="note-text">has weaknesses in '+weak.join(', ')+'. Vulnerable if these skills are tested.</span></div>';
+            }
+        });
+
+        html += '</div>';
+    }
+
+    out.innerHTML = html;
 }
 
 // Surface Performance Renderer

@@ -344,6 +344,12 @@ function initComparison() {
 }
 
 function renderComparison() {
+    // Use the shared analysis function if available
+    if (typeof renderComparisonWithAnalysis === 'function') {
+        renderComparisonWithAnalysis('compare', 'compare-output', null);
+        return;
+    }
+    // Fallback:
     var selected = ['compare-1','compare-2','compare-3']
         .map(function(id){return document.getElementById(id).value})
         .filter(Boolean)

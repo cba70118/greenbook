@@ -1032,3 +1032,4 @@ canvas { max-height: 350px; }
 .collapsible-arrow { font-size: 0.7rem; color: var(--cream-500); transition: transform 0.2s; }
 .collapsible-content.collapsed { display: none; }
 .collapsible-arrow.open { transform: rotate(180deg); }
+.compare-analysis { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }

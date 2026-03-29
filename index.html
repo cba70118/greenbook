@@ -164,6 +164,19 @@
             <div id="skill-fit-display"></div>
         </div>
 
+        <!-- 3-Ball / Player Comparison -->
+        <div class="card">
+            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
+            <h3>Player Comparison / 3-Ball</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+            <p class="card-subtitle">Select 2-3 players to compare skill profiles. Useful for 3-ball matchup analysis.</p>
+            <div class="compare-selects">
+                <select id="tourney-compare-1" class="calc-input"></select>
+                <select id="tourney-compare-2" class="calc-input"></select>
+                <select id="tourney-compare-3" class="calc-input"></select>
+            </div>
+            <div id="tourney-compare-output"></div>
+        </div></div>
+
         <!-- Blind Composite -->
         <div class="card">
             <h3>Blind Composite Rankings</h3>
