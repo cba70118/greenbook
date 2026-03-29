@@ -215,7 +215,8 @@
 
         <!-- Player Profiles FIRST -->
         <div class="card">
-            <h3>Player Profiles</h3>
+            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
+            <h3>Player Profiles</h3><span class="collapsible-arrow open">&#9660;</span></div><div class="collapsible-content">
             <!-- Quick-access tags -->
             <div class="quick-tags">
                 <span class="quick-tag" data-filter="Elite">Elite Tier</span>
@@ -249,7 +250,7 @@
                 </select>
             </div>
             <div class="scout-grid" id="scout-grid"></div>
-        </div>
+        </div></div>
         <!-- Skill Analysis -->
         <div class="grid-2">
             <div class="card">
