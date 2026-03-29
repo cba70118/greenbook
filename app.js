@@ -2,6 +2,71 @@
 // GREENBOOK — Main Application
 // ═══════════════════════════════════════════════════════════
 
+// Player popup card
+function showPlayerPopup(name) {
+    var p = SCOUTING.find(function(s){return s.name === name});
+    var popup = document.getElementById('player-popup');
+    var content = document.getElementById('player-popup-content');
+    if (!popup || !content) return;
+    if (!p) {
+        content.innerHTML = '<div class="popup-header"><h3>'+name+'</h3><button class="popup-close" onclick="document.getElementById(\'player-popup\').classList.add(\'hidden\')">&times;</button></div><p class="narrative-text">Not in player database yet.</p>';
+        popup.classList.remove('hidden');
+        return;
+    }
+
+    var tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':p.tier==='Mid-field'?'tier-midfield':'tier-veteran';
+    var stats = [{l:'APP',v:p.app,m:1},{l:'OTT',v:p.ott,m:1},{l:'ARG',v:p.arg,m:0.5},{l:'PUTT',v:p.putt,m:0.7},{l:'TOT',v:p.sg_tot,m:2.6}];
+    var hasSurf = p.putt_bermuda !== undefined;
+
+    var statusHtml = '';
+    if (typeof PLAYER_STATUS !== 'undefined') {
+        var ps = PLAYER_STATUS.find(function(s){return s.player===name});
+        if (ps) {
+            var sevCls = ps.severity==='warning'?'neg':ps.severity==='caution'?'form-cool':'form-neutral';
+            statusHtml = '<div class="player-status-flag '+sevCls+'" style="margin-bottom:0.5rem">'+ps.status+'</div>';
+        }
+    }
+
+    var sparkHtml = makeSparkline(name, 'sg_tot');
+
+    content.innerHTML = '<div class="popup-header"><h3>'+p.name+' <span class="tier-badge '+tc+'" style="font-size:0.55rem;vertical-align:middle">'+p.tier+'</span></h3><button class="popup-close" onclick="document.getElementById(\'player-popup\').classList.add(\'hidden\')">&times;</button></div>' +
+        statusHtml +
+        '<div class="popup-meta"><span>TOT '+(p.sg_tot>=0?'+':'')+p.sg_tot.toFixed(2)+sparkHtml+'</span><span>DD '+(p.dd>=0?'+':'')+p.dd.toFixed(1)+'</span><span>'+p.shape+'</span><span>'+p.surface+'</span></div>' +
+        stats.map(function(s) {
+            var v=s.v; var pct=Math.max(5,Math.min(95,(v/s.m)*50+50));
+            var cls=v>s.m*0.3?'sg-positive':v>0?'sg-neutral':'sg-negative';
+            return '<div class="popup-sg-row"><span class="popup-sg-label">'+s.l+'</span><div class="sg-bar-track"><div class="sg-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="sg-bar-val '+(v>=0?'pos':'neg')+'">'+(v>=0?'+':'')+v.toFixed(2)+'</span></div>';
+        }).join('') +
+        (hasSurf ? '<div class="surface-putting" style="margin-top:0.5rem"><span class="sp-label">Putting:</span><span class="sp-val '+(p.putt_bermuda>=0?'pos':'neg')+'">Berm '+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</span><span class="sp-val '+(p.putt_bent>=0?'pos':'neg')+'">Bent '+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</span><span class="sp-val '+(p.putt_poa>=0?'pos':'neg')+'">Poa '+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</span></div>' : '') +
+        '<div class="popup-section"><strong class="pos">+</strong> '+p.strengths+'</div>' +
+        '<div class="popup-section"><strong class="neg">-</strong> '+p.weaknesses+'</div>' +
+        '<div class="popup-section" style="color:var(--cream-500);font-style:italic;font-size:0.72rem;margin-top:0.5rem">'+p.notes+'</div>';
+
+    popup.classList.remove('hidden');
+}
+
+// Close popup on background click
+document.addEventListener('click', function(e) {
+    var popup = document.getElementById('player-popup');
+    if (popup && !popup.classList.contains('hidden') && e.target === popup) {
+        popup.classList.add('hidden');
+    }
+});
+
+// Global click delegation for player names in tables and cards
+document.addEventListener('click', function(e) {
+    // Explicit clickable class
+    var target = e.target.closest('.player-clickable');
+    if (target) { e.preventDefault(); showPlayerPopup(target.textContent.trim()); return; }
+    // Strong tags in data tables, compare cards, skill-fit, notes
+    if (e.target.tagName === 'STRONG' && (e.target.closest('.data-table') || e.target.closest('.compare-card') || e.target.closest('.sf-name') || e.target.closest('.note-item'))) {
+        var name = e.target.textContent.trim();
+        if (name.length > 3 && name.indexOf('$') < 0 && name.indexOf('+') < 0) {
+            showPlayerPopup(name);
+        }
+    }
+});
+
 // Notes toggle
 var nt = document.getElementById('notes-toggle');
 if (nt) nt.addEventListener('click', function() {
@@ -11,15 +76,31 @@ if (nt) nt.addEventListener('click', function() {
     arrow.innerHTML = content.classList.contains('hidden') ? '&#9660;' : '&#9650;';
 });
 
-// Navigation
+// Navigation with page persistence
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById(btn.dataset.section).classList.add('active');
+        // Remember current tab
+        try { sessionStorage.setItem('greenbook_tab', btn.dataset.section); } catch(e){}
     });
 });
+
+// Restore last tab on load
+try {
+    var savedTab = sessionStorage.getItem('greenbook_tab');
+    if (savedTab) {
+        var savedBtn = document.querySelector('[data-section="'+savedTab+'"]');
+        if (savedBtn) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            savedBtn.classList.add('active');
+            document.getElementById(savedTab).classList.add('active');
+        }
+    }
+} catch(e){}
 
 // Chart defaults
 Chart.defaults.color = '#A89880';
@@ -771,6 +852,14 @@ document.getElementById('scout-tier-filter').addEventListener('change', () => { 
 // Quick tags
 document.querySelectorAll('.quick-tag').forEach(tag => {
     tag.addEventListener('click', () => {
+        // If clicking an already-active tag, deselect and show all
+        if (tag.classList.contains('active') && !tag.dataset.reset) {
+            tag.classList.remove('active');
+            document.getElementById('scout-tier-filter').value = '';
+            renderScoutCards('', '');
+            return;
+        }
+
         document.querySelectorAll('.quick-tag').forEach(t => t.classList.remove('active'));
 
         if (tag.dataset.reset) {

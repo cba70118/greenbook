@@ -1033,3 +1033,63 @@ canvas { max-height: 350px; }
 .collapsible-content.collapsed { display: none; }
 .collapsible-arrow.open { transform: rotate(180deg); }
 .compare-analysis { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+
+/* ═══ PLAYER POPUP CARD ═══ */
+.player-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(7,18,9,0.7);
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.player-popup.hidden { display: none; }
+.player-popup-content {
+    background: var(--green-800);
+    border: 1px solid var(--brass-500);
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 420px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    cursor: default;
+}
+.popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.popup-header h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin: 0; }
+.popup-close { background: none; border: none; color: var(--cream-500); font-size: 1.3rem; cursor: pointer; }
+.popup-close:hover { color: var(--cream-100); }
+.popup-meta { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cream-500); margin-bottom: 0.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.popup-sg-row { display: grid; grid-template-columns: 45px 1fr 50px; gap: 0.4rem; align-items: center; margin-bottom: 0.2rem; }
+.popup-sg-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cream-500); }
+.popup-section { font-size: 0.78rem; line-height: 1.5; margin-top: 0.5rem; }
+.popup-section strong { color: var(--cream-100); }
+
+/* Make player names clickable throughout */
+.player-clickable { cursor: pointer; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 2px; }
+.player-clickable:hover { text-decoration-color: var(--brass-400); color: var(--brass-400); }
+
+@media (max-width: 768px) {
+    .player-popup-content { max-width: 95%; padding: 1rem; }
+}
+
+/* Make all strong names in data tables clickable for player popup */
+.data-table td strong,
+.compare-card h4,
+.sf-name strong,
+.note-item strong {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s;
+}
+.data-table td strong:hover,
+.compare-card h4:hover,
+.sf-name strong:hover,
+.note-item strong:hover {
+    text-decoration-color: var(--brass-400);
+    color: var(--brass-400);
+}
