@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 156,
+    totalBets: 158,
     settled: 147,
-    open: 9,
+    open: 11,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -81,6 +81,8 @@ const VALERO_CARD = [
     { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "Open" },
     { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, placed: "Mar 28", edge: "Comp #9. Dark horse.", status: "Open" },
     { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, placed: "Mar 28", edge: "Comp #5. Course fit.", status: "Open" },
+    { num: 5, player: "Maverick McNealy", market: "Outright", terms: "Win", odds: "+2400", stake: 10, placed: "Mar 29", edge: "Comp #4. Klos #2. +6 gap.", status: "Open" },
+    { num: 6, player: "Maverick McNealy", market: "Top 10", terms: "Win", odds: "+225", stake: 10, placed: "Mar 29", edge: "Comp #4. T10 13.5%.", status: "Open" },
 ];
 
 // Player rotation data
