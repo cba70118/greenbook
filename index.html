@@ -31,7 +31,7 @@
         <nav>
             <button class="nav-btn active" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
-            <button class="nav-btn" data-section="tools">Tools (WIP)</button>
+            <button class="nav-btn" data-section="tools">Tools</button>
             <button class="nav-btn" data-section="activebets">Active Bets</button>
             <button class="nav-btn" data-section="betting">Season P/L</button>
         </nav>
@@ -250,6 +250,62 @@
             </div>
             <button class="calc-btn" id="calc-btn">Calculate</button>
             <div id="calc-results"></div>
+        </div>
+
+        <!-- Player Comparison -->
+        <div class="card">
+            <h3>Player Comparison</h3>
+            <p class="card-subtitle">Select 2-3 players to compare skill profiles, surface putting, and course-type fit side by side.</p>
+            <div class="compare-selects">
+                <select id="compare-1" class="calc-input"></select>
+                <select id="compare-2" class="calc-input"></select>
+                <select id="compare-3" class="calc-input"></select>
+            </div>
+            <div id="compare-output"></div>
+        </div>
+
+        <!-- Course-Player Matcher -->
+        <div class="card">
+            <h3>Course-Player Matcher</h3>
+            <p class="card-subtitle">Select a course type to see the best-fit players from our database, ranked by archetype fit score.</p>
+            <div class="matcher-controls">
+                <select id="matcher-archetype" class="calc-input" style="max-width:250px">
+                    <option value="secondshot">Second-Shot Course</option>
+                    <option value="bomber">Bomber / Distance Course</option>
+                    <option value="bermuda">Bermuda Putting Course</option>
+                    <option value="poa">Poa Putting Course</option>
+                    <option value="grinder">Grinder / Penalty Course</option>
+                    <option value="shortgame">Short Game Course</option>
+                    <option value="wind">Wind-Exposed Course</option>
+                </select>
+            </div>
+            <table class="data-table" id="matcher-table">
+                <thead><tr><th>Rk</th><th>Player</th><th>Fit</th><th>Key Stat</th><th>Surface Putting</th><th>Tier</th></tr></thead>
+                <tbody id="matcher-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Season Bet Analyzer -->
+        <div class="card">
+            <h3>Season Bet Analyzer</h3>
+            <p class="card-subtitle">Filter and slice the season's 147 bets by any dimension to find patterns.</p>
+            <div class="analyzer-filters">
+                <select id="analyzer-book" class="calc-input"><option value="">All Books</option><option value="bet365">bet365</option><option value="DraftKings">DraftKings</option><option value="FanDuel">FanDuel</option></select>
+                <select id="analyzer-market" class="calc-input"><option value="">All Markets</option><option value="Outright">Outright</option><option value="FRL">FRL</option><option value="Prop">Prop</option><option value="DFS">DFS</option><option value="Matchup">Matchup</option></select>
+                <select id="analyzer-status" class="calc-input"><option value="">All Status</option><option value="Won">Won</option><option value="Lost">Lost</option><option value="Open">Open</option></select>
+            </div>
+            <div id="analyzer-summary"></div>
+            <table class="data-table compact" id="analyzer-table">
+                <thead><tr><th>Tournament</th><th>Player</th><th>Market</th><th>Odds</th><th>Stake</th><th>Status</th><th>Return</th></tr></thead>
+                <tbody id="analyzer-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Form Signal Scanner -->
+        <div class="card">
+            <h3>Form Signal Scanner</h3>
+            <p class="card-subtitle">All profiled players sorted by current form momentum. Who's surging, who's fading.</p>
+            <canvas id="form-scanner-chart" height="350"></canvas>
         </div>
     </section>
 

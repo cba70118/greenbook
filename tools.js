@@ -316,3 +316,156 @@ function renderSourceTracker() {
 }
 
 renderSourceTracker();
+
+// ============================================================
+// TOOL: Player Comparison
+// ============================================================
+
+function initComparison() {
+    var selects = ['compare-1','compare-2','compare-3'];
+    var names = SCOUTING.map(function(p){return p.name}).sort();
+    selects.forEach(function(id, i) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.innerHTML = '<option value="">-- Select --</option>' + names.map(function(n){return '<option value="'+n+'">'+n+'</option>'}).join('');
+        el.addEventListener('change', renderComparison);
+    });
+}
+
+function renderComparison() {
+    var selected = ['compare-1','compare-2','compare-3']
+        .map(function(id){return document.getElementById(id).value})
+        .filter(Boolean)
+        .map(function(name){return SCOUTING.find(function(p){return p.name===name})})
+        .filter(Boolean);
+    var out = document.getElementById('compare-output');
+    if (!selected.length) { out.innerHTML = ''; return; }
+    var stats = [
+        {label:'SG: Total',key:'sg_tot',max:2.6},
+        {label:'SG: Approach',key:'app',max:1.0},
+        {label:'SG: OTT',key:'ott',max:1.0},
+        {label:'SG: ARG',key:'arg',max:0.5},
+        {label:'SG: Putting',key:'putt',max:0.7},
+        {label:'Dr Distance',key:'dd',max:20}
+    ];
+    var html = '<div class="compare-cards">';
+    selected.forEach(function(p) {
+        var tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':p.tier==='Mid-field'?'tier-midfield':'tier-veteran';
+        var hasSurf = p.putt_bermuda !== undefined;
+        html += '<div class="compare-card"><h4>'+p.name+' <span class="tier-badge '+tc+'" style="font-size:0.55rem">'+p.tier+'</span></h4>';
+        stats.forEach(function(s) {
+            var v = p[s.key];
+            var pct = Math.max(5, Math.min(95, (v/s.max)*50+50));
+            var cls = v>s.max*0.3?'sg-positive':v>0?'sg-neutral':'sg-negative';
+            var vStr = s.key==='dd' ? v.toFixed(1) : v.toFixed(2);
+            html += '<div class="compare-stat-row"><span class="compare-stat-label">'+s.label+'</span><div class="compare-bar-track"><div class="compare-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="'+(v>=0?'pos':'neg')+'">'+(v>=0?'+':'')+vStr+'</span></div>';
+        });
+        if (hasSurf) {
+            html += '<div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem"><span class="compare-stat-label">Surface: </span>';
+            html += '<span class="'+(p.putt_bermuda>=0?'pos':'neg')+'">Berm '+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</span> ';
+            html += '<span class="'+(p.putt_bent>=0?'pos':'neg')+'">Bent '+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</span> ';
+            html += '<span class="'+(p.putt_poa>=0?'pos':'neg')+'">Poa '+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</span></div>';
+        }
+        html += '<div style="margin-top:0.4rem;font-size:0.72rem"><strong class="pos">+</strong> '+p.strengths+'</div>';
+        html += '<div style="font-size:0.72rem"><strong class="neg">-</strong> '+p.weaknesses+'</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+    out.innerHTML = html;
+}
+initComparison();
+
+// ============================================================
+// TOOL: Course-Player Matcher
+// ============================================================
+
+function calcArchScore(p, type) {
+    if (type==='secondshot') return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
+    if (type==='bomber') return Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
+    if (type==='bermuda') return Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
+    if (type==='poa') return Math.min(100,(p.putt/0.6)*40+(p.app/0.9)*35+25);
+    if (type==='grinder') return Math.min(100,50+(p.arg/0.4)*25+(p.putt/0.6)*25-(p.dd/20)*10);
+    if (type==='shortgame') return Math.min(100,(p.arg/0.4)*45+(p.putt/0.6)*30+25);
+    if (type==='wind') return Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
+    return 50;
+}
+
+function matcherKeyStat(p, type) {
+    if (type==='secondshot') return 'APP '+(p.app>=0?'+':'')+p.app.toFixed(2);
+    if (type==='bomber') return 'DD '+(p.dd>=0?'+':'')+p.dd.toFixed(1);
+    if (type==='bermuda') return 'PUTT(B) '+((p.putt_bermuda||p.putt)>=0?'+':'')+((p.putt_bermuda||p.putt)).toFixed(2);
+    if (type==='poa') return 'PUTT(P) '+((p.putt_poa||p.putt)>=0?'+':'')+((p.putt_poa||p.putt)).toFixed(2);
+    if (type==='grinder') return 'ARG '+(p.arg>=0?'+':'')+p.arg.toFixed(2);
+    if (type==='shortgame') return 'ARG '+(p.arg>=0?'+':'')+p.arg.toFixed(2);
+    if (type==='wind') return 'OTT '+(p.ott>=0?'+':'')+p.ott.toFixed(2);
+    return '';
+}
+
+function renderMatcher() {
+    var type = document.getElementById('matcher-archetype').value;
+    var scored = SCOUTING.map(function(p){return {player:p, score:Math.max(0,calcArchScore(p,type))}}).sort(function(a,b){return b.score-a.score}).slice(0,20);
+    var tb = document.getElementById('matcher-body');
+    tb.innerHTML = '';
+    scored.forEach(function(s,i) {
+        var p = s.player;
+        var tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':'tier-midfield';
+        var fitCls = s.score>=75?'pos':s.score>=60?'form-warm':s.score>=45?'form-neutral':'neg';
+        var surf = p.putt_bermuda ? 'B:'+p.putt_bermuda.toFixed(2)+' P:'+p.putt_poa.toFixed(2) : '-';
+        tb.innerHTML += '<tr><td>'+(i+1)+'</td><td><strong>'+p.name+'</strong></td><td class="'+fitCls+'" style="font-family:var(--font-mono);font-weight:600">'+s.score.toFixed(0)+'</td><td style="font-family:var(--font-mono);font-size:0.72rem">'+matcherKeyStat(p,type)+'</td><td style="font-family:var(--font-mono);font-size:0.68rem">'+surf+'</td><td><span class="tier-badge '+tc+'" style="font-size:0.5rem">'+p.tier+'</span></td></tr>';
+    });
+}
+document.getElementById('matcher-archetype').addEventListener('change', renderMatcher);
+renderMatcher();
+
+// ============================================================
+// TOOL: Season Bet Analyzer
+// ============================================================
+
+function renderAnalyzer() {
+    var mktF = document.getElementById('analyzer-market').value;
+    var statF = document.getElementById('analyzer-status').value;
+    var allBets = [].concat(
+        HOUSTON_CARD.map(function(b){return Object.assign({},b,{tournament:'Houston'})}),
+        VALERO_CARD.map(function(b){return Object.assign({},b,{tournament:'Valero'})}),
+        MASTERS_CARD.map(function(b){return Object.assign({},b,{tournament:'Masters'})})
+    );
+    WINNERS.forEach(function(w){allBets.push({tournament:w.tournament,player:w.player,market:w.market,odds:w.odds,stake:w.stake,status:'Won',ret:w.ret})});
+    var filtered = allBets;
+    if (statF) filtered = filtered.filter(function(b){return b.status===statF});
+    if (mktF) filtered = filtered.filter(function(b){return (b.market||'').indexOf(mktF)>=0});
+    var staked=0, returned=0, wins=0;
+    filtered.forEach(function(b){staked+=b.stake||0; returned+=b.ret||0; if(b.status==='Won')wins++});
+    var pl = returned - staked;
+    var roi = staked>0?(pl/staked*100).toFixed(1):'0';
+    document.getElementById('analyzer-summary').innerHTML = '<span>'+filtered.length+' bets</span><span>$'+staked.toFixed(2)+' staked</span><span class="'+(pl>=0?'pos':'neg')+'">'+(pl>=0?'+':'')+'$'+pl.toFixed(2)+'</span><span>'+wins+' winners</span><span>'+roi+'% ROI</span>';
+    var tb = document.getElementById('analyzer-body');
+    tb.innerHTML = '';
+    filtered.slice(0,50).forEach(function(b){
+        var sc = b.status==='Won'?'pos':b.status==='Lost'?'neg':'';
+        tb.innerHTML += '<tr><td>'+(b.tournament||'')+'</td><td>'+b.player+'</td><td>'+(b.market||'')+'</td><td>'+b.odds+'</td><td>$'+b.stake.toFixed(2)+'</td><td class="'+sc+'">'+b.status+'</td><td>'+(b.ret?'$'+b.ret.toFixed(2):'-')+'</td></tr>';
+    });
+}
+['analyzer-book','analyzer-market','analyzer-status'].forEach(function(id){document.getElementById(id).addEventListener('change',renderAnalyzer)});
+renderAnalyzer();
+
+// ============================================================
+// TOOL: Form Signal Scanner
+// ============================================================
+var formScannerChart = null;
+function renderFormScanner() {
+    var players = SCOUTING.filter(function(p){return p.sg_tot>0.3}).map(function(p){
+        var m = p.tier==='Elite'?1.12:p.tier==='Contender'?1.05:0.95;
+        if (p.putt_bermuda) m += Math.abs(p.putt_bermuda-p.putt_poa)*0.3;
+        return {name:p.name, momentum:m, tier:p.tier};
+    }).sort(function(a,b){return b.momentum-a.momentum}).slice(0,25);
+    if (formScannerChart) formScannerChart.destroy();
+    formScannerChart = new Chart(document.getElementById('form-scanner-chart'), {
+        type:'bar',
+        data:{labels:players.map(function(p){return p.name.split(' ').pop()}),
+        datasets:[{label:'Form Momentum',data:players.map(function(p){return p.momentum}),
+        backgroundColor:players.map(function(p){return p.momentum>1.15?'rgba(42,122,75,0.8)':p.momentum>1.05?'rgba(109,196,142,0.6)':p.momentum>0.95?'rgba(168,152,128,0.4)':'rgba(192,57,43,0.5)'}),
+        borderRadius:3}]},
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:'rgba(109,196,142,0.06)'},min:0.8,max:1.3,ticks:{callback:function(v){return v.toFixed(1)+'x'}}},x:{grid:{display:false},ticks:{font:{size:9}}}}}
+    });
+}
+renderFormScanner();
