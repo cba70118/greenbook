@@ -466,8 +466,15 @@ function renderLiveOdds(key) {
     t.oddsBoard.forEach(function(o) {
         var ev = parseFloat(o.edge);
         var ec = ev > 3 ? 'pos' : ev > 0 ? 'form-warm' : ev > -3 ? 'form-neutral' : 'neg';
-        var vc = o.verdict.indexOf('VALUE') >= 0 ? 'pos' : o.verdict.indexOf('OVERPRICED') >= 0 ? 'neg' : '';
-        tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + o.fair + '</td><td style="font-family:var(--font-mono)">' + o.best + '</td><td style="font-family:var(--font-mono)">' + o.b365 + '</td><td class="' + ec + '" style="font-family:var(--font-mono);font-weight:600">' + o.edge + '</td><td class="' + sigCls(o.form) + '">' + o.form + '</td><td class="' + vc + '" style="font-size:0.72rem">' + o.verdict + '</td></tr>';
+        // Calculate assessment from edge, not hardcoded
+        var assessment, vc;
+        if (ev > 5) { assessment = 'Strong value'; vc = 'pos'; }
+        else if (ev > 2) { assessment = 'Value'; vc = 'pos'; }
+        else if (ev > 0) { assessment = 'Slight value'; vc = 'form-warm'; }
+        else if (ev > -2) { assessment = 'Fair price'; vc = 'form-neutral'; }
+        else if (ev > -5) { assessment = 'Overpriced'; vc = 'neg'; }
+        else { assessment = 'Significantly overpriced'; vc = 'neg'; }
+        tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + o.fair + '</td><td style="font-family:var(--font-mono)">' + o.best + '</td><td style="font-family:var(--font-mono)">' + o.b365 + '</td><td class="' + ec + '" style="font-family:var(--font-mono);font-weight:600">' + o.edge + '</td><td class="' + sigCls(o.form) + '">' + o.form + '</td><td class="' + vc + '" style="font-size:0.72rem">' + assessment + '</td></tr>';
 
         if (ev > 2) values.push(o);
         if (ev < -3) fades.push(o);
