@@ -510,6 +510,21 @@ function renderScoutCards(filter,tier,limit) {
     });
 }
 
+function renderScoutCardsFromList(list) {
+    renderScoutCards('', '', list.length);
+    // Override with the specific list
+    var grid = document.getElementById('scout-grid');
+    grid.innerHTML = '';
+    list.forEach(function(p) {
+        var tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':p.tier==='Mid-field'?'tier-midfield':'tier-veteran';
+        var bars = [{l:'APP',v:p.app,m:1},{l:'OTT',v:p.ott,m:1},{l:'ARG',v:p.arg,m:0.5},{l:'PUTT',v:p.putt,m:0.7}];
+        var hasSurface = p.putt_bermuda !== undefined;
+        var surfaceHtml = hasSurface ? '<div class="surface-putting"><span class="sp-label">Putting by surface:</span><span class="sp-val '+(p.putt_bermuda>=0?'pos':'neg')+'">Bermuda '+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</span><span class="sp-val '+(p.putt_bent>=0?'pos':'neg')+'">Bent '+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</span><span class="sp-val '+(p.putt_poa>=0?'pos':'neg')+'">Poa '+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</span></div>' : '';
+        var sflag = getStatusFlag(p.name);
+        grid.innerHTML += '<div class="scout-card"><div class="scout-header"><h4>'+p.name+'</h4><span class="tier-badge '+tc+'">'+p.tier+'</span></div>'+sflag+'<div class="scout-sg-bars">'+bars.map(function(b){var pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);var cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return '<div class="sg-bar-row"><span class="sg-bar-label">'+b.l+'</span><div class="sg-bar-track"><div class="sg-bar-fill '+cls+'" style="width:'+pct+'%"></div></div><span class="sg-bar-val '+(b.v>=0?'pos':'neg')+'">'+(b.v>=0?'+':'')+b.v.toFixed(2)+'</span></div>';}).join('')+'</div><div class="scout-meta"><span>TOT '+(p.sg_tot>=0?'+':'')+p.sg_tot.toFixed(2)+'</span><span>DD '+(p.dd>=0?'+':'')+p.dd.toFixed(1)+'</span><span>'+p.shape+'</span><span>'+p.surface+'</span></div>'+surfaceHtml+'<div class="scout-section"><strong class="pos">Strengths:</strong> '+p.strengths+'</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> '+p.weaknesses+'</div><div class="scout-section scout-notes">'+p.notes+'</div></div>';
+    });
+}
+
 document.getElementById('scout-search-input').addEventListener('input', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value, 999); });
 document.getElementById('scout-tier-filter').addEventListener('change', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value); });
 
