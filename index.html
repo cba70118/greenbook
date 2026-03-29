@@ -29,7 +29,8 @@
             <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season <span style="background:rgba(201,160,70,0.15);color:var(--brass-400);padding:0.1rem 0.4rem;border-radius:3px;font-size:0.55rem;margin-left:0.5rem;vertical-align:middle">BETA v0.1</span></p>
         </div>
         <nav>
-            <button class="nav-btn active" data-section="tournament">Tournaments</button>
+            <button class="nav-btn active" data-section="thecut">The Cut</button>
+            <button class="nav-btn" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
             <button class="nav-btn" data-section="liveodds">Live Odds</button>
             <button class="nav-btn" data-section="tools">Tools <span style="font-size:0.45rem;opacity:0.6;vertical-align:super">beta</span></button>
@@ -52,8 +53,37 @@
         </div>
     </div>
 
+    <!-- ═══ THE CUT ═══ -->
+    <section id="thecut" class="panel active">
+
+        <!-- This Week -->
+        <div class="card" id="cut-thisweek">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                    <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.25rem" id="cut-event-name"></h2>
+                    <p class="card-subtitle" id="cut-event-meta" style="margin:0"></p>
+                </div>
+                <div id="cut-weather-mini" style="text-align:right"></div>
+            </div>
+            <div id="cut-field-notes" style="margin-top:0.75rem"></div>
+        </div>
+
+        <!-- Status Feed -->
+        <div class="card">
+            <h3>Status Feed</h3>
+            <div id="cut-status-feed"></div>
+        </div>
+
+        <!-- Upcoming Calendar -->
+        <div class="card">
+            <h3>Upcoming</h3>
+            <div id="cut-calendar"></div>
+        </div>
+
+    </section>
+
     <!-- ═══ TOURNAMENTS ═══ -->
-    <section id="tournament" class="panel active">
+    <section id="tournament" class="panel">
 
         <!-- Timeline: upcoming/live first (right-to-left chronology so current is visible without scrolling) -->
         <div class="timeline-strip">

@@ -1147,3 +1147,44 @@ canvas { max-height: 350px; }
     pointer-events: none;
     border-radius: 0 0 4px 4px;
 }
+
+/* ═══ THE CUT ═══ */
+.cut-calendar-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+}
+.cut-calendar-row:last-child { border-bottom: none; }
+.cut-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--brass-400); }
+.cut-course { font-size: 0.82rem; }
+.cut-course strong { color: var(--cream-100); }
+.cut-course span { font-size: 0.7rem; color: var(--cream-500); display: block; }
+.cut-surface-tag {
+    font-family: var(--font-mono); font-size: 0.58rem; padding: 0.15rem 0.4rem;
+    border-radius: 3px; background: rgba(42,122,75,0.08); color: var(--green-300);
+    border: 1px solid rgba(42,122,75,0.15);
+}
+
+.status-feed-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+}
+.status-feed-item:last-child { border-bottom: none; }
+.status-icon { font-size: 1rem; text-align: center; line-height: 1.4; }
+.status-body strong { color: var(--cream-100); }
+.status-body { color: var(--cream-300); }
+.status-time { font-family: var(--font-mono); font-size: 0.6rem; color: var(--cream-700); margin-top: 0.15rem; }
+
+.cut-weather-mini { font-family: var(--font-mono); font-size: 0.72rem; color: var(--cream-300); }
+
+@media (max-width: 768px) {
+    .cut-calendar-row { grid-template-columns: 60px 1fr; }
+    .cut-calendar-row > :last-child { display: none; }
+}

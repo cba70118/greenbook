@@ -67,6 +67,81 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// ═══ THE CUT ═══
+function buildTheCut() {
+    // Find current tournament (first live, then first upcoming)
+    var currentKey = getCurrentTournament();
+    var t = TOURNAMENT_DATA[currentKey];
+
+    // This Week
+    var eventName = document.getElementById('cut-event-name');
+    var eventMeta = document.getElementById('cut-event-meta');
+    if (eventName && t) {
+        eventName.textContent = t.name || t.course || '';
+        eventMeta.textContent = t.meta || '';
+    }
+
+    // Weather mini (just fetch and show 2-day summary)
+    var weatherMini = document.getElementById('cut-weather-mini');
+    if (weatherMini && t && t.location) {
+        fetch('https://api.weatherapi.com/v1/forecast.json?key=22e06f60fa1d4696bc7175703262803&q='+encodeURIComponent(t.location)+'&days=2')
+        .then(function(r){return r.json()})
+        .then(function(data) {
+            if (data.forecast) {
+                var days = data.forecast.forecastday;
+                weatherMini.innerHTML = days.map(function(d) {
+                    var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                    var date = new Date(d.date+'T12:00:00');
+                    var icon = d.day.daily_chance_of_rain > 50 ? '🌧' : d.day.maxwind_mph > 18 ? '💨' : '☀';
+                    return '<div>'+icon+' '+dayNames[date.getDay()]+' '+Math.round(d.day.maxtemp_f)+'° '+Math.round(d.day.maxwind_mph)+'mph</div>';
+                }).join('');
+            }
+        }).catch(function(){});
+    }
+
+    // Field notes from analysis notes
+    var fieldNotes = document.getElementById('cut-field-notes');
+    if (fieldNotes && t && t.notes) {
+        var topNotes = t.notes.slice(0, 3);
+        var icons = {like:'&#9650;',bet:'&#10003;',fade:'&#9660;',watch:'&#9673;',process:'&#9881;'};
+        var colors = {like:'pos',bet:'pos',fade:'neg',watch:'form-warm',process:'form-neutral'};
+        fieldNotes.innerHTML = topNotes.map(function(n) {
+            var icon = icons[n.type]||'';
+            var cls = colors[n.type]||'';
+            return '<div style="font-size:0.78rem;padding:0.2rem 0"><span class="note-badge '+cls+'" style="font-size:0.5rem">'+icon+'</span> '+(n.player?'<strong>'+n.player+'</strong> ':'')+n.text+'</div>';
+        }).join('');
+    } else if (fieldNotes) {
+        fieldNotes.innerHTML = '<p style="color:var(--cream-500);font-size:0.78rem;font-style:italic">Analysis notes populate during tournament week.</p>';
+    }
+
+    // Status Feed
+    var statusFeed = document.getElementById('cut-status-feed');
+    if (statusFeed && typeof PLAYER_STATUS !== 'undefined') {
+        var typeIcons = {injury:'&#9888;',rest:'&#9200;',travel:'&#9992;',motivation:'&#9733;',equipment:'&#9881;',note:'&#9432;'};
+        statusFeed.innerHTML = PLAYER_STATUS.sort(function(a,b){
+            return b.updated.localeCompare(a.updated);
+        }).map(function(ps) {
+            var icon = typeIcons[ps.type] || '&#9432;';
+            return '<div class="status-feed-item"><div class="status-icon">'+icon+'</div><div class="status-body"><strong>'+ps.player+'</strong> '+ps.status+'<div class="status-time">'+ps.updated+'</div></div></div>';
+        }).join('');
+    }
+
+    // Upcoming Calendar
+    var calendar = document.getElementById('cut-calendar');
+    if (calendar) {
+        var upcoming = [
+            {key:'houston', date:'Mar 26-29', name:'Houston Open', course:'Memorial Park GC', surface:'Poa Triv', status:'live'},
+            {key:'valero', date:'Apr 2-5', name:'Valero Texas Open', course:'TPC San Antonio', surface:'Bermuda/Poa', status:'upcoming'},
+            {key:'masters', date:'Apr 10-13', name:'The Masters', course:'Augusta National', surface:'Bentgrass', status:'upcoming'},
+        ];
+        calendar.innerHTML = upcoming.map(function(ev) {
+            var badge = ev.status==='live' ? '<span class="badge live" style="font-size:0.5rem">LIVE</span>' : '';
+            return '<div class="cut-calendar-row"><div class="cut-date">'+ev.date+'</div><div class="cut-course"><strong>'+ev.name+'</strong> '+badge+'<span>'+ev.course+'</span></div><span class="cut-surface-tag">'+ev.surface+'</span></div>';
+        }).join('');
+    }
+}
+buildTheCut();
+
 // Notes toggle
 var nt = document.getElementById('notes-toggle');
 if (nt) nt.addEventListener('click', function() {
