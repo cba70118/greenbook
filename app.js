@@ -709,7 +709,7 @@ function renderSkillFit(t, skill) {
     display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(p, i) {
         var barWidth = Math.max(5, Math.min(100, p.score));
         var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
-        return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name">' + p.name + '</span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
+        return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name"><strong>' + p.name + '</strong></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
     }).join('') + '</div>';
 }
 
@@ -797,7 +797,7 @@ function buildDataCenter() {
         display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(s, i) {
             var cls = s.score >= 80 ? 'sf-elite' : s.score >= 60 ? 'sf-good' : s.score >= 40 ? 'sf-avg' : 'sf-weak';
             var tc = s.tier==='Elite'?'tier-elite':s.tier==='Contender'?'tier-contender':'tier-midfield';
-            return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name">' + s.name + ' <span class="tier-badge ' + tc + '" style="font-size:0.45rem;vertical-align:middle">' + s.tier + '</span></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + s.score + '%"></div></div><span class="sf-score">' + s.score.toFixed(0) + '</span></div>';
+            return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name"><strong>' + s.name + '</strong> <span class="tier-badge ' + tc + '" style="font-size:0.45rem;vertical-align:middle">' + s.tier + '</span></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + s.score + '%"></div></div><span class="sf-score">' + s.score.toFixed(0) + '</span></div>';
         }).join('') + '</div>';
     }
 

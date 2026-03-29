@@ -1093,3 +1093,4 @@ canvas { max-height: 350px; }
     text-decoration-color: var(--brass-400);
     color: var(--brass-400);
 }
+.sf-name strong { cursor: pointer; }
