@@ -1,17 +1,17 @@
 // Season data
 const SEASON = {
-    totalBets: 160,
-    settled: 137,
-    open: 23,
-    staked: 1322.75,
-    returned: 1329.25,
-    pl: 22.75,
-    roi: 1.7,
+    totalBets: 147,
+    settled: 131,
+    open: 16,
+    staked: 1302.75,
+    returned: 1204.25,
+    pl: 57.75,
+    roi: 5.0,
     winners: 10
 };
 
 const TOURNAMENTS = [
-    { name: "AMEX", bets: 11, staked: 100, returned: 10, pl: -90, phase: 1 },
+    { name: "AMEX", bets: 2, staked: 30, returned: 10, pl: -20, phase: 1 },
     { name: "Farmers", bets: 20, staked: 142, returned: 0, pl: -142, phase: 1 },
     { name: "WM Open", bets: 13, staked: 87.50, returned: 0, pl: -87.50, phase: 1 },
     { name: "Genesis", bets: 16, staked: 160, returned: 114.40, pl: -45.60, phase: 2 },
@@ -20,7 +20,7 @@ const TOURNAMENTS = [
     { name: "Puerto Rico", bets: 9, staked: 100, returned: 295, pl: 195, phase: 2 },
     { name: "Players", bets: 17, staked: 125, returned: 15, pl: -110, phase: 2 },
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
-    { name: "Houston", bets: 11, staked: 130, returned: 0, pl: -40, phase: 2, status: "live" },
+    { name: "Houston", bets: 11, staked: 130, returned: 0, pl: 0, phase: 2, status: "live" },
 ];
 
 const WINNERS = [
