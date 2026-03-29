@@ -2,13 +2,6 @@
 // GREENBOOK — Main Application
 // ═══════════════════════════════════════════════════════════
 
-// Modals
-document.getElementById('primer-btn').addEventListener('click', function(){document.getElementById('primer-modal').classList.remove('hidden')});
-document.getElementById('primer-close').addEventListener('click', function(){document.getElementById('primer-modal').classList.add('hidden')});
-document.getElementById('notes-btn').addEventListener('click', function(){document.getElementById('notes-modal').classList.remove('hidden')});
-document.getElementById('notes-close').addEventListener('click', function(){document.getElementById('notes-modal').classList.add('hidden')});
-document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.add('hidden')})});
-
 // Navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
