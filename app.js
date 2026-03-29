@@ -648,6 +648,51 @@ function renderSkillFit(t, skill) {
                 }).join('') + '</div>';
             return;
         }
+        if (skill === 'form') {
+            // Recent form check across all players
+            var formPlayers = SCOUTING.map(function(p) {
+                // Build a form score from available signals
+                var formScore = 50; // baseline
+                var signal = 'neutral';
+                var context = '';
+
+                // Check status flags
+                if (typeof PLAYER_STATUS !== 'undefined') {
+                    var ps = PLAYER_STATUS.find(function(s){return s.player===p.name});
+                    if (ps) {
+                        if (ps.severity === 'warning') { formScore -= 15; signal = 'caution'; context = ps.status.substring(0,50); }
+                        else if (ps.severity === 'caution') { formScore -= 8; signal = 'caution'; context = ps.status.substring(0,50); }
+                        else if (ps.type === 'motivation') { formScore += 5; context = ps.status.substring(0,50); }
+                    }
+                }
+
+                // Notes-based signals
+                if (p.notes) {
+                    if (p.notes.match(/won.*202[56]|champion.*202[56]/i)) { formScore += 20; signal = 'hot'; context = context || 'Recent winner'; }
+                    else if (p.notes.match(/TAILWIND|surging|momentum/i)) { formScore += 12; signal = 'hot'; context = context || 'Form trending up'; }
+                    else if (p.notes.match(/Benched|0-[4-9]/i)) { formScore -= 10; signal = 'cold'; context = context || 'Consecutive losses'; }
+                    else if (p.notes.match(/declining|struggled|MC/i)) { formScore -= 5; signal = 'cool'; context = context || 'Recent struggles'; }
+                }
+
+                // SG:TOT bonus for elite current ability
+                formScore += Math.round(p.sg_tot * 8);
+
+                return {name:p.name, score:Math.max(0,Math.min(100,formScore)), signal:signal, context:context, sg:p.sg_tot};
+            }).sort(function(a,b){return b.score - a.score}).slice(0,30);
+
+            var signalIcons = {hot:'&#9650;', caution:'&#9888;', cold:'&#9660;', cool:'&#9660;', neutral:''};
+            var signalColors = {hot:'pos', caution:'form-cool', cold:'neg', cool:'form-cool', neutral:'form-neutral'};
+
+            display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Recent form signals from status flags, results, and career SG:Total. Not a prediction — a snapshot of momentum and context.</p>' +
+                '<div class="skill-fit-list">' + formPlayers.map(function(p,i) {
+                    var cls = p.score>=70?'sf-elite':p.score>=55?'sf-good':p.score>=40?'sf-avg':'sf-weak';
+                    var icon = signalIcons[p.signal] || '';
+                    var sigCls = signalColors[p.signal] || '';
+                    var spark = makeSparkline(p.name, 'form');
+                    return '<div class="sf-row" style="grid-template-columns:28px 1fr 150px 60px"><span class="sf-rank">'+(i+1)+'</span><span class="sf-name"><strong>'+p.name+'</strong> '+spark+'</span><span style="font-size:0.68rem;color:var(--cream-500)">'+p.context+'</span><span class="sf-score '+sigCls+'">'+(icon?icon+' ':'')+p.score+'</span></div>';
+                }).join('') + '</div>';
+            return;
+        }
         if (skill === 'weekfit') {
             // Pull from radar if available, otherwise use SCOUTING sorted by APP + ARG (general course fit)
             if (t && t.radarPlayers) {
