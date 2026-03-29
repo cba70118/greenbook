@@ -49,6 +49,33 @@ if (cog) {
         { name:"Nico Echavarria", noonan:false, klos:false, mayo:false, stewart:false, titanic:false, count:0, rank:5 },
         { name:"Austin Smotherman", noonan:false, klos:false, mayo:false, stewart:false, titanic:false, count:0, rank:9 },
     ];
+    cog.review = {
+        record: "3W-14L",
+        pl: 341.75,
+        winner: "Nico Echavarria",
+        winnerOdds: "50/1",
+        bestPick: "Echavarria E/W won +$312.50",
+        summary: "Best week of the season. Echavarria was composite #5 at neutral form — not a model favourite but correctly identified as a Bermuda putting specialist. Mitchell T6 placed on the 8pl E/W, and Smotherman's 62 in R1 hit the FRL at +10000. Three wins from 17 bets in a single week validated the Phase 2 analytical framework.",
+        picks: [
+            { player:"Nico Echavarria", market:"E/W 1/4 5pl", odds:"+5000", finish:"Won (-17)", result:"Won", thesis:"Bermuda putting specialist. DG fair +1958.", verdict:"WINNER. Putting carried. Neutral form didn't predict a win, but course fit was perfect." },
+            { player:"Keith Mitchell", market:"E/W 1/5 8pl", odds:"+2500", finish:"T6 (-11)", result:"Won", thesis:"APP + OTT double. Titanic lean.", verdict:"PLACED. Ball-striking carried to E/W cash. 8pl terms were key." },
+            { player:"Austin Smotherman", market:"FRL 1/4 5pl", odds:"+10000", finish:"R1: 62 (FRL winner)", result:"Won", thesis:"TAILWIND 1.22x + approach on water holes.", verdict:"FRL WINNER. Form surge translated to R1 scoring spike. Our only FRL win this season." },
+            { player:"Shane Lowry", market:"Win", odds:"+2100", finish:"T2 (-15)", result:"Lost", thesis:"Composite #1. Noonan + Klos consensus.", verdict:"T2 but win-only bet. Would have cashed on E/W. Lesson: always use E/W structure." },
+        ],
+        modelNotes: [
+            { type:"hit", text:"Echavarria composite #5 won. Bermuda putting specialist thesis was correct." },
+            { type:"hit", text:"Mitchell composite #3 placed T6. Ball-striking profile delivered." },
+            { type:"hit", text:"Smotherman TAILWIND form translated to FRL scoring spike." },
+            { type:"miss", text:"Lowry composite #1 finished T2 but we had win-only. Structural error, not model error." },
+            { type:"miss", text:"Meissner and McGreevy both missed cut despite composite top-6 rankings." },
+        ],
+        lessons: [
+            "Always use E/W structure on outright bets. Lowry T2 at +2100 would have returned significant value on E/W terms.",
+            "Bermuda putting is a real separator at PGA National. Echavarria's surface-specific skill was the edge.",
+            "FRL can hit when form signal (TAILWIND) aligns with R1-specific skill. Smotherman 10000/1 was the proof.",
+            "Three winners in one week proves the process works. Don't let losing weeks shake conviction.",
+        ],
+    };
 }
 
 // === ARNOLD PALMER INVITATIONAL ===
@@ -135,6 +162,37 @@ if (pc) {
         { name:"Cameron Young", weakness:"ARG +0.13 (avg)", masked:"N/A", strength:"OTT +0.69 + PUTT +0.44", amplified:"YES (distance + Poa putting)", rank:4, form:"TAILWIND 1.28x", verdict:"WINNER. Breakthrough on ball-striking + hot putter week." },
         { name:"Sepp Straka", weakness:"PUTT +0.12 (modest)", masked:"N/A", strength:"APP +0.60", amplified:"YES (approach course)", rank:6, form:"warm 1.08x", verdict:"T8. Would have cashed on 8pl terms but we had 5pl." },
     ];
+    pc.review = {
+        record: "0W-17L",
+        pl: -110,
+        winner: "Cameron Young",
+        winnerOdds: "35/1",
+        bestPick: "None (closest: Straka T8, Henley/Conners/Hisatsune T13)",
+        summary: "Worst week of the season. Cameron Young won on ball-striking but wasn't on our card. Six of seven players with round-by-round data shot their worst round in R4. This was the week that first surfaced the R4 grinder-fade pattern. Straka co-led after R1 (67) but finished T8 on 5pl terms when 8pl would have cashed. Place-term structure cost us.",
+        picks: [
+            { player:"Sepp Straka", market:"E/W 1/4 5pl", odds:"+6000", finish:"T8 (-8)", result:"Lost", thesis:"Co-led R1 (67). APP +0.60 fits Sawgrass.", verdict:"3 spots outside 5pl. Would have CASHED on 8pl terms. E/W structure error." },
+            { player:"Russell Henley", market:"E/W 1/5 10pl", odds:"+2800", finish:"T13 (-6)", result:"Lost", thesis:"APP + ARG fit. Klos model favourite.", verdict:"R1 68 (T6) but faded each round: 68-71-71-72. Steady decline = no closing gear." },
+            { player:"Si Woo Kim", market:"E/W 1/5 10pl", odds:"+2200", finish:"T50 (+1)", result:"Lost", thesis:"APP elite. 6mo form #3.", verdict:"R4 76 COLLAPSE. Shot 68 in R3 then +8 swing in R4. Worst individual fade of the season." },
+            { player:"Corey Conners", market:"E/W 1/5 10pl", odds:"+8000", finish:"T13 (-6)", result:"Lost", thesis:"APP fit. Course history.", verdict:"69-67-72-74. Classic R4 fade: R2 low raised expectations, R4 highest score." },
+            { player:"Ryo Hisatsune", market:"E/W 1/5 10pl", odds:"+11000", finish:"T13 (-6)", result:"Lost", thesis:"APP model #3. 12 events gaining T2G.", verdict:"71-69-70-72. Steady but 3 spots outside 10pl. R4 was his worst round." },
+            { player:"Min Woo Lee", market:"E/W 1/5 8pl", odds:"+3300", finish:"T32 (-2)", result:"Lost", thesis:"Distance + talent.", verdict:"72-70-70-74. LATE wave R1 hurt. R4 fade continued the pattern." },
+        ],
+        modelNotes: [
+            { type:"hit", text:"Straka composite #6 finished T8. Model was right, E/W terms were wrong." },
+            { type:"hit", text:"Henley, Conners, Hisatsune all T13. Model correctly identified contenders but none could close." },
+            { type:"miss", text:"Cameron Young won but wasn't on our card. His TAILWIND 1.28x should have flagged him." },
+            { type:"miss", text:"Si Woo Kim T50 (+1). R4 76 was a catastrophic collapse the model couldn't predict." },
+            { type:"miss", text:"Castillo T70. Complete miss across all markets." },
+            { type:"note", text:"6 of 7 players shot their worst round in R4. This is where the grinder-fade hypothesis was born." },
+        ],
+        lessons: [
+            "Straka T8 on 5pl terms when 8pl cashes = structural lesson. Wider E/W terms on grinder profiles.",
+            "R4 fade is real at TPC Sawgrass. Island green on 17 + Sunday pins create 2-3 stroke swings.",
+            "TAILWIND form signals (Cameron Young 1.28x) deserve more weight even when composite rank is modest.",
+            "Four players at T13 (-6) and one at T8 (-8) = we correctly identified the contention tier but couldn't pick the winner from within it.",
+            "FRL went 0-for-5. Sawgrass R1 leaders shot 67 and our best R1 was Straka's 67 + Conners 69. FRL requires top-3 R1 not top-10.",
+        ],
+    };
 }
 
 // === VALSPAR ===

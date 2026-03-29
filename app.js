@@ -132,7 +132,7 @@ function buildTheCut() {
     var calendar = document.getElementById('cut-calendar');
     if (calendar) {
         var upcoming = [
-            {date:'Mar 26-29', name:'Houston Open', surface:'Poa Triv', status:'live'},
+            {date:'Mar 26-29', name:'Houston Open', surface:'Poa Triv', status:'settled'},
             {date:'Apr 2-5', name:'Valero Texas Open', surface:'Bermuda/Poa', status:'upcoming'},
             {date:'Apr 10-13', name:'The Masters', surface:'Bentgrass', status:'upcoming'},
         ];
@@ -298,6 +298,55 @@ function loadTournament(key) {
         slot.innerHTML = `<div class="result-banner"><div class="result-winner"><span class="result-label">2026 Winner: </span>${t.result2026.winner} (${t.result2026.score})</div><div class="result-why">${t.result2026.why}</div></div>`;
     }
 
+    // Tournament Review (settled only)
+    var reviewSection = document.getElementById('review-section');
+    if (t.review) {
+        reviewSection.style.display = '';
+        var r = t.review;
+        // Summary bar
+        var sumHtml = '<div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:0.75rem">';
+        sumHtml += '<div class="review-stat"><span class="review-stat-label">Record</span><span class="review-stat-value">' + r.record + '</span></div>';
+        sumHtml += '<div class="review-stat"><span class="review-stat-label">P/L</span><span class="review-stat-value ' + (r.pl >= 0 ? 'positive' : 'negative') + '">' + (r.pl >= 0 ? '+$' : '-$') + Math.abs(r.pl).toFixed(0) + '</span></div>';
+        sumHtml += '<div class="review-stat"><span class="review-stat-label">Winner</span><span class="review-stat-value">' + r.winner + ' (' + r.winnerOdds + ')</span></div>';
+        if (r.bestPick) sumHtml += '<div class="review-stat"><span class="review-stat-label">Best Pick</span><span class="review-stat-value">' + r.bestPick + '</span></div>';
+        sumHtml += '</div>';
+        if (r.summary) sumHtml += '<div style="font-size:0.8rem;line-height:1.5;color:var(--cream-400);margin-top:0.5rem">' + r.summary + '</div>';
+        document.getElementById('review-summary').innerHTML = sumHtml;
+        // Picks table
+        var picksHtml = '';
+        (r.picks || []).forEach(function(p) {
+            var resultClass = p.result === 'Won' ? 'positive' : p.result === 'Lost' ? 'negative' : '';
+            picksHtml += '<tr><td>' + p.player + '</td><td>' + p.market + '</td><td>' + p.odds + '</td><td>' + p.finish + '</td><td class="' + resultClass + '">' + p.result + '</td><td style="font-size:0.72rem;max-width:200px">' + p.thesis + '</td><td style="font-size:0.72rem;max-width:180px">' + p.verdict + '</td></tr>';
+        });
+        document.getElementById('review-picks').innerHTML = picksHtml;
+        // Model accuracy
+        var modelHtml = '';
+        if (r.modelNotes && r.modelNotes.length) {
+            modelHtml = '<div style="font-family:var(--font-mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-500);margin-bottom:0.5rem">Model vs Reality</div>';
+            modelHtml += '<div style="display:flex;flex-direction:column;gap:0.4rem">';
+            r.modelNotes.forEach(function(n) {
+                var icon = n.type === 'hit' ? '&#10003;' : n.type === 'miss' ? '&#10007;' : '&#9679;';
+                var color = n.type === 'hit' ? 'var(--green-400)' : n.type === 'miss' ? '#c44' : 'var(--brass-500)';
+                modelHtml += '<div style="font-size:0.78rem;line-height:1.4;color:var(--cream-400)"><span style="color:' + color + ';margin-right:0.4rem">' + icon + '</span>' + n.text + '</div>';
+            });
+            modelHtml += '</div>';
+        }
+        document.getElementById('review-model').innerHTML = modelHtml;
+        // Lessons
+        var lessonsHtml = '';
+        if (r.lessons && r.lessons.length) {
+            lessonsHtml = '<div style="font-family:var(--font-mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-500);margin-bottom:0.5rem">Key Takeaways</div>';
+            lessonsHtml += '<div style="display:flex;flex-direction:column;gap:0.35rem">';
+            r.lessons.forEach(function(l) {
+                lessonsHtml += '<div style="font-size:0.78rem;line-height:1.4;color:var(--cream-400);padding-left:0.75rem;border-left:2px solid var(--border)">' + l + '</div>';
+            });
+            lessonsHtml += '</div>';
+        }
+        document.getElementById('review-lessons').innerHTML = lessonsHtml;
+    } else {
+        reviewSection.style.display = 'none';
+    }
+
     // Narrative
     const ns = document.getElementById('narrative-section');
     if (t.narrative) {
@@ -370,8 +419,8 @@ function loadTournament(key) {
     var activeBtn = document.querySelector('.timeline-btn.active');
     var isLive = (activeBtn && activeBtn.classList.contains('live')) || (activeBtn && activeBtn.classList.contains('settled'));
     // Also check by tournament key — houston is hardcoded as live for now
-    var liveKeys = ['houston'];
-    var settledKeys = ['cognizant','arnoldpalmer','puertorico','players','valspar'];
+    var liveKeys = [];
+    var settledKeys = ['cognizant','arnoldpalmer','puertorico','players','valspar','houston'];
     if (typeof key !== 'undefined' && (liveKeys.indexOf(key) >= 0 || settledKeys.indexOf(key) >= 0)) isLive = true;
     if (t.frl && t.frl.length && isUpcoming && !isLive) {
         if (frlCard) frlCard.style.display = '';

@@ -336,6 +336,13 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .result-why { font-family: var(--font-body); font-size: 0.8rem; color: var(--cream-300); margin-top: 0.25rem; }
 .result-record { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cream-500); margin-top: 0.25rem; }
 
+/* ─── TOURNAMENT REVIEW ──────────────────────────────────── */
+.review-stat { display: flex; flex-direction: column; gap: 0.15rem; }
+.review-stat-label { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cream-600); }
+.review-stat-value { font-family: var(--font-display); font-size: 1rem; color: var(--cream-200); }
+.review-stat-value.positive { color: var(--green-400); }
+.review-stat-value.negative { color: #c44; }
+
 /* ─── COURSE NARRATIVE ────────────────────────────────────── */
 .narrative-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; }
 @media (max-width: 900px) { .narrative-grid { grid-template-columns: 1fr; } }

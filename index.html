@@ -44,7 +44,7 @@
 
     <!-- ═══ NOTES ═══ -->
     <div class="notes-bar" id="notes-bar">
-        <div class="notes-entry notes-latest"><span class="notes-date">Mar 29</span>Houston R4 today. Hojgaard in 2nd, one back of Woodland with the place leg live. Scott T10, Jaeger T12, Mitchell T25, Kitayama made the cut but well back. Clark and Greyserman missed. Yellamaraju at T7 is a strong form signal heading into Valero where we have him at +14000. Day at T5 validates our Masters thesis on his Augusta history.</div>
+        <div class="notes-entry notes-latest"><span class="notes-date">Mar 29</span>Houston settled. Woodland won by 5 at -21 (200/1). Happy for him. Hojgaard 2nd placed for $72 on the E/W. Scott T21 and Jaeger T28 both faded. Kitayama T60, Clark and Greyserman MC. Onto Valero. Next week is a crapshoot for handicapping. Waiting for more data but have darts loaded (Ewart, Zalatoris, Yellamaraju, Hughes). Yellamaraju T8 at Houston validates his Valero odds board spot at +14000. Day T9 validates our Masters thesis.</div>
         <div class="notes-toggle" id="notes-toggle">Previous notes <span id="notes-arrow">&#9660;</span></div>
         <div class="notes-content hidden" id="notes-content">
             <div class="notes-entry"><span class="notes-date">Mar 28</span>Valero next week. The new Rabbit Hole models confirm Henley and Fleetwood as the top fits, but the market already knows. Real value might be deeper. Hisatsune at +5200 ranks #10 in model 21. Yellamaraju keeps showing up in composites despite being 140/1. The field splits between Masters-bound guys going through the motions and hungry players fighting for their season.</div>
@@ -109,6 +109,19 @@
 
         <!-- Result Banner (injected by JS) -->
         <div id="result-banner-slot"></div>
+
+        <!-- Tournament Review (settled tournaments only) -->
+        <div id="review-section" style="display:none">
+            <div class="card" style="border-left:3px solid var(--brass-500)">
+                <h3>Tournament Review</h3>
+                <p class="card-subtitle">Post-mortem analysis: what we picked, why, and how the model performed against actual results.</p>
+                <div id="review-summary" style="margin-bottom:1rem"></div>
+                <table class="data-table"><thead><tr><th>Player</th><th>Market</th><th>Odds</th><th>Finish</th><th>Result</th><th>Thesis</th><th>Verdict</th></tr></thead>
+                <tbody id="review-picks"></tbody></table>
+                <div id="review-model" style="margin-top:1.25rem"></div>
+                <div id="review-lessons" style="margin-top:1rem"></div>
+            </div>
+        </div>
 
         <!-- Course Bar -->
         <div class="course-bar">

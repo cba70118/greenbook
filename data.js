@@ -1,14 +1,14 @@
 // Season data
 const SEASON = {
     totalBets: 156,
-    settled: 136,
-    open: 16,
+    settled: 147,
+    open: 9,
     staked: 1372.75,
-    settledStaked: 1176.50,
-    returned: 1204.25,
-    pl: 27.75,
-    roi: 2.4,
-    winners: 10
+    settledStaked: 1306.50,
+    returned: 1276.25,
+    pl: -30.25,
+    roi: -2.3,
+    winners: 11
 };
 
 const TOURNAMENTS = [
@@ -21,7 +21,7 @@ const TOURNAMENTS = [
     { name: "Puerto Rico", bets: 9, staked: 100, returned: 295, pl: 195, phase: 2 },
     { name: "Players", bets: 17, staked: 125, returned: 15, pl: -110, phase: 2 },
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
-    { name: "Houston", bets: 11, staked: 130, returned: 0, pl: 0, phase: 2, status: "live" },
+    { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -35,6 +35,7 @@ const WINNERS = [
     { tournament: "Arnold Palmer", player: "Conners/Bhatia", market: "2-Ball Parlay", odds: "+200", stake: 10, ret: 30, pl: 20 },
     { tournament: "Arnold Palmer", player: "Chris Gotterup", market: "72H vs Thomas", odds: "-110", stake: 10, ret: 19.10, pl: 9.10 },
     { tournament: "Arnold Palmer", player: "DFS Lineup", market: "GPP", odds: "-", stake: 20, ret: 144, pl: 124 },
+    { tournament: "Houston", player: "Nicolai Hojgaard", market: "E/W 1/4 5pl", odds: "+2500", stake: 20, ret: 72, pl: 52 },
 ];
 
 const MARKETS = [
@@ -55,17 +56,17 @@ const EW_TERMS = [
 
 // Current Houston card
 const HOUSTON_CARD = [
-    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "1/4 5pl", odds: "+2500", stake: 20, placed: "Mar 25", edge: "Meta #3", status: "2nd (-17)" },
-    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, placed: "Mar 25", edge: "APP #1 + 30% boost", status: "E (back of field)" },
-    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "Meta #2", status: "T10 (-9)" },
-    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "APP+OTT double", status: "T~25 (-5)" },
-    { num: 5, player: "Wyndham Clark", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "T5 2025 + form", status: "MC" },
-    { num: 6, player: "Stephan Jaeger", market: "Outright", terms: "1/5 8pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "2024 winner", status: "T12 (-8)" },
-    { num: 7, player: "Max Greyserman", market: "Outright", terms: "1/5 8pl", odds: "+5500", stake: 10, placed: "Mar 25", edge: "T7 2024", status: "MC" },
-    { num: 8, player: "Kurt Kitayama", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost" },
-    { num: 9, player: "Nicolai Hojgaard", market: "FRL", terms: "1/4 5pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost" },
-    { num: 10, player: "Keith Mitchell", market: "FRL", terms: "1/4 5pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "4/5 + history", status: "Lost" },
-    { num: 11, player: "Alejandro Tosti", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 10, placed: "Mar 25", edge: "Co-FRL 2025", status: "Lost" },
+    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "1/4 5pl", odds: "+2500", stake: 20, placed: "Mar 25", edge: "Meta #3", status: "2nd (-16) PLACE $72", result: "Won" },
+    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, placed: "Mar 25", edge: "APP #1 + 30% boost", status: "T60 (-1)", result: "Lost" },
+    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "Meta #2", status: "T21 (-8)", result: "Lost" },
+    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "APP+OTT double", status: "T14 (-10)", result: "Lost" },
+    { num: 5, player: "Wyndham Clark", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "T5 2025 + form", status: "MC", result: "Lost" },
+    { num: 6, player: "Stephan Jaeger", market: "Outright", terms: "1/5 8pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "2024 winner", status: "T28 (-7)", result: "Lost" },
+    { num: 7, player: "Max Greyserman", market: "Outright", terms: "1/5 8pl", odds: "+5500", stake: 10, placed: "Mar 25", edge: "T7 2024", status: "MC", result: "Lost" },
+    { num: 8, player: "Kurt Kitayama", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost", result: "Lost" },
+    { num: 9, player: "Nicolai Hojgaard", market: "FRL", terms: "1/4 5pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost", result: "Lost" },
+    { num: 10, player: "Keith Mitchell", market: "FRL", terms: "1/4 5pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "4/5 + history", status: "Lost", result: "Lost" },
+    { num: 11, player: "Alejandro Tosti", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 10, placed: "Mar 25", edge: "Co-FRL 2025", status: "Lost", result: "Lost" },
 ];
 
 const MASTERS_CARD = [
@@ -378,8 +379,11 @@ const PLAYER_STATUS = [
     { player: "Scottie Scheffler", type: "rest", status: "WD from Houston (birth of second child). Preparing for Masters. Fully healthy.", severity: "info", updated: "Mar 25" },
     { player: "Xander Schauffele", type: "injury", status: "Returning from early-season injury. Showed form at Valspar (T4). Putting rank 76th this year.", severity: "caution", updated: "Mar 22" },
     { player: "Will Zalatoris", type: "injury", status: "Back from injury. First return at Houston. MC on the number. Approach play looked ok, driving and chipping did not.", severity: "caution", updated: "Mar 27" },
-    { player: "Nicolai Hojgaard", type: "motivation", status: "2nd at Houston (-17) heading into R4. Masters qualification virtually locked. Likely WDs from Valero.", severity: "info", updated: "Mar 29" },
-    { player: "Michael Thorbjornsen", type: "motivation", status: "T3 at Houston (-12). Should crack OWGR top 50 for Masters invite with this finish.", severity: "info", updated: "Mar 29" },
+    { player: "Nicolai Hojgaard", type: "motivation", status: "2nd at Houston (-16). Masters qualified. Likely skips Valero for Augusta prep. Our E/W place leg cashed.", severity: "info", updated: "Mar 29" },
+    { player: "Michael Thorbjornsen", type: "motivation", status: "Finished T3 at Houston (-15). Should crack OWGR top 50 for Masters invite.", severity: "info", updated: "Mar 29" },
+    { player: "Gary Woodland", type: "form", status: "Won Houston by 5 (-21). TAILWIND 1.52x validated. Brain tumor comeback. Masters invite earned. Watch market overreaction.", severity: "info", updated: "Mar 29" },
+    { player: "Jason Day", type: "form", status: "T9 at Houston (-13). Validates Augusta course history thesis (4-for-4 T10s). We have him at +7000 for Masters.", severity: "info", updated: "Mar 29" },
+    { player: "Sudarshan Yellamaraju", type: "form", status: "T8 at Houston (-13). Validates Valero odds board spot at +14000. Watch for more data this week.", severity: "info", updated: "Mar 29" },
 ];
 
 // Course library
