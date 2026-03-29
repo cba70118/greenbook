@@ -68,8 +68,16 @@ document.addEventListener('click', function(e) {
 });
 
 // ═══ THE CUT ═══
+// Toggle
+var cutToggle = document.getElementById('cut-toggle');
+if (cutToggle) cutToggle.addEventListener('click', function() {
+    var content = document.getElementById('cut-content');
+    var arrow = document.getElementById('cut-arrow');
+    content.classList.toggle('hidden');
+    arrow.classList.toggle('open');
+});
+
 function buildTheCut() {
-    // Find current tournament (first live, then first upcoming)
     var currentKey = getCurrentTournament();
     var t = TOURNAMENT_DATA[currentKey];
 
@@ -78,51 +86,43 @@ function buildTheCut() {
     var eventMeta = document.getElementById('cut-event-meta');
     if (eventName && t) {
         eventName.textContent = t.name || t.course || '';
-        eventMeta.textContent = t.meta || '';
+        eventMeta.textContent = (t.meta || '').substring(0, 80);
     }
 
-    // Weather mini (just fetch and show 2-day summary)
+    // Weather mini
     var weatherMini = document.getElementById('cut-weather-mini');
     if (weatherMini && t && t.location) {
         fetch('https://api.weatherapi.com/v1/forecast.json?key=22e06f60fa1d4696bc7175703262803&q='+encodeURIComponent(t.location)+'&days=2')
         .then(function(r){return r.json()})
         .then(function(data) {
             if (data.forecast) {
-                var days = data.forecast.forecastday;
-                weatherMini.innerHTML = days.map(function(d) {
-                    var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-                    var date = new Date(d.date+'T12:00:00');
-                    var icon = d.day.daily_chance_of_rain > 50 ? '🌧' : d.day.maxwind_mph > 18 ? '💨' : '☀';
-                    return '<div>'+icon+' '+dayNames[date.getDay()]+' '+Math.round(d.day.maxtemp_f)+'° '+Math.round(d.day.maxwind_mph)+'mph</div>';
-                }).join('');
+                weatherMini.innerHTML = data.forecast.forecastday.map(function(d) {
+                    var dn = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                    var dt = new Date(d.date+'T12:00:00');
+                    var ic = d.day.daily_chance_of_rain>50?'🌧':d.day.maxwind_mph>18?'💨':'☀';
+                    return ic+' '+dn[dt.getDay()]+' '+Math.round(d.day.maxtemp_f)+'° '+Math.round(d.day.maxwind_mph)+'mph';
+                }).join(' &nbsp; ');
             }
         }).catch(function(){});
     }
 
-    // Field notes from analysis notes
-    var fieldNotes = document.getElementById('cut-field-notes');
-    if (fieldNotes && t && t.notes) {
-        var topNotes = t.notes.slice(0, 3);
-        var icons = {like:'&#9650;',bet:'&#10003;',fade:'&#9660;',watch:'&#9673;',process:'&#9881;'};
-        var colors = {like:'pos',bet:'pos',fade:'neg',watch:'form-warm',process:'form-neutral'};
-        fieldNotes.innerHTML = topNotes.map(function(n) {
-            var icon = icons[n.type]||'';
-            var cls = colors[n.type]||'';
-            return '<div style="font-size:0.78rem;padding:0.2rem 0"><span class="note-badge '+cls+'" style="font-size:0.5rem">'+icon+'</span> '+(n.player?'<strong>'+n.player+'</strong> ':'')+n.text+'</div>';
-        }).join('');
-    } else if (fieldNotes) {
-        fieldNotes.innerHTML = '<p style="color:var(--cream-500);font-size:0.78rem;font-style:italic">Analysis notes populate during tournament week.</p>';
+    // One to Watch — pick the first LIKE from analysis notes
+    var otw = document.getElementById('cut-one-to-watch');
+    if (otw && t && t.notes) {
+        var likeNote = t.notes.find(function(n){return n.type==='like' && n.player});
+        if (likeNote) {
+            otw.innerHTML = '<div class="cut-one-watch"><div class="cut-one-watch-label">One to Watch</div><strong>'+likeNote.player+'</strong> '+likeNote.text.substring(0,120)+'</div>';
+        }
     }
 
-    // Status Feed
+    // Status Feed (compact, max 5)
     var statusFeed = document.getElementById('cut-status-feed');
     if (statusFeed && typeof PLAYER_STATUS !== 'undefined') {
         var typeIcons = {injury:'&#9888;',rest:'&#9200;',travel:'&#9992;',motivation:'&#9733;',equipment:'&#9881;',note:'&#9432;'};
         statusFeed.innerHTML = PLAYER_STATUS.sort(function(a,b){
             return b.updated.localeCompare(a.updated);
-        }).map(function(ps) {
-            var icon = typeIcons[ps.type] || '&#9432;';
-            return '<div class="status-feed-item"><div class="status-icon">'+icon+'</div><div class="status-body"><strong>'+ps.player+'</strong> '+ps.status+'<div class="status-time">'+ps.updated+'</div></div></div>';
+        }).slice(0,5).map(function(ps) {
+            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem">'+typeIcons[ps.type]+' <strong>'+ps.player+'</strong> <span style="color:var(--cream-500)">'+ps.status.substring(0,60)+'</span></div>';
         }).join('');
     }
 
@@ -130,14 +130,28 @@ function buildTheCut() {
     var calendar = document.getElementById('cut-calendar');
     if (calendar) {
         var upcoming = [
-            {key:'houston', date:'Mar 26-29', name:'Houston Open', course:'Memorial Park GC', surface:'Poa Triv', status:'live'},
-            {key:'valero', date:'Apr 2-5', name:'Valero Texas Open', course:'TPC San Antonio', surface:'Bermuda/Poa', status:'upcoming'},
-            {key:'masters', date:'Apr 10-13', name:'The Masters', course:'Augusta National', surface:'Bentgrass', status:'upcoming'},
+            {date:'Mar 26-29', name:'Houston Open', surface:'Poa Triv', status:'live'},
+            {date:'Apr 2-5', name:'Valero Texas Open', surface:'Bermuda/Poa', status:'upcoming'},
+            {date:'Apr 10-13', name:'The Masters', surface:'Bentgrass', status:'upcoming'},
         ];
         calendar.innerHTML = upcoming.map(function(ev) {
-            var badge = ev.status==='live' ? '<span class="badge live" style="font-size:0.5rem">LIVE</span>' : '';
-            return '<div class="cut-calendar-row"><div class="cut-date">'+ev.date+'</div><div class="cut-course"><strong>'+ev.name+'</strong> '+badge+'<span>'+ev.course+'</span></div><span class="cut-surface-tag">'+ev.surface+'</span></div>';
+            var badge = ev.status==='live'?'<span class="badge live" style="font-size:0.45rem;margin-left:0.3rem">LIVE</span>':'';
+            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem"><strong>'+ev.name+'</strong>'+badge+' <span style="color:var(--cream-500)">'+ev.date+'</span> <span class="cut-surface-tag">'+ev.surface+'</span></div>';
         }).join('');
+    }
+
+    // Last Week
+    var lastWeek = document.getElementById('cut-last-week');
+    if (lastWeek) {
+        // Find most recent settled tournament
+        var settled = ['valspar','players','arnoldpalmer','puertorico','cognizant'];
+        for (var i=0; i<settled.length; i++) {
+            var st = TOURNAMENT_DATA[settled[i]];
+            if (st && st.result2026) {
+                lastWeek.innerHTML = '<div class="cut-last-week">Last week: <strong>'+st.result2026.winner+'</strong> won '+st.name.replace(' 2026','')+' ('+st.result2026.score+')</div>';
+                break;
+            }
+        }
     }
 }
 buildTheCut();

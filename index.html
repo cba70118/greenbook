@@ -29,8 +29,7 @@
             <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season <span style="background:rgba(201,160,70,0.15);color:var(--brass-400);padding:0.1rem 0.4rem;border-radius:3px;font-size:0.55rem;margin-left:0.5rem;vertical-align:middle">BETA v0.1</span></p>
         </div>
         <nav>
-            <button class="nav-btn active" data-section="thecut">The Cut</button>
-            <button class="nav-btn" data-section="tournament">Tournaments</button>
+            <button class="nav-btn active" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
             <button class="nav-btn" data-section="liveodds">Live Odds</button>
             <button class="nav-btn" data-section="tools">Tools <span style="font-size:0.45rem;opacity:0.6;vertical-align:super">beta</span></button>
@@ -53,37 +52,38 @@
         </div>
     </div>
 
-    <!-- ═══ THE CUT ═══ -->
-    <section id="thecut" class="panel active">
-
-        <!-- This Week -->
-        <div class="card" id="cut-thisweek">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start">
-                <div>
-                    <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.25rem" id="cut-event-name"></h2>
-                    <p class="card-subtitle" id="cut-event-meta" style="margin:0"></p>
+    <!-- ═══ THE CUT (persistent strip, not a nav tab) ═══ -->
+    <div class="cut-strip" id="cut-strip">
+        <div class="cut-strip-header" id="cut-toggle">
+            <span class="cut-title">The Cut</span>
+            <span class="cut-arrow" id="cut-arrow">&#9660;</span>
+        </div>
+        <div class="cut-strip-content" id="cut-content">
+            <div class="cut-grid">
+                <!-- This Week -->
+                <div class="cut-section">
+                    <h2 style="font-family:var(--font-display);font-weight:300;font-size:1.1rem;letter-spacing:0.04em;margin-bottom:0.2rem" id="cut-event-name"></h2>
+                    <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500);margin-bottom:0.5rem" id="cut-event-meta"></p>
+                    <div id="cut-weather-mini" class="cut-weather-mini"></div>
+                    <div id="cut-one-to-watch" style="margin-top:0.5rem"></div>
                 </div>
-                <div id="cut-weather-mini" style="text-align:right"></div>
+                <!-- Status + Last Week -->
+                <div class="cut-section">
+                    <h4 style="font-family:var(--font-mono);font-size:0.65rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem">Status Feed</h4>
+                    <div id="cut-status-feed"></div>
+                </div>
+                <!-- Upcoming -->
+                <div class="cut-section">
+                    <h4 style="font-family:var(--font-mono);font-size:0.65rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem">Upcoming</h4>
+                    <div id="cut-calendar"></div>
+                    <div id="cut-last-week" style="margin-top:0.5rem"></div>
+                </div>
             </div>
-            <div id="cut-field-notes" style="margin-top:0.75rem"></div>
         </div>
-
-        <!-- Status Feed -->
-        <div class="card">
-            <h3>Status Feed</h3>
-            <div id="cut-status-feed"></div>
-        </div>
-
-        <!-- Upcoming Calendar -->
-        <div class="card">
-            <h3>Upcoming</h3>
-            <div id="cut-calendar"></div>
-        </div>
-
-    </section>
+    </div>
 
     <!-- ═══ TOURNAMENTS ═══ -->
-    <section id="tournament" class="panel">
+    <section id="tournament" class="panel active">
 
         <!-- Timeline: upcoming/live first (right-to-left chronology so current is visible without scrolling) -->
         <div class="timeline-strip">
