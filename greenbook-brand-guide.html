@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GREENBOOK — Brand Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-900: #071209;
+    --green-800: #0D1F16;
+    --green-700: #152E1F;
+    --green-600: #1E5C38;
+    --green-500: #2A7A4B;
+    --green-400: #3D9E64;
+    --green-300: #6DC48E;
+    --green-200: #A8DDB9;
+    --green-100: #D8F0E2;
+    --green-50:  #EEF8F3;
+
+    --brass-900: #2B1E06;
+    --brass-700: #7A540F;
+    --brass-600: #A87218;
+    --brass-500: #C9A046;
+    --brass-400: #DDB96A;
+    --brass-300: #EDD090;
+    --brass-100: #F9EFD5;
+
+    --cream-900: #2B2720;
+    --cream-700: #6B5F4A;
+    --cream-500: #A89880;
+    --cream-300: #D9CDB8;
+    --cream-200: #EDE5D4;
+    --cream-100: #F5EDD9;
+    --cream-50:  #FAF7F1;
+
+    --scarlet: #C0392B;
+    --scarlet-light: #F4C6C2;
+    --birdie: #2E7DD1;
+    --birdie-light: #C4DCF5;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Lora', Georgia, serif;
+    --font-mono: 'DM Mono', 'Courier New', monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream-50);
+    color: var(--green-800);
+    line-height: 1.7;
+  }
+
+  /* ─── COVER ─────────────────────────────────────────────────── */
+  .cover {
+    background: var(--green-800);
+    color: var(--cream-100);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
+    pointer-events: none;
+  }
+
+  .cover-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; }
+  .cover-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; color: var(--green-300); text-transform: uppercase; }
+
+  .cover-center { position: relative; padding: 80px 0; }
+
+  .logo-lockup { display: flex; align-items: center; gap: 24px; }
+
+  .logo-mark {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: var(--cream-100);
+  }
+
+  .logo-wordmark strong {
+    font-weight: 700;
+    color: var(--brass-400);
+    letter-spacing: 0.06em;
+  }
+
+  .cover-tagline {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--green-300);
+    margin-top: 28px;
+    text-transform: uppercase;
+  }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green-400);
+    letter-spacing: 0.08em;
+  }
+
+  .brass-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--brass-500);
+    margin: 20px 0;
+  }
+
+  /* ─── SECTIONS ───────────────────────────────────────────────── */
+  .section {
+    padding: 80px;
+    border-bottom: 1px solid var(--cream-300);
+  }
+  .section:last-child { border-bottom: none; }
+  .section--dark {
+    background: var(--green-800);
+    color: var(--cream-100);
+  }
+  .section--cream {
+    background: var(--cream-100);
+  }
+  .section--mid {
+    background: var(--green-700);
+    color: var(--cream-100);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass-500);
+    margin-bottom: 8px;
+  }
+  .section--dark .section-label,
+  .section--mid .section-label { color: var(--brass-400); }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 48px;
+    color: var(--green-800);
+  }
+  .section--dark .section-title,
+  .section--mid .section-title { color: var(--cream-100); }
+
+  /* ─── BRAND STORY ────────────────────────────────────────────── */
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .story-block h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-600);
+    margin-bottom: 12px;
+  }
+  .section--dark .story-block h3 { color: var(--brass-400); }
+  .story-block p {
+    font-size: 15px;
+    color: var(--green-700);
+    line-height: 1.8;
+  }
+  .section--dark .story-block p { color: var(--cream-300); }
+
+  /* ─── LOGOTYPE SECTION ───────────────────────────────────────── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .logo-cell {
+    padding: 60px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .logo-cell--dark { background: var(--green-800); }
+  .logo-cell--mid  { background: var(--green-600); }
+  .logo-cell--light { background: var(--cream-50); border: 1px solid var(--cream-300); }
+  .logo-cell--brass { background: var(--brass-500); }
+
+  .cell-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-300);
+  }
+  .logo-cell--light .cell-label { color: var(--green-500); }
+  .logo-cell--brass .cell-label { color: var(--green-800); }
+
+  /* Logo sizes for cells */
+  .logo-lg { display: flex; align-items: center; gap: 18px; }
+  .logo-lg .wm {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    color: var(--cream-100);
+  }
+  .logo-lg .wm strong { font-weight: 700; color: var(--brass-400); }
+  .logo-cell--light .logo-lg .wm { color: var(--green-800); }
+  .logo-cell--light .logo-lg .wm strong { color: var(--green-600); }
+  .logo-cell--brass .logo-lg .wm { color: var(--green-900); }
+  .logo-cell--brass .logo-lg .wm strong { color: var(--green-800); }
+  .logo-cell--mid .logo-lg .wm { color: var(--cream-50); }
+  .logo-cell--mid .logo-lg .wm strong { color: var(--brass-300); }
+
+  /* Icon mark variants */
+  .icon-sm { width: 40px; height: 40px; flex-shrink: 0; }
+  .icon-lg { width: 56px; height: 56px; flex-shrink: 0; }
+
+  /* Horizontal rule variant */
+  .logo-stacked { display: flex; flex-direction: column; align-items: flex-start; }
+  .logo-stacked .wm {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 36px;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    color: var(--cream-100);
+  }
+  .logo-stacked .wm strong { font-weight: 700; color: var(--brass-400); }
+  .logo-stacked .sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--green-300);
+    margin-top: 6px;
+  }
+
+  /* ─── COLORS ─────────────────────────────────────────────────── */
+  .color-family { margin-bottom: 48px; }
+  .color-family-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brass-600);
+    margin-bottom: 12px;
+  }
+  .swatch-row { display: flex; gap: 3px; }
+  .swatch {
+    flex: 1;
+    height: 80px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .swatch-info {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 4px;
+  }
+  .swatch-name {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    display: block;
+    white-space: nowrap;
+  }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    opacity: 0.75;
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* Primary green ramp */
+  .sw-g900 { background: #071209; } .sw-g900 .swatch-name, .sw-g900 .swatch-hex { color: #3D9E64; }
+  .sw-g800 { background: #0D1F16; } .sw-g800 .swatch-name, .sw-g800 .swatch-hex { color: #6DC48E; }
+  .sw-g700 { background: #152E1F; } .sw-g700 .swatch-name, .sw-g700 .swatch-hex { color: #6DC48E; }
+  .sw-g600 { background: #1E5C38; } .sw-g600 .swatch-name, .sw-g600 .swatch-hex { color: #A8DDB9; }
+  .sw-g500 { background: #2A7A4B; } .sw-g500 .swatch-name, .sw-g500 .swatch-hex { color: #D8F0E2; }
+  .sw-g400 { background: #3D9E64; } .sw-g400 .swatch-name, .sw-g400 .swatch-hex { color: #071209; }
+  .sw-g300 { background: #6DC48E; } .sw-g300 .swatch-name, .sw-g300 .swatch-hex { color: #071209; }
+  .sw-g200 { background: #A8DDB9; } .sw-g200 .swatch-name, .sw-g200 .swatch-hex { color: #0D1F16; }
+  .sw-g100 { background: #D8F0E2; } .sw-g100 .swatch-name, .sw-g100 .swatch-hex { color: #0D1F16; }
+  .sw-g50  { background: #EEF8F3; } .sw-g50  .swatch-name, .sw-g50  .swatch-hex { color: #1E5C38; }
+
+  /* Brass ramp */
+  .sw-b700 { background: #7A540F; } .sw-b700 .swatch-name, .sw-b700 .swatch-hex { color: #EDD090; }
+  .sw-b600 { background: #A87218; } .sw-b600 .swatch-name, .sw-b600 .swatch-hex { color: #F9EFD5; }
+  .sw-b500 { background: #C9A046; } .sw-b500 .swatch-name, .sw-b500 .swatch-hex { color: #2B1E06; }
+  .sw-b400 { background: #DDB96A; } .sw-b400 .swatch-name, .sw-b400 .swatch-hex { color: #2B1E06; }
+  .sw-b300 { background: #EDD090; } .sw-b300 .swatch-name, .sw-b300 .swatch-hex { color: #2B1E06; }
+  .sw-b100 { background: #F9EFD5; } .sw-b100 .swatch-name, .sw-b100 .swatch-hex { color: #7A540F; }
+
+  /* Cream ramp */
+  .sw-c300 { background: #D9CDB8; } .sw-c300 .swatch-name, .sw-c300 .swatch-hex { color: #2B2720; }
+  .sw-c200 { background: #EDE5D4; } .sw-c200 .swatch-name, .sw-c200 .swatch-hex { color: #2B2720; }
+  .sw-c100 { background: #F5EDD9; } .sw-c100 .swatch-name, .sw-c100 .swatch-hex { color: #2B2720; }
+  .sw-c50  { background: #FAF7F1; } .sw-c50  .swatch-name, .sw-c50  .swatch-hex { color: #2B2720; }
+
+  /* Data colors */
+  .sw-scarlet { background: #C0392B; } .sw-scarlet .swatch-name, .sw-scarlet .swatch-hex { color: #F4C6C2; }
+  .sw-birdie  { background: #2E7DD1; } .sw-birdie .swatch-name, .sw-birdie .swatch-hex { color: #C4DCF5; }
+
+  /* ─── TYPOGRAPHY ─────────────────────────────────────────────── */
+  .type-specimen { margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid var(--cream-300); }
+  .type-specimen:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .type-meta {
+    display: flex;
+    gap: 24px;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .type-role {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-600);
+  }
+  .type-spec {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--cream-500);
+  }
+
+  .specimen-display {
+    font-family: var(--font-display);
+    font-size: 80px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--green-800);
+    letter-spacing: -0.01em;
+  }
+  .specimen-display-bold {
+    font-family: var(--font-display);
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--green-600);
+  }
+  .specimen-display-italic {
+    font-family: var(--font-display);
+    font-size: 60px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.1;
+    color: var(--green-700);
+  }
+  .specimen-body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--green-800);
+    max-width: 680px;
+  }
+  .specimen-mono {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--green-700);
+    letter-spacing: 0.03em;
+  }
+  .specimen-mono-sm {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--green-500);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── UI COMPONENTS ──────────────────────────────────────────── */
+  .components-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  /* Stat card */
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 24px 28px;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-300);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--cream-100);
+  }
+  .stat-value.positive { color: var(--green-300); }
+  .stat-value.negative { color: #E8705E; }
+  .stat-value.brass { color: var(--brass-400); }
+  .stat-sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green-400);
+    margin-top: 6px;
+  }
+
+  /* Leaderboard row */
+  .leaderboard {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .lb-header {
+    display: grid;
+    grid-template-columns: 36px 1fr 80px 80px 80px;
+    gap: 0;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .lb-hcell {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-400);
+    text-align: right;
+  }
+  .lb-hcell:nth-child(2) { text-align: left; }
+
+  .lb-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 80px 80px 80px;
+    gap: 0;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row.top { background: rgba(201,160,70,0.07); }
+
+  .lb-rank {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green-400);
+    display: flex;
+    align-items: center;
+  }
+  .lb-rank.gold { color: var(--brass-400); }
+
+  .lb-player { display: flex; flex-direction: column; justify-content: center; }
+  .lb-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--cream-100);
+    line-height: 1.2;
+  }
+  .lb-detail {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--green-400);
+    letter-spacing: 0.08em;
+  }
+
+  .lb-cell {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--cream-200);
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .lb-cell.pos { color: var(--green-300); }
+  .lb-cell.neg { color: #E8705E; }
+  .lb-cell.brass { color: var(--brass-400); font-weight: 500; }
+
+  /* Bet slip */
+  .bet-slip {
+    background: var(--cream-50);
+    border: 1px solid var(--cream-300);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bet-slip-header {
+    background: var(--green-600);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bet-slip-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-200);
+  }
+  .bet-slip-status {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--brass-300);
+  }
+  .bet-slip-body { padding: 20px; }
+  .bet-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cream-300);
+  }
+  .bet-line:last-child { border-bottom: none; }
+  .bet-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--green-800);
+  }
+  .bet-odds {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green-600);
+  }
+  .bet-slip-footer {
+    background: var(--cream-200);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bet-total-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-700);
+  }
+  .bet-total {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-700);
+  }
+
+  /* Score ticker */
+  .score-ticker {
+    background: var(--green-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .ticker-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-400);
+    margin-bottom: 14px;
+  }
+  .hole-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+  .hole-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    border-radius: 3px;
+  }
+  .hole-cell.header { color: var(--green-400); font-size: 9px; }
+  .hole-cell.par { background: rgba(255,255,255,0.04); color: var(--green-300); }
+  .hole-cell.eagle { background: var(--brass-600); color: var(--brass-100); font-weight: 500; border-radius: 50%; }
+  .hole-cell.birdie { background: var(--green-600); color: var(--green-100); }
+  .hole-cell.bogey { color: #E8705E; background: rgba(192,57,43,0.15); }
+  .hole-cell.double { color: #E8705E; background: rgba(192,57,43,0.3); font-weight: 500; }
+  .hole-cell.even { color: var(--cream-300); background: rgba(255,255,255,0.06); }
+
+  /* ─── DATA VIZ COLORS ────────────────────────────────────────── */
+  .data-palette {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .dp-item { display: flex; align-items: center; gap: 10px; }
+  .dp-swatch {
+    width: 32px;
+    height: 16px;
+    border-radius: 3px;
+  }
+  .dp-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green-300);
+    letter-spacing: 0.06em;
+  }
+  .dp-use {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--green-500);
+    margin-left: 4px;
+  }
+
+  /* ─── RULES & SPACING ────────────────────────────────────────── */
+  .rule-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 0;
+  }
+  .rule-block h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass-500);
+    margin-bottom: 16px;
+  }
+  .rule-block ul {
+    list-style: none;
+  }
+  .rule-block li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--cream-200);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    gap: 12px;
+  }
+  .rule-block li::before {
+    content: '—';
+    color: var(--green-400);
+    flex-shrink: 0;
+  }
+  .rule-block li:last-child { border-bottom: none; }
+
+  /* ─── VOICE ──────────────────────────────────────────────────── */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .voice-card {
+    padding: 36px 40px;
+  }
+  .voice-card.do { background: rgba(30, 92, 56, 0.3); }
+  .voice-card.dont { background: rgba(192, 57, 43, 0.12); }
+  .voice-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .voice-tag.do { color: var(--green-300); }
+  .voice-tag.dont { color: #E8705E; }
+  .voice-example {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--cream-100);
+  }
+  .voice-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green-400);
+    margin-top: 12px;
+  }
+  .voice-card.dont .voice-note { color: rgba(232,112,94,0.7); }
+
+  /* ─── ICON MARK CONSTRUCTION ─────────────────────────────────── */
+  .mark-grid {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .mark-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .mark-size-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--cream-500);
+    letter-spacing: 0.12em;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+  .footer {
+    background: var(--green-900);
+    color: var(--green-500);
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    color: var(--brass-500);
+  }
+
+  @media print {
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-label">Brand Identity System</span>
+    <span class="cover-label">v1.0 — 2025</span>
+  </div>
+
+  <div class="cover-center">
+    <div class="logo-lockup">
+      <!-- Icon Mark -->
+      <svg class="logo-mark" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fairway shape -->
+        <rect x="4" y="4" width="64" height="64" rx="12" fill="#152E1F"/>
+        <!-- Green circle -->
+        <ellipse cx="46" cy="48" rx="16" ry="10" fill="#1E5C38"/>
+        <!-- Flag pin -->
+        <line x1="34" y1="48" x2="34" y2="18" stroke="#C9A046" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Flag -->
+        <path d="M34 18 L50 24 L34 30 Z" fill="#C9A046"/>
+        <!-- Ball -->
+        <circle cx="48" cy="48" r="3.5" fill="#F5EDD9"/>
+        <!-- Yardage ticks -->
+        <line x1="20" y1="36" x2="26" y2="36" stroke="#3D9E64" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="42" x2="24" y2="42" stroke="#3D9E64" stroke-width="0.75" stroke-linecap="round"/>
+        <line x1="20" y1="48" x2="28" y2="48" stroke="#3D9E64" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="54" x2="24" y2="54" stroke="#3D9E64" stroke-width="0.75" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="logo-wordmark">GREEN<strong>BOOK</strong></div>
+        <div class="brass-rule"></div>
+        <div class="cover-tagline">Every stroke. Every edge.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <span>Golf Betting Data Center</span>
+    <span>Confidential — Internal Use</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ BRAND STORY -->
+<div class="section">
+  <div class="section-label">01 — Foundation</div>
+  <div class="section-title">Brand Story</div>
+  <div class="story-grid">
+    <div class="story-block">
+      <h3>The Concept</h3>
+      <p>GREENBOOK takes its name from the caddie's yardage book — the worn, dog-eared notebook that every serious player carries. It's the original data center of golf: distances, slopes, wind breaks, pin positions. We are the digital evolution of that edge.</p>
+    </div>
+    <div class="story-block">
+      <h3>The Personality</h3>
+      <p>We are precise without being cold. Refined without being stuffy. The aesthetic sits between a private member's locker room and a trading floor — serious about data, but rooted in the culture and craft of the game.</p>
+    </div>
+    <div class="story-block">
+      <h3>The Audience</h3>
+      <p>Serious recreational bettors who love golf. They know the difference between a Stableford and a stroke-play bet. They read shot-by-shot stats. They want an edge, presented with the gravity the game deserves.</p>
+    </div>
+    <div class="story-block">
+      <h3>The Promise</h3>
+      <p>Never a guess. Never noise. GREENBOOK surfaces only what moves the needle — clean data, sharp odds, and a record of every wager with the discipline of a scratch handicap.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ LOGOTYPE -->
+<div class="section section--cream">
+  <div class="section-label">02 — Identity</div>
+  <div class="section-title">Logotype &amp; Mark</div>
+</div>
+
+<div class="logo-grid">
+  <div class="logo-cell logo-cell--dark">
+    <div class="cell-label">Primary — Dark</div>
+    <div class="logo-lg">
+      <svg class="icon-lg" viewBox="0 0 72 72" fill="none">
+        <rect x="4" y="4" width="64" height="64" rx="12" fill="#152E1F"/>
+        <ellipse cx="46" cy="48" rx="16" ry="10" fill="#1E5C38"/>
+        <line x1="34" y1="48" x2="34" y2="18" stroke="#C9A046" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M34 18 L50 24 L34 30 Z" fill="#C9A046"/>
+        <circle cx="48" cy="48" r="3.5" fill="#F5EDD9"/>
+        <line x1="20" y1="36" x2="26" y2="36" stroke="#3D9E64" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="42" x2="24" y2="42" stroke="#3D9E64" stroke-width="0.75" stroke-linecap="round"/>
+        <line x1="20" y1="48" x2="28" y2="48" stroke="#3D9E64" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="54" x2="24" y2="54" stroke="#3D9E64" stroke-width="0.75" stroke-linecap="round"/>
+      </svg>
+      <div class="wm">GREEN<strong>BOOK</strong></div>
+    </div>
+  </div>
+  <div class="logo-cell logo-cell--light">
+    <div class="cell-label">Primary — Light</div>
+    <div class="logo-lg">
+      <svg class="icon-lg" viewBox="0 0 72 72" fill="none">
+        <rect x="4" y="4" width="64" height="64" rx="12" fill="#1E5C38"/>
+        <ellipse cx="46" cy="48" rx="16" ry="10" fill="#2A7A4B"/>
+        <line x1="34" y1="48" x2="34" y2="18" stroke="#C9A046" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M34 18 L50 24 L34 30 Z" fill="#C9A046"/>
+        <circle cx="48" cy="48" r="3.5" fill="#FAF7F1"/>
+        <line x1="20" y1="36" x2="26" y2="36" stroke="#6DC48E" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="42" x2="24" y2="42" stroke="#6DC48E" stroke-width="0.75" stroke-linecap="round"/>
+        <line x1="20" y1="48" x2="28" y2="48" stroke="#6DC48E" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="54" x2="24" y2="54" stroke="#6DC48E" stroke-width="0.75" stroke-linecap="round"/>
+      </svg>
+      <div class="wm">GREEN<strong>BOOK</strong></div>
+    </div>
+  </div>
+  <div class="logo-cell logo-cell--mid">
+    <div class="cell-label">Stacked — Fairway</div>
+    <div class="logo-stacked">
+      <svg style="width:48px;height:48px;margin-bottom:12px;" viewBox="0 0 72 72" fill="none">
+        <ellipse cx="46" cy="48" rx="16" ry="10" fill="rgba(255,255,255,0.15)"/>
+        <line x1="34" y1="48" x2="34" y2="18" stroke="#EDD090" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M34 18 L50 24 L34 30 Z" fill="#EDD090"/>
+        <circle cx="48" cy="48" r="3.5" fill="#F5EDD9"/>
+        <line x1="12" y1="36" x2="20" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linecap="round"/>
+        <line x1="12" y1="42" x2="18" y2="42" stroke="rgba(255,255,255,0.3)" stroke-width="0.75" stroke-linecap="round"/>
+        <line x1="12" y1="48" x2="22" y2="48" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <div class="wm">GREEN<strong>BOOK</strong></div>
+      <div class="sub">Golf Betting Data Center</div>
+    </div>
+  </div>
+  <div class="logo-cell logo-cell--brass">
+    <div class="cell-label" style="color:#071209">Mark Only — Brass</div>
+    <div class="mark-grid" style="gap:32px;margin-top:8px;">
+      <div class="mark-item">
+        <svg style="width:80px;height:80px;" viewBox="0 0 72 72" fill="none">
+          <rect x="4" y="4" width="64" height="64" rx="12" fill="#2B1E06"/>
+          <ellipse cx="46" cy="48" rx="16" ry="10" fill="#7A540F"/>
+          <line x1="34" y1="48" x2="34" y2="18" stroke="#EDD090" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M34 18 L50 24 L34 30 Z" fill="#EDD090"/>
+          <circle cx="48" cy="48" r="3.5" fill="#FAF7F1"/>
+          <line x1="20" y1="36" x2="26" y2="36" stroke="#C9A046" stroke-width="1" stroke-linecap="round"/>
+          <line x1="20" y1="42" x2="24" y2="42" stroke="#C9A046" stroke-width="0.75" stroke-linecap="round"/>
+          <line x1="20" y1="48" x2="28" y2="48" stroke="#C9A046" stroke-width="1" stroke-linecap="round"/>
+          <line x1="20" y1="54" x2="24" y2="54" stroke="#C9A046" stroke-width="0.75" stroke-linecap="round"/>
+        </svg>
+        <span class="mark-size-label" style="color:#2B1E06">80px</span>
+      </div>
+      <div class="mark-item">
+        <svg style="width:48px;height:48px;" viewBox="0 0 72 72" fill="none">
+          <rect x="4" y="4" width="64" height="64" rx="12" fill="#2B1E06"/>
+          <ellipse cx="46" cy="48" rx="16" ry="10" fill="#7A540F"/>
+          <line x1="34" y1="48" x2="34" y2="18" stroke="#EDD090" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M34 18 L50 24 L34 30 Z" fill="#EDD090"/>
+          <circle cx="48" cy="48" r="3.5" fill="#FAF7F1"/>
+        </svg>
+        <span class="mark-size-label" style="color:#2B1E06">48px</span>
+      </div>
+      <div class="mark-item">
+        <svg style="width:32px;height:32px;" viewBox="0 0 72 72" fill="none">
+          <rect x="4" y="4" width="64" height="64" rx="10" fill="#2B1E06"/>
+          <ellipse cx="46" cy="48" rx="16" ry="10" fill="#7A540F"/>
+          <line x1="34" y1="48" x2="34" y2="18" stroke="#EDD090" stroke-width="2" stroke-linecap="round"/>
+          <path d="M34 18 L50 24 L34 30 Z" fill="#EDD090"/>
+          <circle cx="48" cy="48" r="4" fill="#FAF7F1"/>
+        </svg>
+        <span class="mark-size-label" style="color:#2B1E06">32px</span>
+      </div>
+      <div class="mark-item">
+        <svg style="width:20px;height:20px;" viewBox="0 0 72 72" fill="none">
+          <rect x="2" y="2" width="68" height="68" rx="12" fill="#2B1E06"/>
+          <line x1="34" y1="50" x2="34" y2="16" stroke="#EDD090" stroke-width="3" stroke-linecap="round"/>
+          <path d="M34 16 L54 24 L34 32 Z" fill="#EDD090"/>
+          <circle cx="50" cy="50" r="6" fill="#FAF7F1"/>
+        </svg>
+        <span class="mark-size-label" style="color:#2B1E06">20px</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ COLORS -->
+<div class="section section--cream">
+  <div class="section-label">03 — Color</div>
+  <div class="section-title">Color System</div>
+
+  <div class="color-family">
+    <div class="color-family-name">Fairway Green — Primary Brand</div>
+    <div class="swatch-row">
+      <div class="swatch sw-g900"><div class="swatch-info"><span class="swatch-name">900</span><span class="swatch-hex">#071209</span></div></div>
+      <div class="swatch sw-g800"><div class="swatch-info"><span class="swatch-name">800</span><span class="swatch-hex">#0D1F16</span></div></div>
+      <div class="swatch sw-g700"><div class="swatch-info"><span class="swatch-name">700</span><span class="swatch-hex">#152E1F</span></div></div>
+      <div class="swatch sw-g600"><div class="swatch-info"><span class="swatch-name">600</span><span class="swatch-hex">#1E5C38</span></div></div>
+      <div class="swatch sw-g500"><div class="swatch-info"><span class="swatch-name">500</span><span class="swatch-hex">#2A7A4B</span></div></div>
+      <div class="swatch sw-g400"><div class="swatch-info"><span class="swatch-name">400</span><span class="swatch-hex">#3D9E64</span></div></div>
+      <div class="swatch sw-g300"><div class="swatch-info"><span class="swatch-name">300</span><span class="swatch-hex">#6DC48E</span></div></div>
+      <div class="swatch sw-g200"><div class="swatch-info"><span class="swatch-name">200</span><span class="swatch-hex">#A8DDB9</span></div></div>
+      <div class="swatch sw-g100"><div class="swatch-info"><span class="swatch-name">100</span><span class="swatch-hex">#D8F0E2</span></div></div>
+      <div class="swatch sw-g50"><div class="swatch-info"><span class="swatch-name">50</span><span class="swatch-hex">#EEF8F3</span></div></div>
+    </div>
+  </div>
+
+  <div class="color-family">
+    <div class="color-family-name">Brass — Accent &amp; Highlight</div>
+    <div class="swatch-row">
+      <div class="swatch sw-b700"><div class="swatch-info"><span class="swatch-name">700</span><span class="swatch-hex">#7A540F</span></div></div>
+      <div class="swatch sw-b600"><div class="swatch-info"><span class="swatch-name">600</span><span class="swatch-hex">#A87218</span></div></div>
+      <div class="swatch sw-b500"><div class="swatch-info"><span class="swatch-name">500 ★</span><span class="swatch-hex">#C9A046</span></div></div>
+      <div class="swatch sw-b400"><div class="swatch-info"><span class="swatch-name">400</span><span class="swatch-hex">#DDB96A</span></div></div>
+      <div class="swatch sw-b300"><div class="swatch-info"><span class="swatch-name">300</span><span class="swatch-hex">#EDD090</span></div></div>
+      <div class="swatch sw-b100"><div class="swatch-info"><span class="swatch-name">100</span><span class="swatch-hex">#F9EFD5</span></div></div>
+    </div>
+  </div>
+
+  <div class="color-family">
+    <div class="color-family-name">Cream — Backgrounds &amp; Surfaces</div>
+    <div class="swatch-row">
+      <div class="swatch sw-c300"><div class="swatch-info"><span class="swatch-name">300</span><span class="swatch-hex">#D9CDB8</span></div></div>
+      <div class="swatch sw-c200"><div class="swatch-info"><span class="swatch-name">200</span><span class="swatch-hex">#EDE5D4</span></div></div>
+      <div class="swatch sw-c100"><div class="swatch-info"><span class="swatch-name">100</span><span class="swatch-hex">#F5EDD9</span></div></div>
+      <div class="swatch sw-c50"><div class="swatch-info"><span class="swatch-name">50</span><span class="swatch-hex">#FAF7F1</span></div></div>
+    </div>
+  </div>
+
+  <div class="color-family">
+    <div class="color-family-name">Data Semantics</div>
+    <div class="swatch-row" style="max-width:320px;">
+      <div class="swatch sw-scarlet"><div class="swatch-info"><span class="swatch-name">Bogey Red</span><span class="swatch-hex">#C0392B</span></div></div>
+      <div class="swatch sw-birdie"><div class="swatch-info"><span class="swatch-name">Birdie Blue</span><span class="swatch-hex">#2E7DD1</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ TYPOGRAPHY -->
+<div class="section">
+  <div class="section-label">04 — Typography</div>
+  <div class="section-title">Type System</div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-role">Display — Cormorant Garamond</span>
+      <span class="type-spec">Light 300 / Bold 700 / Italic</span>
+    </div>
+    <div class="specimen-display">GREENBOOK</div>
+    <div style="margin-top:8px;">
+      <span class="specimen-display-bold" style="font-size:56px;">−4 Under</span>
+    </div>
+    <div style="margin-top:8px;">
+      <span class="specimen-display-italic">The numbers never lie.</span>
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-role">Body — Lora</span>
+      <span class="type-spec">Regular 400 / 17px / 1.85 leading</span>
+    </div>
+    <p class="specimen-body">
+      Every wager tells a story. The caddie's book records more than yardages — it captures tendencies, patterns, and the decisive moments where data meets instinct. GREENBOOK is built on that same philosophy: every number earns its place on the page.
+    </p>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-role">Data &amp; UI — DM Mono</span>
+      <span class="type-spec">Regular / Medium / 12–15px / Tracking +0.03em</span>
+    </div>
+    <div class="specimen-mono">
+      HOLE 14 · PAR 5 · 547 YDS · WIND 12mph NW<br>
+      ODDS: -115 / +106 · SPREAD: -1.5 · O/U: 68.5<br>
+      LAST 24H: 847 BETS · $142,308 VOLUME
+    </div>
+    <div style="margin-top:16px;">
+      <span class="specimen-mono-sm">Round 2 · Leaderboard · Live · Augusta National</span>
+    </div>
+  </div>
+
+  <!-- Type scale -->
+  <div style="margin-top:40px;padding-top:40px;border-top:1px solid var(--cream-300);">
+    <div class="type-role" style="margin-bottom:24px;">Type Scale</div>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--cream-300);padding-bottom:20px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">Display / 80px</span>
+        <span style="font-family:var(--font-display);font-size:80px;font-weight:300;line-height:1;color:var(--green-800);">−12</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--cream-300);padding-bottom:20px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">H1 / 48px</span>
+        <span style="font-family:var(--font-display);font-size:48px;font-weight:600;line-height:1;color:var(--green-800);">Leaderboard</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--cream-300);padding-bottom:20px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">H2 / 28px</span>
+        <span style="font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--green-800);">Round 3 · Moving Day</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--cream-300);padding-bottom:20px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">Body / 17px</span>
+        <span style="font-family:var(--font-body);font-size:17px;color:var(--green-800);">Player recorded a birdie on the par-5 fifteenth hole.</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--cream-300);padding-bottom:20px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">Mono UI / 13px</span>
+        <span style="font-family:var(--font-mono);font-size:13px;color:var(--green-700);">ODDS: −115 · VOLUME: $12,440 · LAST BET: 00:03</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-500);width:120px;flex-shrink:0;">Label / 10px</span>
+        <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-700);">Strokes Gained · Approach</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ UI COMPONENTS -->
+<div class="section section--dark">
+  <div class="section-label">05 — Components</div>
+  <div class="section-title">UI Components</div>
+
+  <!-- Stat cards -->
+  <div style="margin-bottom:48px;">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-400);margin-bottom:20px;">Stat Cards</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div class="stat-card">
+        <div class="stat-label">Net P&amp;L</div>
+        <div class="stat-value positive">+$2,841</div>
+        <div class="stat-sub">▲ 14.2% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Win Rate</div>
+        <div class="stat-value brass">58.3%</div>
+        <div class="stat-sub">from 144 settled bets</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Open Exposure</div>
+        <div class="stat-value">$4,200</div>
+        <div class="stat-sub">across 7 events</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Biggest Loss</div>
+        <div class="stat-value negative">−$680</div>
+        <div class="stat-sub">US Open R2 outrights</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div style="margin-bottom:48px;">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-400);margin-bottom:20px;">Leaderboard Table</div>
+    <div class="leaderboard">
+      <div class="lb-header">
+        <div class="lb-hcell">Pos</div>
+        <div class="lb-hcell">Player</div>
+        <div class="lb-hcell">Score</div>
+        <div class="lb-hcell">Odds</div>
+        <div class="lb-hcell">P&amp;L</div>
+      </div>
+      <div class="lb-row top">
+        <div class="lb-rank gold">1</div>
+        <div class="lb-player">
+          <span class="lb-name">R. McIlroy</span>
+          <span class="lb-detail">−18 · Thru 16</span>
+        </div>
+        <div class="lb-cell pos">−18</div>
+        <div class="lb-cell brass">+180</div>
+        <div class="lb-cell pos">+$540</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">2</div>
+        <div class="lb-player">
+          <span class="lb-name">X. Schauffele</span>
+          <span class="lb-detail">−15 · Thru 18</span>
+        </div>
+        <div class="lb-cell pos">−15</div>
+        <div class="lb-cell">+380</div>
+        <div class="lb-cell pos">+$190</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">T3</div>
+        <div class="lb-player">
+          <span class="lb-name">T. Fleetwood</span>
+          <span class="lb-detail">−13 · Thru 12</span>
+        </div>
+        <div class="lb-cell pos">−13</div>
+        <div class="lb-cell">+900</div>
+        <div class="lb-cell neg">−$100</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">T3</div>
+        <div class="lb-player">
+          <span class="lb-name">C. Morikawa</span>
+          <span class="lb-detail">−13 · Thru 18</span>
+        </div>
+        <div class="lb-cell pos">−13</div>
+        <div class="lb-cell">+700</div>
+        <div class="lb-cell neg">−$100</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Score ticker + bet slip side by side -->
+  <div class="components-grid">
+    <div>
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-400);margin-bottom:20px;">Hole-by-Hole Scorecard</div>
+      <div class="score-ticker">
+        <div class="ticker-label">R. McIlroy — Round 2</div>
+        <div class="hole-grid">
+          <div class="hole-cell header">1</div><div class="hole-cell header">2</div><div class="hole-cell header">3</div>
+          <div class="hole-cell header">4</div><div class="hole-cell header">5</div><div class="hole-cell header">6</div>
+          <div class="hole-cell header">7</div><div class="hole-cell header">8</div><div class="hole-cell header">9</div>
+        </div>
+        <div class="hole-grid">
+          <div class="hole-cell par">4</div><div class="hole-cell par">5</div><div class="hole-cell par">4</div>
+          <div class="hole-cell par">3</div><div class="hole-cell par">4</div><div class="hole-cell par">3</div>
+          <div class="hole-cell par">5</div><div class="hole-cell par">4</div><div class="hole-cell par">4</div>
+        </div>
+        <div class="hole-grid">
+          <div class="hole-cell birdie">3</div><div class="hole-cell eagle">3</div><div class="hole-cell birdie">3</div>
+          <div class="hole-cell birdie">2</div><div class="hole-cell even">4</div><div class="hole-cell birdie">2</div>
+          <div class="hole-cell birdie">4</div><div class="hole-cell bogey">5</div><div class="hole-cell birdie">3</div>
+        </div>
+        <div style="margin-top:14px;display:flex;justify-content:space-between;">
+          <div class="data-palette" style="margin-top:0;gap:12px;flex-wrap:wrap;">
+            <div class="dp-item"><div class="dp-swatch" style="background:#C9A046;border-radius:50%;"></div><span class="dp-label">Eagle</span></div>
+            <div class="dp-item"><div class="dp-swatch" style="background:#1E5C38;"></div><span class="dp-label">Birdie</span></div>
+            <div class="dp-item"><div class="dp-swatch" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);"></div><span class="dp-label">Par</span></div>
+            <div class="dp-item"><div class="dp-swatch" style="background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);"></div><span class="dp-label">Bogey</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-400);margin-bottom:20px;">Bet Slip</div>
+      <div class="bet-slip">
+        <div class="bet-slip-header">
+          <span class="bet-slip-title">Active Wager</span>
+          <span class="bet-slip-status">Live · R3 In Progress</span>
+        </div>
+        <div class="bet-slip-body">
+          <div class="bet-line">
+            <span class="bet-desc">McIlroy — To Win</span>
+            <span class="bet-odds">+180</span>
+          </div>
+          <div class="bet-line">
+            <span class="bet-desc">Top 5 Finish</span>
+            <span class="bet-odds">−140</span>
+          </div>
+          <div class="bet-line">
+            <span class="bet-desc">Make / Miss Cut</span>
+            <span class="bet-odds">−220</span>
+          </div>
+        </div>
+        <div class="bet-slip-footer">
+          <span class="bet-total-label">Potential Return</span>
+          <span class="bet-total">$2,340</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ VOICE -->
+<div class="section section--dark" style="padding-bottom:0;border-bottom:none;">
+  <div class="section-label">06 — Voice</div>
+  <div class="section-title">Tone &amp; Copy</div>
+</div>
+<div class="voice-grid">
+  <div class="voice-card do">
+    <div class="voice-tag do">Do — Write This</div>
+    <div class="voice-example">"McIlroy gained 1.4 strokes on the field from tee-to-green. The number suggests the outright is live."</div>
+    <div class="voice-note">Precise. Data-anchored. Draws a conclusion without hyperbole.</div>
+  </div>
+  <div class="voice-card dont">
+    <div class="voice-tag dont">Don't — Avoid This</div>
+    <div class="voice-example">"HUGE round incoming! Rory is on FIRE 🔥 don't miss this bet!"</div>
+    <div class="voice-note">Exclamation marks, emoji, and filler language undermine credibility.</div>
+  </div>
+  <div class="voice-card do">
+    <div class="voice-tag do">Do — Write This</div>
+    <div class="voice-example">"−4 thru 9. Strokes gained putting: +1.8. Line moved from +240 to +160."</div>
+    <div class="voice-note">Mono-style data entries are clear, scannable, and professional.</div>
+  </div>
+  <div class="voice-card dont">
+    <div class="voice-tag dont">Don't — Avoid This</div>
+    <div class="voice-example">"He's been really good lately and the odds look pretty favorable if you ask me."</div>
+    <div class="voice-note">Vague, casual, and unquantified. Offers no signal.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ RULES -->
+<div class="section section--dark">
+  <div class="section-label">07 — Usage</div>
+  <div class="section-title">Design Rules</div>
+
+  <div class="rule-section">
+    <div class="rule-block">
+      <h4>Typography Rules</h4>
+      <ul>
+        <li>Use Cormorant Garamond for all scores, odds values, and hero numbers</li>
+        <li>Use DM Mono for all labels, metadata, odds notation, and timestamps</li>
+        <li>Use Lora for prose copy and editorial descriptions only</li>
+        <li>Never mix mono and serif in the same data cell</li>
+        <li>Italics are editorial — never use italic for data or UI labels</li>
+        <li>Minimum readable type size: 10px mono, 14px serif</li>
+      </ul>
+    </div>
+    <div class="rule-block">
+      <h4>Color Rules</h4>
+      <ul>
+        <li>Brass (#C9A046) is the single accent — use sparingly for hierarchy peaks only</li>
+        <li>Bogey Red is reserved for negative P&amp;L and penalty strokes — never decorative</li>
+        <li>Birdie Blue is data-only — for select chart elements and informational states</li>
+        <li>Never place cream text on the brass accent color</li>
+        <li>Dark backgrounds require the full green ramp — never approximate with generic grays</li>
+        <li>On light surfaces, use green-800 or green-700 for primary text only</li>
+      </ul>
+    </div>
+    <div class="rule-block">
+      <h4>Logo Rules</h4>
+      <ul>
+        <li>Minimum clear space: equal to the height of the "G" in GREENBOOK on all sides</li>
+        <li>Never distort, rotate, or recolor the mark individually from the wordmark</li>
+        <li>The mark may appear without the wordmark at sizes ≥ 32px only</li>
+        <li>Never render the logotype on a competing green that lacks sufficient contrast</li>
+        <li>Brass variant is approved for premium and awards contexts only</li>
+      </ul>
+    </div>
+    <div class="rule-block">
+      <h4>Data Display Rules</h4>
+      <ul>
+        <li>Always show sign prefix on scores and P&amp;L values (+ or −, never bare number)</li>
+        <li>Use unicode minus (−) not hyphen (-) for negative values in display contexts</li>
+        <li>Odds notation: American format −115 / +240; EU decimal where required</li>
+        <li>Score-to-par values always in Cormorant Garamond at the largest available size</li>
+        <li>Live data cells should never truncate mid-update — use skeleton states</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ FOOTER -->
+<div class="footer">
+  <span class="footer-logo">GREENBOOK</span>
+  <span>Brand Identity System — v1.0</span>
+  <span>Golf Betting Data Center</span>
+</div>
+
+</body>
+</html>

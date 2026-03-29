@@ -127,8 +127,11 @@ function loadTournament(key) {
     if (frlWave) frlWave.innerHTML = '';
     var isUpcoming = !t.result2026;
     var activeBtn = document.querySelector('.timeline-btn.active');
-    var isLive = activeBtn && activeBtn.classList.contains('live');
-    var iSettled = activeBtn && activeBtn.classList.contains('settled');
+    var isLive = (activeBtn && activeBtn.classList.contains('live')) || (activeBtn && activeBtn.classList.contains('settled'));
+    // Also check by tournament key — houston is hardcoded as live for now
+    var liveKeys = ['houston'];
+    var settledKeys = ['cognizant','arnoldpalmer','puertorico','players','valspar'];
+    if (typeof key !== 'undefined' && (liveKeys.indexOf(key) >= 0 || settledKeys.indexOf(key) >= 0)) isLive = true;
     if (t.frl && t.frl.length && isUpcoming && !isLive) {
         if (frlCard) frlCard.style.display = '';
         var amPlayers = t.frl.filter(function(f){return f.wave==='AM'});

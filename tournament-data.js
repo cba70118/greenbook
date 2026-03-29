@@ -360,7 +360,7 @@ const TOURNAMENT_DATA = {
             { type: "bet", player: "Nicolai Hojgaard", text: "Blind #2, meta #3 across all RH models. Every narrative source confirmed. $20 E/W 1/4 5pl at +2500." },
             { type: "bet", player: "Stephan Jaeger", text: "Blind #30 but 2024 WINNER. TAILWIND 1.31x. OTT weakness masked by 1.25in rough, ARG amplified at 67% short-grass." },
             { type: "bet", player: "Max Greyserman", text: "Blind #36 but T7 here 2024. PUTT +0.403 + ARG +0.174. Weakness-masked thesis validated by 2024 result." },
-            { type: "fade", player: "Min Woo Lee", text: "Blind #4 but hard rotation (0-4) and +1200 price = no E/W value." },
+            { type: "fade", player: "Min Woo Lee", text: "Blind #4 but benched (0-4 in tracker) and +1200 price = no E/W value." },
             { type: "fade", player: "Tony Finau", text: "TAILWIND 1.30x and 2022 winner but market had fully priced it. DG edge -0.47%." },
             { type: "process", text: "First card under v3 anti-bias framework. Phase 2.5 surfaced Knapp, R. Hojgaard, Griffin that narrative-first process missed." },
         ],
