@@ -4,7 +4,7 @@
 
 (function() {
     const SESSION_KEY = 'greenbook_auth';
-    const VALID_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a694'; // sha256 of the password
+    const VALID_HASH = '0f39683853223d9490af271b145344ab055213e7f4f22a1eeabccf12f4a0e2a0';
 
     async function sha256(str) {
         const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
