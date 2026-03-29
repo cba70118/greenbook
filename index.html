@@ -430,13 +430,40 @@
 
     <!-- ═══ SEASON P/L ═══ -->
     <section id="betting" class="panel">
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1rem">2026 Season Tracker</h2>
+
+        <!-- Season Summary Table (like the Excel tracker) -->
+        <div class="card">
+            <h3>Season Summary</h3>
+            <table class="data-table">
+                <thead><tr><th>Tournament</th><th>Bets</th><th>W</th><th>L</th><th>Open</th><th>Staked</th><th>Returned</th><th>P/L</th></tr></thead>
+                <tbody>
+                    <tr><td>The American Express</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$100.00</td><td>$10.00</td><td class="neg">-$90.00</td></tr>
+                    <tr><td>Farmers Insurance Open</td><td>20</td><td>0</td><td>20</td><td>0</td><td>$142.00</td><td>$0.00</td><td class="neg">-$142.00</td></tr>
+                    <tr><td>WM Phoenix Open</td><td>13</td><td>0</td><td>13</td><td>0</td><td>$87.50</td><td>$0.00</td><td class="neg">-$87.50</td></tr>
+                    <tr><td>The Genesis Invitational</td><td>16</td><td>2</td><td>14</td><td>0</td><td>$160.00</td><td>$114.40</td><td class="neg">-$45.60</td></tr>
+                    <tr><td>Cognizant Classic</td><td>17</td><td>3</td><td>14</td><td>0</td><td>$184.50</td><td>$526.25</td><td class="pos">+$341.75</td></tr>
+                    <tr><td>Arnold Palmer Invitational</td><td>22</td><td>4</td><td>15</td><td>0</td><td>$192.50</td><td>$243.60</td><td class="pos">+$51.10</td></tr>
+                    <tr><td>Puerto Rico Open</td><td>9</td><td>1</td><td>8</td><td>0</td><td>$100.00</td><td>$295.00</td><td class="pos">+$195.00</td></tr>
+                    <tr><td>The Players Championship</td><td>17</td><td>0</td><td>15</td><td>0</td><td>$125.00</td><td>$15.00</td><td class="neg">-$110.00</td></tr>
+                    <tr><td>Valspar Championship</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$85.00</td><td>$0.00</td><td class="neg">-$85.00</td></tr>
+                    <tr><td>Houston Open</td><td>11</td><td>-</td><td>4</td><td>7</td><td>$130.00</td><td>-</td><td>In play</td></tr>
+                    <tr><td>Valero Texas Open</td><td>5</td><td>-</td><td>-</td><td>5</td><td>$16.25</td><td>-</td><td>Upcoming</td></tr>
+                    <tr><td>The Masters</td><td>4</td><td>-</td><td>-</td><td>4</td><td>$50.00</td><td>-</td><td>Upcoming</td></tr>
+                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>156</td><td>10</td><td>125</td><td>16</td><td>$1,372.75</td><td>$1,204.25</td><td>TBD</td></tr>
+                    <tr style="font-weight:700"><td>Settled Only</td><td>136</td><td>10</td><td>121</td><td>-</td><td>$1,176.50</td><td>$1,204.25</td><td class="pos">+$27.75</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Key Numbers -->
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-value">147</div><div class="stat-label">Total Bets (16 open)</div></div>
-            <div class="stat-card positive"><div class="stat-value">+$57.75</div><div class="stat-label">Settled P/L</div></div>
-            <div class="stat-card"><div class="stat-value">+5.0%</div><div class="stat-label">ROI (settled)</div></div>
-            <div class="stat-card positive"><div class="stat-value">+293.7%</div><div class="stat-label">E/W 1/4 5pl ROI</div></div>
-            <div class="stat-card negative"><div class="stat-value">-39.3%</div><div class="stat-label">Win-Only ROI</div></div>
+            <div class="stat-card"><div class="stat-value">156</div><div class="stat-label">Total Bets</div></div>
+            <div class="stat-card positive"><div class="stat-value">+$27.75</div><div class="stat-label">Settled P/L</div></div>
+            <div class="stat-card"><div class="stat-value">+2.4%</div><div class="stat-label">ROI (settled)</div></div>
             <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Winners</div></div>
+            <div class="stat-card"><div class="stat-value">7.4%</div><div class="stat-label">Win Rate</div></div>
+            <div class="stat-card"><div class="stat-value">16</div><div class="stat-label">Open Bets</div></div>
         </div>
         <div class="grid-2">
             <div class="card"><h3>Tournament P/L</h3><canvas id="tournament-pl-chart"></canvas></div>

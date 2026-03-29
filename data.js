@@ -1,17 +1,18 @@
 // Season data
 const SEASON = {
-    totalBets: 147,
-    settled: 131,
+    totalBets: 156,
+    settled: 136,
     open: 16,
-    staked: 1302.75,
+    staked: 1372.75,
+    settledStaked: 1176.50,
     returned: 1204.25,
-    pl: 57.75,
-    roi: 5.0,
+    pl: 27.75,
+    roi: 2.4,
     winners: 10
 };
 
 const TOURNAMENTS = [
-    { name: "AMEX", bets: 2, staked: 30, returned: 10, pl: -20, phase: 1 },
+    { name: "AMEX", bets: 11, staked: 100, returned: 10, pl: -90, phase: 1 },
     { name: "Farmers", bets: 20, staked: 142, returned: 0, pl: -142, phase: 1 },
     { name: "WM Open", bets: 13, staked: 87.50, returned: 0, pl: -87.50, phase: 1 },
     { name: "Genesis", bets: 16, staked: 160, returned: 114.40, pl: -45.60, phase: 2 },
