@@ -1094,3 +1094,4 @@ canvas { max-height: 350px; }
     color: var(--brass-400);
 }
 .sf-name strong { cursor: pointer; }
+.skill-fit-list { max-height: 500px; overflow-y: auto; }

@@ -798,7 +798,7 @@ function buildDataCenter() {
         if (!display) return;
         var scored = SCOUTING.map(function(p) {
             return { name: p.name, tier: p.tier, score: Math.max(0, Math.min(100, calcArchFit(p, type))) };
-        }).sort(function(a,b){return b.score - a.score}).slice(0, 20);
+        }).sort(function(a,b){return b.score - a.score}).slice(0, 40);
 
         display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(s, i) {
             var cls = s.score >= 80 ? 'sf-elite' : s.score >= 60 ? 'sf-good' : s.score >= 40 ? 'sf-avg' : 'sf-weak';
