@@ -26,7 +26,7 @@
     <header>
         <div class="header-content">
             <h1>GREEN<strong>BOOK</strong></h1>
-            <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season</p>
+            <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season <span style="background:rgba(201,160,70,0.15);color:var(--brass-400);padding:0.1rem 0.4rem;border-radius:3px;font-size:0.55rem;margin-left:0.5rem;vertical-align:middle">BETA v0.1</span></p>
         </div>
         <nav>
             <button class="nav-btn active" data-section="tournament">Tournaments</button>
@@ -237,28 +237,34 @@
             </div>
             <div class="scout-grid" id="scout-grid"></div>
         </div>
-        <!-- Skill Analysis section -->
+        <!-- Skill Analysis -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Tour Elite</h3>
+                <p class="card-subtitle">Top 10 by career SG:Total. Component breakdown shows where strokes come from.</p>
+                <canvas id="dc-stacked-chart" height="280"></canvas>
+            </div>
+            <div class="card">
+                <h3>Iron Play vs Putting</h3>
+                <p class="card-subtitle">The two skills that separate. Green = Elite, Blue = Contender, Gray = Mid-field.</p>
+                <canvas id="dc-scatter-chart" height="280"></canvas>
+            </div>
+        </div>
+
+        <!-- Course Type Fit -->
         <div class="card">
-            <h3>Skill Analysis</h3>
-            <p class="card-subtitle">Career SG ratings across all profiled players. Use these to understand player archetypes and compare skill profiles.</p>
-            <div class="sub-tabs">
-                <button class="sub-tab active" data-subtab="chart-breakdown">SG Breakdown</button>
-                <button class="sub-tab" data-subtab="chart-appvputt">Approach vs Putting</button>
-                <button class="sub-tab" data-subtab="chart-archetype">Course-Type Fit</button>
+            <h3>Course Type Fit</h3>
+            <p class="card-subtitle">Select a course type to see who fits best. Scores calculated from career SG components.</p>
+            <div class="quick-tags" id="dc-archetype-tabs">
+                <span class="quick-tag active" data-arch="secondshot">Second-Shot</span>
+                <span class="quick-tag" data-arch="bomber">Bomber</span>
+                <span class="quick-tag" data-arch="bermuda">Bermuda Putting</span>
+                <span class="quick-tag" data-arch="poa">Poa Putting</span>
+                <span class="quick-tag" data-arch="grinder">Grinder</span>
+                <span class="quick-tag" data-arch="shortgame">Short Game</span>
+                <span class="quick-tag" data-arch="wind">Wind</span>
             </div>
-            <div id="chart-breakdown" class="sub-panel active">
-                <p class="card-subtitle">Top 10 by SG:Total with component breakdown. Shows where each player's strokes come from.</p>
-                <canvas id="dc-stacked-chart" height="300"></canvas>
-            </div>
-            <div id="chart-appvputt" class="sub-panel">
-                <p class="card-subtitle">The two most decisive skills in golf. Green = Elite tier, Blue = Contender, Gray = Mid-field. Top-right = elite at both.</p>
-                <canvas id="dc-scatter-chart" height="300"></canvas>
-            </div>
-            <div id="chart-archetype" class="sub-panel">
-                <p class="card-subtitle">How well each player fits different course types. Higher score = better fit. Use this to match players to venues.</p>
-                <table class="data-table compact"><thead><tr><th>Player</th><th>2nd Shot</th><th>Bomber</th><th>Bermuda</th><th>Poa</th><th>Grinder</th><th>Short Gm</th><th>Wind</th></tr></thead>
-                <tbody id="archetype-body"></tbody></table>
-            </div>
+            <div id="dc-archetype-display"></div>
         </div>
 
         <!-- Stat Leaders (pushed down) -->

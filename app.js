@@ -433,17 +433,42 @@ function buildDataCenter() {
     // Player profiles
     renderScoutCards();
 
-    // Archetype matrix
-    const ab = document.getElementById('archetype-body');
-    SCOUTING.forEach(p => {
-        const ss=Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
-        const bo=Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
-        const be=Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
-        const po=Math.min(100,(p.putt/0.6)*40+(p.app/0.9)*35+25);
-        const gr=Math.min(100,50+(p.arg/0.4)*25+(p.putt/0.6)*25-(p.dd/20)*10);
-        const sg=Math.min(100,(p.arg/0.4)*45+(p.putt/0.6)*30+25);
-        const wi=Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
-        ab.innerHTML += `<tr><td><strong>${p.name}</strong></td>${[ss,bo,be,po,gr,sg,wi].map(v=>{v=Math.max(0,Math.min(100,v)).toFixed(0);const c=v>=75?'heat-elite':v>=60?'heat-top10':v>=45?'heat-top25':'heat-mid';return `<td class="${c}">${v}</td>`;}).join('')}</tr>`;
+    // Archetype fit — visual bar ranking
+    function renderArchetypeFit(type) {
+        var display = document.getElementById('dc-archetype-display');
+        if (!display) return;
+        var scored = SCOUTING.map(function(p) {
+            return { name: p.name, tier: p.tier, score: Math.max(0, Math.min(100, calcArchScore(p, type))) };
+        }).sort(function(a,b){return b.score - a.score}).slice(0, 20);
+
+        display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(s, i) {
+            var cls = s.score >= 80 ? 'sf-elite' : s.score >= 60 ? 'sf-good' : s.score >= 40 ? 'sf-avg' : 'sf-weak';
+            var tc = s.tier==='Elite'?'tier-elite':s.tier==='Contender'?'tier-contender':'tier-midfield';
+            return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name">' + s.name + ' <span class="tier-badge ' + tc + '" style="font-size:0.45rem;vertical-align:middle">' + s.tier + '</span></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + s.score + '%"></div></div><span class="sf-score">' + s.score.toFixed(0) + '</span></div>';
+        }).join('') + '</div>';
+    }
+
+    // Use the calcArchScore from tools.js if available, otherwise define inline
+    if (typeof calcArchScore === 'undefined') {
+        window.calcArchScore = function(p, type) {
+            if (type==='secondshot') return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
+            if (type==='bomber') return Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
+            if (type==='bermuda') return Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
+            if (type==='poa') return Math.min(100,(p.putt/0.6)*40+(p.app/0.9)*35+25);
+            if (type==='grinder') return Math.min(100,50+(p.arg/0.4)*25+(p.putt/0.6)*25-(p.dd/20)*10);
+            if (type==='shortgame') return Math.min(100,(p.arg/0.4)*45+(p.putt/0.6)*30+25);
+            if (type==='wind') return Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
+            return 50;
+        };
+    }
+
+    renderArchetypeFit('secondshot');
+    document.querySelectorAll('#dc-archetype-tabs .quick-tag').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('#dc-archetype-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
+            btn.classList.add('active');
+            renderArchetypeFit(btn.dataset.arch);
+        });
     });
 
     // Course library
