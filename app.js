@@ -75,19 +75,6 @@ function loadTournament(key) {
         drawRadar(t);
     }
 
-    // Odds board
-    const ob = document.getElementById('odds-body');
-    ob.innerHTML = '';
-    if (t.oddsBoard && t.oddsBoard.length) {
-        document.getElementById('odds-card').style.display = '';
-        t.oddsBoard.forEach(o => {
-            const ev = parseFloat(o.edge);
-            const ec = ev>3?'pos':ev>0?'form-warm':ev>-3?'form-neutral':'neg';
-            const vc = o.verdict.includes('VALUE')?'pos':o.verdict.includes('OVERPRICED')?'neg':'';
-            ob.innerHTML += `<tr><td>${o.rank}</td><td><strong>${o.name}</strong></td><td style="font-family:var(--font-mono)">${o.fair}</td><td style="font-family:var(--font-mono)">${o.best}</td><td style="font-family:var(--font-mono)">${o.b365}</td><td class="${ec}" style="font-family:var(--font-mono);font-weight:600">${o.edge}</td><td class="${sigCls(o.form)}">${o.form}</td><td class="${vc}" style="font-size:0.72rem">${o.verdict}</td></tr>`;
-        });
-    } else { document.getElementById('odds-card').style.display = 'none'; }
-
     // Composite
     const cb = document.getElementById('composite-body');
     cb.innerHTML = '';
@@ -135,14 +122,7 @@ function loadTournament(key) {
         t.narratives.sort((a,b)=>b.count-a.count).forEach(p => { nb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${ck(p.noonan)}${ck(p.klos)}${ck(p.mayo)}${ck(p.stewart)}${ck(p.titanic)}<td><strong class="${p.count>=3?'pos':''}">${p.count}</strong></td><td>#${p.rank}</td></tr>`; });
     } else { nb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with analysis</td></tr>'; }
 
-    // Bets
-    const bb = document.getElementById('bets-body');
-    bb.innerHTML = '';
-    const bets = key==='masters'?MASTERS_CARD:key==='houston'?HOUSTON_CARD:key==='valero'?VALERO_CARD:[];
-    if (bets.length) {
-        document.getElementById('bets-card').style.display = '';
-        bets.forEach(d => { const sc=d.status==='Lost'?'neg':d.status==='Open'?'':'pos'; bb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td><td class="${sc}">${d.status}</td></tr>`; });
-    } else { document.getElementById('bets-card').style.display = 'none'; }
+    // Bets rendering moved to My Betting tab
 }
 
 function drawRadar(t) {
@@ -254,6 +234,50 @@ function renderScoutCards(filter,tier) {
 document.getElementById('scout-search-input').addEventListener('input', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value); });
 document.getElementById('scout-tier-filter').addEventListener('change', () => { renderScoutCards(document.getElementById('scout-search-input').value, document.getElementById('scout-tier-filter').value); });
 
+// Quick tags
+document.querySelectorAll('.quick-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+        document.querySelectorAll('.quick-tag').forEach(t => t.classList.remove('active'));
+
+        if (tag.dataset.reset) {
+            document.getElementById('scout-tier-filter').value = '';
+            renderScoutCards('', '');
+            return;
+        }
+
+        tag.classList.add('active');
+
+        if (tag.dataset.filter) {
+            document.getElementById('scout-tier-filter').value = tag.dataset.filter;
+            renderScoutCards('', tag.dataset.filter);
+        } else if (tag.dataset.stat) {
+            // Sort by specific stat, show top 15
+            document.getElementById('scout-tier-filter').value = '';
+            const key = tag.dataset.stat;
+            const sorted = [...SCOUTING].sort((a,b) => b[key] - a[key]).slice(0,15);
+            renderScoutCardsFromList(sorted);
+        } else if (tag.dataset.surface) {
+            // Sort by surface-specific putting
+            document.getElementById('scout-tier-filter').value = '';
+            const key = 'putt_' + tag.dataset.surface;
+            const sorted = [...SCOUTING].filter(p => p[key] !== undefined).sort((a,b) => b[key] - a[key]).slice(0,15);
+            renderScoutCardsFromList(sorted);
+        }
+    });
+});
+
+function renderScoutCardsFromList(list) {
+    const grid = document.getElementById('scout-grid');
+    grid.innerHTML = '';
+    list.forEach(p => {
+        const tc = p.tier==='Elite'?'tier-elite':p.tier==='Contender'?'tier-contender':p.tier==='Mid-field'?'tier-midfield':'tier-veteran';
+        const bars = [{l:'APP',v:p.app,m:1},{l:'OTT',v:p.ott,m:1},{l:'ARG',v:p.arg,m:0.5},{l:'PUTT',v:p.putt,m:0.7}];
+        const hasSurface = p.putt_bermuda !== undefined;
+        const surfaceHtml = hasSurface ? `<div class="surface-putting"><span class="sp-label">Putting by surface:</span><span class="sp-val ${p.putt_bermuda>=0?'pos':'neg'}">Bermuda ${p.putt_bermuda>=0?'+':''}${p.putt_bermuda.toFixed(2)}</span><span class="sp-val ${p.putt_bent>=0?'pos':'neg'}">Bent ${p.putt_bent>=0?'+':''}${p.putt_bent.toFixed(2)}</span><span class="sp-val ${p.putt_poa>=0?'pos':'neg'}">Poa ${p.putt_poa>=0?'+':''}${p.putt_poa.toFixed(2)}</span></div>` : '';
+        grid.innerHTML += `<div class="scout-card"><div class="scout-header"><h4>${p.name}</h4><span class="tier-badge ${tc}">${p.tier}</span></div><div class="scout-sg-bars">${bars.map(b=>{const pct=Math.min(Math.max((b.v/b.m)*50+50,5),100);const cls=b.v>0.2?'sg-positive':b.v>0?'sg-neutral':'sg-negative';return `<div class="sg-bar-row"><span class="sg-bar-label">${b.l}</span><div class="sg-bar-track"><div class="sg-bar-fill ${cls}" style="width:${pct}%"></div></div><span class="sg-bar-val ${b.v>=0?'pos':'neg'}">${b.v>=0?'+':''}${b.v.toFixed(2)}</span></div>`;}).join('')}</div><div class="scout-meta"><span>TOT ${p.sg_tot>=0?'+':''}${p.sg_tot.toFixed(2)}</span><span>DD ${p.dd>=0?'+':''}${p.dd.toFixed(1)}</span><span>${p.shape}</span><span>${p.surface}</span></div>${surfaceHtml}<div class="scout-section"><strong class="pos">Strengths:</strong> ${p.strengths}</div><div class="scout-section"><strong class="neg">Weaknesses:</strong> ${p.weaknesses}</div><div class="scout-section scout-notes">${p.notes}</div></div>`;
+    });
+}
+
 buildDataCenter();
 
 // ═══ BETTING SECTION ═══
@@ -273,3 +297,46 @@ function renderPlayers(list, id) { const el=document.getElementById(id); list.fo
 renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.softRotate,'soft-players');
 renderPlayers(PLAYERS.hardRotate,'hard-players');
+
+// Bet card sub-tabs
+document.querySelectorAll('.sub-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const parent = btn.closest('.card');
+        parent.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+        parent.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.subtab).classList.add('active');
+    });
+});
+
+// Render bet cards in My Betting
+function renderBetTable(data, tbodyId) {
+    const tb = document.getElementById(tbodyId);
+    if (!tb) return;
+    data.forEach(d => {
+        const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
+        tb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td><td class="${sc}">${d.status}</td></tr>`;
+    });
+}
+renderBetTable(MASTERS_CARD, 'masters-bets-body');
+renderBetTable(HOUSTON_CARD, 'houston-bets-body');
+renderBetTable(VALERO_CARD, 'valero-bets-body');
+
+// Odds board in My Betting
+function renderBettingOdds(key) {
+    const t = TOURNAMENT_DATA[key];
+    const ob = document.getElementById('odds-body');
+    ob.innerHTML = '';
+    if (t && t.oddsBoard && t.oddsBoard.length) {
+        t.oddsBoard.forEach(o => {
+            const ev = parseFloat(o.edge);
+            const ec = ev>3?'pos':ev>0?'form-warm':ev>-3?'form-neutral':'neg';
+            const vc = o.verdict.includes('VALUE')?'pos':o.verdict.includes('OVERPRICED')?'neg':'';
+            ob.innerHTML += `<tr><td>${o.rank}</td><td><strong>${o.name}</strong></td><td style="font-family:var(--font-mono)">${o.fair}</td><td style="font-family:var(--font-mono)">${o.best}</td><td style="font-family:var(--font-mono)">${o.b365}</td><td class="${ec}" style="font-family:var(--font-mono);font-weight:600">${o.edge}</td><td class="${sigCls(o.form)}">${o.form}</td><td class="${vc}" style="font-size:0.72rem">${o.verdict}</td></tr>`;
+        });
+    } else {
+        ob.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">No odds board data for this tournament yet</td></tr>';
+    }
+}
+document.getElementById('betting-tourney-select').addEventListener('change', e => renderBettingOdds(e.target.value));
+renderBettingOdds('masters');

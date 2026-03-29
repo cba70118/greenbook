@@ -96,14 +96,6 @@
             <div class="card"><h3>Recent Winners</h3><div id="recent-winners"></div></div>
         </div>
 
-        <!-- Odds Board -->
-        <div class="card" id="odds-card">
-            <h3>Odds Board</h3>
-            <p class="card-subtitle">Our composite-implied fair odds vs best available book price.</p>
-            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365 E/W</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
-            <tbody id="odds-body"></tbody></table>
-        </div>
-
         <!-- Blind Composite -->
         <div class="card">
             <h3>Blind Composite Rankings</h3>
@@ -156,11 +148,26 @@
             <div class="stat-card" id="dc-best-dd"><div class="stat-value" style="font-size:1.2rem"></div><div class="stat-label">Longest Driver</div></div>
         </div>
         <div class="grid-2">
-            <div class="card"><h3>Tour Elite: SG Breakdown</h3><canvas id="dc-stacked-chart" height="300"></canvas></div>
-            <div class="card"><h3>Approach vs Putting</h3><p class="card-subtitle">Top-right = elite at both.</p><canvas id="dc-scatter-chart" height="300"></canvas></div>
+            <div class="card"><h3>Tour Elite: SG Breakdown</h3><p class="card-subtitle">Career skill ratings, not tournament-specific. Top 10 by SG:Total.</p><canvas id="dc-stacked-chart" height="300"></canvas></div>
+            <div class="card"><h3>Approach vs Putting</h3><p class="card-subtitle">Career skill ratings across all 52 profiled players. Green = Elite, Blue = Contender, Gray = Mid-field.</p><canvas id="dc-scatter-chart" height="300"></canvas></div>
         </div>
         <div class="card">
             <h3>Player Profiles</h3>
+            <!-- Quick-access tags -->
+            <div class="quick-tags">
+                <span class="quick-tag" data-filter="Elite">Elite Tier</span>
+                <span class="quick-tag" data-filter="Contender">Contenders</span>
+                <span class="quick-tag" data-filter="Mid-field">Mid-field</span>
+                <span class="quick-tag" data-filter="Veteran">Veterans</span>
+                <span class="quick-tag" data-stat="app">Best Iron Players</span>
+                <span class="quick-tag" data-stat="putt">Best Putters</span>
+                <span class="quick-tag" data-stat="ott">Longest Drivers</span>
+                <span class="quick-tag" data-stat="arg">Best Short Game</span>
+                <span class="quick-tag" data-surface="bermuda">Bermuda Putters</span>
+                <span class="quick-tag" data-surface="bent">Bentgrass Putters</span>
+                <span class="quick-tag" data-surface="poa">Poa Putters</span>
+                <span class="quick-tag" data-reset="true">Show All</span>
+            </div>
             <div class="scout-search">
                 <input type="text" id="scout-search-input" placeholder="Search by name..." class="calc-input" style="max-width:300px">
                 <select id="scout-tier-filter" class="calc-input" style="max-width:150px;margin-left:0.5rem">
@@ -233,6 +240,41 @@
                 <div class="rotation-card hard-rotate"><h4>Hard Rotate</h4><div id="hard-players"></div></div>
             </div>
         </div>
+        <!-- Odds Board (per tournament, betting-focused) -->
+        <div class="card" id="betting-odds-card">
+            <h3>Odds Board</h3>
+            <p class="card-subtitle">Composite-implied fair odds vs book price. Select tournament above.</p>
+            <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
+                <option value="masters">Masters</option>
+                <option value="houston">Houston Open</option>
+                <option value="valero">Valero Texas Open</option>
+            </select>
+            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
+            <tbody id="odds-body"></tbody></table>
+        </div>
+
+        <!-- Per-Tournament Bet Cards -->
+        <div class="card">
+            <h3>Active Bet Cards</h3>
+            <div class="sub-tabs">
+                <button class="sub-tab active" data-subtab="bet-masters">Masters (4)</button>
+                <button class="sub-tab" data-subtab="bet-houston">Houston (11)</button>
+                <button class="sub-tab" data-subtab="bet-valero">Valero (5)</button>
+            </div>
+            <div id="bet-masters" class="sub-panel active">
+                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
+                <tbody id="masters-bets-body"></tbody></table>
+            </div>
+            <div id="bet-houston" class="sub-panel">
+                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
+                <tbody id="houston-bets-body"></tbody></table>
+            </div>
+            <div id="bet-valero" class="sub-panel">
+                <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Info</th><th>Status</th></tr></thead>
+                <tbody id="valero-bets-body"></tbody></table>
+            </div>
+        </div>
+
         <div class="card"><h3>Source Attribution</h3>
             <div class="grid-2">
                 <div><canvas id="source-roi-chart" height="250"></canvas></div>
