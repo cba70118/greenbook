@@ -324,6 +324,93 @@ function renderWeather(data) {
     }).join('');
 }
 
+// Surface Performance Renderer
+function renderSurfaceView(surface, view) {
+    var display = document.getElementById('surface-display');
+    if (!display) return;
+    var players = SCOUTING.filter(function(p){return p.putt_bermuda !== undefined});
+
+    if (view === 'putting') {
+        // Rank by putting on selected surface
+        var sorted;
+        if (surface === 'bermuda') {
+            sorted = players.sort(function(a,b){return b.putt_bermuda - a.putt_bermuda});
+        } else if (surface === 'bent') {
+            sorted = players.sort(function(a,b){return b.putt_bent - a.putt_bent});
+        } else if (surface === 'poa') {
+            sorted = players.sort(function(a,b){return b.putt_poa - a.putt_poa});
+        } else {
+            // All: sort by overall putt
+            sorted = players.sort(function(a,b){return b.putt - a.putt});
+        }
+        display.innerHTML = '<div class="surface-table"><table class="data-table"><thead><tr><th>Rk</th><th>Player</th>' +
+            '<th>Bermuda</th><th>Bentgrass</th><th>Poa</th><th>Overall</th><th>Best Surface</th></tr></thead><tbody>' +
+            sorted.slice(0,25).map(function(p,i) {
+                var best = 'Bermuda';
+                if (p.putt_bent > p.putt_bermuda && p.putt_bent > p.putt_poa) best = 'Bentgrass';
+                if (p.putt_poa > p.putt_bermuda && p.putt_poa > p.putt_bent) best = 'Poa';
+                var highlight = surface === 'bermuda' ? 'putt_bermuda' : surface === 'bent' ? 'putt_bent' : surface === 'poa' ? 'putt_poa' : '';
+                return '<tr><td>'+(i+1)+'</td><td><strong>'+p.name+'</strong></td>' +
+                    '<td class="'+(p.putt_bermuda>=0.2?'pos':p.putt_bermuda<0?'neg':'')+'" style="font-family:var(--font-mono);'+(highlight==='putt_bermuda'?'font-weight:700':'')+'">'+(p.putt_bermuda>=0?'+':'')+p.putt_bermuda.toFixed(2)+'</td>' +
+                    '<td class="'+(p.putt_bent>=0.2?'pos':p.putt_bent<0?'neg':'')+'" style="font-family:var(--font-mono);'+(highlight==='putt_bent'?'font-weight:700':'')+'">'+(p.putt_bent>=0?'+':'')+p.putt_bent.toFixed(2)+'</td>' +
+                    '<td class="'+(p.putt_poa>=0.2?'pos':p.putt_poa<0?'neg':'')+'" style="font-family:var(--font-mono);'+(highlight==='putt_poa'?'font-weight:700':'')+'">'+(p.putt_poa>=0?'+':'')+p.putt_poa.toFixed(2)+'</td>' +
+                    '<td style="font-family:var(--font-mono)">'+(p.putt>=0?'+':'')+p.putt.toFixed(2)+'</td>' +
+                    '<td style="font-size:0.72rem">'+best+'</td></tr>';
+            }).join('') + '</tbody></table></div>';
+
+    } else if (view === 'spread') {
+        // Surface spread = difference between best and worst surface
+        // High spread = surface-dependent. Low spread = consistent everywhere.
+        var withSpread = players.map(function(p) {
+            var vals = [p.putt_bermuda, p.putt_bent, p.putt_poa];
+            var spread = Math.max.apply(null, vals) - Math.min.apply(null, vals);
+            var best = 'Bermuda';
+            if (p.putt_bent >= p.putt_bermuda && p.putt_bent >= p.putt_poa) best = 'Bentgrass';
+            if (p.putt_poa >= p.putt_bermuda && p.putt_poa >= p.putt_bent) best = 'Poa';
+            var worst = 'Bermuda';
+            if (p.putt_bent <= p.putt_bermuda && p.putt_bent <= p.putt_poa) worst = 'Bentgrass';
+            if (p.putt_poa <= p.putt_bermuda && p.putt_poa <= p.putt_bent) worst = 'Poa';
+            return {name:p.name, spread:spread, best:best, worst:worst, b:p.putt_bermuda, g:p.putt_bent, p:p.putt_poa};
+        }).sort(function(a,b){return b.spread - a.spread});
+
+        display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.75rem">Players with the biggest gap between their best and worst putting surface. High spread = surface-dependent, target them at their best surface, avoid at their worst.</p>' +
+            '<div class="surface-table"><table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Spread</th><th>Best</th><th>Worst</th><th>Bermuda</th><th>Bent</th><th>Poa</th></tr></thead><tbody>' +
+            withSpread.slice(0,25).map(function(p,i) {
+                return '<tr><td>'+(i+1)+'</td><td><strong>'+p.name+'</strong></td>' +
+                    '<td style="font-family:var(--font-mono);font-weight:700;color:var(--brass-400)">'+p.spread.toFixed(2)+'</td>' +
+                    '<td class="pos">'+p.best+'</td><td class="neg">'+p.worst+'</td>' +
+                    '<td style="font-family:var(--font-mono)">'+(p.b>=0?'+':'')+p.b.toFixed(2)+'</td>' +
+                    '<td style="font-family:var(--font-mono)">'+(p.g>=0?'+':'')+p.g.toFixed(2)+'</td>' +
+                    '<td style="font-family:var(--font-mono)">'+(p.p>=0?'+':'')+p.p.toFixed(2)+'</td></tr>';
+            }).join('') + '</tbody></table></div>';
+
+    } else if (view === 'specialists') {
+        // Show players who are elite on one surface but average/bad on others
+        var specialists = players.map(function(p) {
+            var vals = [
+                {surf:'Bermuda', val:p.putt_bermuda},
+                {surf:'Bentgrass', val:p.putt_bent},
+                {surf:'Poa', val:p.putt_poa}
+            ].sort(function(a,b){return b.val - a.val});
+            var bestSurf = vals[0];
+            var worstSurf = vals[2];
+            var gap = bestSurf.val - worstSurf.val;
+            return {name:p.name, bestSurf:bestSurf.surf, bestVal:bestSurf.val, worstSurf:worstSurf.surf, worstVal:worstSurf.val, gap:gap, overall:p.putt};
+        }).filter(function(p){return p.bestVal >= 0.25 && p.gap >= 0.15}).sort(function(a,b){return b.bestVal - a.bestVal});
+
+        display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.75rem">Players who gain +0.25 or more on their best putting surface with a significant gap to their worst. These are specialists — play them on the right grass, avoid on the wrong grass.</p>' +
+            '<div class="surface-table"><table class="data-table"><thead><tr><th>Player</th><th>Best Surface</th><th>SG:PUTT</th><th>Worst Surface</th><th>SG:PUTT</th><th>Gap</th></tr></thead><tbody>' +
+            specialists.map(function(p) {
+                return '<tr><td><strong>'+p.name+'</strong></td>' +
+                    '<td class="pos">'+p.bestSurf+'</td>' +
+                    '<td class="pos" style="font-family:var(--font-mono);font-weight:600">+'+p.bestVal.toFixed(2)+'</td>' +
+                    '<td class="neg">'+p.worstSurf+'</td>' +
+                    '<td class="'+(p.worstVal<0?'neg':'')+'" style="font-family:var(--font-mono)">'+(p.worstVal>=0?'+':'')+p.worstVal.toFixed(2)+'</td>' +
+                    '<td style="font-family:var(--font-mono);color:var(--brass-400);font-weight:600">'+p.gap.toFixed(2)+'</td></tr>';
+            }).join('') + '</tbody></table></div>';
+    }
+}
+
 // Sparkline Generator
 function makeSparkline(name, stat) {
     if (typeof SPARKLINES === 'undefined' || !SPARKLINES[name]) return '';
@@ -490,6 +577,25 @@ function buildDataCenter() {
         if (type==='wind') return Math.min(100,(p.ott/0.9)*35+(p.app/0.9)*35+30);
         return 50;
     }
+
+    // Surface Performance
+    renderSurfaceView('all', 'putting');
+    document.querySelectorAll('#surface-tabs .quick-tag').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('#surface-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
+            btn.classList.add('active');
+            var view = document.querySelector('[data-surfview].active');
+            renderSurfaceView(btn.dataset.surf, view ? view.dataset.surfview : 'putting');
+        });
+    });
+    document.querySelectorAll('[data-surfview]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('[data-surfview]').forEach(function(b){b.classList.remove('active')});
+            btn.classList.add('active');
+            var surf = document.querySelector('#surface-tabs .quick-tag.active');
+            renderSurfaceView(surf ? surf.dataset.surf : 'all', btn.dataset.surfview);
+        });
+    });
 
     renderArchetypeFit('secondshot');
     document.querySelectorAll('#dc-archetype-tabs .quick-tag').forEach(function(btn) {
