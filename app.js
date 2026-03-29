@@ -448,11 +448,32 @@ document.querySelectorAll('.quick-tag').forEach(tag => {
             const sorted = [...SCOUTING].sort((a,b) => b[key] - a[key]).slice(0,15);
             renderScoutCardsFromList(sorted);
         } else if (tag.dataset.surface) {
-            // Sort by surface-specific putting
             document.getElementById('scout-tier-filter').value = '';
             const key = 'putt_' + tag.dataset.surface;
             const sorted = [...SCOUTING].filter(p => p[key] !== undefined).sort((a,b) => b[key] - a[key]).slice(0,15);
             renderScoutCardsFromList(sorted);
+        } else if (tag.dataset.form) {
+            document.getElementById('scout-tier-filter').value = '';
+            const type = tag.dataset.form;
+            let filtered;
+            if (type === 'hot') {
+                // Players with recent wins, TAILWIND notes, or top form
+                filtered = SCOUTING.filter(p => p.notes && (p.notes.match(/won|winner|TAILWIND|surging|hot|streak|momentum/i) || p.notes.match(/202[56].*champion/i))).slice(0,15);
+                if (filtered.length < 8) filtered = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,15);
+            } else if (type === 'cold') {
+                filtered = SCOUTING.filter(p => p.notes && p.notes.match(/benched|0-[3-9]|declining|struggled|MC|missed.*cut|cold|fading/i)).slice(0,15);
+            } else if (type === 'rising') {
+                // Contenders and mid-fielders with positive signals
+                filtered = SCOUTING.filter(p => (p.tier === 'Contender' || p.tier === 'Mid-field') && p.notes && p.notes.match(/composite|dark horse|protocol|surfa|trending|rising|momentum|validated/i)).slice(0,15);
+            } else if (type === 'injured') {
+                if (typeof PLAYER_STATUS !== 'undefined') {
+                    const injuredNames = PLAYER_STATUS.filter(s => s.severity === 'warning' || s.severity === 'caution').map(s => s.player);
+                    filtered = SCOUTING.filter(p => injuredNames.includes(p.name));
+                } else {
+                    filtered = SCOUTING.filter(p => p.notes && p.notes.match(/injur|back.*spasm|WD|withdrew|health/i));
+                }
+            }
+            if (filtered && filtered.length) renderScoutCardsFromList(filtered);
         }
     });
 });
