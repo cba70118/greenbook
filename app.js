@@ -68,13 +68,15 @@ document.addEventListener('click', function(e) {
 });
 
 // ═══ THE CUT ═══
-// Toggle
-var cutToggle = document.getElementById('cut-toggle');
-if (cutToggle) cutToggle.addEventListener('click', function() {
-    var content = document.getElementById('cut-content');
-    var arrow = document.getElementById('cut-arrow');
-    content.classList.toggle('hidden');
-    arrow.classList.toggle('open');
+// Header link toggles The Cut page
+var cutLink = document.getElementById('cut-link');
+if (cutLink) cutLink.addEventListener('click', function() {
+    // Hide all panels, deactivate all nav buttons
+    document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+    // Show The Cut
+    document.getElementById('thecut').classList.add('active');
+    window.scrollTo(0, 0);
 });
 
 function buildTheCut() {
