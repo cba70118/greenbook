@@ -1095,3 +1095,55 @@ canvas { max-height: 350px; }
 }
 .sf-name strong { cursor: pointer; }
 .skill-fit-list { }
+
+/* ═══ PAGINATED LISTS ═══ */
+.paginated-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--cream-500);
+}
+.page-btn {
+    font-family: var(--font-mono);
+    background: var(--green-900);
+    border: 1px solid var(--border);
+    color: var(--cream-300);
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.68rem;
+}
+.page-btn:hover { border-color: var(--brass-500); color: var(--cream-100); }
+.page-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Better native scroll for longer lists */
+.scroll-list {
+    max-height: 450px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--brass-700) var(--green-900);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem;
+}
+.scroll-list::-webkit-scrollbar { width: 6px; }
+.scroll-list::-webkit-scrollbar-track { background: var(--green-900); border-radius: 3px; }
+.scroll-list::-webkit-scrollbar-thumb { background: var(--brass-700); border-radius: 3px; }
+.scroll-list::-webkit-scrollbar-thumb:hover { background: var(--brass-500); }
+
+/* Fade hint at bottom of scroll lists */
+.scroll-container { position: relative; }
+.scroll-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(transparent, var(--surface));
+    pointer-events: none;
+    border-radius: 0 0 4px 4px;
+}

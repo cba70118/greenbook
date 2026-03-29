@@ -273,14 +273,16 @@ function loadTournament(key) {
         var html = '<div class="grid-2">';
         html += '<div><h4 style="font-family:var(--font-mono);font-size:0.7rem;color:var(--green-300);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem">Trending Up</h4>';
         hot.forEach(function(p) {
-            html += '<div style="padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><strong>'+p.name+'</strong> <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">'+p.context+'</span></div>';
+            var barW = Math.min(100, Math.max(10, p.score));
+            html += '<div style="padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem;display:grid;grid-template-columns:1fr 80px;gap:0.5rem;align-items:center"><div><strong>'+p.name+'</strong><div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-500)">'+p.context+'</div></div><div style="display:flex;align-items:center;gap:0.3rem"><div style="flex:1;height:6px;background:var(--border);border-radius:3px"><div style="height:100%;width:'+barW+'%;background:var(--green-500);border-radius:3px"></div></div><span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--green-300)">'+p.score+'</span></div></div>';
         });
         if (!hot.length) html += '<p style="color:var(--cream-500);font-size:0.75rem;font-style:italic">No strong form surges detected</p>';
         html += '</div>';
 
         html += '<div><h4 style="font-family:var(--font-mono);font-size:0.7rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem">Flagged / Monitor</h4>';
         flagged.forEach(function(p) {
-            html += '<div style="padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><strong>'+p.name+'</strong> <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">'+p.context+'</span></div>';
+            var barW = Math.min(100, Math.max(10, p.score));
+            html += '<div style="padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem;display:grid;grid-template-columns:1fr 80px;gap:0.5rem;align-items:center"><div><strong>'+p.name+'</strong><div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-500)">'+p.context+'</div></div><div style="display:flex;align-items:center;gap:0.3rem"><div style="flex:1;height:6px;background:var(--border);border-radius:3px"><div style="height:100%;width:'+barW+'%;background:var(--brass-600);border-radius:3px"></div></div><span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400)">'+p.score+'</span></div></div>';
         });
         if (!flagged.length) html += '<p style="color:var(--cream-500);font-size:0.75rem;font-style:italic">No active concerns</p>';
         html += '</div></div>';
@@ -688,11 +690,21 @@ function renderSkillFit(t, skill) {
                 return {name:p.name, score:Math.round((avg/0.7)*50+50), raw:avg};
             }).sort(function(a,b){return b.score - a.score}).slice(0,25);
 
-            display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Ranked by SG:PUTT on <strong>'+surfLabel+'</strong> (this course\'s green surface). From career putting splits across all 85 profiled players.</p>' +
-                '<div class="skill-fit-list">' + surfScored.map(function(p,i) {
-                    var cls = p.score>=80?'sf-elite':p.score>=60?'sf-good':p.score>=40?'sf-avg':'sf-weak';
-                    return '<div class="sf-row"><span class="sf-rank">'+(i+1)+'</span><span class="sf-name"><strong>'+p.name+'</strong></span><div class="sf-bar-track"><div class="sf-bar '+cls+'" style="width:'+Math.max(5,p.score)+'%"></div></div><span class="sf-score">'+(p.raw>=0?'+':'')+p.raw.toFixed(2)+'</span></div>';
-                }).join('') + '</div>';
+            // Paginate surface results
+            var surfPage = {current:0, size:10, total:Math.ceil(surfScored.length/10)};
+            function renderSurfPage() {
+                var s = surfPage.current*surfPage.size;
+                var page = surfScored.slice(s, s+surfPage.size);
+                display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Ranked by SG:PUTT on <strong>'+surfLabel+'</strong> (this course\'s surface).</p>' +
+                    '<div class="skill-fit-list">' + page.map(function(p,i) {
+                        var cls = p.score>=80?'sf-elite':p.score>=60?'sf-good':p.score>=40?'sf-avg':'sf-weak';
+                        return '<div class="sf-row"><span class="sf-rank">'+(s+i+1)+'</span><span class="sf-name"><strong>'+p.name+'</strong></span><div class="sf-bar-track"><div class="sf-bar '+cls+'" style="width:'+Math.max(5,p.score)+'%"></div></div><span class="sf-score">'+(p.raw>=0?'+':'')+p.raw.toFixed(2)+'</span></div>';
+                    }).join('') + '</div>' +
+                    '<div class="paginated-controls"><button class="page-btn" id="surf-prev" '+(surfPage.current===0?'disabled':'')+'>&#9664; Prev</button><span>'+(surfPage.current+1)+' / '+surfPage.total+'</span><button class="page-btn" id="surf-next" '+(surfPage.current>=surfPage.total-1?'disabled':'')+'>Next &#9654;</button></div>';
+                document.getElementById('surf-prev').onclick = function(){if(surfPage.current>0){surfPage.current--;renderSurfPage();}};
+                document.getElementById('surf-next').onclick = function(){if(surfPage.current<surfPage.total-1){surfPage.current++;renderSurfPage();}};
+            }
+            renderSurfPage();
             return;
         }
         if (skill === 'weekfit') {
@@ -759,11 +771,24 @@ function renderSkillFit(t, skill) {
         return { name: name, score: score };
     }).sort(function(a,b){return b.score - a.score});
 
-    display.innerHTML = '<div class="skill-fit-list">' + scored.map(function(p, i) {
-        var barWidth = Math.max(5, Math.min(100, p.score));
-        var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
-        return '<div class="sf-row"><span class="sf-rank">' + (i+1) + '</span><span class="sf-name"><strong>' + p.name + '</strong></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
-    }).join('') + '</div>';
+    // Paginated display
+    var PAGE_SIZE = 10;
+    var pageState = {current: 0, total: Math.ceil(scored.length / PAGE_SIZE)};
+
+    function renderPage() {
+        var start = pageState.current * PAGE_SIZE;
+        var page = scored.slice(start, start + PAGE_SIZE);
+        var html = '<div class="skill-fit-list">' + page.map(function(p, i) {
+            var barWidth = Math.max(5, Math.min(100, p.score));
+            var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
+            return '<div class="sf-row"><span class="sf-rank">' + (start+i+1) + '</span><span class="sf-name"><strong>' + p.name + '</strong></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
+        }).join('') + '</div>';
+        html += '<div class="paginated-controls"><button class="page-btn" id="sf-prev" '+(pageState.current===0?'disabled':'')+'>&#9664; Prev</button><span>'+(pageState.current+1)+' / '+pageState.total+'</span><button class="page-btn" id="sf-next" '+(pageState.current>=pageState.total-1?'disabled':'')+'>Next &#9654;</button></div>';
+        display.innerHTML = html;
+        document.getElementById('sf-prev').onclick = function(){if(pageState.current>0){pageState.current--;renderPage();}};
+        document.getElementById('sf-next').onclick = function(){if(pageState.current<pageState.total-1){pageState.current++;renderPage();}};
+    }
+    renderPage();
 }
 
 // Helpers
