@@ -480,10 +480,20 @@ function renderLiveOdds(key) {
         var ec = ev > 3 ? 'pos' : ev > 0 ? 'form-warm' : ev > -3 ? 'form-neutral' : 'neg';
         // Calculate assessment from edge, not hardcoded
         var assessment, vc;
-        if (ev > 5) { assessment = 'Strong value'; vc = 'pos'; }
-        else if (ev > 2) { assessment = 'Value'; vc = 'pos'; }
-        else if (ev > 0) { assessment = 'Slight value'; vc = 'form-warm'; }
-        else if (ev > -2) { assessment = 'Fair price'; vc = 'form-neutral'; }
+        // Check for status flags that override pure edge assessment
+        var statusOverride = '';
+        if (typeof PLAYER_STATUS !== 'undefined') {
+            var ps = PLAYER_STATUS.find(function(s){return s.player===o.name});
+            if (ps && (ps.severity === 'warning' || ps.severity === 'caution')) {
+                statusOverride = ps.type === 'injury' ? ' (injury risk)' : ps.type === 'travel' ? ' (travel concern)' : ' (flagged)';
+            }
+        }
+        if (o.form === 'caution') statusOverride = statusOverride || ' (health question)';
+
+        if (ev > 5) { assessment = 'Strong value' + statusOverride; vc = statusOverride ? 'form-cool' : 'pos'; }
+        else if (ev > 2) { assessment = 'Value' + statusOverride; vc = statusOverride ? 'form-cool' : 'pos'; }
+        else if (ev > 0) { assessment = 'Slight value' + statusOverride; vc = statusOverride ? 'form-cool' : 'form-warm'; }
+        else if (ev > -2) { assessment = 'Fair price' + statusOverride; vc = 'form-neutral'; }
         else if (ev > -5) { assessment = 'Overpriced'; vc = 'neg'; }
         else { assessment = 'Significantly overpriced'; vc = 'neg'; }
         tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + o.fair + '</td><td style="font-family:var(--font-mono)">' + o.best + '</td><td style="font-family:var(--font-mono)">' + o.b365 + '</td><td class="' + ec + '" style="font-family:var(--font-mono);font-weight:600">' + o.edge + '</td><td class="' + sigCls(o.form) + '">' + o.form + '</td><td class="' + vc + '" style="font-size:0.72rem">' + assessment + '</td></tr>';
