@@ -15,7 +15,7 @@
         { rank:10, name:"Maverick McNealy", best:"+2400 DK", t5:"+460", t20:"+108", b365:"TBD", form:"warm", note:"Klos #2, Mayo #5. T3 here 2025. All-around game fits. Low ownership for his composite rank." },
         { rank:11, name:"Michael Thorbjornsen", best:"+2500 DK", t5:"+475", t20:"+110", b365:"TBD", form:"warm", note:"Andy #5 (bomber model). T3 at Houston (-15). Masters qualified." },
         { rank:12, name:"Rickie Fowler", best:"+2700 DK", t5:"+500", t20:"+112", b365:"TBD", form:"cool", note:"Klos #11, Noonan #10. Putting is his weapon. Needs top-5 for Masters via OWGR." },
-        { rank:13, name:"J.J. Spaun", best:"+3100 DK", t5:"+580", t20:"+132", b365:"TBD", form:"warm", note:"2022 champion at 150/1. TPC SA course knowledge. Klos #26, but won here before." },
+        { rank:13, name:"J.J. Spaun", best:"+3100 DK", t5:"+580", t20:"+132", b365:"TBD", form:"warm", note:"2022 champion at long odds. TPC SA course knowledge. Klos #26, but won here before." },
         { rank:14, name:"Sepp Straka", best:"+3300 DK", t5:"+590", t20:"+134", b365:"TBD", form:"warm", note:"Meta #15. Consistent across all models (RH20 #6, RH21 #6). No spike but no hole. Titanic pick at 32/1." },
         { rank:15, name:"Keith Mitchell", best:"+3700 DK", t5:"+670", t20:"+152", b365:"TBD", form:"warm", note:"Noonan #2 (loves his distance + approach). T14 at Houston (-10)." },
         { rank:16, name:"Alex Noren", best:"+3900 DK", t5:"+670", t20:"+146", b365:"TBD", form:"warm", note:"Klos #10, RH20 #5. ARG +0.28 fits the elevated green runoffs." },
