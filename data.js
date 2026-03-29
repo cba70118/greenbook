@@ -379,8 +379,8 @@ const PLAYER_STATUS = [
     { player: "Scottie Scheffler", type: "rest", status: "WD from Houston (birth of second child). Preparing for Masters. Fully healthy.", severity: "info", updated: "Mar 25" },
     { player: "Xander Schauffele", type: "injury", status: "Returning from early-season injury. Showed form at Valspar (T4). Putting rank 76th this year.", severity: "caution", updated: "Mar 22" },
     { player: "Will Zalatoris", type: "injury", status: "Back from injury. First return at Houston. MC on the number. Approach play looked ok, driving and chipping did not.", severity: "caution", updated: "Mar 27" },
-    { player: "Nicolai Hojgaard", type: "motivation", status: "Fighting for Masters qualification via OWGR top 50. Strong Houston showing could clinch it. May WD from Valero if qualified.", severity: "info", updated: "Mar 27" },
-    { player: "Michael Thorbjornsen", type: "motivation", status: "World #56, needs strong Houston finish to crack top 50 for Masters. Currently T4 at Houston.", severity: "info", updated: "Mar 27" },
+    { player: "Nicolai Hojgaard", type: "motivation", status: "2nd at Houston (-17) heading into R4. Masters qualification virtually locked. Likely WDs from Valero.", severity: "info", updated: "Mar 29" },
+    { player: "Michael Thorbjornsen", type: "motivation", status: "T3 at Houston (-12). Should crack OWGR top 50 for Masters invite with this finish.", severity: "info", updated: "Mar 29" },
 ];
 
 // Course library
