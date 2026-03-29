@@ -101,21 +101,28 @@
             </div>
         </div>
 
-        <!-- Weather -->
-        <div class="card" id="weather-card">
-            <h3>Course Conditions</h3>
-            <div id="weather-display" class="weather-grid"></div>
+        <!-- Tournament Notes / Narrative (HIGH PRIORITY - above analysis) -->
+        <div class="card" id="tourney-notes-card">
+            <h3>Analysis Notes</h3>
+            <p class="card-subtitle">Key takeaways, players we like (bet or not), fades, and process observations.</p>
+            <div id="tourney-notes"></div>
         </div>
 
-        <!-- FRL Analysis -->
-        <div class="card" id="frl-card">
-            <h3>First Round Leader Analysis</h3>
-            <p class="card-subtitle">Wave advantage, weather splits, and FRL candidates. Wind direction and speed are critical for R1 scoring differentials.</p>
-            <div id="frl-wave-summary"></div>
-            <table class="data-table" id="frl-table">
-                <thead><tr><th>Player</th><th>Wave</th><th>Odds</th><th>Wind Advantage</th><th>Form</th><th>FRL History</th></tr></thead>
-                <tbody id="frl-body"></tbody>
-            </table>
+        <!-- Skill Fit Rankings + Tournament Surface Fits -->
+        <div class="card" id="skill-fit-card">
+            <h3>Skill Fit Rankings</h3>
+            <p class="card-subtitle">How players rank for this specific course. Skill tabs rank by individual stats. Tournament tabs pull surface-specific and course-type data.</p>
+            <div class="quick-tags" id="skill-fit-tabs">
+                <span class="quick-tag active" data-skill="overall">Overall Fit</span>
+                <span class="quick-tag" data-skill="app">Approach</span>
+                <span class="quick-tag" data-skill="putt">Putting</span>
+                <span class="quick-tag" data-skill="ott">Off the Tee</span>
+                <span class="quick-tag" data-skill="arg">Short Game</span>
+                <span class="quick-tag" data-skill="dd">Distance</span>
+                <span class="quick-tag" data-skill="surface">Surface Putters</span>
+                <span class="quick-tag" data-skill="weekfit">This Week's Fit</span>
+            </div>
+            <div id="skill-fit-display"></div>
         </div>
 
         <!-- Stat Fingerprint + Radar -->
@@ -136,39 +143,29 @@
             </div>
         </div>
 
-        <!-- Key Holes + Recent Winners -->
-        <div class="grid-2">
-            <div class="card"><h3>Key Holes</h3><div id="key-holes"></div></div>
-            <div class="card"><h3>Recent Winners</h3><div id="recent-winners"></div></div>
+        <!-- Blind Composite (moved up before weather/FRL) -->
+
+        <!-- Weather + FRL (moved below composite) -->
+        <div class="card" id="weather-card">
+            <h3>Course Conditions</h3>
+            <div id="weather-display" class="weather-grid"></div>
         </div>
 
-        <!-- Tournament Notes / Narrative -->
-        <div class="card" id="tourney-notes-card">
-            <h3>Analysis Notes</h3>
-            <p class="card-subtitle">Key takeaways, players we like (bet or not), fades, and process observations.</p>
-            <div id="tourney-notes"></div>
-        </div>
-
-        <!-- Skill Fit Rankings -->
-        <div class="card" id="skill-fit-card">
-            <h3>Skill Fit Rankings</h3>
-            <p class="card-subtitle">How each player scores on individual skills this course rewards. Select a category to rank the field.</p>
-            <div class="quick-tags" id="skill-fit-tabs">
-                <span class="quick-tag active" data-skill="overall">Overall Fit</span>
-                <span class="quick-tag" data-skill="app">Approach</span>
-                <span class="quick-tag" data-skill="putt">Putting</span>
-                <span class="quick-tag" data-skill="ott">Off the Tee</span>
-                <span class="quick-tag" data-skill="arg">Short Game</span>
-                <span class="quick-tag" data-skill="dd">Distance</span>
-            </div>
-            <div id="skill-fit-display"></div>
+        <div class="card" id="frl-card">
+            <h3>First Round Leader Analysis</h3>
+            <p class="card-subtitle">Wave advantage, weather splits, and FRL candidates.</p>
+            <div id="frl-wave-summary"></div>
+            <table class="data-table" id="frl-table">
+                <thead><tr><th>Player</th><th>Wave</th><th>Odds</th><th>Wind Advantage</th><th>Form</th><th>FRL History</th></tr></thead>
+                <tbody id="frl-body"></tbody>
+            </table>
         </div>
 
         <!-- 3-Ball / Player Comparison -->
         <div class="card">
             <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
             <h3>Player Comparison / 3-Ball</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Select 2-3 players to compare skill profiles. Useful for 3-ball matchup analysis.</p>
+            <p class="card-subtitle">Select 2-3 players to compare skill profiles.</p>
             <div class="compare-selects">
                 <select id="tourney-compare-1" class="calc-input"></select>
                 <select id="tourney-compare-2" class="calc-input"></select>
@@ -177,7 +174,13 @@
             <div id="tourney-compare-output"></div>
         </div></div>
 
-        <!-- Blind Composite -->
+        <!-- Key Holes + Recent Winners (moved to bottom) -->
+        <div class="grid-2">
+            <div class="card"><h3>Key Holes</h3><div id="key-holes"></div></div>
+            <div class="card"><h3>Recent Winners</h3><div id="recent-winners"></div></div>
+        </div>
+
+        <!-- Blind Composite (original position marker - actual composite follows) -->
         <div class="card">
             <h3>Blind Composite Rankings</h3>
             <p class="card-subtitle">Phase 2.5 output. Ranked by weighted course-fit composite using DG skill ratings, Rabbit Hole models, and form signals. "Model Fits" = top-10 in a specific statistical model (e.g., M17#1 = ranked #1 in the driver/ball-speed model).</p>
@@ -196,7 +199,7 @@
             </div></div>
             <div class="card">
                 <h3>DG Form Signals</h3>
-                <p class="card-subtitle">Baseline win% vs form-adjusted (BHF). Pulls from DataGolf API closer to tournament week.</p>
+                <p class="card-subtitle">Gray = career baseline win probability. Colored = form-adjusted (BHF). Green = surging (TAILWIND), light green = warm, amber = cooling, red = declining (HEADWIND). Taller colored bar = player is outperforming their baseline.</p>
                 <div id="form-chart-placeholder" class="placeholder-msg">Form signal data populates from DataGolf API during tournament week analysis. Check back closer to the event.</div>
                 <canvas id="form-chart" height="300"></canvas>
             </div>

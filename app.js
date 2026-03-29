@@ -631,7 +631,22 @@ function renderSkillFit(t, skill) {
     var scored = players.map(function(name) {
         var data = t.radarPlayers[name];
         var score, label;
-        if (skill === 'overall') {
+        if (skill === 'surface') {
+            // Surface putting for this tournament's grass type
+            var surface = '';
+            if (t.meta) {
+                if (t.meta.indexOf('Bermuda') >= 0) surface = 'putt_bermuda';
+                else if (t.meta.indexOf('Poa') >= 0) surface = 'putt_poa';
+                else if (t.meta.indexOf('Bent') >= 0) surface = 'putt_bent';
+            }
+            if (surface) {
+                var p = SCOUTING.find(function(s){return s.name === name});
+                score = p && p[surface] !== undefined ? Math.round((p[surface] / 0.7) * 50 + 50) : 50;
+            } else { score = 50; }
+        } else if (skill === 'weekfit') {
+            // This week's overall fit from radar data
+            score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
+        } else if (skill === 'overall') {
             score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
             label = 'Avg across all categories';
         } else if (skill === 'app') {
