@@ -1,46 +1,34 @@
-// Valero 2026 composite + odds update (parsed Mar 28)
-// Patches into TOURNAMENT_DATA.valero
-
+// Valero 2026 odds + composite update (parsed Mar 28-29)
 (function() {
     if (!TOURNAMENT_DATA || !TOURNAMENT_DATA.valero) return;
 
-    // Updated composite from 7-model blend (TPC SA 5yr + comp 6mo/3yr + RH20 + RH21)
-    TOURNAMENT_DATA.valero.composite = [
-        { rank:1, name:"Russell Henley", comp:0.72, form:1.10, signal:"warm", app:0.60, ott:0.29, dd:-8.4, arg:0.29, putt:0.38, t10:14.5, spikes:"RH20#2 RH21#1", flag:"" },
-        { rank:2, name:"Tommy Fleetwood", comp:0.70, form:1.08, signal:"warm", app:0.66, ott:0.49, dd:1.4, arg:0.33, putt:0.24, t10:16.2, spikes:"RH20#1 RH21#3", flag:"" },
-        { rank:3, name:"Collin Morikawa", comp:0.68, form:1.08, signal:"caution", app:0.96, ott:0.73, dd:2.0, arg:0.05, putt:-0.04, t10:18.5, spikes:"RH20#4 RH21#4", flag:"BACK INJURY" },
-        { rank:4, name:"Si Woo Kim", comp:0.66, form:1.15, signal:"warm", app:0.81, ott:0.66, dd:-2.7, arg:0.24, putt:-0.19, t10:16.8, spikes:"RH20#3 RH21#7", flag:"" },
-        { rank:5, name:"Sepp Straka", comp:0.64, form:1.08, signal:"warm", app:0.60, ott:0.33, dd:-0.2, arg:0.05, putt:0.12, t10:13.5, spikes:"RH20#6 RH21#6", flag:"" },
-        { rank:6, name:"Rickie Fowler", comp:0.62, form:0.88, signal:"cool", app:0.34, ott:0.46, dd:2.2, arg:0.00, putt:0.38, t10:12.8, spikes:"RH20#8 RH21#8", flag:"NEEDS MASTERS SPOT" },
-        { rank:7, name:"Ludvig Aberg", comp:0.61, form:1.12, signal:"warm", app:0.59, ott:0.62, dd:12.2, arg:0.12, putt:0.29, t10:18.2, spikes:"RH21#5", flag:"" },
-        { rank:8, name:"Hideki Matsuyama", comp:0.60, form:1.08, signal:"warm", app:0.62, ott:-0.01, dd:-0.9, arg:0.45, putt:0.28, t10:16.2, spikes:"RH20#10", flag:"" },
-        { rank:9, name:"Maverick McNealy", comp:0.58, form:1.12, signal:"warm", app:0.44, ott:0.43, dd:6.8, arg:0.17, putt:0.29, t10:13.5, spikes:"RH20#7", flag:"" },
-        { rank:10, name:"Ryo Hisatsune", comp:0.57, form:1.11, signal:"warm", app:0.47, ott:0.41, dd:0.3, arg:0.11, putt:-0.08, t10:8.8, spikes:"RH21#10", flag:"" },
-        { rank:11, name:"Alex Noren", comp:0.56, form:1.08, signal:"warm", app:0.33, ott:-0.06, dd:-6.3, arg:0.28, putt:0.44, t10:11.2, spikes:"RH20#5", flag:"" },
-        { rank:12, name:"Sudarshan Yellamaraju", comp:0.55, form:0.96, signal:"neutral", app:0.04, ott:0.26, dd:8.6, arg:-0.04, putt:0.09, t10:7.5, spikes:"", flag:"" },
-        { rank:13, name:"Nicolai Hojgaard", comp:0.54, form:1.16, signal:"warm", app:0.52, ott:0.36, dd:14.3, arg:-0.01, putt:0.23, t10:14.2, spikes:"RH21#9", flag:"MAY WD IF MASTERS QUAL" },
-        { rank:14, name:"Jordan Spieth", comp:0.53, form:1.02, signal:"neutral", app:0.38, ott:0.09, dd:6.1, arg:0.21, putt:0.29, t10:18.5, spikes:"RH20#9 TPC#1", flag:"TPC SA KING" },
-        { rank:15, name:"Keith Mitchell", comp:0.52, form:1.19, signal:"warm", app:0.45, ott:0.56, dd:9.5, arg:-0.03, putt:-0.12, t10:12.8, spikes:"", flag:"" },
-    ];
-
-    // Odds board: fair = our composite-implied, best = DK price
-    // Edge calculated honestly: positive = book is longer than our fair (we see value)
-    // negative = book is shorter than our fair (overpriced by market)
     TOURNAMENT_DATA.valero.oddsBoard = [
-        { rank:1, name:"Tommy Fleetwood", fair:"+1400", best:"+1425 DK", b365:"TBD", form:"warm", edge:"+0.2%" },
-        { rank:2, name:"Russell Henley", fair:"+1400", best:"+1550 DK", b365:"TBD", form:"warm", edge:"+1.0%" },
-        { rank:3, name:"Ludvig Aberg", fair:"+1800", best:"+1600 DK", b365:"TBD", form:"warm", edge:"-1.1%" },
-        { rank:4, name:"Si Woo Kim", fair:"+1800", best:"+1750 DK", b365:"TBD", form:"warm", edge:"-0.3%" },
-        { rank:5, name:"Collin Morikawa", fair:"+1600", best:"+1800 DK", b365:"TBD", form:"caution", edge:"+1.0%" },
-        { rank:6, name:"Jordan Spieth", fair:"+1800", best:"+1900 DK", b365:"TBD", form:"neutral", edge:"+0.5%" },
-        { rank:7, name:"Hideki Matsuyama", fair:"+2200", best:"+2250 DK", b365:"TBD", form:"warm", edge:"+0.2%" },
-        { rank:8, name:"Maverick McNealy", fair:"+2500", best:"+2350 DK", b365:"TBD", form:"warm", edge:"-0.6%" },
-        { rank:9, name:"Rickie Fowler", fair:"+3000", best:"+2700 DK", b365:"TBD", form:"cool", edge:"-1.0%" },
-        { rank:10, name:"Sepp Straka", fair:"+3500", best:"+3200 DK", b365:"TBD", form:"warm", edge:"-0.8%" },
-        { rank:11, name:"Ryo Hisatsune", fair:"+5000", best:"+5200 DK", b365:"TBD", form:"warm", edge:"+0.3%" },
-        { rank:12, name:"Daniel Berger", fair:"+5500", best:"+5400 DK", b365:"TBD", form:"warm", edge:"-0.2%" },
-        { rank:13, name:"Marco Penge", fair:"+6000", best:"+5100 DK", b365:"TBD", form:"warm", edge:"-1.5%" },
-        { rank:14, name:"Sudarshan Yellamaraju", fair:"+8000", best:"+14000 DK", b365:"TBD", form:"neutral", edge:"+5.2%" },
-        { rank:15, name:"Will Zalatoris", fair:"+5000", best:"+7800 DK", b365:"TBD", form:"caution", edge:"+3.5%" },
+        { rank:1, name:"Tommy Fleetwood", best:"+1425 DK", b365:"TBD", form:"warm", note:"Market favourite. Meta #3 across 8 models. Klos #7, Noonan #6, Mayo #4. Masters tune-up risk." },
+        { rank:2, name:"Russell Henley", best:"+1550 DK", b365:"TBD", form:"warm", note:"Klos model #1. APP + ARG elite for TPC SA. Short hitter (Andy #102). Market sees him." },
+        { rank:3, name:"Ludvig Aberg", best:"+1600 DK", b365:"TBD", form:"warm", note:"Meta #1 across 8 models. Noonan #1, Mayo #1, Andy #2. Distance + ball-striking dominant." },
+        { rank:4, name:"Robert MacIntyre", best:"+1650 DK", b365:"TBD", form:"warm", note:"Not in our top-10 composite. Market pricing name + DP World form. Meta ~#13." },
+        { rank:5, name:"Si Woo Kim", best:"+1750 DK", b365:"TBD", form:"warm", note:"6mo form #3 on Tour. Klos #5, Noonan #4, Mayo #6. APP elite. Lives in Texas." },
+        { rank:6, name:"Collin Morikawa", best:"+1800 DK", b365:"TBD", form:"caution", note:"Meta #5. Iron play is perfect for TPC SA. Back injury from Players WD is the concern." },
+        { rank:7, name:"Jordan Spieth", best:"+1900 DK", b365:"TBD", form:"neutral", note:"TPC SA SG:TOT #1 over 16 rounds. Won 2021. Klos #3, Noonan #7. Current skill declining." },
+        { rank:8, name:"Nicolai Hojgaard", best:"+2200 DK", b365:"TBD", form:"warm", note:"Meta #2. Andy #1 (carry distance). Likely WDs if he qualifies for Masters at Houston today." },
+        { rank:9, name:"Hideki Matsuyama", best:"+2250 DK", b365:"TBD", form:"warm", note:"Klos #4, Mayo #2. ARG +0.45 elite for TPC SA's elevated greens." },
+        { rank:10, name:"Maverick McNealy", best:"+2350 DK", b365:"TBD", form:"warm", note:"Klos #2, Mayo #5. T3 here 2025. All-around game fits. Low ownership for his composite rank." },
+        { rank:11, name:"Michael Thorbjornsen", best:"+2450 DK", b365:"TBD", form:"warm", note:"Andy #5 (bomber model). Young talent. Probably qualifies for Masters at Houston." },
+        { rank:12, name:"Rickie Fowler", best:"+2700 DK", b365:"TBD", form:"cool", note:"Klos #11, Noonan #10. Putting is his weapon. Needs top-5 for Masters via OWGR." },
+        { rank:13, name:"J.J. Spaun", best:"+3100 DK", b365:"TBD", form:"warm", note:"2022 champion at 150/1. TPC SA course knowledge. Klos #26, but won here before." },
+        { rank:14, name:"Sepp Straka", best:"+3200 DK", b365:"TBD", form:"warm", note:"Meta #15. Consistent across all models (RH20 #6, RH21 #6). No spike but no hole." },
+        { rank:15, name:"Keith Mitchell", best:"+3700 DK", b365:"TBD", form:"warm", note:"Noonan #2 (loves his distance + approach). TPC SA #16 over 12 rounds." },
+        { rank:16, name:"Alex Noren", best:"+3800 DK", b365:"TBD", form:"warm", note:"Klos #10, RH20 #5. ARG +0.28 fits the elevated green runoffs." },
+        { rank:17, name:"Ryo Hisatsune", best:"+5200 DK", b365:"TBD", form:"warm", note:"Meta #11. Mayo #9, RH21 #10. Biggest gap between composite rank and price in the field." },
+        { rank:18, name:"Daniel Berger", best:"+5400 DK", b365:"TBD", form:"warm", note:"Comp 6mo #3 at correlated courses. Klos #14, Noonan #14. Back injury question." },
+        { rank:19, name:"Jordan Smith", best:"+5800 DK", b365:"TBD", form:"TAILWIND", note:"Comp 6mo #1 overall. Not in most narrative models. Anti-bias protocol find." },
+        { rank:20, name:"Ricky Castillo", best:"+6500 DK", b365:"TBD", form:"cool", note:"Won Puerto Rico. Klos #49, Mayo #32. Not a natural TPC SA fit." },
+        { rank:21, name:"Denny McCarthy", best:"+6700 DK", b365:"TBD", form:"neutral", note:"TPC SA SG:TOT #2 over 16 rounds. PUTT #3 here. Pure course specialist at this price." },
+        { rank:22, name:"Stephan Jaeger", best:"+6800 DK", b365:"TBD", form:"TAILWIND", note:"Klos #27, Mayo #25, Andy #17. 2024 Houston winner. Noonan #30. Weakness-masked profile." },
+        { rank:23, name:"Will Zalatoris", best:"+7800 DK", b365:"TBD", form:"caution", note:"RH21 #2 (ball-striking model). Back from injury. MC at Houston on the number." },
+        { rank:24, name:"Christiaan Bezuidenhout", best:"+8000 DK", b365:"TBD", form:"neutral", note:"RH20 #12. Short game elite but shortest hitter in most fields." },
+        { rank:25, name:"Tony Finau", best:"+8600 DK", b365:"TBD", form:"TAILWIND", note:"Klos #18. Won Houston 2022. T5 Houston this week. Course history player." },
+        { rank:26, name:"Sudarshan Yellamaraju", best:"+14000 DK", b365:"TBD", form:"neutral", note:"Andy #9 (carry distance). Meta #14. T7 at Houston this week. Ghost ownership." },
+        { rank:27, name:"A.J. Ewart", best:"+34000 DK", b365:"TBD", form:"warm", note:"Comp 6mo #4 at correlated courses. Pure dart. T11 at Valspar." },
     ];
 })();
