@@ -99,6 +99,39 @@ function loadTournament(key) {
         if (notesCard) notesCard.style.display = 'none';
     }
 
+    // Weather
+    var weatherCard = document.getElementById('weather-card');
+    var weatherDisplay = document.getElementById('weather-display');
+    if (t.location && weatherDisplay) {
+        weatherCard.style.display = '';
+        fetchWeather(t.location);
+    } else if (weatherCard) {
+        weatherCard.style.display = 'none';
+    }
+
+    // FRL
+    var frlCard = document.getElementById('frl-card');
+    var frlBody = document.getElementById('frl-body');
+    var frlWave = document.getElementById('frl-wave-summary');
+    if (frlBody) frlBody.innerHTML = '';
+    if (frlWave) frlWave.innerHTML = '';
+    if (t.frl && t.frl.length) {
+        if (frlCard) frlCard.style.display = '';
+        var amPlayers = t.frl.filter(function(f){return f.wave==='AM'});
+        var pmPlayers = t.frl.filter(function(f){return f.wave==='PM'});
+        if (frlWave) {
+            frlWave.innerHTML = '<div class="wave-card am"><h4>AM Wave</h4><div class="wave-detail">' + (amPlayers.length ? amPlayers.length + ' candidates. Typically calmer conditions, lower scores.' : 'Tee times TBD') + '</div></div>' +
+                '<div class="wave-card pm"><h4>PM Wave</h4><div class="wave-detail">' + (pmPlayers.length ? pmPlayers.length + ' candidates. Wind typically builds in afternoon.' : 'Tee times TBD') + '</div></div>';
+        }
+        t.frl.forEach(function(f) {
+            var waveCls = f.wave === 'AM' ? 'pos' : f.wave === 'PM' ? 'form-cool' : 'form-neutral';
+            var windCls = f.windAdv === 'Favorable' ? 'pos' : f.windAdv === 'TBD' ? 'form-neutral' : '';
+            frlBody.innerHTML += '<tr><td><strong>' + f.player + '</strong></td><td class="' + waveCls + '">' + f.wave + '</td><td style="font-family:var(--font-mono)">' + f.odds + '</td><td class="' + windCls + '">' + f.windAdv + '</td><td class="' + sigCls(f.form) + '">' + f.form + '</td><td style="font-size:0.72rem">' + f.history + '</td></tr>';
+        });
+    } else {
+        if (frlCard) frlCard.style.display = 'none';
+    }
+
     // Composite
     const cb = document.getElementById('composite-body');
     cb.innerHTML = '';
@@ -166,6 +199,57 @@ function drawRadar(t) {
         options: { responsive:true, plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:9},usePointStyle:true}}}, scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(109,196,142,0.1)'},angleLines:{color:'rgba(109,196,142,0.1)'},pointLabels:{font:{size:10,weight:'600'},color:'#F5EDD9'}}} }
     });
     document.getElementById('radar-legend').innerHTML = sel.map((n,i) => { const d=t.radarPlayers[n]; if(!d) return ''; const fit=d.reduce((s,v,idx)=>s+Math.min(v/t.winnerProfile[idx],1.2),0)/d.length*100; const c=fit>=95?'pos':fit>=80?'form-warm':fit>=65?'form-neutral':'neg'; return `<div class="radar-legend-item"><span class="radar-dot" style="background:${radarColors[i].border}"></span><strong>${n}</strong> <span class="${c}">Fit: ${fit.toFixed(0)}%</span></div>`; }).join('');
+}
+
+// Weather API
+var weatherCache = {};
+function fetchWeather(location) {
+    var display = document.getElementById('weather-display');
+    if (!display) return;
+    if (weatherCache[location]) { renderWeather(weatherCache[location]); return; }
+    display.innerHTML = '<div class="weather-loading">Loading weather for ' + location + '...</div>';
+    fetch('https://api.weatherapi.com/v1/forecast.json?key=22e06f60fa1d4696bc7175703262803&q=' + encodeURIComponent(location) + '&days=4')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.forecast) {
+                weatherCache[location] = data;
+                renderWeather(data);
+            } else {
+                display.innerHTML = '<div class="weather-loading">Weather data unavailable for ' + location + '</div>';
+            }
+        })
+        .catch(function() {
+            display.innerHTML = '<div class="weather-loading">Could not load weather data</div>';
+        });
+}
+
+function renderWeather(data) {
+    var display = document.getElementById('weather-display');
+    var days = data.forecast.forecastday;
+    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    display.innerHTML = days.map(function(d) {
+        var date = new Date(d.date + 'T12:00:00');
+        var dayName = dayNames[date.getDay()];
+        var temp = Math.round(d.day.maxtemp_f);
+        var low = Math.round(d.day.mintemp_f);
+        var wind = Math.round(d.day.maxwind_mph);
+        var gust = d.hour ? Math.round(Math.max.apply(null, d.hour.map(function(h){return h.gust_mph||0}))) : wind;
+        var rain = d.day.daily_chance_of_rain;
+        var desc = d.day.condition.text;
+        var rainCls = rain > 50 ? 'high' : 'low';
+        // Wind direction from noon hour
+        var windDir = d.hour && d.hour[12] ? d.hour[12].wind_dir : '';
+        // Weather emoji
+        var icon = rain > 60 ? '🌧' : rain > 30 ? '⛅' : wind > 20 ? '💨' : '☀';
+        return '<div class="weather-day">' +
+            '<div class="weather-day-name">' + dayName + '</div>' +
+            '<div class="weather-icon">' + icon + '</div>' +
+            '<div class="weather-temp">' + temp + '°<span style="font-size:0.8rem;color:var(--cream-500)">/' + low + '°</span></div>' +
+            '<div class="weather-desc">' + desc + '</div>' +
+            '<div class="weather-wind">Wind: <strong>' + wind + ' mph</strong> ' + windDir + (gust > wind + 5 ? ' (gusts ' + gust + ')' : '') + '</div>' +
+            '<div class="weather-rain ' + rainCls + '">Rain: ' + rain + '%</div>' +
+            '</div>';
+    }).join('');
 }
 
 // Helpers

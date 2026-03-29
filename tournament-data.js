@@ -7,6 +7,15 @@ const TOURNAMENT_DATA = {
         course: "Augusta National",
         meta: "7,555 yds | Par 72 | Bentgrass (13.5 stimp) | Scoring: Difficult",
         archetype: "Second-shot + Short game",
+        location: "Augusta, Georgia",
+        frl: [
+            { player:"Scottie Scheffler", wave:"AM", odds:"+1200", windAdv:"Neutral", form:"warm", history:"Led R1 2024" },
+            { player:"Rory McIlroy", wave:"AM", odds:"+1600", windAdv:"Neutral", form:"warm", history:"R1 65 in 2025 (won)" },
+            { player:"Collin Morikawa", wave:"PM", odds:"+2500", windAdv:"TBD", form:"warm", history:"No R1 lead" },
+            { player:"Jon Rahm", wave:"AM", odds:"+2000", windAdv:"Neutral", form:"warm", history:"R1 65 in 2023 (won)" },
+            { player:"Cameron Young", wave:"TBD", odds:"+3500", windAdv:"TBD", form:"TAILWIND", history:"No R1 lead" },
+            { player:"Jordan Spieth", wave:"TBD", odds:"+5000", windAdv:"TBD", form:"cool", history:"Led R1 2015 (won), R1 64" },
+        ],
         narrative: {
             description: "MacKenzie/Jones masterpiece (1932). The most predictive course on Tour — course history matters more here than anywhere else. Wide fairways with no real rough, but severely contoured elevated greens with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hurricane Helene (2025) removed many trees, opening sightlines and potentially changing wind patterns.",
             correlated: "Quail Hollow, Muirfield Village, Torrey Pines (South), Pinehurst No. 2, Riviera, Bay Hill, Southern Hills, Memorial Park. Common thread: demanding second-shot courses with difficult ARG, elevation changes, and a premium on distance + iron play.",
@@ -315,6 +324,15 @@ const TOURNAMENT_DATA = {
         course: "Memorial Park GC",
         meta: "7,475 yds | Par 70 | Poa Trivialis | Scoring: Hard",
         archetype: "Second-shot + Bomber",
+        location: "Houston, Texas",
+        frl: [
+            { player:"Kurt Kitayama", wave:"AM", odds:"+4000", windAdv:"Favorable", form:"warm", history:"No FRL history here" },
+            { player:"Nicolai Hojgaard", wave:"AM", odds:"+3500", windAdv:"Favorable", form:"warm", history:"No FRL history here" },
+            { player:"Keith Mitchell", wave:"AM", odds:"+4500", windAdv:"Favorable", form:"warm", history:"Co-FRL 2025" },
+            { player:"Chris Gotterup", wave:"AM", odds:"+3000", windAdv:"Favorable", form:"warm", history:"No FRL history here" },
+            { player:"Ryan Gerard", wave:"AM", odds:"+4000", windAdv:"Favorable", form:"neutral", history:"Co-FRL 2025" },
+            { player:"Alejandro Tosti", wave:"TBD", odds:"+8000", windAdv:"TBD", form:"TAILWIND", history:"Co-FRL 2025" },
+        ],
         narrative: {
             description: "Tom Doak/Brooks Koepka redesign (2019) of a municipal course. Augusta-influenced green complexes with short-grass runoffs, false fronts, and elevated contoured greens. The 2nd longest course on Tour with only 21 bunkers and 1.25-inch ryegrass rough — the lowest missed-fairway penalty anywhere. Defense comes entirely from the greens and the length. Poa Trivialis overseed since 2024; firm and fast at 12-13 stimp.",
             correlated: "Augusta National (same Doak influence, short-grass ARG, elevated greens), Riviera (firm greens, approach precision), Quail Hollow (length + approach + ARG). Memorial Park was specifically designed as an Augusta prep course.",
@@ -494,6 +512,14 @@ const TOURNAMENT_DATA = {
         course: "TPC San Antonio (Oaks)",
         meta: "7,438 yds | Par 72 | Bermuda/Poa Triv greens (11 stimp) | Scoring: Hard (wind-dependent)",
         archetype: "Second-shot + Wind-exposed",
+        location: "San Antonio, Texas",
+        frl: [
+            { player:"Jordan Spieth", wave:"TBD", odds:"+2200", windAdv:"TBD", form:"neutral", history:"TPC SA SG:TOT #1. Won 2021." },
+            { player:"Si Woo Kim", wave:"TBD", odds:"+2500", windAdv:"TBD", form:"warm", history:"T4 here. APP elite." },
+            { player:"Tommy Fleetwood", wave:"TBD", odds:"+1800", windAdv:"TBD", form:"warm", history:"No FRL history here" },
+            { player:"Russell Henley", wave:"TBD", odds:"+3000", windAdv:"TBD", form:"warm", history:"TPC SA APP #2" },
+            { player:"Denny McCarthy", wave:"TBD", odds:"+5000", windAdv:"TBD", form:"neutral", history:"TPC SA SG:TOT #2. PUTT #3 here." },
+        ],
         narrative: {
             description: "Greg Norman/Sergio Garcia design on rolling Texas Hill Country terrain. Elevated Bermuda greens overseeded with Poa Trivialis, protected by 64 renovated bunkers. The course's primary defense is wind, not architecture. Scoring swings 8-10 strokes per day based on conditions. 3-inch rye/fescue rough increased from 2.25 inches in 2025. GIR from fairways is harder than Tour average (64% vs 77%) but GIR from rough is the same, making the fairway advantage less than expected. The week before the Masters, creating a bifurcated field: stars using it as a tune-up vs hungry players fighting for the final Masters spot.",
             tags: ["Wind Exposed", "Elevated Greens", "False Fronts", "Pre-Masters", "Bermuda/Poa", "64 Bunkers", "Hill Country", "Hungry Field"],
