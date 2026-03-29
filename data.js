@@ -218,7 +218,7 @@ const SCOUTING = [
       weaknesses:"OTT +0.10 and DrDist +0.6 mean he's not long. ARG +0.14 is modest. Short game has been the historical leak.", notes:"Rebuilt short game has stabilized. When putting is on, he's a top-5 player. Approach is the engine." },
     { name:"Matt Fitzpatrick", tier:"Contender", sg_tot:1.69, app:0.67, ott:0.42, arg:0.30, putt:0.29, putt_bermuda:0.25, putt_bent:0.35, putt_poa:0.2, dd:2.7,
       shape:"Fade", surface:"Bentgrass", strengths:"Complete game — positive in all 4 categories. APP +0.67 and ARG +0.30 elite. US Open champion (2022).",
-      weaknesses:"Not a bomber (DrDist +2.7). OTT +0.42 is good but not elite. Distance disadvantage at long courses.", notes:"Bentgrass specialist. Sheffield-style precision player. Thrives at accuracy-rewarding setups." },
+      weaknesses:"Not a bomber (DrDist +2.7). OTT +0.42 is good but not elite. Distance disadvantage at long courses.", notes:"2026 Valspar champion (-11, 68-69-68-68). Won with consistent ball-striking on Copperhead's small greens. US Open champion (2022). Bentgrass/Poa precision player who thrives at accuracy-rewarding setups. Masters composite #17 — strong Augusta fit (APP + ARG + Poa putting)." },
     { name:"Si Woo Kim", tier:"Contender", sg_tot:1.52, app:0.81, ott:0.66, arg:0.24, putt:-0.19, putt_bermuda:-0.25, putt_bent:-0.12, putt_poa:-0.18, dd:-2.7,
       shape:"Variable", surface:"All", strengths:"Elite ball-striker — APP +0.81 and OTT +0.66 are both top-tier. ARG +0.24 solid. Shot-shaping ability is rare.",
       weaknesses:"Putting is a real liability (-0.19). Short hitter (DrDist -2.7). The flat stick consistently costs him.", notes:"Hard-rotated in our tracker due to putting. When the putter cooperates he's a winner, but it rarely does." },
