@@ -1484,7 +1484,8 @@ function renderBetCard(data, tbodyId, book) {
     const tb = document.getElementById(tbodyId);
     if (!tb) return;
     data.forEach(d => {
-        const sc = d.status==='Lost'?'neg':d.status==='Open'?'':d.status.indexOf('T')===0||d.status.indexOf('-')>=0?'form-warm':'pos';
+        const res = d.result || '';
+        const sc = res==='Won'?'pos':res==='Lost'?'neg':d.status==='Lost'?'neg':d.status==='Open'?'':d.status.indexOf('T')===0||d.status.indexOf('-')>=0?'form-warm':'pos';
         let betType = d.market || 'Outright';
         if (d.terms && d.terms !== 'Win') betType += ' ' + d.terms;
         const bk = book || d.book || 'bet365';

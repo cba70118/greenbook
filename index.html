@@ -533,18 +533,10 @@
     <section id="activebets" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.5rem">Active Bets</h2>
 
-        <!-- Houston (Live) -->
-        <div class="card">
-            <h3>Houston Open <span class="badge live">LIVE</span></h3>
-            <p class="card-subtitle">Memorial Park GC | Mar 26-29 | 11 bets</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-houston"></tbody></table>
-        </div>
-
         <!-- Valero (Upcoming) -->
         <div class="card">
             <h3>Valero Texas Open <span class="badge upcoming">APR 2</span></h3>
-            <p class="card-subtitle">TPC San Antonio | Apr 2-5 | 5 bets</p>
+            <p class="card-subtitle">TPC San Antonio | Apr 2-5 | 7 bets</p>
             <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-valero"></tbody></table>
         </div>
@@ -557,13 +549,20 @@
             <tbody id="ab-masters"></tbody></table>
         </div>
 
+        <!-- Recently Settled -->
+        <div class="card" style="border-left:2px solid var(--green-800);opacity:0.85">
+            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
+            <h3>Houston Open <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--green-500);font-weight:400">SETTLED | Woodland -21 | 1W-10L | -$58</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Finish</th><th>Result</th></tr></thead>
+            <tbody id="ab-houston"></tbody></table>
+        </div></div>
+
         <!-- Odds Board -->
         <div class="card">
             <h3>Odds Board</h3>
             <p class="card-subtitle">Composite-implied fair odds vs book price.</p>
             <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
                 <option value="masters">Masters</option>
-                <option value="houston">Houston Open</option>
                 <option value="valero">Valero Texas Open</option>
             </select>
             <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
@@ -590,20 +589,20 @@
                     <tr><td>Puerto Rico Open</td><td>9</td><td>1</td><td>8</td><td>0</td><td>$100.00</td><td>$295.00</td><td class="pos">+$195.00</td></tr>
                     <tr><td>The Players Championship</td><td>17</td><td>0</td><td>15</td><td>0</td><td>$125.00</td><td>$15.00</td><td class="neg">-$110.00</td></tr>
                     <tr><td>Valspar Championship</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$85.00</td><td>$0.00</td><td class="neg">-$85.00</td></tr>
-                    <tr><td>Houston Open</td><td>11</td><td>-</td><td>4</td><td>7</td><td>$130.00</td><td>-</td><td>In play</td></tr>
-                    <tr><td>Valero Texas Open</td><td>5</td><td>-</td><td>-</td><td>5</td><td>$16.25</td><td>-</td><td>Upcoming</td></tr>
+                    <tr><td>Houston Open</td><td>11</td><td>1</td><td>10</td><td>0</td><td>$130.00</td><td>$72.00</td><td class="neg">-$58.00</td></tr>
+                    <tr><td>Valero Texas Open</td><td>7</td><td>-</td><td>-</td><td>7</td><td>$36.25</td><td>-</td><td>Upcoming</td></tr>
                     <tr><td>The Masters</td><td>4</td><td>-</td><td>-</td><td>4</td><td>$50.00</td><td>-</td><td>Upcoming</td></tr>
-                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>156</td><td>10</td><td>125</td><td>16</td><td>$1,372.75</td><td>$1,204.25</td><td>TBD</td></tr>
-                    <tr style="font-weight:700"><td>Settled Only</td><td>136</td><td>10</td><td>121</td><td>-</td><td>$1,176.50</td><td>$1,204.25</td><td class="pos">+$27.75</td></tr>
+                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>158</td><td>11</td><td>136</td><td>11</td><td>$1,392.75</td><td>$1,276.25</td><td>TBD</td></tr>
+                    <tr style="font-weight:700"><td>Settled Only</td><td>147</td><td>11</td><td>136</td><td>-</td><td>$1,306.50</td><td>$1,276.25</td><td class="neg">-$30.25</td></tr>
                 </tbody>
             </table>
         </div>
 
         <!-- Key Numbers -->
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-value">156</div><div class="stat-label">Total Bets</div></div>
-            <div class="stat-card positive"><div class="stat-value">+$27.75</div><div class="stat-label">Settled P/L</div></div>
-            <div class="stat-card"><div class="stat-value">+2.4%</div><div class="stat-label">ROI (settled)</div></div>
+            <div class="stat-card"><div class="stat-value">158</div><div class="stat-label">Total Bets</div></div>
+            <div class="stat-card negative"><div class="stat-value">-$30.25</div><div class="stat-label">Settled P/L</div></div>
+            <div class="stat-card"><div class="stat-value">-2.3%</div><div class="stat-label">ROI (settled)</div></div>
             <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Winners</div></div>
             <div class="stat-card"><div class="stat-value">7.4%</div><div class="stat-label">Win Rate</div></div>
             <div class="stat-card"><div class="stat-value">16</div><div class="stat-label">Open Bets</div></div>

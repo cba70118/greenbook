@@ -91,10 +91,9 @@ const PLAYERS = {
         { name: "Collin Morikawa", bets: 6, wins: 2, pl: 35, roi: 50 },
         { name: "Ricky Castillo", bets: 3, wins: 1, pl: 270, roi: 1080 },
         { name: "Tommy Fleetwood", bets: 3, wins: 1, pl: 17.40, roi: 50 },
-        { name: "Keith Mitchell", bets: 6, wins: 1, pl: -32, roi: -32 },
-        { name: "Kurt Kitayama", bets: 6, wins: 0, pl: -50, roi: -100 },
-        { name: "Stephan Jaeger", bets: 4, wins: 0, pl: -11, roi: -100 },
-        { name: "Nicolai Hojgaard", bets: 5, wins: 0, pl: -25, roi: -100 },
+        { name: "Keith Mitchell", bets: 7, wins: 1, pl: -42, roi: -38 },
+        { name: "Stephan Jaeger", bets: 5, wins: 0, pl: -21, roi: -100 },
+        { name: "Nicolai Hojgaard", bets: 6, wins: 1, pl: 47, roi: 34 },
     ],
     onNotice: [
         { name: "Sepp Straka", bets: 3, wins: 0, pl: -25, consec: 3, reason: "T8 Players near-miss" },
@@ -103,11 +102,14 @@ const PLAYERS = {
         { name: "Haotong Li", bets: 4, wins: 0, pl: -12.50, consec: 2, reason: "WD risk" },
     ],
     benched: [
+        { name: "Kurt Kitayama", bets: 8, wins: 0, pl: -80, consec: 8, reason: "0-8 all markets. T60 Houston." },
         { name: "Min Woo Lee", bets: 4, wins: 0, pl: -40, consec: 4, reason: "0-4 all markets" },
         { name: "Ryan Gerard", bets: 4, wins: 0, pl: -30, consec: 4, reason: "0-4 all markets" },
         { name: "Si Woo Kim", bets: 3, wins: 0, pl: -30, consec: 3, reason: "Putting liability" },
         { name: "Max McGreevy", bets: 4, wins: 0, pl: -36, consec: 4, reason: "Over-exposed Cognizant" },
         { name: "Michael Brennan", bets: 3, wins: 0, pl: -17.50, consec: 3, reason: "Long darts not connecting" },
+        { name: "Max Greyserman", bets: 1, wins: 0, pl: -10, consec: 1, reason: "MC Houston. Course history thesis failed." },
+        { name: "Wyndham Clark", bets: 1, wins: 0, pl: -10, consec: 1, reason: "MC Houston. Form signal didn't translate." },
     ]
 };
 
