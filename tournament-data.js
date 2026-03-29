@@ -307,7 +307,7 @@ const TOURNAMENT_DATA = {
             "Corey Conners": [78, 85, 70, 35, 65, 48],
             "Sahith Theegala": [72, 48, 65, 68, 62, 65],
         },
-        result2026: { winner:"Hovland", score:"-11", odds:"18/1", why:"APP + Poa putting carried through the Snake Pit. Our 11 bets all lost. Valspar remains a tough venue for us.", record:"0W-11L | -$85" },
+        result2026: { winner:"Matt Fitzpatrick", score:"-11 (273)", odds:"~25/1", why:"Consistent iron play across all four rounds (68-69-68-68). SG:APP elite on Copperhead's small greens. Lipsky 2nd (-10), Jordan Smith 3rd (-9). Schauffele T4, Penge T4, Cantlay T7, Jaeger T7. Hovland (defending champ) missed the cut." },
         composite: [], rhModels: [], formSignals: [], weaknessMasked: [], narratives: [], courseHistory: [],
     },
     houston: {
