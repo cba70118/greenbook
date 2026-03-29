@@ -549,13 +549,9 @@ document.querySelectorAll('.quick-tag').forEach(tag => {
             if (time === 'career') {
                 sorted = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,20);
             } else if (time === 'recent') {
-                // Sort by recent form indicators: players with TAILWIND/warm notes, recent wins, high putting variance (surface spread = form volatility)
-                sorted = [...SCOUTING].sort((a,b) => {
-                    var aRecent = (a.notes && a.notes.match(/2026|won|TAILWIND|surging|hot/i)) ? 1 : 0;
-                    var bRecent = (b.notes && b.notes.match(/2026|won|TAILWIND|surging|hot/i)) ? 1 : 0;
-                    if (bRecent !== aRecent) return bRecent - aRecent;
-                    return b.sg_tot - a.sg_tot;
-                }).slice(0,20);
+                // Sort by combined APP + PUTT (the two skills that define recent competitive form)
+                // High APP + PUTT = player is striking AND converting right now
+                sorted = [...SCOUTING].sort((a,b) => (b.app + b.putt) - (a.app + a.putt)).slice(0,20);
             } else if (time === 'compcourse') {
                 // Sort by approach + short game (the skills that transfer across course types)
                 sorted = [...SCOUTING].sort((a,b) => (b.app + b.arg) - (a.app + a.arg)).slice(0,20);
@@ -585,11 +581,11 @@ document.querySelectorAll('.quick-tag').forEach(tag => {
             const type = tag.dataset.form;
             let filtered;
             if (type === 'hot') {
-                // Players with recent wins, TAILWIND notes, or top form
-                filtered = SCOUTING.filter(p => p.notes && (p.notes.match(/won|winner|TAILWIND|surging|hot|streak|momentum/i) || p.notes.match(/202[56].*champion/i))).slice(0,15);
-                if (filtered.length < 8) filtered = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,15);
+                // Top SG:Total players — the objectively best golfers right now
+                filtered = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,15);
             } else if (type === 'cold') {
-                filtered = SCOUTING.filter(p => p.notes && p.notes.match(/benched|0-[3-9]|declining|struggled|MC|missed.*cut|cold|fading/i)).slice(0,15);
+                // Bottom SG:Total among profiled players — objectively struggling
+                filtered = [...SCOUTING].filter(p => p.sg_tot < 0.4).sort((a,b) => a.sg_tot - b.sg_tot).slice(0,15);
             } else if (type === 'rising') {
                 // Contenders and mid-fielders with positive signals
                 filtered = SCOUTING.filter(p => (p.tier === 'Contender' || p.tier === 'Mid-field') && p.notes && p.notes.match(/composite|dark horse|protocol|surfa|trending|rising|momentum|validated/i)).slice(0,15);
