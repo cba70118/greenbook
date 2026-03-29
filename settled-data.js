@@ -123,6 +123,37 @@ if (ap) {
         { name:"Chris Gotterup", noonan:false, klos:false, mayo:false, stewart:true, titanic:false, count:1, rank:8 },
         { name:"Akshay Bhatia", noonan:false, klos:false, mayo:false, stewart:false, titanic:false, count:0, rank:2 },
     ];
+    ap.review = {
+        record: "4W-18L",
+        pl: 46.10,
+        winner: "Akshay Bhatia",
+        winnerOdds: "25/1",
+        bestPick: "DFS lineup $144 on $20",
+        summary: "Positive week driven by creative bet structures rather than outright picks. Morikawa T10 prop cashed, DFS lineup hit big, and two matchup bets won. But FRL went 0-for-5 again (Berger shot 63 to win FRL) and Fitzpatrick T41 was a disaster. The week proved that diversifying bet types (props, matchups, DFS) alongside E/W outrights creates more paths to profit.",
+        picks: [
+            { player:"Collin Morikawa", market:"Top 10", odds:"+230", finish:"5th (-11)", result:"Won", thesis:"Composite #1. APP #1 on Tour. Bay Hill approach course.", verdict:"T10 prop was the right structure for a player who contends but rarely wins." },
+            { player:"DFS Lineup", market:"GPP", odds:"-", finish:"$144 return", result:"Won", thesis:"Fitz/Morikawa/Kitayama/Scott/Straka/N.Hojgaard stack.", verdict:"$20 buy-in returned $144. DFS stacking composite players works." },
+            { player:"Conners/Bhatia", market:"2-Ball Parlay", odds:"+200", finish:"Both won", result:"Won", thesis:"Conners > Hall + Bhatia > Harman.", verdict:"Parlay hit. Matchup bets have better edge detection than outrights." },
+            { player:"Chris Gotterup", market:"72H vs Thomas", odds:"-110", finish:"Gotterup T9 vs Thomas CUT", result:"Won", thesis:"25% profit boost. Gotterup T2G > Thomas.", verdict:"Blowout win. Thomas CUT made this easy. Boosted matchup = clean +EV." },
+            { player:"Matt Fitzpatrick", market:"E/W 1/5 3pl", odds:"+3500", finish:"T41 (+1)", result:"Lost", thesis:"Course history model. Iron precision.", verdict:"Complete disaster. 3pl terms were too narrow. Course history model miss." },
+            { player:"Kurt Kitayama", market:"Outright + T10", odds:"+4200/+290", finish:"T18 (-3)", result:"Lost", thesis:"APP + bomber profile.", verdict:"T18 = close to T10 but not there. Approach profile didn't spike enough." },
+        ],
+        modelNotes: [
+            { type:"hit", text:"Morikawa composite #1 finished 5th. T10 prop was the perfect structure." },
+            { type:"hit", text:"Bhatia composite #2 won the tournament (playoff over Berger). TAILWIND form signal validated." },
+            { type:"hit", text:"DFS lineup built from composite top-8 returned 7.2x." },
+            { type:"miss", text:"Fitzpatrick T41. Course history model overweighted 2017 win at Bay Hill." },
+            { type:"miss", text:"Hovland, Si Woo, Straka all T13 — just outside T10. Close but E/W terms needed to be wider." },
+            { type:"note", text:"Berger shot 63 R1 to win FRL. None of our FRL picks cracked top-5 R1. FRL leak continues." },
+        ],
+        lessons: [
+            "T10 props on composite #1 players are high-probability bets. Morikawa delivered.",
+            "DFS stacking composite top-8 creates diversified exposure at low cost.",
+            "Matchup bets (2-balls, 72H) offer better edge clarity than outrights. Lower vig = higher hit rate.",
+            "Three players at T13 = model correctly identified contention tier. Wider E/W terms (8pl+) needed.",
+            "FRL is 0-for-9 across AP+Cognizant. Reducing FRL allocation is overdue.",
+        ],
+    };
 }
 
 // === THE PLAYERS CHAMPIONSHIP ===
@@ -225,6 +256,35 @@ if (val) {
         { name:"Jaeger", base:0.6, bhf:0.5, signal:"cool" },
         { name:"Cole", base:0.4, bhf:0.4, signal:"cool" },
     ];
+    val.review = {
+        record: "0W-11L",
+        pl: -85,
+        winner: "Matt Fitzpatrick",
+        winnerOdds: "35/1",
+        bestPick: "None (Jaeger T7, Hisatsune T30, Bezuidenhout T30 closest)",
+        summary: "Worst ROI week of Phase 2. Fitzpatrick won on Poa Trivialis putting and iron precision. Three MCs (McCarty, Pendrith, Reitan) sunk the card. Jaeger T7 was the closest to cashing but would have needed 8pl terms. First full card under Phase 2.5 anti-bias protocol with all new names — the protocol surfaced interesting players but hit rate was zero. Key lesson: new names without track record need smaller sizing.",
+        picks: [
+            { player:"Matt McCarty", market:"E/W 1/5 8pl", odds:"+6600", finish:"MC", result:"Lost", thesis:"SG:P +0.42 on Poa Triv. Meta composite fit.", verdict:"MC. Poa putting didn't carry when everything else leaked." },
+            { player:"Taylor Pendrith", market:"E/W 1/5 8pl", odds:"+4500", finish:"MC", result:"Lost", thesis:"SG:TOT +0.94. Ball-striking machine.", verdict:"MC. Cool form signal (0.83) should have been a stronger fade." },
+            { player:"Christiaan Bezuidenhout", market:"E/W 1/5 8pl", odds:"+6600", finish:"T30", result:"Lost", thesis:"ARG +0.29. T9 here 2024.", verdict:"T30. Short game didn't spike. Course history from one year is thin." },
+            { player:"Stephan Jaeger", market:"FRL 1/4 5pl", odds:"+7500", finish:"T7", result:"Lost", thesis:"Co-FRL in 2023 AND 2025 at Copperhead.", verdict:"T7 finish was strong but FRL was lost. Course history FRL play showed promise." },
+            { player:"Ryo Hisatsune", market:"FRL 1/4 5pl", odds:"+4000", finish:"T30", result:"Lost", thesis:"APP model #3. T4 here 2025.", verdict:"T30. Course history from one year doesn't predict." },
+            { player:"Kristoffer Reitan", market:"E/W 1/5 8pl", odds:"+8000", finish:"MC", result:"Lost", thesis:"SG:P +0.30 on Poa Triv.", verdict:"MC. European longshot without enough PGA Tour data." },
+        ],
+        modelNotes: [
+            { type:"miss", text:"Fitzpatrick won but wasn't on our card. We had him profiled from AP Inv (T41) and dismissed him. Cool form 0.92 should have been reconsidered for Poa course fit." },
+            { type:"miss", text:"3 MCs from 11 outright bets = 27% MC rate. Too high. Cool form signals (Pendrith, Jaeger, Cole) should have reduced exposure." },
+            { type:"note", text:"Jaeger T7 with FRL history at Copperhead continues to validate course-specific FRL plays even when they don't cash." },
+            { type:"note", text:"All 11 bets were 'NEW NAME' flags from Phase 2.5 protocol. First full card of new names went 0-for-11. Sample too small to judge protocol but sizing should be smaller on unproven names." },
+        ],
+        lessons: [
+            "New names from Phase 2.5 anti-bias protocol need reduced sizing until they have a track record in our system.",
+            "Cool form signals (< 0.90) should trigger automatic stake reduction, not just a note.",
+            "3 MCs in 11 bets = card was too wide. Concentrate on higher-conviction picks with warm+ form.",
+            "Copperhead rewards Poa Trivialis putting specialists. Fitzpatrick's surface-specific skill was the separator — same lesson as Cognizant (Bermuda).",
+            "Course history from a single year (Bezuidenhout T9 2024, Hisatsune T4 2025) is not a reliable primary thesis.",
+        ],
+    };
 }
 
 })();

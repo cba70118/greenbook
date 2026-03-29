@@ -232,6 +232,32 @@ const TOURNAMENT_DATA = {
             "Ricky Castillo": [72, 55, 78, 72, 62],
         },
         result2026: { winner:"Ricky Castillo", score:"-17", odds:"22/1", why:"Won as a grinder in trade winds. Our E/W 1/4 5pl $20 returned $295. Biggest single-bet profit of the season.", record:"1W-8L | +$195" },
+        review: {
+            record: "1W-8L",
+            pl: 195,
+            winner: "Ricky Castillo",
+            winnerOdds: "22/1",
+            bestPick: "Castillo E/W +2200 ($295 return)",
+            summary: "Opposite-field event with a thin field and trade winds. Castillo won at -17 and our E/W 1/4 5pl cashed for the biggest single-bet return of the season. The FRL bets (Ford, Schmid, ADDC, Brennan) all lost again. This week proved that E/W on a composite-backed player at 22/1 in an opposite-field event is the sweet spot for our process.",
+            picks: [
+                { player:"Ricky Castillo", market:"E/W 1/4 5pl", odds:"+2200", finish:"Won (-17)", result:"Won", thesis:"Comp fit. Young hungry player in weak field.", verdict:"WINNER. $20 returned $295. E/W 1/4 5pl was the perfect structure at this price." },
+                { player:"David Ford", market:"FRL 1/4 5pl", odds:"+4500", finish:"R1: 70", result:"Lost", thesis:"FRL filter pass. Early wave.", verdict:"Blanchet won FRL with 64. Our picks weren't close." },
+                { player:"Matti Schmid", market:"FRL 1/4 5pl", odds:"+3500", finish:"R1: 71", result:"Lost", thesis:"FRL filter pass.", verdict:"Lost. FRL leak continues." },
+                { player:"Kris Ventura", market:"E/W 1/5 8pl", odds:"+3500", finish:"CUT (73-70)", result:"Lost", thesis:"Caribbean roots. Course comfort.", verdict:"Missed cut. Narrative-only thesis without model backing." },
+            ],
+            modelNotes: [
+                { type:"hit", text:"Castillo was correctly identified as a comp fit in a weak field. E/W structure maximized the return." },
+                { type:"miss", text:"FRL went 0-for-4 again. Blanchet (64) was not on any model. FRL requires scoring spike prediction we don't have." },
+                { type:"miss", text:"Ventura was a narrative bet (Caribbean comfort) without model support. Failed." },
+                { type:"note", text:"Opposite-field events with 22/1+ pricing on comp-backed players are high-ROI situations for our process." },
+            ],
+            lessons: [
+                "E/W 1/4 5pl at 22/1 in an opposite-field event = best structure we've found. Castillo proves it.",
+                "FRL in opposite-field events is especially unpredictable. Random 64s from unknowns are common.",
+                "Narrative-only bets (Ventura) without composite backing should be avoided or sized down to darts.",
+                "Opposite-field events create natural value — thinner fields mean composite edges are larger.",
+            ],
+        },
         composite: [], rhModels: [], formSignals: [], weaknessMasked: [], narratives: [], courseHistory: [],
     },
     players: {
