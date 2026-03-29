@@ -479,6 +479,21 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
     letter-spacing: 0.02em;
 }
+.surface-putting {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    margin-bottom: 0.6rem;
+    padding: 0.4rem 0.5rem;
+    background: rgba(109,196,142,0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+.sp-label { color: var(--cream-500); font-weight: 500; letter-spacing: 0.04em; }
+.sp-val { font-weight: 500; }
 .scout-section { font-size: 0.75rem; line-height: 1.6; margin-bottom: 0.35rem; }
 .scout-notes { font-style: italic; color: var(--cream-500); font-size: 0.72rem; }
 
