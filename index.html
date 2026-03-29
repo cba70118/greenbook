@@ -28,6 +28,40 @@
             <h1>GREEN<strong>BOOK</strong></h1>
             <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season</p>
         </div>
+        <div class="header-actions">
+            <button class="header-btn" id="primer-btn">How It Works</button>
+            <button class="header-btn" id="notes-btn">Notes</button>
+        </div>
+
+        <!-- Primer Modal -->
+        <div id="primer-modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="primer-close">&times;</button>
+                <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:1rem">How Greenbook Works</h2>
+                <div class="primer-text">
+                    <p>Greenbook is a golf intelligence platform that combines quantitative modeling with narrative analysis to evaluate PGA Tour fields each week.</p>
+                    <p><strong>The process:</strong> We pull strokes gained data from DataGolf, build custom statistical composites using Betsperts' Rabbit Hole platform, layer in narrative intel from analysts like Noonan, Klos, and Mayo, then run an anti-bias protocol that forces us to evaluate the entire field before looking at familiar names.</p>
+                    <p><strong>Course fit is the edge:</strong> Every course has a statistical fingerprint. We weight player skills against what each specific course rewards and, more importantly, what it forgives. A player with a weak driver at a course with 1.25-inch rough isn't penalized the way they would be at a US Open setup.</p>
+                    <p><strong>Form signals:</strong> We track each player's recent form relative to their career baseline using DataGolf's model. Players trending above baseline (TAILWIND) get a probability boost. Players trending below (HEADWIND) get penalized. This captures momentum the pure skill ratings miss.</p>
+                    <p><strong>What this isn't:</strong> This isn't a picks service or a guaranteed edge calculator. Golf betting is high-variance by nature. The best player in the field wins roughly 10% of the time. We're looking for spots where the market underweights course-specific fit, recent form, or structural E/W value.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Modal -->
+        <div id="notes-modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="notes-close">&times;</button>
+                <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:1rem">Current Notes</h2>
+                <div class="primer-text">
+                    <p><strong>On the Masters:</strong> Look, the odds board might show some interesting angles, but let's be real — Augusta is a best-player-wins venue more than anywhere else on Tour. Every winner since 2011 has come from inside the world top 25. Value is genuinely thin at the top because the market is efficient here. The real opportunities are in the placement markets (T10, T20) where course history creates a reliable floor for proven Augusta performers.</p>
+                    <p><strong>On our season:</strong> We're up $57.75 on $1,146 settled — barely above water. The E/W 1/4 5pl structure on bet365 has been the entire profit engine (+293% ROI). Win-only bets on US books are -39% ROI. If you take one thing from this data, it's that the E/W structure is the edge, not the player picks themselves.</p>
+                    <p><strong>On the process:</strong> We added the anti-bias protocol mid-season because we kept betting familiar names and missing players the model actually liked. The blind composite now runs before we look at any narratives. It's already surfaced players we would have missed — Knapp, Rasmus Hojgaard, Ben Griffin at Houston were all protocol finds.</p>
+                    <p><strong>On injury flags:</strong> Morikawa's back, Zalatoris' back, Bhatia in India — these are real factors the numbers can't capture. We flag them but the severity is always a judgment call. When in doubt, we discount rather than ignore.</p>
+                </div>
+            </div>
+        </div>
+
         <nav>
             <button class="nav-btn active" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
@@ -35,6 +69,7 @@
             <button class="nav-btn" data-section="tools">Tools</button>
             <button class="nav-btn" data-section="activebets">Active Bets</button>
             <button class="nav-btn" data-section="betting">Season P/L</button>
+            <button class="nav-btn" data-section="dfs">DFS</button>
         </nav>
     </header>
 
@@ -461,6 +496,30 @@
     </section>
 
     </div><!-- /app-content -->
+
+    <!-- ═══ DFS ═══ -->
+    <section id="dfs" class="panel">
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Daily Fantasy</h2>
+        <p class="card-subtitle" style="margin-bottom:1.5rem">DraftKings and FanDuel analysis. Salary, projections, ownership, and lineup construction.</p>
+        <div class="card">
+            <h3>DFS Field Overview</h3>
+            <p class="card-subtitle">Top players by projected Pts/$1K value. Data populates from DG fantasy projections when available.</p>
+            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Salary</th><th>Proj</th><th>Pt/$1K</th><th>Own%</th><th>Course Fit</th></tr></thead>
+            <tbody id="dfs-body"><tr><td colspan="7" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">DFS projections populate when DraftKings salaries release for the current tournament.</td></tr></tbody></table>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Ownership Leverage</h3>
+                <p class="card-subtitle">High ownership = chalk. Low ownership + high projection = contrarian leverage for GPPs.</p>
+                <div class="primer-text"><p>In golf GPPs, fading chalk (high-ownership players) and pivoting to lower-owned players with similar projections creates differentiation. Look for 10%+ ownership gaps at similar salary tiers. Stack by tee time wave when weather creates AM/PM scoring splits.</p></div>
+            </div>
+            <div class="card">
+                <h3>Course Fit as DFS Edge</h3>
+                <p class="card-subtitle">Our composite rankings apply to DFS. A top-10 course-fit player at minimum salary is a DFS gem.</p>
+                <div class="primer-text"><p>Sort by our composite rank, then cross-reference with DK salary. Players ranked in our top 20 but priced below $8,000 are the value targets. The same weakness-masked analysis that finds betting value identifies DFS leverage.</p></div>
+            </div>
+        </div>
+    </section>
 
     <script src="auth.js?v=2"></script>
     <script src="data.js"></script>

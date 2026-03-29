@@ -2,6 +2,13 @@
 // GREENBOOK — Main Application
 // ═══════════════════════════════════════════════════════════
 
+// Modals
+document.getElementById('primer-btn').addEventListener('click', function(){document.getElementById('primer-modal').classList.remove('hidden')});
+document.getElementById('primer-close').addEventListener('click', function(){document.getElementById('primer-modal').classList.add('hidden')});
+document.getElementById('notes-btn').addEventListener('click', function(){document.getElementById('notes-modal').classList.remove('hidden')});
+document.getElementById('notes-close').addEventListener('click', function(){document.getElementById('notes-modal').classList.add('hidden')});
+document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.add('hidden')})});
+
 // Navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -68,12 +75,13 @@ function loadTournament(key) {
     // Fingerprint
     document.getElementById('fingerprint-grid').innerHTML = (t.fingerprint||[]).map(f => `<div class="fp-item"><div class="fp-bar-track"><div class="fp-bar" style="width:${f.weight*300}%"></div></div><div class="fp-label">${f.stat} <span class="fp-weight">${(f.weight*100).toFixed(0)}%</span></div><div class="fp-note">${f.note}</div></div>`).join('');
 
-    // Radar
+    // Radar — add "Ideal Course Fit" as a selectable option
     if (t.radarAxes && t.radarPlayers) {
         const names = Object.keys(t.radarPlayers);
         ['radar-p1','radar-p2','radar-p3'].forEach((id,i) => {
             const el = document.getElementById(id);
-            el.innerHTML = '<option value="">-- Select --</option>' + names.map(n => `<option value="${n}" ${n===names[i]?'selected':''}>${n}</option>`).join('');
+            const defaultVal = i === 0 ? '__ideal__' : (names[i-1] || '');
+            el.innerHTML = '<option value="">-- Select --</option><option value="__ideal__">Ideal Course Fit</option>' + names.map(n => `<option value="${n}" ${n===defaultVal?'selected':''}>${n}</option>`).join('');
             el.onchange = () => drawRadar(t);
         });
         drawRadar(t);
@@ -145,7 +153,14 @@ function loadTournament(key) {
             document.getElementById('density-bar').innerHTML = `<span class="density-label">Profile Density: ${d.profiled}/${d.total} (${d.pct}%)</span><span class="density-status density-${d.status.toLowerCase()}">${d.status}</span><div class="density-track"><div class="density-fill" style="width:${d.pct}%"></div></div>`;
         }
         t.composite.forEach(p => {
-            cb.innerHTML += `<tr><td>${p.rank}</td><td><strong>${p.name}</strong></td><td>${p.comp.toFixed(3)}</td><td>${p.form.toFixed(2)}x</td><td class="${sigCls(p.signal)}">${p.signal}</td><td>${sg(p.app)}</td><td>${sg(p.ott)}</td><td>${p.dd>0?'+':''}${p.dd.toFixed(1)}</td><td>${sg(p.arg)}</td><td>${sg(p.putt)}</td><td>${p.t10.toFixed(1)}%</td><td class="flag-spike">${p.spikes||''}</td><td class="${flagCls(p.flag)}">${p.flag}</td></tr>`;
+            // Model fits as green dots instead of text codes
+            var spikeDots = '';
+            if (p.spikes) {
+                var count = (p.spikes.match(/#/g)||[]).length;
+                spikeDots = Array(Math.min(count,5)).fill('<span style="color:var(--green-300)">&#9679;</span>').join('');
+                if (!spikeDots) spikeDots = '-';
+            }
+            cb.innerHTML += `<tr><td>${p.rank}</td><td><strong>${p.name}</strong></td><td>${p.comp.toFixed(3)}</td><td>${p.form.toFixed(2)}x</td><td class="${sigCls(p.signal)}">${p.signal}</td><td>${sg(p.app)}</td><td>${sg(p.ott)}</td><td>${p.dd>0?'+':''}${p.dd.toFixed(1)}</td><td>${sg(p.arg)}</td><td>${sg(p.putt)}</td><td>${p.t10.toFixed(1)}%</td><td title="${p.spikes||'No model fits'}">${spikeDots||'-'}</td><td class="${flagCls(p.flag)}">${p.flag}</td></tr>`;
         });
     } else { cb.innerHTML = '<tr><td colspan="13" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">Composite data populates closer to tournament week</td></tr>'; }
 
@@ -196,7 +211,13 @@ function loadTournament(key) {
 function drawRadar(t) {
     const sel = ['radar-p1','radar-p2','radar-p3'].map(id=>document.getElementById(id).value).filter(Boolean);
     const ds = [{ label:'Avg Winner', data:t.winnerProfile, backgroundColor:'rgba(192,57,43,0.06)', borderColor:'rgba(192,57,43,0.45)', borderWidth:2, borderDash:[6,3], pointRadius:3, pointBackgroundColor:'rgba(192,57,43,0.45)' }];
-    sel.forEach((n,i) => { const d=t.radarPlayers[n]; if(!d) return; ds.push({ label:n, data:d, backgroundColor:radarColors[i].bg, borderColor:radarColors[i].border, borderWidth:2.5, pointRadius:5, pointBackgroundColor:radarColors[i].border, pointBorderColor:'#0D1F16', pointBorderWidth:2 }); });
+    sel.forEach((n,i) => {
+        if (n === '__ideal__') {
+            // Ideal = 95 on every axis (near-perfect fit)
+            ds.push({ label:'Ideal Course Fit', data:t.radarAxes.map(()=>95), backgroundColor:'rgba(201,160,70,0.08)', borderColor:'#C9A046', borderWidth:2, borderDash:[4,2], pointRadius:4, pointBackgroundColor:'#C9A046', pointBorderColor:'#0D1F16', pointBorderWidth:2 });
+            return;
+        }
+        const d=t.radarPlayers[n]; if(!d) return; ds.push({ label:n, data:d, backgroundColor:radarColors[i].bg, borderColor:radarColors[i].border, borderWidth:2.5, pointRadius:5, pointBackgroundColor:radarColors[i].border, pointBorderColor:'#0D1F16', pointBorderWidth:2 }); });
     if (radarInst) radarInst.destroy();
     radarInst = new Chart(document.getElementById('radar-chart'), {
         type:'radar', data:{labels:t.radarAxes, datasets:ds},
