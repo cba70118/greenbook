@@ -142,6 +142,74 @@ function buildTheCut() {
         }).join('');
     }
 
+    // Top Course Fits — bar chart of top 8 players by radar overall fit
+    var topFits = document.getElementById('cut-top-fits');
+    if (topFits && t && t.radarPlayers) {
+        var fitData = Object.keys(t.radarPlayers).map(function(name) {
+            var d = t.radarPlayers[name];
+            var avg = d.reduce(function(s,v){return s+v},0)/d.length;
+            return {name:name, score:Math.round(avg)};
+        }).sort(function(a,b){return b.score-a.score}).slice(0,8);
+
+        topFits.innerHTML = fitData.map(function(p) {
+            var cls = p.score>=75?'sf-elite':p.score>=60?'sf-good':p.score>=45?'sf-avg':'sf-weak';
+            return '<div style="display:grid;grid-template-columns:1fr 120px 30px;gap:0.4rem;align-items:center;padding:0.2rem 0;border-bottom:1px solid var(--border)"><span style="font-size:0.78rem"><strong>'+p.name+'</strong></span><div class="sf-bar-track"><div class="sf-bar '+cls+'" style="width:'+p.score+'%"></div></div><span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--cream-300)">'+p.score+'</span></div>';
+        }).join('');
+    } else if (topFits) {
+        topFits.innerHTML = '<p style="color:var(--cream-500);font-size:0.75rem;font-style:italic">Course fit data populates during tournament analysis.</p>';
+    }
+
+    // Field Snapshot — quick data viz
+    var snapshot = document.getElementById('cut-field-snapshot');
+    if (snapshot && t) {
+        var hasComposite = t.composite && t.composite.length;
+        var hasOdds = t.oddsBoard && t.oddsBoard.length;
+        var html = '<div class="grid-3" style="gap:1rem">';
+
+        // Form signal distribution
+        if (hasComposite) {
+            var tailwind = t.composite.filter(function(p){return p.signal==='TAILWIND'}).length;
+            var warm = t.composite.filter(function(p){return p.signal==='warm'}).length;
+            var neutral = t.composite.filter(function(p){return p.signal==='neutral'}).length;
+            var cool = t.composite.filter(function(p){return p.signal==='cool'||p.signal==='HEADWIND'||p.signal==='caution'}).length;
+            var total = t.composite.length;
+            html += '<div style="text-align:center"><div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Form Distribution</div>';
+            html += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:0.3rem">';
+            if (tailwind) html += '<div style="width:'+(tailwind/total*100)+'%;background:var(--green-500)"></div>';
+            if (warm) html += '<div style="width:'+(warm/total*100)+'%;background:var(--green-300);opacity:0.5"></div>';
+            if (neutral) html += '<div style="width:'+(neutral/total*100)+'%;background:var(--cream-500);opacity:0.3"></div>';
+            if (cool) html += '<div style="width:'+(cool/total*100)+'%;background:var(--brass-500);opacity:0.5"></div>';
+            html += '</div>';
+            html += '<div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-500)"><span class="pos">'+tailwind+' surging</span> · '+warm+' warm · '+neutral+' flat · <span class="form-cool">'+cool+' cooling</span></div>';
+            html += '</div>';
+        }
+
+        // Composite rank vs price (how many are "value" by rank)
+        if (hasComposite) {
+            var top5 = t.composite.slice(0,5);
+            html += '<div style="text-align:center"><div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Top 5 Composite</div>';
+            top5.forEach(function(p) {
+                html += '<div style="font-size:0.72rem;padding:0.1rem 0"><strong>'+p.name+'</strong> <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500)">'+p.comp.toFixed(2)+'</span></div>';
+            });
+            html += '</div>';
+        }
+
+        // Flagged players count
+        if (typeof PLAYER_STATUS !== 'undefined') {
+            var injuries = PLAYER_STATUS.filter(function(s){return s.severity==='warning'||s.severity==='caution'}).length;
+            var motivations = PLAYER_STATUS.filter(function(s){return s.type==='motivation'}).length;
+            html += '<div style="text-align:center"><div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Active Flags</div>';
+            html += '<div style="font-family:var(--font-display);font-size:1.8rem;font-weight:600;color:var(--cream-100)">'+injuries+'</div>';
+            html += '<div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-500)">injury/caution flags</div>';
+            html += '<div style="font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:var(--brass-400);margin-top:0.3rem">'+motivations+'</div>';
+            html += '<div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-500)">motivation flags</div>';
+            html += '</div>';
+        }
+
+        html += '</div>';
+        snapshot.innerHTML = html;
+    }
+
     // Last Week
     var lastWeek = document.getElementById('cut-last-week');
     if (lastWeek) {

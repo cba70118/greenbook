@@ -55,28 +55,39 @@
     <!-- ═══ THE CUT (separate page, accessed via header link) ═══ -->
     <section id="thecut" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.25rem">The Cut</h2>
-        <div class="cut-grid">
-            <div class="cut-section">
-                <div class="card">
-                    <h3 id="cut-event-name"></h3>
-                    <p class="card-subtitle" id="cut-event-meta"></p>
-                    <div id="cut-weather-mini" class="cut-weather-mini" style="margin-bottom:0.75rem"></div>
-                    <div id="cut-one-to-watch"></div>
-                </div>
+
+        <!-- Row 1: This Week + Weather + One to Watch -->
+        <div class="grid-2">
+            <div class="card">
+                <h3 id="cut-event-name"></h3>
+                <p class="card-subtitle" id="cut-event-meta"></p>
+                <div id="cut-weather-mini" class="cut-weather-mini" style="margin-bottom:0.75rem"></div>
+                <div id="cut-one-to-watch"></div>
             </div>
-            <div class="cut-section">
-                <div class="card">
-                    <h3>Status Feed</h3>
-                    <div id="cut-status-feed"></div>
-                </div>
+            <div class="card">
+                <h3>Top Course Fits</h3>
+                <p class="card-subtitle">Best skill-matched players for this week's course profile.</p>
+                <div id="cut-top-fits"></div>
             </div>
-            <div class="cut-section">
-                <div class="card">
-                    <h3>Upcoming</h3>
-                    <div id="cut-calendar"></div>
-                    <div id="cut-last-week" style="margin-top:0.75rem"></div>
-                </div>
+        </div>
+
+        <!-- Row 2: Status Feed + Upcoming -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>Status Feed</h3>
+                <div id="cut-status-feed"></div>
             </div>
+            <div class="card">
+                <h3>Upcoming</h3>
+                <div id="cut-calendar"></div>
+                <div id="cut-last-week" style="margin-top:0.75rem"></div>
+            </div>
+        </div>
+
+        <!-- Row 3: Quick Stats -->
+        <div class="card">
+            <h3>Field Snapshot</h3>
+            <div id="cut-field-snapshot"></div>
         </div>
     </section>
 
