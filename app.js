@@ -238,7 +238,8 @@ function buildDataCenter() {
     const cg = document.getElementById('course-grid');
     COURSES.forEach(c => {
         const badge = c.status==='live'?'<span class="badge live">LIVE</span>':c.status==='upcoming'?'<span class="badge upcoming">UPCOMING</span>':'<span class="badge settled">SETTLED</span>';
-        cg.innerHTML += `<div class="course-card"><h4>${c.name} ${badge}</h4><div class="course-meta">${c.event} | ${c.surface} | ${c.length}</div><div class="course-meta"><strong>Archetype:</strong> ${c.archetype}</div><div class="course-stats">${c.topStats.map(s=>`<span class="course-stat-tag">${s}</span>`).join('')}</div><div class="course-meta" style="margin-top:0.5rem">${c.bets} bets | P/L: <span class="${c.pl>=0?'pos':'neg'}">$${c.pl}</span></div></div>`;
+        const tKey = c.dataKey || '';
+        cg.innerHTML += `<div class="course-card" ${tKey ? `data-tournament="${tKey}"` : ''}><h4>${c.name} ${badge}</h4><div class="course-meta">${c.event} | ${c.surface} | ${c.length}</div><div class="course-meta"><strong>Archetype:</strong> ${c.archetype}</div><div class="course-meta"><strong>Masked:</strong> ${c.masked}</div><div class="course-meta"><strong>Amplified:</strong> ${c.amplified}</div><div class="course-stats">${c.topStats.map(s=>`<span class="course-stat-tag">${s}</span>`).join('')}</div>${tKey ? '<div class="course-meta" style="margin-top:0.5rem;color:var(--brass-400)">Click to view tournament analysis &rarr;</div>' : ''}</div>`;
     });
 }
 
@@ -306,6 +307,24 @@ function renderScoutCardsFromList(list) {
 
 buildDataCenter();
 
+// Course card click -> navigate to tournament
+document.getElementById('course-grid').addEventListener('click', e => {
+    const card = e.target.closest('.course-card[data-tournament]');
+    if (!card) return;
+    const key = card.dataset.tournament;
+    // Switch to Tournaments tab
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('[data-section="tournament"]').classList.add('active');
+    document.getElementById('tournament').classList.add('active');
+    // Load the tournament
+    document.querySelectorAll('.timeline-btn').forEach(b => b.classList.remove('active'));
+    const tb = document.querySelector(`.timeline-btn[data-t="${key}"]`);
+    if (tb) tb.classList.add('active');
+    loadTournament(key);
+    window.scrollTo(0, 0);
+});
+
 // ═══ BETTING SECTION ═══
 
 new Chart(document.getElementById('tournament-pl-chart'), { type:'bar', data:{labels:TOURNAMENTS.map(t=>t.name),datasets:[{data:TOURNAMENTS.map(t=>t.pl),backgroundColor:TOURNAMENTS.map(t=>t.pl>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:v=>'$'+v}},x:{grid:{display:false}}}} });
@@ -324,14 +343,16 @@ renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.softRotate,'soft-players');
 renderPlayers(PLAYERS.hardRotate,'hard-players');
 
-// Bet card sub-tabs
+// Sub-tabs (used in Data Center and elsewhere)
 document.querySelectorAll('.sub-tab').forEach(btn => {
     btn.addEventListener('click', () => {
         const parent = btn.closest('.card');
+        if (!parent) return;
         parent.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
         parent.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
-        document.getElementById(btn.dataset.subtab).classList.add('active');
+        const target = document.getElementById(btn.dataset.subtab);
+        if (target) target.classList.add('active');
     });
 });
 

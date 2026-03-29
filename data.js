@@ -273,44 +273,58 @@ const SCOUTING = [
 const COURSES = [
     {
         name: "Augusta National", event: "The Masters", surface: "Bentgrass", length: "7,555 yds",
-        archetype: "Second-shot + Short game", scoring: "Difficult",
+        archetype: "Second-shot + Short game", scoring: "Difficult", dataKey: "masters",
         topStats: ["SG:APP 150+", "Course History", "Carry Distance", "SG:ARG", "Par 5 BoB%"],
         masked: "Driving accuracy, seasonal putting", amplified: "Approach precision, short-grass ARG, Par 5 scoring",
         bets: 4, pl: 0, status: "upcoming"
     },
     {
         name: "Memorial Park GC", event: "Houston Open", surface: "Poa Trivialis", length: "7,475 yds",
-        archetype: "Second-shot + Bomber", scoring: "Hard",
+        archetype: "Second-shot + Bomber", scoring: "Hard", dataKey: "houston",
         topStats: ["SG:APP", "DrDist", "SG:ARG (short grass)", "SG:OTT", "Bogey Avoidance"],
         masked: "Driving accuracy (1.25in rough)", amplified: "Distance, approach 150+, short-grass scrambling",
         bets: 11, pl: -40, status: "live"
     },
     {
         name: "Innisbrook (Copperhead)", event: "Valspar Championship", surface: "Poa Trivialis", length: "7,352 yds",
-        archetype: "Second-shot + Poa putting", scoring: "Hard",
+        archetype: "Second-shot + Poa putting", scoring: "Hard", dataKey: "valspar",
         topStats: ["SG:APP", "SG:OTT (less-than-driver)", "Bogey Avoidance", "SG:PUTT Poa", "Par 3 scoring"],
         masked: "None significant", amplified: "Approach precision, positional driving, Poa putting",
         bets: 11, pl: -85, status: "settled"
     },
     {
         name: "TPC Sawgrass", event: "The Players", surface: "Bermuda/Poa", length: "7,245 yds",
-        archetype: "Second-shot + Penalty", scoring: "Hard",
+        archetype: "Second-shot + Penalty", scoring: "Hard", dataKey: "players",
         topStats: ["SG:APP", "SG:PUTT Poa", "Bogey Avoidance", "SG:ARG", "Course History"],
         masked: "None", amplified: "Iron precision, scrambling, mental fortitude",
         bets: 17, pl: -110, status: "settled"
     },
     {
         name: "Bay Hill Club & Lodge", event: "Arnold Palmer Inv", surface: "Bermuda", length: "7,466 yds",
-        archetype: "Bermuda putting + Ball-striking", scoring: "Hard",
+        archetype: "Bermuda putting + Ball-striking", scoring: "Hard", dataKey: "arnoldpalmer",
         topStats: ["SG:PUTT Bermuda", "SG:APP", "SG:OTT", "Bogey Avoidance"],
         masked: "Short game", amplified: "Bermuda putting, ball-striking, wind management",
         bets: 22, pl: 51.10, status: "settled"
     },
     {
         name: "TPC San Antonio (Oaks)", event: "Valero Texas Open", surface: "Bermuda/Poa", length: "7,438 yds",
-        archetype: "Second-shot + Wind-exposed", scoring: "Hard (wind-dependent)",
+        archetype: "Second-shot + Wind-exposed", scoring: "Hard (wind-dependent)", dataKey: "valero",
         topStats: ["SG:APP", "SG:ARG", "SG:OTT", "Wind Management", "Par 5 Scoring"],
         masked: "Fairway accuracy (moderate rough)", amplified: "Approach to elevated greens, short game, wind shaping",
-        bets: 0, pl: 0, status: "upcoming"
+        bets: 5, pl: 0, status: "upcoming"
+    },
+    {
+        name: "PGA National (Champion)", event: "Cognizant Classic", surface: "Bermuda", length: "7,125 yds",
+        archetype: "Grinder / Penalty course", scoring: "Hard", dataKey: "cognizant",
+        topStats: ["SG:PUTT Bermuda", "Bogey Avoidance", "SG:APP", "Scrambling", "SG:OTT Accuracy"],
+        masked: "Driving distance (short course)", amplified: "Bermuda putting, water management, bogey avoidance",
+        bets: 17, pl: 341.75, status: "settled"
+    },
+    {
+        name: "Grand Reserve GC", event: "Puerto Rico Open", surface: "Bermuda/Paspalum", length: "7,506 yds",
+        archetype: "Birdie-fest + Wind-exposed", scoring: "Standard", dataKey: "puertorico",
+        topStats: ["SG:OTT (Wind)", "SG:APP", "Wind Management", "Birdie Making", "SG:PUTT Paspalum"],
+        masked: "Driving accuracy (wide fairways)", amplified: "Wind shaping, ball flight control, distance in wind",
+        bets: 9, pl: 195, status: "settled"
     },
 ];
