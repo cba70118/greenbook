@@ -300,7 +300,7 @@ function loadTournament(key) {
 
     // Tournament Review (settled only)
     var reviewSection = document.getElementById('review-section');
-    if (t.review) {
+    if (reviewSection && t.review) {
         reviewSection.style.display = '';
         var r = t.review;
         // Summary bar
@@ -343,7 +343,7 @@ function loadTournament(key) {
             lessonsHtml += '</div>';
         }
         document.getElementById('review-lessons').innerHTML = lessonsHtml;
-    } else {
+    } else if (reviewSection) {
         reviewSection.style.display = 'none';
     }
 
