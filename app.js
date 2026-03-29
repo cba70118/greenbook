@@ -540,6 +540,46 @@ document.querySelectorAll('.quick-tag').forEach(tag => {
             const key = 'putt_' + tag.dataset.surface;
             const sorted = [...SCOUTING].filter(p => p[key] !== undefined).sort((a,b) => b[key] - a[key]).slice(0,15);
             renderScoutCardsFromList(sorted);
+        } else if (tag.dataset.time) {
+            document.querySelectorAll('[data-time]').forEach(function(b){b.classList.remove('active')});
+            tag.classList.add('active');
+            document.getElementById('scout-tier-filter').value = '';
+            var time = tag.dataset.time;
+            var sorted;
+            if (time === 'career') {
+                sorted = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,20);
+            } else if (time === 'recent') {
+                // Sort by recent form indicators: players with TAILWIND/warm notes, recent wins, high putting variance (surface spread = form volatility)
+                sorted = [...SCOUTING].sort((a,b) => {
+                    var aRecent = (a.notes && a.notes.match(/2026|won|TAILWIND|surging|hot/i)) ? 1 : 0;
+                    var bRecent = (b.notes && b.notes.match(/2026|won|TAILWIND|surging|hot/i)) ? 1 : 0;
+                    if (bRecent !== aRecent) return bRecent - aRecent;
+                    return b.sg_tot - a.sg_tot;
+                }).slice(0,20);
+            } else if (time === 'compcourse') {
+                // Sort by approach + short game (the skills that transfer across course types)
+                sorted = [...SCOUTING].sort((a,b) => (b.app + b.arg) - (a.app + a.arg)).slice(0,20);
+            } else if (time === 'thisweek') {
+                // Use the current tournament's radar players if available
+                var currentKey = document.querySelector('.timeline-btn.active');
+                var tKey = currentKey ? currentKey.dataset.t : 'masters';
+                var t = TOURNAMENT_DATA[tKey];
+                if (t && t.radarPlayers) {
+                    var radarNames = Object.keys(t.radarPlayers);
+                    sorted = SCOUTING.filter(p => radarNames.includes(p.name));
+                    // Sort by radar overall fit
+                    sorted.sort((a,b) => {
+                        var aData = t.radarPlayers[a.name] || [];
+                        var bData = t.radarPlayers[b.name] || [];
+                        var aAvg = aData.length ? aData.reduce((s,v)=>s+v,0)/aData.length : 0;
+                        var bAvg = bData.length ? bData.reduce((s,v)=>s+v,0)/bData.length : 0;
+                        return bAvg - aAvg;
+                    });
+                } else {
+                    sorted = [...SCOUTING].sort((a,b) => b.sg_tot - a.sg_tot).slice(0,20);
+                }
+            }
+            if (sorted && sorted.length) renderScoutCardsFromList(sorted);
         } else if (tag.dataset.form) {
             document.getElementById('scout-tier-filter').value = '';
             const type = tag.dataset.form;
