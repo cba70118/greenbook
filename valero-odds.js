@@ -23,22 +23,24 @@
         { rank:15, name:"Keith Mitchell", comp:0.52, form:1.19, signal:"warm", app:0.45, ott:0.56, dd:9.5, arg:-0.03, putt:-0.12, t10:12.8, spikes:"", flag:"" },
     ];
 
-    // Odds board with DK prices
+    // Odds board: fair = our composite-implied, best = DK price
+    // Edge calculated honestly: positive = book is longer than our fair (we see value)
+    // negative = book is shorter than our fair (overpriced by market)
     TOURNAMENT_DATA.valero.oddsBoard = [
-        { rank:1, name:"Tommy Fleetwood", fair:"+1200", best:"+1425 DK", b365:"TBD", form:"warm", edge:"-1.6%" },
-        { rank:2, name:"Russell Henley", fair:"+1200", best:"+1550 DK", b365:"TBD", form:"warm", edge:"+2.5%" },
-        { rank:3, name:"Ludvig Aberg", fair:"+1400", best:"+1600 DK", b365:"TBD", form:"warm", edge:"+1.2%" },
-        { rank:4, name:"Si Woo Kim", fair:"+1400", best:"+1750 DK", b365:"TBD", form:"warm", edge:"+2.1%" },
+        { rank:1, name:"Tommy Fleetwood", fair:"+1400", best:"+1425 DK", b365:"TBD", form:"warm", edge:"+0.2%" },
+        { rank:2, name:"Russell Henley", fair:"+1400", best:"+1550 DK", b365:"TBD", form:"warm", edge:"+1.0%" },
+        { rank:3, name:"Ludvig Aberg", fair:"+1800", best:"+1600 DK", b365:"TBD", form:"warm", edge:"-1.1%" },
+        { rank:4, name:"Si Woo Kim", fair:"+1800", best:"+1750 DK", b365:"TBD", form:"warm", edge:"-0.3%" },
         { rank:5, name:"Collin Morikawa", fair:"+1600", best:"+1800 DK", b365:"TBD", form:"caution", edge:"+1.0%" },
-        { rank:6, name:"Jordan Spieth", fair:"+1500", best:"+1900 DK", b365:"TBD", form:"neutral", edge:"+2.2%" },
-        { rank:7, name:"Hideki Matsuyama", fair:"+1800", best:"+2250 DK", b365:"TBD", form:"warm", edge:"+2.2%" },
-        { rank:8, name:"Maverick McNealy", fair:"+2000", best:"+2350 DK", b365:"TBD", form:"warm", edge:"+1.6%" },
-        { rank:9, name:"Rickie Fowler", fair:"+2200", best:"+2700 DK", b365:"TBD", form:"cool", edge:"+2.0%" },
-        { rank:10, name:"Sepp Straka", fair:"+2500", best:"+3200 DK", b365:"TBD", form:"warm", edge:"+2.5%" },
-        { rank:11, name:"Ryo Hisatsune", fair:"+3500", best:"+5200 DK", b365:"TBD", form:"warm", edge:"+4.2%" },
-        { rank:12, name:"Daniel Berger", fair:"+3500", best:"+5400 DK", b365:"TBD", form:"warm", edge:"+4.5%" },
-        { rank:13, name:"Marco Penge", fair:"+4000", best:"+5100 DK", b365:"TBD", form:"warm", edge:"+2.2%" },
-        { rank:14, name:"Sudarshan Yellamaraju", fair:"+5000", best:"+14000 DK", b365:"TBD", form:"neutral", edge:"+11.8%" },
-        { rank:15, name:"Will Zalatoris", fair:"+4500", best:"+7800 DK", b365:"TBD", form:"caution", edge:"+5.2%" },
+        { rank:6, name:"Jordan Spieth", fair:"+1800", best:"+1900 DK", b365:"TBD", form:"neutral", edge:"+0.5%" },
+        { rank:7, name:"Hideki Matsuyama", fair:"+2200", best:"+2250 DK", b365:"TBD", form:"warm", edge:"+0.2%" },
+        { rank:8, name:"Maverick McNealy", fair:"+2500", best:"+2350 DK", b365:"TBD", form:"warm", edge:"-0.6%" },
+        { rank:9, name:"Rickie Fowler", fair:"+3000", best:"+2700 DK", b365:"TBD", form:"cool", edge:"-1.0%" },
+        { rank:10, name:"Sepp Straka", fair:"+3500", best:"+3200 DK", b365:"TBD", form:"warm", edge:"-0.8%" },
+        { rank:11, name:"Ryo Hisatsune", fair:"+5000", best:"+5200 DK", b365:"TBD", form:"warm", edge:"+0.3%" },
+        { rank:12, name:"Daniel Berger", fair:"+5500", best:"+5400 DK", b365:"TBD", form:"warm", edge:"-0.2%" },
+        { rank:13, name:"Marco Penge", fair:"+6000", best:"+5100 DK", b365:"TBD", form:"warm", edge:"-1.5%" },
+        { rank:14, name:"Sudarshan Yellamaraju", fair:"+8000", best:"+14000 DK", b365:"TBD", form:"neutral", edge:"+5.2%" },
+        { rank:15, name:"Will Zalatoris", fair:"+5000", best:"+7800 DK", b365:"TBD", form:"caution", edge:"+3.5%" },
     ];
 })();

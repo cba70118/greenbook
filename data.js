@@ -54,32 +54,32 @@ const EW_TERMS = [
 
 // Current Houston card
 const HOUSTON_CARD = [
-    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "1/4 5pl", odds: "+2500", stake: 20, form: "warm 1.16x", edge: "Meta #3", status: "Open" },
-    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, form: "warm 1.07x", edge: "APP #1 + 30% boost", status: "Open" },
-    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+4000", stake: 10, form: "warm 1.05x", edge: "Meta #2, +4mph", status: "Open" },
-    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, form: "warm 1.19x", edge: "APP+OTT double", status: "Open" },
-    { num: 5, player: "Wyndham Clark", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, form: "TAILWIND 1.29x", edge: "T5 2025 + form", status: "Open" },
-    { num: 6, player: "Stephan Jaeger", market: "Outright", terms: "1/5 8pl", odds: "+4500", stake: 10, form: "TAILWIND 1.31x", edge: "2024 winner", status: "Open" },
-    { num: 7, player: "Max Greyserman", market: "Outright", terms: "1/5 8pl", odds: "+5500", stake: 10, form: "warm 1.19x", edge: "T7 2024 + PUTT", status: "Open" },
-    { num: 8, player: "Kurt Kitayama", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 10, form: "warm 1.07x", edge: "5/5 filter", status: "Lost" },
-    { num: 9, player: "Nicolai Hojgaard", market: "FRL", terms: "1/4 5pl", odds: "+3500", stake: 10, form: "warm 1.16x", edge: "5/5 filter", status: "Lost" },
-    { num: 10, player: "Keith Mitchell", market: "FRL", terms: "1/4 5pl", odds: "+4500", stake: 10, form: "warm 1.19x", edge: "4/5 + history", status: "Lost" },
-    { num: 11, player: "Alejandro Tosti", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 10, form: "TAILWIND 1.89x", edge: "Co-FRL 2025", status: "Lost" },
+    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "1/4 5pl", odds: "+2500", stake: 20, placed: "Mar 25", edge: "Meta #3", status: "2nd (-17)" },
+    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "1/4 5pl", odds: "+2800", stake: 20, placed: "Mar 25", edge: "APP #1 + 30% boost", status: "MC" },
+    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "Meta #2", status: "T10 (-9)" },
+    { num: 4, player: "Keith Mitchell", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "APP+OTT double", status: "MC" },
+    { num: 5, player: "Wyndham Clark", market: "Outright", terms: "1/5 8pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "T5 2025 + form", status: "MC" },
+    { num: 6, player: "Stephan Jaeger", market: "Outright", terms: "1/5 8pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "2024 winner", status: "T12 (-8)" },
+    { num: 7, player: "Max Greyserman", market: "Outright", terms: "1/5 8pl", odds: "+5500", stake: 10, placed: "Mar 25", edge: "T7 2024", status: "MC" },
+    { num: 8, player: "Kurt Kitayama", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost" },
+    { num: 9, player: "Nicolai Hojgaard", market: "FRL", terms: "1/4 5pl", odds: "+3500", stake: 10, placed: "Mar 25", edge: "5/5 filter", status: "Lost" },
+    { num: 10, player: "Keith Mitchell", market: "FRL", terms: "1/4 5pl", odds: "+4500", stake: 10, placed: "Mar 25", edge: "4/5 + history", status: "Lost" },
+    { num: 11, player: "Alejandro Tosti", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 10, placed: "Mar 25", edge: "Co-FRL 2025", status: "Lost" },
 ];
 
 const MASTERS_CARD = [
-    { num: 1, player: "Akshay Bhatia", market: "Outright", terms: "1/5 10pl", odds: "+5500", stake: 10, t10s: 0, comp: "#15", status: "Open" },
-    { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", stake: 20, t10s: 2, comp: "#33", status: "Open" },
-    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", stake: 10, t10s: 3, comp: "#18", status: "Open" },
-    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", stake: 10, t10s: 4, comp: "#53", status: "Open" },
+    { num: 1, player: "Akshay Bhatia", market: "Outright", terms: "1/5 10pl", odds: "+5500", stake: 10, placed: "Mar 8", t10s: 0, comp: "#15", status: "Open" },
+    { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", stake: 20, placed: "Mar 8", t10s: 2, comp: "#33", status: "Open" },
+    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", stake: 10, placed: "Mar 27", t10s: 3, comp: "#18", status: "Open" },
+    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", stake: 10, placed: "Mar 27", t10s: 4, comp: "#53", status: "Open" },
 ];
 
 const VALERO_CARD = [
-    { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", stake: 1.25, edge: "Comp #2. Dark horse.", status: "Open" },
-    { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, edge: "Comp #4. APP elite.", status: "Open" },
-    { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, edge: "Comp #9. Anti-bias dark horse.", status: "Open" },
-    { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, edge: "Comp #5. Comp-course fit.", status: "Open" },
-    { num: 5, player: "Marco Penge", market: "Outright", terms: "Win", odds: "+5100", stake: 5, edge: "Comp #12. Bomber profile.", status: "Open" },
+    { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "Open" },
+    { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "Open" },
+    { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, placed: "Mar 28", edge: "Comp #9. Dark horse.", status: "Open" },
+    { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, placed: "Mar 28", edge: "Comp #5. Course fit.", status: "Open" },
+    { num: 5, player: "Marco Penge", market: "Outright", terms: "Win", odds: "+5100", stake: 5, placed: "Mar 28", edge: "Comp #12. Bomber.", status: "Open" },
 ];
 
 // Player rotation data

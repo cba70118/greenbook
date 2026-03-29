@@ -232,21 +232,39 @@ function renderWeather(data) {
         var dayName = dayNames[date.getDay()];
         var temp = Math.round(d.day.maxtemp_f);
         var low = Math.round(d.day.mintemp_f);
-        var wind = Math.round(d.day.maxwind_mph);
-        var gust = d.hour ? Math.round(Math.max.apply(null, d.hour.map(function(h){return h.gust_mph||0}))) : wind;
         var rain = d.day.daily_chance_of_rain;
         var desc = d.day.condition.text;
         var rainCls = rain > 50 ? 'high' : 'low';
-        // Wind direction from noon hour
-        var windDir = d.hour && d.hour[12] ? d.hour[12].wind_dir : '';
-        // Weather emoji
-        var icon = rain > 60 ? '🌧' : rain > 30 ? '⛅' : wind > 20 ? '💨' : '☀';
+
+        // AM wave (7-11am) vs PM wave (12-4pm) conditions
+        var amWind = 0, pmWind = 0, amGust = 0, pmGust = 0, amDir = '', pmDir = '';
+        if (d.hour) {
+            var amHours = d.hour.filter(function(h){var hr=parseInt(h.time.split(' ')[1].split(':')[0]); return hr>=7 && hr<=11;});
+            var pmHours = d.hour.filter(function(h){var hr=parseInt(h.time.split(' ')[1].split(':')[0]); return hr>=12 && hr<=16;});
+            if (amHours.length) {
+                amWind = Math.round(amHours.reduce(function(s,h){return s+h.wind_mph},0)/amHours.length);
+                amGust = Math.round(Math.max.apply(null, amHours.map(function(h){return h.gust_mph||0})));
+                amDir = amHours[Math.floor(amHours.length/2)].wind_dir;
+            }
+            if (pmHours.length) {
+                pmWind = Math.round(pmHours.reduce(function(s,h){return s+h.wind_mph},0)/pmHours.length);
+                pmGust = Math.round(Math.max.apply(null, pmHours.map(function(h){return h.gust_mph||0})));
+                pmDir = pmHours[Math.floor(pmHours.length/2)].wind_dir;
+            }
+        }
+        var windDelta = pmWind - amWind;
+        var waveAdvantage = windDelta > 5 ? 'AM advantage' : windDelta < -5 ? 'PM advantage' : 'Even waves';
+        var waveCls = windDelta > 5 ? 'pos' : windDelta < -5 ? 'neg' : 'form-neutral';
+
+        var icon = rain > 60 ? '🌧' : rain > 30 ? '⛅' : pmWind > 20 ? '💨' : '☀';
         return '<div class="weather-day">' +
             '<div class="weather-day-name">' + dayName + '</div>' +
             '<div class="weather-icon">' + icon + '</div>' +
             '<div class="weather-temp">' + temp + '°<span style="font-size:0.8rem;color:var(--cream-500)">/' + low + '°</span></div>' +
             '<div class="weather-desc">' + desc + '</div>' +
-            '<div class="weather-wind">Wind: <strong>' + wind + ' mph</strong> ' + windDir + (gust > wind + 5 ? ' (gusts ' + gust + ')' : '') + '</div>' +
+            '<div class="weather-wind" style="margin-top:0.3rem"><span style="color:var(--green-300)">AM:</span> ' + amWind + ' mph ' + amDir + (amGust > amWind+5 ? ' (G' + amGust + ')' : '') + '</div>' +
+            '<div class="weather-wind"><span style="color:var(--brass-400)">PM:</span> ' + pmWind + ' mph ' + pmDir + (pmGust > pmWind+5 ? ' (G' + pmGust + ')' : '') + '</div>' +
+            '<div class="weather-wind ' + waveCls + '" style="font-weight:600;margin-top:0.2rem">' + waveAdvantage + (Math.abs(windDelta) > 3 ? ' (' + Math.abs(windDelta) + ' mph delta)' : '') + '</div>' +
             '<div class="weather-rain ' + rainCls + '">Rain: ' + rain + '%</div>' +
             '</div>';
     }).join('');
@@ -542,12 +560,12 @@ function renderBetCard(data, tbodyId, book) {
     const tb = document.getElementById(tbodyId);
     if (!tb) return;
     data.forEach(d => {
-        const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
-        // Clean bet description
+        const sc = d.status==='Lost'?'neg':d.status==='Open'?'':d.status.indexOf('T')===0||d.status.indexOf('-')>=0?'form-warm':'pos';
         let betType = d.market || 'Outright';
         if (d.terms && d.terms !== 'Win') betType += ' ' + d.terms;
         const bk = book || d.book || 'bet365';
-        tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td class="${sc}">${d.status}</td></tr>`;
+        const placed = d.placed || '';
+        tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">${placed}</td><td class="${sc}">${d.status}</td></tr>`;
     });
 }
 renderBetCard(HOUSTON_CARD, 'ab-houston', 'bet365');
