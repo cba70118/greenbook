@@ -256,9 +256,8 @@ function loadTournament(key) {
             }
             if (p.notes) {
                 if (p.notes.match(/won.*202[56]|champion.*202[56]/i)) { fs+=20; sig='hot'; ctx=ctx||'Recent winner'; }
-                else if (p.notes.match(/TAILWIND|surging/i)) { fs+=12; sig='hot'; ctx=ctx||'Trending up'; }
-                else if (p.notes.match(/Benched|0-[4-9]/i)) { fs-=10; sig='cold'; ctx=ctx||'Consecutive losses'; }
-                else if (p.notes.match(/declining|MC.*MC/i)) { fs-=5; sig='cool'; ctx=ctx||'Struggling'; }
+                else if (p.notes.match(/TAILWIND|surging|T[1-5]\b/i)) { fs+=12; sig='hot'; ctx=ctx||'Trending up'; }
+                else if (p.notes.match(/form.*declin|skill.*deteriorat|game.*declined/i)) { fs-=5; sig='cool'; ctx=ctx||'Form declining'; }
             }
             fs += Math.round(p.sg_tot * 8);
             return {name:p.name, score:Math.max(0,Math.min(100,fs)), signal:sig, context:ctx};
