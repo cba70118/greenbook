@@ -285,7 +285,7 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .timeline-btn.settled.recent .tl-name { color: var(--cream-300); }
 .tl-name { font-family: var(--font-mono); display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
 .tl-date { font-family: var(--font-mono); display: block; font-size: 0.6rem; color: var(--cream-700); }
-.tl-settled-result { display: block; font-family: var(--font-mono); font-size: 0.5rem; color: var(--green-500); margin-top: 0.1rem; }
+.tl-settled-result { display: block; font-family: var(--font-mono); font-size: 0.42rem; color: var(--green-500); margin-top: 0.08rem; letter-spacing: 0.02em; }
 .tl-divider {
     flex-shrink: 0;
     width: 1px;
