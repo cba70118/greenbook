@@ -1253,3 +1253,11 @@ canvas { max-height: 350px; }
     .cut-grid { grid-template-columns: 1fr; gap: 0.75rem; }
     .cut-strip-header, .cut-strip-content { padding-left: 1rem; padding-right: 1rem; }
 }
+
+/* ═══ GLOBAL SCROLLBAR STYLING ═══ */
+* { scrollbar-width: thin; scrollbar-color: var(--brass-700) var(--green-900); }
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--green-900); }
+::-webkit-scrollbar-thumb { background: var(--brass-700); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--brass-500); }
+::-webkit-scrollbar-corner { background: var(--green-900); }

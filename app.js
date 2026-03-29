@@ -68,15 +68,15 @@ document.addEventListener('click', function(e) {
 });
 
 // ═══ THE CUT ═══
-// Header link toggles The Cut page
-var cutLink = document.getElementById('cut-link');
-if (cutLink) cutLink.addEventListener('click', function() {
-    // Hide all panels, deactivate all nav buttons
-    document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
-    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
-    // Show The Cut
-    document.getElementById('thecut').classList.add('active');
-    window.scrollTo(0, 0);
+// Use event delegation on document since element may not be visible at load time
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'cut-link' || e.target.closest('#cut-link')) {
+        document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
+        document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+        document.getElementById('thecut').classList.add('active');
+        try { sessionStorage.setItem('greenbook_tab', 'thecut'); } catch(ex){}
+        window.scrollTo(0, 0);
+    }
 });
 
 function buildTheCut() {
@@ -183,12 +183,13 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 try {
     var savedTab = sessionStorage.getItem('greenbook_tab');
     if (savedTab) {
-        var savedBtn = document.querySelector('[data-section="'+savedTab+'"]');
-        if (savedBtn) {
+        var savedPanel = document.getElementById(savedTab);
+        if (savedPanel) {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            savedBtn.classList.add('active');
-            document.getElementById(savedTab).classList.add('active');
+            savedPanel.classList.add('active');
+            var savedBtn = document.querySelector('[data-section="'+savedTab+'"]');
+            if (savedBtn) savedBtn.classList.add('active');
         }
     }
 } catch(e){}
