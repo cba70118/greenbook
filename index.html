@@ -24,16 +24,17 @@
     <!-- ═══ TOURNAMENTS ═══ -->
     <section id="tournament" class="panel active">
 
-        <!-- Timeline -->
+        <!-- Timeline: upcoming/live first (right-to-left chronology so current is visible without scrolling) -->
         <div class="timeline-strip">
-            <div class="timeline-btn settled won" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-date">Feb 26</span><span class="tl-result">+$341</span></div>
-            <div class="timeline-btn settled won" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-date">Mar 5</span><span class="tl-result">+$46</span></div>
-            <div class="timeline-btn settled won" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-date">Mar 5</span><span class="tl-result">+$195</span></div>
-            <div class="timeline-btn settled lost" data-t="players"><span class="tl-name">Players</span><span class="tl-date">Mar 12</span><span class="tl-result">-$110</span></div>
-            <div class="timeline-btn settled lost" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-date">Mar 19</span><span class="tl-result">-$85</span></div>
-            <div class="timeline-btn live" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span><span class="tl-result">In Play</span></div>
-            <div class="timeline-btn upcoming" data-t="valero"><span class="tl-name">Valero</span><span class="tl-date">Apr 2</span><span class="tl-result">$16 staked</span></div>
-            <div class="timeline-btn active upcoming" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span><span class="tl-result">$50 staked</span></div>
+            <div class="timeline-btn active upcoming" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
+            <div class="timeline-btn upcoming" data-t="valero"><span class="tl-name">Valero</span><span class="tl-date">Apr 2</span></div>
+            <div class="timeline-btn live" data-t="houston"><span class="tl-name">Houston</span><span class="tl-date">Mar 26</span></div>
+            <div class="tl-divider"></div>
+            <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-date">Mar 19</span></div>
+            <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-date">Mar 12</span></div>
+            <div class="timeline-btn settled" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-date">Mar 5</span></div>
+            <div class="timeline-btn settled" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-date">Mar 5</span></div>
+            <div class="timeline-btn settled" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-date">Feb 26</span></div>
         </div>
 
         <!-- Result Banner (injected by JS) -->
@@ -139,12 +140,8 @@
             </div>
         </div>
 
-        <!-- Current Bets -->
-        <div class="card" id="bets-card">
-            <h3>Current Bets</h3>
-            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Thesis</th><th>Status</th></tr></thead>
-            <tbody id="bets-body"></tbody></table>
-        </div>
+        <!-- Bets section moved to My Betting tab -->
+        <div id="bets-card" style="display:none"><tbody id="bets-body"></tbody></div>
     </section>
 
     <!-- ═══ DATA CENTER ═══ -->

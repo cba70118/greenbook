@@ -45,7 +45,7 @@ function loadTournament(key) {
     const slot = document.getElementById('result-banner-slot');
     slot.innerHTML = '';
     if (t.result2026) {
-        slot.innerHTML = `<div class="result-banner"><div class="result-winner"><span class="result-label">Winner: </span>${t.result2026.winner} (${t.result2026.score}, ${t.result2026.odds})</div><div class="result-why">${t.result2026.why}</div><div class="result-record">Our record: ${t.result2026.record}</div></div>`;
+        slot.innerHTML = `<div class="result-banner"><div class="result-winner"><span class="result-label">2026 Winner: </span>${t.result2026.winner} (${t.result2026.score})</div><div class="result-why">${t.result2026.why}</div></div>`;
     }
 
     // Narrative
