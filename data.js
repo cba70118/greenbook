@@ -93,13 +93,13 @@ const PLAYERS = {
         { name: "Stephan Jaeger", bets: 4, wins: 0, pl: -11, roi: -100 },
         { name: "Nicolai Hojgaard", bets: 5, wins: 0, pl: -25, roi: -100 },
     ],
-    softRotate: [
+    onNotice: [
         { name: "Sepp Straka", bets: 3, wins: 0, pl: -25, consec: 3, reason: "T8 Players near-miss" },
         { name: "Ryo Hisatsune", bets: 3, wins: 0, pl: -7.50, consec: 3, reason: "T13 Players near-miss" },
         { name: "Pierceson Coody", bets: 3, wins: 0, pl: -15, consec: 2, reason: "Model backing strong" },
         { name: "Haotong Li", bets: 4, wins: 0, pl: -12.50, consec: 2, reason: "WD risk" },
     ],
-    hardRotate: [
+    benched: [
         { name: "Min Woo Lee", bets: 4, wins: 0, pl: -40, consec: 4, reason: "0-4 all markets" },
         { name: "Ryan Gerard", bets: 4, wins: 0, pl: -30, consec: 4, reason: "0-4 all markets" },
         { name: "Si Woo Kim", bets: 3, wins: 0, pl: -30, consec: 3, reason: "Putting liability" },

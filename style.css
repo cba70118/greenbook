@@ -462,8 +462,8 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .rotation-card { padding: 1rem; border-radius: 4px; border: 1px solid var(--border); }
 .rotation-card h4 { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
 .rotation-card.active-status { border-color: var(--green-500); }
-.rotation-card.soft-rotate { border-color: var(--brass-500); }
-.rotation-card.hard-rotate { border-color: var(--scarlet); }
+.rotation-card.on-notice { border-color: var(--brass-500); }
+.rotation-card.benched { border-color: var(--scarlet); }
 .rotation-card .player-tag {
     display: inline-block;
     padding: 0.2rem 0.6rem;

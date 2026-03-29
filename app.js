@@ -408,8 +408,8 @@ document.getElementById('odds-tourney').addEventListener('change', function(e) {
 renderLiveOdds('masters');
 
 renderPlayers(PLAYERS.active,'active-players');
-renderPlayers(PLAYERS.softRotate,'soft-players');
-renderPlayers(PLAYERS.hardRotate,'hard-players');
+renderPlayers(PLAYERS.onNotice,'soft-players');
+renderPlayers(PLAYERS.benched,'hard-players');
 
 // Sub-tabs (used in Data Center and elsewhere)
 document.querySelectorAll('.sub-tab').forEach(btn => {
