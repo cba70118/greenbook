@@ -128,7 +128,7 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .timeline-btn { min-width: 72px; padding: 0.4rem 0.5rem; }
     .tl-name { font-size: 0.6rem; }
     .tl-date { font-size: 0.5rem; }
-    .tl-settled-result { font-size: 0.45rem; }
+    .tl-settled-result { font-size: 0.38rem; }
     .course-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.75rem; }
     .card { padding: 0.75rem; margin-bottom: 1rem; }
     .card h3 { font-size: 1rem; }
@@ -285,7 +285,7 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .timeline-btn.settled.recent .tl-name { color: var(--cream-300); }
 .tl-name { font-family: var(--font-mono); display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
 .tl-date { font-family: var(--font-mono); display: block; font-size: 0.6rem; color: var(--cream-700); }
-.tl-settled-result { display: block; font-family: var(--font-mono); font-size: 0.42rem; color: var(--green-500); margin-top: 0.08rem; letter-spacing: 0.02em; }
+.tl-settled-result { display: block; font-family: var(--font-mono); font-size: 0.38rem; color: var(--green-500); margin-top: 0.06rem; letter-spacing: 0.02em; opacity: 0.8; }
 .tl-divider {
     flex-shrink: 0;
     width: 1px;
@@ -703,7 +703,7 @@ canvas { max-height: 350px; }
     .timeline-strip { gap: 0.2rem; padding-bottom: 0.5rem; }
     .timeline-btn { min-width: 68px; padding: 0.35rem 0.4rem; }
     .tl-name { font-size: 0.58rem; }
-    .tl-settled-result { font-size: 0.42rem; }
+    .tl-settled-result { font-size: 0.35rem; }
     .course-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.75rem; }
     .course-bar h2, .course-bar h3 { font-size: 1rem; }
     .card { padding: 0.75rem; margin-bottom: 0.75rem; }
