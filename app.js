@@ -483,7 +483,7 @@ function loadTournament(key) {
         <div class="density-track"><div class="density-fill" style="width:${d.pct}%"></div></div>
     `;
 
-    // Show/hide sections based on data availability
+    // Data availability flags
     const hasComposite = t.composite && t.composite.length > 0;
     const hasRH = t.rhModels && t.rhModels.length > 0;
     const hasForm = t.formSignals && t.formSignals.length > 0;
@@ -491,23 +491,12 @@ function loadTournament(key) {
     const hasNarrative = t.narratives && t.narratives.length > 0;
     const hasHistory = t.courseHistory && t.courseHistory.length > 0;
 
-    // Helper to show/hide cards — find parent card or grid-2 container
-    const showCard = (el, show) => {
-        if (!el) return;
-        let parent = el.closest('.card');
-        if (!parent) parent = el.closest('.grid-2');
-        if (parent) parent.style.display = show ? '' : 'none';
-    };
-    showCard(document.getElementById('composite-body'), hasComposite);
-    showCard(document.getElementById('rh-body'), hasRH);
-    showCard(document.getElementById('form-chart'), hasForm);
-    showCard(document.getElementById('masked-body'), hasMasked);
-    showCard(document.getElementById('narrative-body'), hasNarrative);
-    showCard(document.getElementById('history-body'), hasHistory);
-
     // Composite table
     const compBody = document.getElementById('composite-body');
     compBody.innerHTML = '';
+    if (!hasComposite) {
+        compBody.innerHTML = '<tr><td colspan="13" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">Composite data populates closer to tournament week</td></tr>';
+    }
     t.composite.forEach(p => {
         const tr = document.createElement('tr');
         const sigClass = signalClass(p.signal);
@@ -548,6 +537,7 @@ function loadTournament(key) {
     // RH Heatmap
     const rhBody = document.getElementById('rh-body');
     rhBody.innerHTML = '';
+    if (!hasRH) rhBody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Rabbit Hole models load with tournament week data</td></tr>';
     t.rhModels.forEach(p => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -559,11 +549,17 @@ function loadTournament(key) {
     });
 
     // Form chart
-    renderFormChart(t.formSignals);
+    if (hasForm) {
+        renderFormChart(t.formSignals);
+    } else if (formChartInstance) {
+        formChartInstance.destroy();
+        formChartInstance = null;
+    }
 
     // Weakness masked table
     const maskedBody = document.getElementById('masked-body');
     maskedBody.innerHTML = '';
+    if (!hasMasked) maskedBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Weakness-masked analysis loads with tournament week data</td></tr>';
     t.weaknessMasked.forEach(p => {
         const tr = document.createElement('tr');
         const maskedClass = p.masked.startsWith('YES') ? 'pos' : '';
@@ -584,6 +580,7 @@ function loadTournament(key) {
     // Narrative matrix
     const narBody = document.getElementById('narrative-body');
     narBody.innerHTML = '';
+    if (!hasNarrative) narBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with tournament week analysis</td></tr>';
     t.narratives.sort((a, b) => b.count - a.count).forEach(p => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -598,6 +595,7 @@ function loadTournament(key) {
     // Course history
     const histBody = document.getElementById('history-body');
     histBody.innerHTML = '';
+    if (!hasHistory) histBody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Venue-specific performance data loads with tournament analysis</td></tr>';
     if (t.courseHistory) {
         t.courseHistory.forEach(p => {
             const tr = document.createElement('tr');
