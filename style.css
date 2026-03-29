@@ -470,6 +470,32 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 }
 .quick-tag:hover { border-color: var(--brass-500); color: var(--cream-100); }
 .quick-tag.active { background: rgba(201,160,70,0.1); border-color: var(--brass-500); color: var(--brass-400); }
+/* Tournament Notes */
+.note-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+.note-item:last-child { border-bottom: none; }
+.note-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+.note-badge.pos { background: rgba(42,122,75,0.1); border: 1px solid var(--green-600); }
+.note-badge.neg { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); }
+.note-badge.form-warm { background: rgba(201,160,70,0.08); border: 1px solid var(--brass-700); }
+.note-badge.form-neutral { background: rgba(109,196,142,0.04); border: 1px solid var(--border); }
+.note-text { color: var(--cream-300); }
+.note-item strong { color: var(--cream-100); }
+
 .placeholder-msg {
     font-family: var(--font-mono);
     font-size: 0.72rem;

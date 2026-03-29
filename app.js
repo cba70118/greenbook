@@ -79,6 +79,26 @@ function loadTournament(key) {
         drawRadar(t);
     }
 
+    // Tournament Notes
+    const notesEl = document.getElementById('tourney-notes');
+    const notesCard = document.getElementById('tourney-notes-card');
+    if (notesEl) notesEl.innerHTML = '';
+    if (t.notes && t.notes.length) {
+        if (notesCard) notesCard.style.display = '';
+        const icons = { like: '&#9650;', bet: '&#10003;', fade: '&#9660;', watch: '&#9673;', process: '&#9881;' };
+        const colors = { like: 'pos', bet: 'pos', fade: 'neg', watch: 'form-warm', process: 'form-neutral' };
+        const labels = { like: 'LIKE', bet: 'ON CARD', fade: 'FADE', watch: 'WATCH', process: 'PROCESS' };
+        t.notes.forEach(n => {
+            const icon = icons[n.type] || '';
+            const cls = colors[n.type] || '';
+            const label = labels[n.type] || '';
+            const playerLine = n.player ? `<strong>${n.player}</strong> ` : '';
+            notesEl.innerHTML += `<div class="note-item"><span class="note-badge ${cls}">${icon} ${label}</span>${playerLine}<span class="note-text">${n.text}</span></div>`;
+        });
+    } else {
+        if (notesCard) notesCard.style.display = 'none';
+    }
+
     // Composite
     const cb = document.getElementById('composite-body');
     cb.innerHTML = '';
@@ -357,13 +377,13 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
 });
 
 // Render bet cards
-function renderBetTable(data, tbodyId, extraCol) {
+function renderBetTable(data, tbodyId) {
     const tb = document.getElementById(tbodyId);
     if (!tb) return;
     data.forEach(d => {
         const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
-        const extra = extraCol ? `<td>${d[extraCol]||''}</td>` : '';
-        tb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td>${extra}<td class="${sc}">${d.status}</td></tr>`;
+        const units = (d.stake / 20).toFixed(2);
+        tb.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td>${units}u</td><td style="font-size:0.72rem">${d.edge||d.comp||''}</td><td class="${sc}">${d.status}</td></tr>`;
     });
 }
 // Active Bets tab
@@ -374,7 +394,8 @@ const mBody = document.getElementById('ab-masters');
 if (mBody) {
     MASTERS_CARD.forEach(d => {
         const sc = d.status==='Lost'?'neg':d.status==='Open'?'':'pos';
-        mBody.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td>${d.t10s||''}</td><td class="${sc}">${d.status}</td></tr>`;
+        const units = (d.stake / 20).toFixed(2);
+        mBody.innerHTML += `<tr><td>${d.num}</td><td>${d.player}</td><td>${d.market}</td><td>${d.terms}</td><td>${d.odds}</td><td>$${d.stake}</td><td>${units}u</td><td>${d.t10s!==undefined?d.t10s:''}</td><td class="${sc}">${d.status}</td></tr>`;
     });
 }
 
