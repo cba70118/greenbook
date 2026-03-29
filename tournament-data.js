@@ -8,7 +8,7 @@ const TOURNAMENT_DATA = {
         meta: "7,555 yds | Par 72 | Bentgrass (13.5 stimp) | Scoring: Difficult",
         archetype: "Second-shot + Short game",
         narrative: {
-            description: "MacKenzie/Jones masterpiece (1932). The most predictive course on Tour \— course history matters more here than anywhere else. Wide fairways with no real rough, but severely contoured elevated greens with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hurricane Helene (2025) removed many trees, opening sightlines and potentially changing wind patterns.",
+            description: "MacKenzie/Jones masterpiece (1932). The most predictive course on Tour — course history matters more here than anywhere else. Wide fairways with no real rough, but severely contoured elevated greens with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hurricane Helene (2025) removed many trees, opening sightlines and potentially changing wind patterns.",
             correlated: "Quail Hollow, Muirfield Village, Torrey Pines (South), Pinehurst No. 2, Riviera, Bay Hill, Southern Hills, Memorial Park. Common thread: demanding second-shot courses with difficult ARG, elevation changes, and a premium on distance + iron play.",
             tags: ["Bentgrass Fast", "Par 5 Scoring", "Course History King", "Short-Grass ARG", "Elevated Greens", "No Rough Penalty", "Amen Corner", "Major"],
             keyHoles: [
@@ -115,7 +115,7 @@ const TOURNAMENT_DATA = {
         meta: "7,125 yds | Par 70 | Bermuda greens | Scoring: Hard",
         archetype: "Grinder / Penalty course",
         narrative: {
-            description: "The Bear Trap (15-16-17) is the signature stretch \— three of the toughest closing holes on Tour. Water on 6 of 18 holes. Bermuda greens running 12+ stimp. Narrow fairways demand accuracy. Wind off the Intracoastal creates unpredictable conditions. This is a survival course where bogey avoidance matters more than birdie-making.",
+            description: "The Bear Trap (15-16-17) is the signature stretch — three of the toughest closing holes on Tour. Water on 6 of 18 holes. Bermuda greens running 12+ stimp. Narrow fairways demand accuracy. Wind off the Intracoastal creates unpredictable conditions. This is a survival course where bogey avoidance matters more than birdie-making.",
             tags: ["Bermuda Putting", "Water Hazards", "Bear Trap", "Bogey Avoidance", "Wind Exposed", "Narrow Fairways"],
             keyHoles: [
                 { num: 15, par: 3, yds: 179, note: "Bear Trap start. Water everywhere. Historically hardest par 3." },
@@ -123,7 +123,7 @@ const TOURNAMENT_DATA = {
                 { num: 17, par: 3, yds: 199, note: "Bear Trap finish. Island green. Tournaments decided here." },
                 { num: 6, par: 4, yds: 397, note: "Water carry approach. Demands precision." },
             ],
-            winnerDNA: "Bermuda putter + bogey avoidance + water management. Scrambling from tight lies around Bermuda greens. Not a bomber's course \— accuracy and nerve win here.",
+            winnerDNA: "Bermuda putter + bogey avoidance + water management. Scrambling from tight lies around Bermuda greens. Not a bomber's course — accuracy and nerve win here.",
             recentWinners: [
                 { yr: 2026, name: "Nico Echavarria", score: "-17", odds: "50/1", note: "Our winner! E/W 1/4 5pl $10 returned $322.50." },
                 { yr: 2025, name: "Justin Thomas", score: "-12", odds: "18/1", note: "JT's Bermuda putting carried." },
@@ -231,7 +231,7 @@ const TOURNAMENT_DATA = {
         meta: "7,245 yds | Par 72 | Bermuda/Poa greens | Scoring: Hard",
         archetype: "Second-shot + Penalty course",
         narrative: {
-            description: "Pete Dye's masterpiece and the PGA Tour's flagship event. Island green at 17 is the most famous hole in golf. TPC Sawgrass is the hardest course to gain strokes on approach on Tour \— the small, firm, elevated greens surrounded by water and waste areas demand absolute precision. Course history is moderately predictive. The 5th major in everything but name.",
+            description: "Pete Dye's masterpiece and the PGA Tour's flagship event. Island green at 17 is the most famous hole in golf. TPC Sawgrass is the hardest course to gain strokes on approach on Tour — the small, firm, elevated greens surrounded by water and waste areas demand absolute precision. Course history is moderately predictive. The 5th major in everything but name.",
             tags: ["Signature Event", "Island Green", "Penalty Course", "Water Everywhere", "Small Greens", "Pete Dye", "5th Major"],
             keyHoles: [
                 { num: 12, par: 4, yds: 358, note: "Short but brutal. Tiny green. Miss = water/bunker." },
@@ -273,7 +273,7 @@ const TOURNAMENT_DATA = {
         meta: "7,352 yds | Par 71 | Poa Trivialis | Scoring: Hard",
         archetype: "Second-shot + Poa putting",
         narrative: {
-            description: "Larry Packard's Copperhead Course feels like Carolina hill country, not Florida. 12 doglegs (4 double doglegs) through tree-lined corridors. 5 par 3s averaging 212 yards and 4 par 5s averaging 583 yards. The Snake Pit (16-17-18) is one of the toughest closing stretches on Tour with 18%+ bogey rate on each hole. Less-than-driver course \— driver used only 54% of holes. The 2nd fewest birdies and fewest eagles per 72 holes on Tour.",
+            description: "Larry Packard's Copperhead Course feels like Carolina hill country, not Florida. 12 doglegs (4 double doglegs) through tree-lined corridors. 5 par 3s averaging 212 yards and 4 par 5s averaging 583 yards. The Snake Pit (16-17-18) is one of the toughest closing stretches on Tour with 18%+ bogey rate on each hole. Less-than-driver course — driver used only 54% of holes. The 2nd fewest birdies and fewest eagles per 72 holes on Tour.",
             tags: ["Poa Putting", "Less-Than-Driver", "Snake Pit", "Tree-Lined", "Doglegs", "Hard Scoring", "5 Par 3s"],
             keyHoles: [
                 { num: 16, par: 4, yds: 475, note: "Snake Pit start. 23.2% bogey. Narrow + water." },
@@ -281,7 +281,7 @@ const TOURNAMENT_DATA = {
                 { num: 18, par: 4, yds: 445, note: "Uphill to clubhouse. 19% bogey. Tournament decider." },
                 { num: 14, par: 5, yds: 581, note: "Reachable eagle opp but penal rough." },
             ],
-            winnerDNA: "SG:APP is dominant \— last 6 winners averaged 6th in field. Less-than-driver accuracy with 3W/hybrid. Poa Triv putting (smooth, fast). Bogey avoidance through the Snake Pit. Not a bomber's course.",
+            winnerDNA: "SG:APP is dominant — last 6 winners averaged 6th in field. Less-than-driver accuracy with 3W/hybrid. Poa Triv putting (smooth, fast). Bogey avoidance through the Snake Pit. Not a bomber's course.",
             recentWinners: [
                 { yr: 2025, name: "Viktor Hovland", score: "-11", odds: "18/1", note: "APP + Poa putting. Snake Pit par was enough." },
                 { yr: 2024, name: "Peter Malnati", score: "-12", odds: "200/1", note: "Longshot grinder. Bogey avoidance king." },
@@ -316,7 +316,7 @@ const TOURNAMENT_DATA = {
         meta: "7,475 yds | Par 70 | Poa Trivialis | Scoring: Hard",
         archetype: "Second-shot + Bomber",
         narrative: {
-            description: "Tom Doak/Brooks Koepka redesign (2019) of a municipal course. Augusta-influenced green complexes with short-grass runoffs, false fronts, and elevated contoured greens. The 2nd longest course on Tour with only 21 bunkers and 1.25-inch ryegrass rough \— the lowest missed-fairway penalty anywhere. Defense comes entirely from the greens and the length. Poa Trivialis overseed since 2024; firm and fast at 12-13 stimp.",
+            description: "Tom Doak/Brooks Koepka redesign (2019) of a municipal course. Augusta-influenced green complexes with short-grass runoffs, false fronts, and elevated contoured greens. The 2nd longest course on Tour with only 21 bunkers and 1.25-inch ryegrass rough — the lowest missed-fairway penalty anywhere. Defense comes entirely from the greens and the length. Poa Trivialis overseed since 2024; firm and fast at 12-13 stimp.",
             correlated: "Augusta National (same Doak influence, short-grass ARG, elevated greens), Riviera (firm greens, approach precision), Quail Hollow (length + approach + ARG). Memorial Park was specifically designed as an Augusta prep course.",
             tags: ["Driver Heavy", "Short-Grass ARG", "Poa Putting", "Firm & Fast", "Low Rough Penalty", "Elevated Greens", "False Fronts"],
         },
