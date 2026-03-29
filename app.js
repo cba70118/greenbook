@@ -2,6 +2,15 @@
 // GREENBOOK — Main Application
 // ═══════════════════════════════════════════════════════════
 
+// Notes toggle
+var nt = document.getElementById('notes-toggle');
+if (nt) nt.addEventListener('click', function() {
+    var content = document.getElementById('notes-content');
+    var arrow = document.getElementById('notes-arrow');
+    content.classList.toggle('hidden');
+    arrow.innerHTML = content.classList.contains('hidden') ? '&#9660;' : '&#9650;';
+});
+
 // Navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {

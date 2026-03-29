@@ -953,3 +953,43 @@ canvas { max-height: 350px; }
     margin-bottom: 0.75rem;
 }
 .primer-text strong { color: var(--cream-100); }
+
+/* ═══ NOTES BAR ═══ */
+.notes-bar {
+    background: var(--green-900);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+}
+.notes-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--brass-400);
+    padding: 0.5rem 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.notes-toggle:hover { color: var(--cream-100); }
+.notes-content { padding: 0 0 0.75rem; }
+.notes-content.hidden { display: none; }
+.notes-entry {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--cream-300);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+}
+.notes-entry:last-child { border-bottom: none; }
+.notes-date {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--brass-500);
+    margin-right: 0.5rem;
+    letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+    .notes-bar { padding: 0 1rem; }
+    .notes-entry { font-size: 0.72rem; }
+}
