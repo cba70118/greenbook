@@ -359,6 +359,54 @@ new Chart(document.getElementById('ew-chart'), { type:'bar', data:{labels:EW_TER
 document.getElementById('winners-table').innerHTML = WINNERS.map(w => `<tr><td>${w.tournament}</td><td>${w.player}</td><td>${w.market}</td><td>${w.odds}</td><td>$${w.stake.toFixed(2)}</td><td>$${w.ret.toFixed(2)}</td><td class="pos">+$${w.pl.toFixed(2)}</td></tr>`).join('');
 
 function renderPlayers(list, id) { const el=document.getElementById(id); list.forEach(p=>{ el.innerHTML += `<span class="player-tag">${p.name} <span class="${p.pl>=0?'pos':'neg'}">${p.pl>=0?'+':''}$${p.pl}</span></span>`; }); }
+// ═══ LIVE ODDS ═══
+
+function renderLiveOdds(key) {
+    var t = TOURNAMENT_DATA[key];
+    var tb = document.getElementById('live-odds-body');
+    var valuePicks = document.getElementById('value-picks');
+    var fadePicks = document.getElementById('fade-picks');
+    if (!tb) return;
+    tb.innerHTML = '';
+    if (valuePicks) valuePicks.innerHTML = '';
+    if (fadePicks) fadePicks.innerHTML = '';
+
+    if (!t || !t.oddsBoard || !t.oddsBoard.length) {
+        tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">Odds data populates when tournament odds are captured. Check back closer to the event.</td></tr>';
+        return;
+    }
+
+    var values = [];
+    var fades = [];
+
+    t.oddsBoard.forEach(function(o) {
+        var ev = parseFloat(o.edge);
+        var ec = ev > 3 ? 'pos' : ev > 0 ? 'form-warm' : ev > -3 ? 'form-neutral' : 'neg';
+        var vc = o.verdict.indexOf('VALUE') >= 0 ? 'pos' : o.verdict.indexOf('OVERPRICED') >= 0 ? 'neg' : '';
+        tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + o.fair + '</td><td style="font-family:var(--font-mono)">' + o.best + '</td><td style="font-family:var(--font-mono)">' + o.b365 + '</td><td class="' + ec + '" style="font-family:var(--font-mono);font-weight:600">' + o.edge + '</td><td class="' + sigCls(o.form) + '">' + o.form + '</td><td class="' + vc + '" style="font-size:0.72rem">' + o.verdict + '</td></tr>';
+
+        if (ev > 2) values.push(o);
+        if (ev < -3) fades.push(o);
+    });
+
+    if (valuePicks) {
+        values.sort(function(a, b) { return parseFloat(b.edge) - parseFloat(a.edge); });
+        valuePicks.innerHTML = values.length ? values.map(function(o) {
+            return '<div class="note-item"><span class="note-badge pos">&#9650; ' + o.edge + '</span><strong>' + o.name + '</strong> <span class="note-text">' + o.best + ' (fair: ' + o.fair + '). ' + o.verdict + '</span></div>';
+        }).join('') : '<p class="narrative-text" style="font-style:italic">No significant value detected at current prices.</p>';
+    }
+
+    if (fadePicks) {
+        fades.sort(function(a, b) { return parseFloat(a.edge) - parseFloat(b.edge); });
+        fadePicks.innerHTML = fades.length ? fades.map(function(o) {
+            return '<div class="note-item"><span class="note-badge neg">&#9660; ' + o.edge + '</span><strong>' + o.name + '</strong> <span class="note-text">' + o.best + ' (fair: ' + o.fair + '). ' + o.verdict + '</span></div>';
+        }).join('') : '<p class="narrative-text" style="font-style:italic">No significant overpricing detected.</p>';
+    }
+}
+
+document.getElementById('odds-tourney').addEventListener('change', function(e) { renderLiveOdds(e.target.value); });
+renderLiveOdds('masters');
+
 renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.softRotate,'soft-players');
 renderPlayers(PLAYERS.hardRotate,'hard-players');

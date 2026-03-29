@@ -31,6 +31,7 @@
         <nav>
             <button class="nav-btn active" data-section="tournament">Tournaments</button>
             <button class="nav-btn" data-section="datacenter">Data Center</button>
+            <button class="nav-btn" data-section="liveodds">Live Odds</button>
             <button class="nav-btn" data-section="tools">Tools</button>
             <button class="nav-btn" data-section="activebets">Active Bets</button>
             <button class="nav-btn" data-section="betting">Season P/L</button>
@@ -228,6 +229,56 @@
         </div>
 
         <div class="card"><h3>Course Intelligence Library</h3><div class="course-grid" id="course-grid"></div></div>
+    </section>
+
+    <!-- ═══ LIVE ODDS ═══ -->
+    <section id="liveodds" class="panel">
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Live Odds</h2>
+        <p class="card-subtitle" style="margin-bottom:1.5rem">Odds sourced from DataGolf (aggregated across 10+ books). Best available price highlighted. Updated when DG context is pulled.</p>
+
+        <div class="card">
+            <h3>Outright Win Market</h3>
+            <div style="margin-bottom:1rem">
+                <select id="odds-tourney" class="calc-input" style="max-width:280px">
+                    <option value="masters">The Masters</option>
+                    <option value="houston">Houston Open</option>
+                    <option value="valero">Valero Texas Open</option>
+                </select>
+            </div>
+            <table class="data-table" id="live-odds-table">
+                <thead>
+                    <tr>
+                        <th>Rk</th>
+                        <th>Player</th>
+                        <th>DG Fair</th>
+                        <th>Best Book</th>
+                        <th>b365</th>
+                        <th>Edge</th>
+                        <th>Form</th>
+                        <th>Assessment</th>
+                    </tr>
+                </thead>
+                <tbody id="live-odds-body"></tbody>
+            </table>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Value Picks</h3>
+                <p class="card-subtitle">Players where our model sees the most edge vs the market.</p>
+                <div id="value-picks"></div>
+            </div>
+            <div class="card">
+                <h3>Fades</h3>
+                <p class="card-subtitle">Players the market overprices relative to our composite.</p>
+                <div id="fade-picks"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Odds Source Notes</h3>
+            <p class="narrative-text">Odds are pulled from DataGolf's aggregated feed which covers Pinnacle, bet365, DraftKings, FanDuel, BetMGM, Caesars, BetOnline, BetCris, and others. "DG Fair" is DataGolf's model-implied fair price using baseline_history_fit probabilities. "Best Book" is the longest available odds across all tracked books. Edge = our composite-implied probability minus the best book's implied probability. Positive edge = we think the player is more likely to perform than the market suggests.</p>
+        </div>
     </section>
 
     <!-- ═══ TOOLS ═══ -->
