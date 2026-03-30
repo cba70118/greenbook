@@ -226,6 +226,38 @@ function buildTheCut() {
 }
 buildTheCut();
 
+// News ticker from pre-fetched RSS (news-feed.js)
+(function() {
+    var ticker = document.getElementById('news-ticker');
+    var updated = document.getElementById('news-updated');
+    if (!ticker || typeof NEWS_FEED === 'undefined') return;
+
+    var now = new Date();
+    var sourceColors = {
+        'ESPN Golf': 'var(--green-400)',
+        'Golf.com': 'var(--brass-500)',
+        'Yahoo Golf': 'var(--cream-400)',
+        'CBS Golf': 'var(--cream-300)',
+        'GolfWRX': 'var(--brass-400)',
+    };
+
+    ticker.innerHTML = NEWS_FEED.map(function(item) {
+        var color = sourceColors[item.source] || 'var(--cream-500)';
+        var date = new Date(item.date);
+        var ago = Math.round((now - date) / (1000 * 60 * 60));
+        var timeStr = isNaN(ago) || ago < 0 ? '' : ago < 1 ? 'Just now' : ago < 24 ? ago + 'h ago' : Math.round(ago / 24) + 'd ago';
+        return '<a href="' + item.link + '" target="_blank" class="news-item">' +
+            '<div class="news-item-row">' +
+            '<span class="news-item-title">' + item.title + '</span>' +
+            '<span class="news-item-time">' + timeStr + '</span>' +
+            '</div>' +
+            '<span class="news-item-source" style="color:' + color + '">' + item.source + '</span>' +
+            '</a>';
+    }).join('');
+
+    if (updated) updated.textContent = 'Updated ' + now.toLocaleDateString();
+})();
+
 
 
 // Notes toggle

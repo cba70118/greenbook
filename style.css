@@ -339,6 +339,22 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .result-why { font-family: var(--font-body); font-size: 0.8rem; color: var(--cream-300); margin-top: 0.25rem; }
 .result-record { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cream-500); margin-top: 0.25rem; }
 
+/* ─── NEWS TICKER ────────────────────────────────────────── */
+.news-item {
+    display: block;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+}
+.news-item:visited { color: inherit; }
+.news-item:hover { background: rgba(201,160,70,0.04); }
+.news-item-row { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+.news-item-title { font-size: 0.72rem; color: var(--cream-200); line-height: 1.35; }
+.news-item-time { font-family: var(--font-mono); font-size: 0.52rem; color: var(--cream-600); white-space: nowrap; }
+.news-item-source { font-family: var(--font-mono); font-size: 0.48rem; letter-spacing: 0.06em; }
+
 /* ─── INTEL FEED NEWS LINKS ──────────────────────────────── */
 .intel-news-link {
     display: block;

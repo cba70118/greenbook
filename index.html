@@ -66,58 +66,13 @@
             </div>
             <div class="card">
                 <h3>Intel Feed</h3>
-                <p class="card-subtitle">Two feeds: X list for real-time intel, news for articles and updates.</p>
-                <div style="display:flex;gap:0.3rem;margin-bottom:0.5rem">
-                    <button class="quick-tag active" id="feed-tab-x" onclick="document.getElementById('feed-x').style.display='';document.getElementById('feed-news').style.display='none';this.classList.add('active');document.getElementById('feed-tab-news').classList.remove('active')">X Feed</button>
-                    <button class="quick-tag" id="feed-tab-news" onclick="document.getElementById('feed-news').style.display='';document.getElementById('feed-x').style.display='none';this.classList.add('active');document.getElementById('feed-tab-x').classList.remove('active')">News</button>
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem">
+                    <a href="https://x.com/i/lists/2038624167235379584" target="_blank" style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.3rem 0.6rem;background:var(--green-900);border:1px solid var(--green-500);border-radius:3px;color:var(--cream-200);text-decoration:none;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.04em">X Golf Intel</a>
+                    <a href="https://www.rotowire.com/golf/news.php" target="_blank" style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:3px">RotoWire</a>
+                    <a href="https://www.golfdigest.com/" target="_blank" style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:3px">Golf Digest</a>
+                    <span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--cream-700);margin-left:auto" id="news-updated"></span>
                 </div>
-                <div id="feed-x">
-                    <div style="text-align:center;padding:1.5rem;border:1px solid var(--border);border-radius:4px">
-                        <a href="https://x.com/i/lists/2038624167235379584" target="_blank" style="display:inline-block;padding:0.6rem 1.5rem;background:var(--green-900);border:1px solid var(--green-500);border-radius:4px;color:var(--cream-200);text-decoration:none;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.04em;transition:background 0.2s" onmouseover="this.style.background='rgba(201,160,70,0.12)'" onmouseout="this.style.background='var(--green-900)'">Open Golf Intel List on X</a>
-                        <p style="font-size:0.62rem;color:var(--cream-600);margin-top:0.5rem">Your curated X list with field intel, injuries, betting picks, and clips from 15+ sources.</p>
-                        <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.75rem;flex-wrap:wrap">
-                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--green-400)">Field</span> @Underdog__Golf @PGATOUR @RotoWireGolf</div>
-                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--brass-500)">Picks</span> @PGASplits101 @ThePME @TitanicGambler</div>
-                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--cream-300)">Clips</span> @NoLayingUp @Skratch</div>
-                        </div>
-                    </div>
-                </div>
-                <div id="feed-news" style="display:none">
-                    <div style="display:flex;flex-direction:column;gap:0.3rem;max-height:420px;overflow-y:auto" id="news-links">
-                        <a href="https://www.rotowire.com/golf/news.php" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">RotoWire</span>
-                            <span class="intel-news-desc">Player-by-player injury blurbs, WDs, status updates. Updated daily.</span>
-                        </a>
-                        <a href="https://www.golfdigest.com/" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Golf Digest</span>
-                            <span class="intel-news-desc">Weekly betting panel: Mayo, Noonan, Stewart, Lack. Free articles.</span>
-                        </a>
-                        <a href="https://mayomedia.substack.com/" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Mayo Substack</span>
-                            <span class="intel-news-desc">Weekly newsletter with picks, rankings, course previews.</span>
-                        </a>
-                        <a href="https://betspertsgolf.com/newsletter" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Betsperts</span>
-                            <span class="intel-news-desc">Rabbit Hole highlights, Klos + Noonan picks. Weekly email.</span>
-                        </a>
-                        <a href="https://www.readtheline.com/" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Read The Line</span>
-                            <span class="intel-news-desc">Keith Stewart's on-site live betting angles.</span>
-                        </a>
-                        <a href="https://www.pgatour.com/news" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">PGA Tour</span>
-                            <span class="intel-news-desc">Official news, field confirmations, tee times.</span>
-                        </a>
-                        <a href="https://golf.com/news/" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Golf.com</span>
-                            <span class="intel-news-desc">News, features, equipment, instruction.</span>
-                        </a>
-                        <a href="https://underdognetwork.com/golf" target="_blank" class="intel-news-link">
-                            <span class="intel-news-source">Underdog Golf</span>
-                            <span class="intel-news-desc">Fantasy intel, ownership projections, strategy articles.</span>
-                        </a>
-                    </div>
-                </div>
+                <div id="news-ticker" style="max-height:400px;overflow-y:auto"></div>
             </div>
         </div>
 
@@ -777,6 +732,7 @@
     <script src="masters-odds.js"></script>
     <script src="valero-odds.js"></script>
     <script src="tools-data.js"></script>
+    <script src="news-feed.js"></script>
     <script src="app.js"></script>
     <script src="tools.js"></script>
 </body>
