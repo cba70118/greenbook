@@ -1148,8 +1148,8 @@ canvas { max-height: 350px; }
     color: var(--brass-400);
 }
 .sf-name strong { cursor: pointer; }
-#app-content strong { cursor: pointer; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.15); text-underline-offset: 2px; }
-#app-content strong:hover { color: var(--brass-400); text-decoration-color: var(--brass-400); }
+#app-content strong { cursor: pointer; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); text-underline-offset: 2px; transition: color 0.15s; }
+#app-content strong:hover { color: var(--brass-400); text-decoration-color: var(--brass-500); }
 .skill-fit-list { }
 
 /* ═══ PAGINATED LISTS ═══ */
