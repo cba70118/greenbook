@@ -695,24 +695,82 @@
     <!-- ═══ DFS ═══ -->
     <section id="dfs" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Daily Fantasy</h2>
-        <p class="card-subtitle" style="margin-bottom:1.5rem">DraftKings and FanDuel analysis. Salary, projections, ownership, and lineup construction.</p>
-        <div class="card">
-            <h3>DFS Field Overview</h3>
-            <p class="card-subtitle">Top players by projected Pts/$1K value. Data populates from DG fantasy projections when available.</p>
-            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Salary</th><th>Proj</th><th>Pt/$1K</th><th>Own%</th><th>Course Fit</th></tr></thead>
-            <tbody id="dfs-body"><tr><td colspan="7" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1.5rem">DFS projections populate when DraftKings salaries release for the current tournament.</td></tr></tbody></table>
-        </div>
+        <p class="card-subtitle" style="margin-bottom:1.5rem">DraftKings analysis for Valero Texas Open. RH model composite + DK salary.</p>
+
         <div class="grid-2">
             <div class="card">
-                <h3>Ownership Leverage</h3>
-                <p class="card-subtitle">High ownership = chalk. Low ownership + high projection = contrarian leverage for GPPs.</p>
-                <div class="primer-text"><p>In golf GPPs, fading chalk (high-ownership players) and pivoting to lower-owned players with similar projections creates differentiation. Look for 10%+ ownership gaps at similar salary tiers. Stack by tee time wave when weather creates AM/PM scoring splits.</p></div>
+                <h3>Smash Plays</h3>
+                <p class="card-subtitle">RH top-15 + under $8.5K = best value per dollar.</p>
+                <div style="font-size:0.75rem">
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Ryo Hisatsune</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,300</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#4 | 10.1 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Sudarshan Yellamaraju</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,100</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#8 | 9.9 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Alex Smalley</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,600</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#12 | 9.7 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Thorbjorn Olesen</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,800</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#15 | 9.2 pts/$1K</span></div>
+                </div>
             </div>
             <div class="card">
-                <h3>Course Fit as DFS Edge</h3>
-                <p class="card-subtitle">Our composite rankings apply to DFS. A top-10 course-fit player at minimum salary is a DFS gem.</p>
-                <div class="primer-text"><p>Sort by our composite rank, then cross-reference with DK salary. Players ranked in our top 20 but priced below $8,000 are the value targets. The same weakness-masked analysis that finds betting value identifies DFS leverage.</p></div>
+                <h3>Leverage Plays</h3>
+                <p class="card-subtitle">RH top-25 + under $7.5K = low ownership, high upside.</p>
+                <div style="font-size:0.75rem">
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Austin Smotherman</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,000</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#19 | 9.6 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Jesper Svensson</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$6,800</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#21 | 9.6 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>David Ford</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$6,700</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#22 | 9.6 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>John Parry</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,200</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#20 | 9.2 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Mac Meissner</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,300</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#24 | 8.7 pts/$1K</span></div>
+                </div>
             </div>
+        </div>
+
+        <div class="card">
+            <h3>Sample Lineups</h3>
+            <p class="card-subtitle">$50K salary cap. 6 players. Built from RH composite + course fit analysis.</p>
+            <div class="grid-3" style="gap:1rem">
+                <div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">BALANCED ($48.9K)</div>
+                    <div style="font-size:0.7rem"><strong>Si Woo Kim</strong> $9.6K RH#1</div>
+                    <div style="font-size:0.7rem"><strong>Sepp Straka</strong> $9.2K RH#7</div>
+                    <div style="font-size:0.7rem"><strong>Ryo Hisatsune</strong> $8.3K RH#4</div>
+                    <div style="font-size:0.7rem"><strong>Thorbjorn Olesen</strong> $7.8K RH#15</div>
+                    <div style="font-size:0.7rem"><strong>John Parry</strong> $7.2K RH#20</div>
+                    <div style="font-size:0.7rem"><strong>Jesper Svensson</strong> $6.8K RH#21</div>
+                </div>
+                <div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">VALUE STACK ($46.7K)</div>
+                    <div style="font-size:0.7rem"><strong>Maverick McNealy</strong> $9.0K RH#3</div>
+                    <div style="font-size:0.7rem"><strong>Ryo Hisatsune</strong> $8.3K RH#4</div>
+                    <div style="font-size:0.7rem"><strong>Sudarshan Yellamaraju</strong> $8.1K RH#8</div>
+                    <div style="font-size:0.7rem"><strong>Alex Smalley</strong> $7.6K RH#12</div>
+                    <div style="font-size:0.7rem"><strong>Austin Smotherman</strong> $7.0K RH#19</div>
+                    <div style="font-size:0.7rem"><strong>David Ford</strong> $6.7K RH#22</div>
+                </div>
+                <div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">TOMMY ANCHOR ($47.4K)</div>
+                    <div style="font-size:0.7rem"><strong>Tommy Fleetwood</strong> $10.5K RH#5</div>
+                    <div style="font-size:0.7rem"><strong>Maverick McNealy</strong> $9.0K RH#3</div>
+                    <div style="font-size:0.7rem"><strong>Thorbjorn Olesen</strong> $7.8K RH#15</div>
+                    <div style="font-size:0.7rem"><strong>Jesper Svensson</strong> $6.8K RH#21</div>
+                    <div style="font-size:0.7rem"><strong>David Ford</strong> $6.7K RH#22</div>
+                    <div style="font-size:0.7rem"><strong>Adrien Saddier</strong> $6.6K RH#50</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Core Plays (RH Top 10)</h3>
+            <p class="card-subtitle">Highest-floor players by RH composite. These are the anchors for any lineup.</p>
+            <table class="data-table"><thead><tr><th>RH</th><th>Player</th><th>DK Salary</th><th>Score</th><th>Pts/$1K</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td><strong>Si Woo Kim</strong></td><td style="font-family:var(--font-mono)">$9,600</td><td>85.1</td><td class="pos">8.9</td></tr>
+                <tr><td>2</td><td><strong>Ludvig Aberg</strong></td><td style="font-family:var(--font-mono)">$10,100</td><td>84.8</td><td>8.4</td></tr>
+                <tr><td>3</td><td><strong>Maverick McNealy</strong></td><td style="font-family:var(--font-mono)">$9,000</td><td>84.4</td><td class="pos">9.4</td></tr>
+                <tr><td>4</td><td><strong>Ryo Hisatsune</strong></td><td style="font-family:var(--font-mono)">$8,300</td><td>84.2</td><td class="pos">10.1</td></tr>
+                <tr><td>5</td><td><strong>Tommy Fleetwood</strong></td><td style="font-family:var(--font-mono)">$10,500</td><td>83.9</td><td>8.0</td></tr>
+                <tr><td>6</td><td><strong>Russell Henley</strong></td><td style="font-family:var(--font-mono)">$9,800</td><td>81.3</td><td>8.3</td></tr>
+                <tr><td>7</td><td><strong>Sepp Straka</strong></td><td style="font-family:var(--font-mono)">$9,200</td><td>81.1</td><td class="pos">8.8</td></tr>
+                <tr><td>8</td><td><strong>Sudarshan Yellamaraju</strong></td><td style="font-family:var(--font-mono)">$8,100</td><td>80.0</td><td class="pos">9.9</td></tr>
+                <tr><td>9</td><td><strong>Jordan Spieth</strong></td><td style="font-family:var(--font-mono)">$9,500</td><td>79.2</td><td>8.3</td></tr>
+                <tr><td>10</td><td><strong>Rickie Fowler</strong></td><td style="font-family:var(--font-mono)">$8,800</td><td>74.7</td><td>8.5</td></tr>
+            </tbody></table>
         </div>
     </section>
 

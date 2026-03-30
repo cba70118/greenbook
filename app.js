@@ -479,7 +479,18 @@ function loadTournament(key) {
                 const cls = colors[n.type] || '';
                 const label = labels[n.type] || '';
                 const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
-                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}</div>`;
+                // Bet tier based on text content
+                var tier = '';
+                if (n.type === 'bet') {
+                    var txt = (n.text || '').toLowerCase();
+                    if (txt.indexOf('dart') >= 0 || txt.indexOf('micro') >= 0 || txt.indexOf('$1.') >= 0 || txt.indexOf('$2.') >= 0)
+                        tier = '<span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--cream-600);margin-left:auto">DART</span>';
+                    else if (txt.indexOf('$5') >= 0)
+                        tier = '<span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--brass-400);margin-left:auto">MID</span>';
+                    else if (txt.indexOf('$10') >= 0 || txt.indexOf('$20') >= 0)
+                        tier = '<span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--green-400);margin-left:auto">CORE</span>';
+                }
+                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}${tier}</div>`;
             });
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
