@@ -626,6 +626,7 @@ const TOURNAMENT_DATA = {
             { type: "bet", player: "A.J. Ewart", text: "+34000 DK $1.25 dart. Comp 6mo #4 at correlated courses. T11 Valspar. Micro stake." },
             { type: "bet", player: "Will Zalatoris", text: "+7800 DK $5. APP elite but injury risk. T60 at Houston is concerning." },
             { type: "bet", player: "Mackenzie Hughes", text: "+11500 DK $2.50. TAILWIND 1.29x. Comp #5 in our system." },
+            { type: "bet", player: "Denny McCarthy", text: "b365 E/W 1/5 8pl +3000 $10. TPC SA #2 over 16 rounds. 2025 PUTT#1. 2024 playoff (2nd). Course specialist at sharp book pricing." },
             { type: "fade", player: "Ludvig Aberg", text: "Comp #1 overall but #54 at TPC SA. At +1650 the market is pricing raw talent, not this specific course. Our model says overpriced." },
             { type: "fade", player: "Gary Woodland", text: "+5100 after Houston win. SG:TOT +0.03, ARG -0.33. Anti-bias protocol says this is pure recency narrative. Hard fade." },
             { type: "fade", player: "Rickie Fowler", text: "Comp #10 but cool form (0.88). DG HEADWIND territory. Needs Masters spot which could affect focus." },
