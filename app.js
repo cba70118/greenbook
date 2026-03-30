@@ -479,32 +479,44 @@ function loadTournament(key) {
                 const cls = colors[n.type] || '';
                 const label = labels[n.type] || '';
                 const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
-                // Bet context: tier, price, book — extracted from note text
+                // Bet context: tier, price, book, reason
                 var extra = '';
                 if (n.type === 'bet') {
                     var txt = n.text || '';
-                    // Extract odds
                     var oddsMatch = txt.match(/\+\d{3,}/);
                     var odds = oddsMatch ? oddsMatch[0] : '';
-                    // Extract book
                     var book = '';
                     if (txt.toLowerCase().indexOf('b365') >= 0 || txt.toLowerCase().indexOf('bet365') >= 0) book = 'b365';
                     else if (txt.toLowerCase().indexOf('dk') >= 0 || txt.toLowerCase().indexOf('draftkings') >= 0) book = 'DK';
                     else if (txt.toLowerCase().indexOf('fd') >= 0 || txt.toLowerCase().indexOf('fanduel') >= 0) book = 'FD';
-                    // Tier
                     var tier = '';
                     var txtL = txt.toLowerCase();
                     if (txtL.indexOf('dart') >= 0 || txtL.indexOf('micro') >= 0 || txtL.indexOf('$1.') >= 0 || txtL.indexOf('$2.') >= 0) tier = 'dart';
                     else if (txtL.indexOf('$5') >= 0) tier = 'mid';
                     else if (txtL.indexOf('$10') >= 0 || txtL.indexOf('$20') >= 0) tier = 'core';
-                    var tierColor = tier === 'core' ? 'var(--green-500)' : tier === 'mid' ? 'var(--brass-500)' : 'var(--cream-600)';
-                    extra = ' <span style="font-family:var(--font-mono);font-size:0.5rem;opacity:0.7">';
-                    if (odds) extra += '<span style="color:var(--cream-400)">' + odds + '</span> ';
-                    if (book) extra += '<span style="color:var(--cream-500)">' + book + '</span> ';
-                    if (tier) extra += '<span style="color:' + tierColor + '">' + tier + '</span>';
-                    extra += '</span>';
+                    var tierColor = tier === 'core' ? 'var(--green-400)' : tier === 'mid' ? 'var(--brass-400)' : 'var(--cream-500)';
+                    // Extract brief reason — first sentence after the price/stake info
+                    var reason = '';
+                    var sentences = txt.split('. ');
+                    for (var si = 0; si < sentences.length; si++) {
+                        var s = sentences[si];
+                        if (s.indexOf('$') < 0 && s.indexOf('+') !== 0 && s.length > 10 && s.indexOf('Outright') < 0 && s.indexOf('Win') !== 0) {
+                            reason = s.substring(0, 60);
+                            break;
+                        }
+                    }
+                    extra = '<div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.1rem">';
+                    if (odds) extra += '<span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-200)">' + odds + '</span>';
+                    if (book) extra += '<span style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500)">' + book + '</span>';
+                    if (tier) extra += '<span style="font-family:var(--font-mono);font-size:0.55rem;color:' + tierColor + ';border:1px solid ' + tierColor + ';padding:0 0.25rem;border-radius:2px">' + tier + '</span>';
+                    extra += '</div>';
+                    if (reason) extra += '<div style="font-size:0.62rem;color:var(--cream-500);margin-top:0.1rem;line-height:1.25">' + reason + '</div>';
                 }
-                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}${extra}</div>`;
+                var likeReason = '';
+                if (n.type === 'like' || n.type === 'fade') {
+                    likeReason = '<div style="font-size:0.62rem;color:var(--cream-500);margin-top:0.1rem;line-height:1.25">' + (n.text || '').substring(0, 70) + '</div>';
+                }
+                boardEl.innerHTML += `<div style="padding:0.35rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:0.4rem;font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}</div>${extra}${likeReason}</div>`;
             });
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
