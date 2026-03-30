@@ -1148,7 +1148,7 @@ canvas { max-height: 350px; }
     color: var(--brass-400);
 }
 .sf-name strong { cursor: pointer; }
-#app-content strong { cursor: pointer; color: var(--green-300); text-decoration: underline; text-decoration-color: rgba(144, 186, 136, 0.3); text-underline-offset: 2px; }
+#app-content strong { cursor: pointer; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.15); text-underline-offset: 2px; }
 #app-content strong:hover { color: var(--brass-400); text-decoration-color: var(--brass-400); }
 .skill-fit-list { }
 
