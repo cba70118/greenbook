@@ -75,6 +75,7 @@ document.addEventListener('click', function(e) {
         document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
         document.getElementById('thecut').classList.add('active');
         try { sessionStorage.setItem('greenbook_tab', 'thecut'); } catch(ex){}
+        renderNewsTicker();
         window.scrollTo(0, 0);
     }
 });
@@ -227,10 +228,13 @@ function buildTheCut() {
 buildTheCut();
 
 // News ticker from pre-fetched RSS (news-feed.js)
-(function() {
+function renderNewsTicker() {
     var ticker = document.getElementById('news-ticker');
     var updated = document.getElementById('news-updated');
-    if (!ticker || typeof NEWS_FEED === 'undefined') return;
+    if (!ticker || typeof NEWS_FEED === 'undefined' || !NEWS_FEED.length) {
+        if (ticker) ticker.innerHTML = '<div style="padding:1rem;text-align:center;color:var(--cream-600);font-size:0.72rem">No news loaded. Run: py -3 scripts/fetch_news.py</div>';
+        return;
+    }
 
     var now = new Date();
     var sourceColors = {
@@ -256,7 +260,8 @@ buildTheCut();
     }).join('');
 
     if (updated) updated.textContent = 'Updated ' + now.toLocaleDateString();
-})();
+}
+renderNewsTicker();
 
 
 
