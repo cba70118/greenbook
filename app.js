@@ -58,10 +58,11 @@ document.addEventListener('click', function(e) {
     // Explicit clickable class
     var target = e.target.closest('.player-clickable');
     if (target) { e.preventDefault(); showPlayerPopup(target.textContent.trim()); return; }
-    // Any strong tag with a player-like name (not dollar amounts, odds, or short labels)
-    if (e.target.tagName === 'STRONG') {
-        var name = e.target.textContent.trim();
-        if (name.length > 4 && name.indexOf('$') < 0 && name.indexOf('+') < 0 && name.indexOf('#') < 0 && name.indexOf('%') < 0 && /[A-Z]/.test(name[0]) && name.indexOf(' ') > 0) {
+    // Any strong tag OR any element with player-name-like text
+    var el = e.target;
+    if (el.tagName === 'STRONG' || (el.tagName === 'SPAN' && el.style.cursor === 'pointer')) {
+        var name = el.textContent.trim();
+        if (name.length > 4 && name.length < 30 && name.indexOf('$') < 0 && name.indexOf('+') < 0 && name.indexOf('#') < 0 && name.indexOf('%') < 0 && /[A-Z]/.test(name[0]) && name.indexOf(' ') > 0 && !name.match(/^(On Card|Updated|Latest|Upcoming|Settled|Previous)/)) {
             showPlayerPopup(name);
         }
     }
@@ -119,7 +120,7 @@ function buildTheCut() {
         if (bets.length) {
             html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + bets.length + ')</div>';
             html += '<div style="margin-bottom:0.5rem">' + bets.map(function(b){
-                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)">' + (b.player||'') + '</span>';
+                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)"><strong>' + (b.player||'') + '</strong></span>';
             }).join('') + '</div>';
         }
 
@@ -161,7 +162,7 @@ function buildTheCut() {
         statusFeed.innerHTML = PLAYER_STATUS.sort(function(a,b){
             return b.updated.localeCompare(a.updated);
         }).slice(0,5).map(function(ps) {
-            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem">'+(typeIcons[ps.type]||'&#9679;')+' <strong>'+ps.player+'</strong> <span style="color:var(--cream-500)">'+(ps.status||'').substring(0,60)+'</span></div>';
+            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem">'+(typeIcons[ps.type]||'&#9679;')+' <strong>'+ps.player+'</strong> <span style="color:var(--cream-500)">'+(ps.status||'').substring(0,55)+'</span></div>';
         }).join('');
     }
 
@@ -479,8 +480,8 @@ function loadTournament(key) {
                 const cls = colors[n.type] || '';
                 const label = labels[n.type] || '';
                 const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
-                // Bet context: tier, price, book, reason
-                var extra = '';
+                // Bet context: odds + book + tier inline
+                var meta = '';
                 if (n.type === 'bet') {
                     var txt = n.text || '';
                     var oddsMatch = txt.match(/\+\d{3,}/);
@@ -495,28 +496,13 @@ function loadTournament(key) {
                     else if (txtL.indexOf('$5') >= 0) tier = 'mid';
                     else if (txtL.indexOf('$10') >= 0 || txtL.indexOf('$20') >= 0) tier = 'core';
                     var tierColor = tier === 'core' ? 'var(--green-400)' : tier === 'mid' ? 'var(--brass-400)' : 'var(--cream-500)';
-                    // Extract brief reason — first sentence after the price/stake info
-                    var reason = '';
-                    var sentences = txt.split('. ');
-                    for (var si = 0; si < sentences.length; si++) {
-                        var s = sentences[si];
-                        if (s.indexOf('$') < 0 && s.indexOf('+') !== 0 && s.length > 10 && s.indexOf('Outright') < 0 && s.indexOf('Win') !== 0) {
-                            reason = s.substring(0, 60);
-                            break;
-                        }
-                    }
-                    extra = '<div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.1rem">';
-                    if (odds) extra += '<span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--cream-200)">' + odds + '</span>';
-                    if (book) extra += '<span style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500)">' + book + '</span>';
-                    if (tier) extra += '<span style="font-family:var(--font-mono);font-size:0.55rem;color:' + tierColor + ';border:1px solid ' + tierColor + ';padding:0 0.25rem;border-radius:2px">' + tier + '</span>';
-                    extra += '</div>';
-                    if (reason) extra += '<div style="font-size:0.62rem;color:var(--cream-500);margin-top:0.1rem;line-height:1.25">' + reason + '</div>';
+                    var parts = [];
+                    if (odds) parts.push(odds);
+                    if (book) parts.push(book);
+                    if (tier) parts.push(tier);
+                    meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + tierColor + '">' + parts.join(' ') + '</span>';
                 }
-                var likeReason = '';
-                if (n.type === 'like' || n.type === 'fade') {
-                    likeReason = '<div style="font-size:0.62rem;color:var(--cream-500);margin-top:0.1rem;line-height:1.25">' + (n.text || '').substring(0, 70) + '</div>';
-                }
-                boardEl.innerHTML += `<div style="padding:0.35rem 0;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:0.4rem;font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}</div>${extra}${likeReason}</div>`;
+                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}${meta}</div>`;
             });
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
