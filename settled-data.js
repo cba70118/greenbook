@@ -247,14 +247,51 @@ if (val) {
         { rank:6, name:"Stephan Jaeger", comp:0.52, form:0.86, signal:"cool", app:0.10, ott:-0.22, dd:5.7, arg:0.27, putt:0.26, t10:6.7, spikes:"", flag:"FRL" },
         { rank:7, name:"Eric Cole", comp:0.45, form:0.88, signal:"cool", app:0.14, ott:-0.56, dd:-1.8, arg:0.21, putt:0.33, t10:5.2, spikes:"", flag:"ON CARD" },
     ];
+    val.composite = [
+        { rank:1, name:"Matt Fitzpatrick", comp:0.78, form:1.15, signal:"warm", app:0.77, ott:0.50, dd:2.7, arg:0.32, putt:0.29, t10:22.5, spikes:"", flag:"WINNER" },
+        { rank:2, name:"Viktor Hovland", comp:0.72, form:1.18, signal:"warm", app:0.76, ott:0.10, dd:0.6, arg:0.14, putt:0.20, t10:22.5, spikes:"", flag:"" },
+        { rank:3, name:"Matt McCarty", comp:0.68, form:1.17, signal:"warm", app:0.12, ott:0.19, dd:-2.7, arg:-0.01, putt:0.42, t10:13.5, spikes:"", flag:"ON CARD" },
+        { rank:4, name:"Corey Conners", comp:0.65, form:1.20, signal:"warm", app:0.56, ott:0.47, dd:-1.6, arg:-0.06, putt:-0.15, t10:14.8, spikes:"", flag:"" },
+        { rank:5, name:"Sahith Theegala", comp:0.62, form:1.06, signal:"warm", app:0.46, ott:0.01, dd:3.9, arg:0.20, putt:0.24, t10:14.2, spikes:"", flag:"" },
+        { rank:6, name:"David Lipsky", comp:0.60, form:0.95, signal:"neutral", app:0.14, ott:-0.23, dd:-10.7, arg:0.14, putt:0.09, t10:8.5, spikes:"", flag:"RUNNER-UP" },
+        { rank:7, name:"Taylor Pendrith", comp:0.58, form:0.83, signal:"cool", app:0.29, ott:0.49, dd:10.7, arg:0.11, putt:0.04, t10:12.5, spikes:"", flag:"ON CARD" },
+        { rank:8, name:"Alex Smalley", comp:0.55, form:0.90, signal:"cool", app:0.28, ott:0.30, dd:5.0, arg:0.08, putt:-0.03, t10:11.0, spikes:"", flag:"ON CARD" },
+        { rank:9, name:"Christiaan Bezuidenhout", comp:0.54, form:1.05, signal:"warm", app:0.29, ott:-0.24, dd:-11.9, arg:0.29, putt:0.31, t10:10.5, spikes:"", flag:"ON CARD" },
+        { rank:10, name:"Stephan Jaeger", comp:0.52, form:0.86, signal:"cool", app:0.10, ott:-0.22, dd:5.7, arg:0.27, putt:0.26, t10:6.7, spikes:"", flag:"FRL T7" },
+        { rank:11, name:"Pierceson Coody", comp:0.50, form:1.15, signal:"warm", app:0.32, ott:0.61, dd:13.7, arg:-0.15, putt:-0.03, t10:8.5, spikes:"", flag:"ON CARD" },
+        { rank:12, name:"Ryo Hisatsune", comp:0.48, form:1.11, signal:"warm", app:0.47, ott:0.41, dd:0.3, arg:0.11, putt:-0.08, t10:8.8, spikes:"", flag:"FRL" },
+        { rank:13, name:"Davis Thompson", comp:0.46, form:1.00, signal:"neutral", app:0.35, ott:0.40, dd:3.4, arg:0.04, putt:-0.13, t10:8.0, spikes:"", flag:"ON CARD" },
+        { rank:14, name:"Eric Cole", comp:0.45, form:0.88, signal:"cool", app:0.14, ott:-0.56, dd:-1.8, arg:0.21, putt:0.33, t10:5.2, spikes:"", flag:"ON CARD" },
+        { rank:15, name:"Kristoffer Reitan", comp:0.42, form:0.90, signal:"cool", app:-0.13, ott:0.58, dd:9.5, arg:-0.15, putt:0.26, t10:4.5, spikes:"", flag:"ON CARD" },
+    ];
     val.formSignals = [
-        { name:"Hovland", base:3.0, bhf:3.5, signal:"warm" },
-        { name:"McCarty", base:1.1, bhf:1.3, signal:"warm" },
-        { name:"Conners", base:1.5, bhf:1.8, signal:"warm" },
-        { name:"Theegala", base:1.9, bhf:2.0, signal:"warm" },
-        { name:"Pendrith", base:2.0, bhf:1.7, signal:"cool" },
-        { name:"Jaeger", base:0.6, bhf:0.5, signal:"cool" },
-        { name:"Cole", base:0.4, bhf:0.4, signal:"cool" },
+        { name:"Matt Fitzpatrick", base:3.8, bhf:4.4, signal:"warm" },
+        { name:"Viktor Hovland", base:3.0, bhf:3.5, signal:"warm" },
+        { name:"Matt McCarty", base:1.1, bhf:1.3, signal:"warm" },
+        { name:"Corey Conners", base:1.5, bhf:1.8, signal:"warm" },
+        { name:"Sahith Theegala", base:1.9, bhf:2.0, signal:"warm" },
+        { name:"David Lipsky", base:0.5, bhf:0.5, signal:"neutral" },
+        { name:"Taylor Pendrith", base:2.0, bhf:1.7, signal:"cool" },
+        { name:"Alex Smalley", base:1.2, bhf:1.1, signal:"cool" },
+        { name:"Christiaan Bezuidenhout", base:0.8, bhf:0.8, signal:"warm" },
+        { name:"Stephan Jaeger", base:0.6, bhf:0.5, signal:"cool" },
+        { name:"Pierceson Coody", base:1.3, bhf:1.5, signal:"warm" },
+        { name:"Ryo Hisatsune", base:1.5, bhf:1.7, signal:"warm" },
+        { name:"Eric Cole", base:0.4, bhf:0.4, signal:"cool" },
+    ];
+    val.weaknessMasked = [
+        { name:"Matt Fitzpatrick", weakness:"Not a bomber (DrDist +2.7)", masked:"YES (Copperhead doesn't reward distance)", strength:"APP +0.77 + ARG +0.32 + PUTT +0.29 on Poa Triv", amplified:"YES (Poa putting is the separator)", rank:1, form:"warm 1.15x", verdict:"WINNER. Iron precision + Poa putting = exactly what Copperhead rewards." },
+        { name:"David Lipsky", weakness:"OTT -0.23, short hitter", masked:"YES (accuracy > distance)", strength:"Clutch putting down the stretch", amplified:"YES (Poa surface)", rank:6, form:"neutral", verdict:"RUNNER-UP. Outperformed his skill rating through putting." },
+        { name:"Christiaan Bezuidenhout", weakness:"OTT -0.24, shortest hitter in field", masked:"YES (Copperhead fairway accuracy matters more)", strength:"SG:ARG +0.29 + PUTT +0.31", amplified:"YES (short game + Poa)", rank:9, form:"warm 1.05x", verdict:"T30. Short game showed but approach didn't spike enough." },
+        { name:"Stephan Jaeger", weakness:"APP +0.10, OTT -0.22", masked:"Partial (ARG compensates)", strength:"SG:ARG +0.27 + PUTT +0.26 + FRL history", amplified:"YES (scrambling around Copperhead greens)", rank:10, form:"cool 0.86x", verdict:"T7. Best result on our card. ARG + course history carried." },
+        { name:"Matt McCarty", weakness:"APP +0.12 (below average)", masked:"NO", strength:"SG:PUTT +0.42 on Poa Triv (#4 in field)", amplified:"Partially (putting helps but approach is king)", rank:3, form:"warm 1.17x", verdict:"MC. Putting couldn't compensate for approach weakness. Lesson: Poa putting alone isn't enough." },
+    ];
+    val.narratives = [
+        { name:"Matt Fitzpatrick", noonan:true, klos:true, mayo:true, stewart:false, titanic:false, count:3, rank:1 },
+        { name:"Viktor Hovland", noonan:true, klos:false, mayo:false, stewart:false, titanic:false, count:1, rank:2 },
+        { name:"Ryo Hisatsune", noonan:true, klos:false, mayo:true, stewart:false, titanic:false, count:2, rank:12, note:"APP model #3. T4 here 2025. R1 specialist." },
+        { name:"Stephan Jaeger", noonan:false, klos:false, mayo:false, stewart:false, titanic:true, count:1, rank:10, note:"Co-FRL at Copperhead in 2023 AND 2025. Pure history play." },
+        { name:"Christiaan Bezuidenhout", noonan:false, klos:false, mayo:false, stewart:false, titanic:false, count:0, rank:9, note:"T9 here in 2024. Short game specialist." },
     ];
     val.review = {
         record: "0W-11L",
