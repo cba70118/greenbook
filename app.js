@@ -75,11 +75,6 @@ document.addEventListener('click', function(e) {
         document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
         document.getElementById('thecut').classList.add('active');
         try { sessionStorage.setItem('greenbook_tab', 'thecut'); } catch(ex){}
-        // Load X list iframe when The Cut becomes visible
-        var xFrame = document.getElementById('x-list-frame');
-        if (xFrame && !xFrame.src) {
-            xFrame.src = 'https://syndication.twitter.com/srv/timeline-list/screen-name/cba70118/list/2038624167235379584?dnt=true&embedId=twitter-widget-0&frame=false&hideBorder=true&hideFooter=true&hideHeader=true&hideScrollBar=false&lang=en&theme=dark&transparent=true';
-        }
         window.scrollTo(0, 0);
     }
 });

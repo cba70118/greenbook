@@ -72,9 +72,14 @@
                     <button class="quick-tag" id="feed-tab-news" onclick="document.getElementById('feed-news').style.display='';document.getElementById('feed-x').style.display='none';this.classList.add('active');document.getElementById('feed-tab-x').classList.remove('active')">News</button>
                 </div>
                 <div id="feed-x">
-                    <iframe id="x-list-frame" style="width:100%;height:420px;border:none;border-radius:4px;background:#000" loading="lazy"></iframe>
-                    <div style="display:flex;gap:0.4rem;margin-top:0.4rem;flex-wrap:wrap">
-                        <a href="https://x.com/i/lists/2038624167235379584" target="_blank" style="font-family:var(--font-mono);font-size:0.52rem;color:var(--cream-500);text-decoration:none;border:1px solid var(--border);padding:0.15rem 0.4rem;border-radius:3px">Open full list on X</a>
+                    <div style="text-align:center;padding:1.5rem;border:1px solid var(--border);border-radius:4px">
+                        <a href="https://x.com/i/lists/2038624167235379584" target="_blank" style="display:inline-block;padding:0.6rem 1.5rem;background:var(--green-900);border:1px solid var(--green-500);border-radius:4px;color:var(--cream-200);text-decoration:none;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.04em;transition:background 0.2s" onmouseover="this.style.background='rgba(201,160,70,0.12)'" onmouseout="this.style.background='var(--green-900)'">Open Golf Intel List on X</a>
+                        <p style="font-size:0.62rem;color:var(--cream-600);margin-top:0.5rem">Your curated X list with field intel, injuries, betting picks, and clips from 15+ sources.</p>
+                        <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.75rem;flex-wrap:wrap">
+                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--green-400)">Field</span> @Underdog__Golf @PGATOUR @RotoWireGolf</div>
+                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--brass-500)">Picks</span> @PGASplits101 @ThePME @TitanicGambler</div>
+                            <div style="font-size:0.58rem;color:var(--cream-500)"><span style="color:var(--cream-300)">Clips</span> @NoLayingUp @Skratch</div>
+                        </div>
                     </div>
                 </div>
                 <div id="feed-news" style="display:none">

@@ -346,8 +346,10 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     border: 1px solid var(--border);
     border-radius: 4px;
     text-decoration: none;
+    color: inherit;
     transition: border-color 0.2s, background 0.2s;
 }
+.intel-news-link:visited { color: inherit; }
 .intel-news-link:hover { border-color: var(--brass-500); background: rgba(201,160,70,0.04); }
 .intel-news-source {
     display: block;
