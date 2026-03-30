@@ -75,6 +75,10 @@ document.addEventListener('click', function(e) {
         document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
         document.getElementById('thecut').classList.add('active');
         try { sessionStorage.setItem('greenbook_tab', 'thecut'); } catch(ex){}
+        // Re-render X widget when The Cut becomes visible
+        if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load(document.getElementById('intel-x-embed'));
+        }
         window.scrollTo(0, 0);
     }
 });
@@ -124,7 +128,7 @@ function buildTheCut() {
         statusFeed.innerHTML = PLAYER_STATUS.sort(function(a,b){
             return b.updated.localeCompare(a.updated);
         }).slice(0,5).map(function(ps) {
-            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem">'+typeIcons[ps.type]+' <strong>'+ps.player+'</strong> <span style="color:var(--cream-500)">'+ps.status.substring(0,60)+'</span></div>';
+            return '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.75rem">'+(typeIcons[ps.type]||'&#9679;')+' <strong>'+ps.player+'</strong> <span style="color:var(--cream-500)">'+(ps.status||'').substring(0,60)+'</span></div>';
         }).join('');
     }
 
@@ -214,7 +218,7 @@ function buildTheCut() {
     var lastWeek = document.getElementById('cut-last-week');
     if (lastWeek) {
         // Find most recent settled tournament
-        var settled = ['valspar','players','arnoldpalmer','puertorico','cognizant'];
+        var settled = ['houston','valspar','players','arnoldpalmer','puertorico','cognizant'];
         for (var i=0; i<settled.length; i++) {
             var st = TOURNAMENT_DATA[settled[i]];
             if (st && st.result2026) {
