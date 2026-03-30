@@ -93,18 +93,18 @@
         <!-- Row 4: Intel Feed -->
         <div class="card">
             <h3>Intel Feed</h3>
-            <p class="card-subtitle">Curated X list — field intel, injuries, betting picks, and clips from key sources in one feed. <a href="#" id="intel-feed-link" target="_blank" style="color:var(--brass-500)">View list on X</a></p>
-            <div id="intel-feed-content" style="max-height:600px;overflow-y:auto;border:1px solid var(--border);border-radius:4px;background:#000">
-                <div id="intel-feed-embed" style="padding:1rem;text-align:center;color:var(--cream-500);font-size:0.8rem">
-                    <p>To activate the Intel Feed:</p>
-                    <p style="margin-top:0.5rem">1. Create a private X list called <strong>"Golf Intel"</strong></p>
-                    <p>2. Add these accounts: @Underdog__Golf, @PGATOUR, @PGATOURComms, @RotoWireGolf, @PGASplits101, @ThePME, @RyNoonan, @KJStewartpga, @TitanicGambler, @NoLayingUp, @Skratch, @JustinRayGolf, @FriedEggGolf, @RickRunGood</p>
-                    <p style="margin-top:0.5rem">3. Copy the list URL and paste it below</p>
-                    <div style="margin-top:0.75rem">
-                        <input type="text" id="intel-list-url" class="calc-input" placeholder="https://x.com/i/lists/123456789" style="max-width:400px;margin-right:0.5rem">
-                        <button class="page-btn" onclick="loadIntelFeed()">Load Feed</button>
-                    </div>
-                </div>
+            <p class="card-subtitle">Live golf news and curated X sources for field intel, injuries, and betting angles.</p>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
+                <a href="https://x.com/i/lists/2038624167235379584" target="_blank" class="page-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem">
+                    <span style="font-size:0.8rem">&#119831;</span> Open Golf Intel List
+                </a>
+                <a href="https://www.rotowire.com/golf/news.php" target="_blank" class="page-btn" style="text-decoration:none">RotoWire News</a>
+                <a href="https://www.golfdigest.com/" target="_blank" class="page-btn" style="text-decoration:none">Golf Digest Panel</a>
+            </div>
+            <!-- RSS News Ticker -->
+            <div style="margin-top:0.75rem">
+                <div style="font-family:var(--font-mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-500);margin-bottom:0.4rem">Latest Golf News</div>
+                <div id="rss-feed" style="max-height:320px;overflow-y:auto;border:1px solid var(--border);border-radius:4px;padding:0.5rem"></div>
             </div>
             <div style="margin-top:0.75rem">
                 <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
