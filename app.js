@@ -1018,15 +1018,48 @@ function renderSkillFit(t, skill) {
         }
     }
 
-    if (!t.radarAxes || !t.radarPlayers) return;
+    if (!t.radarAxes) return;
 
-    var players = Object.keys(t.radarPlayers);
+    // Build player list: radarPlayers + all SCOUTING players in the field
+    var radarP = t.radarPlayers || {};
+    var fieldNames = {};
+    if (t.composite) t.composite.forEach(function(p){fieldNames[p.name]=true});
+    if (t.oddsBoard) t.oddsBoard.forEach(function(p){fieldNames[p.name]=true});
+    if (t.frl) t.frl.forEach(function(p){fieldNames[p.player]=true});
+    Object.keys(radarP).forEach(function(n){fieldNames[n]=true});
+
+    // For players not in radarPlayers, synthesize scores from SCOUTING SG data
     var axes = t.radarAxes;
+    var allPlayers = {};
+    Object.keys(fieldNames).forEach(function(name) {
+        if (radarP[name]) {
+            allPlayers[name] = radarP[name];
+        } else {
+            var sc = SCOUTING.find(function(s){return s.name===name});
+            if (sc) {
+                // Map SG stats to radar axes scores (0-100 scale, 50=avg)
+                allPlayers[name] = axes.map(function(axis) {
+                    var a = axis.toLowerCase();
+                    var val = 50;
+                    if (a.indexOf('app') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.app * 50 + 50)));
+                    else if (a.indexOf('arg') >= 0 || a.indexOf('short') >= 0 || a.indexOf('scrambl') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.arg * 80 + 50)));
+                    else if (a.indexOf('ott') >= 0 || a.indexOf('driver') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.ott * 50 + 50)));
+                    else if (a.indexOf('putt') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.putt * 80 + 50)));
+                    else if (a.indexOf('dist') >= 0 || a.indexOf('carry') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.dd / 20 * 50 + 50)));
+                    else if (a.indexOf('wind') >= 0) val = Math.round(Math.min(100, Math.max(0, (sc.sg_tot * 30) + 50)));
+                    else if (a.indexOf('par 5') >= 0 || a.indexOf('birdie') >= 0) val = Math.round(Math.min(100, Math.max(0, (sc.sg_tot * 25 + sc.ott * 15) + 50)));
+                    return val;
+                });
+            }
+        }
+    });
+
+    var players = Object.keys(allPlayers);
     var winner = t.winnerProfile;
 
     // Map skill to axis index or compute overall
     var scored = players.map(function(name) {
-        var data = t.radarPlayers[name];
+        var data = allPlayers[name];
         var score, label;
         if (skill === 'overall') {
             score = Math.round(data.reduce(function(s,v){return s+v},0) / data.length);
