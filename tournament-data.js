@@ -622,7 +622,7 @@ const TOURNAMENT_DATA = {
             { type: "like", player: "Maverick McNealy", text: "Comp #4, Klos #2, Mayo #5. T3 here 2025. Market has him #10 = 6 positions underpriced. E/W + T10 dual exposure loaded." },
             { type: "like", player: "Ryo Hisatsune", text: "Comp #11 but market #18. Biggest composite-to-price gap on the board at +5000. Mayo #9, RH21 #10." },
             { type: "bet", player: "Sudarshan Yellamaraju", text: "DK Win +14000 $2.50. Comp #14 but market #29. T8 at Houston validates. Ghost ownership. Anti-bias protocol find." },
-            { type: "bet", player: "McNealy", text: "Outright +2400 DK $10 + T10 +225 DK $10. Dual exposure on our highest-conviction composite fit." },
+            { type: "bet", player: "Maverick McNealy", text: "Outright +2400 DK $10 + T10 +225 DK $10. Dual exposure on our highest-conviction composite fit." },
             { type: "bet", player: "A.J. Ewart", text: "+34000 DK $1.25 dart. Comp 6mo #4 at correlated courses. T11 Valspar. Micro stake." },
             { type: "bet", player: "Will Zalatoris", text: "+7800 DK $5. APP elite but injury risk. T60 at Houston is concerning." },
             { type: "bet", player: "Mackenzie Hughes", text: "+11500 DK $2.50. TAILWIND 1.29x. Comp #5 in our system." },
