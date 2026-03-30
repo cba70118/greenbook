@@ -687,7 +687,7 @@ const TOURNAMENT_DATA = {
         ],
         composite: [
             { rank:1, name:"Ludvig Aberg", comp:0.78, form:1.12, signal:"warm", app:0.59, ott:0.62, dd:12.2, arg:0.12, putt:0.29, t10:18.2, spikes:"Noon#1 Mayo#1 Andy#2 Klos#6", flag:"" },
-            { rank:2, name:"Nicolai Hojgaard", comp:0.76, form:1.16, signal:"warm", app:0.52, ott:0.36, dd:14.3, arg:-0.01, putt:0.23, t10:14.2, spikes:"Andy#1 Noon#3 Mayo#3 Klos#9", flag:"MAY WD IF MASTERS QUAL" },
+            { rank:2, name:"Nicolai Hojgaard", comp:0.76, form:1.16, signal:"warm", app:0.52, ott:0.36, dd:14.3, arg:-0.01, putt:0.23, t10:14.2, spikes:"Andy#1 Noon#3 Mayo#3 Klos#9", flag:"WD" },
             { rank:3, name:"Tommy Fleetwood", comp:0.74, form:1.08, signal:"warm", app:0.66, ott:0.49, dd:1.4, arg:0.33, putt:0.24, t10:16.2, spikes:"Klos#7 Noon#6 Mayo#4", flag:"" },
             { rank:4, name:"Maverick McNealy", comp:0.72, form:1.12, signal:"warm", app:0.44, ott:0.43, dd:6.8, arg:0.17, putt:0.29, t10:13.5, spikes:"Klos#2 Mayo#5 Noon#9", flag:"ON CARD" },
             { rank:5, name:"Collin Morikawa", comp:0.72, form:1.08, signal:"caution", app:0.96, ott:0.73, dd:2.0, arg:0.05, putt:-0.04, t10:18.5, spikes:"Klos#8 Noon#5 Mayo#7", flag:"BACK INJURY" },
@@ -714,7 +714,7 @@ const TOURNAMENT_DATA = {
             { name:"Jordan Spieth", m1:3, m2:7, m3:8, m4:28, m5:9, m6:21, m7:9, m8:9, meta:10 },
             { name:"Ryo Hisatsune", m1:17, m2:13, m3:9, m4:54, m5:14, m6:10, m7:8, m8:4, meta:11 },
             { name:"Sepp Straka", m1:15, m2:19, m3:55, m4:56, m5:6, m6:6, m7:10, m8:7, meta:13 },
-            { name:"Nicolai Hojgaard", m1:9, m2:3, m3:3, m4:1, m5:19, m6:9, m7:99, m8:99, meta:7 },
+            { name:"Nicolai Hojgaard", m1:9, m2:3, m3:3, m4:1, m5:19, m6:9, m7:99, m8:99, meta:7, note:"WD" },
             { name:"Keith Mitchell", m1:13, m2:2, m3:11, m4:8, m5:11, m6:25, m7:14, m8:14, meta:11 },
             { name:"Rickie Fowler", m1:11, m2:10, m3:16, m4:32, m5:8, m6:8, m7:21, m8:10, meta:13 },
             { name:"Sudarshan Yellamaraju", m1:93, m2:25, m3:31, m4:9, m5:16, m6:12, m7:99, m8:8, meta:24 },
