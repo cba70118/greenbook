@@ -109,34 +109,48 @@ function buildTheCut() {
         }).catch(function(){});
     }
 
-    // Tournament Intel — bets, WDs, key flags
+    // Tournament Intel — rolling updates feed
     var otw = document.getElementById('cut-one-to-watch');
     if (otw && t) {
         var html = '';
-        // Bets loaded
+
+        // On Card chips
         var bets = (t.notes || []).filter(function(n){return n.type==='bet'});
         if (bets.length) {
-            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">On Card (' + bets.length + ')</div>';
+            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + bets.length + ')</div>';
             html += '<div style="margin-bottom:0.5rem">' + bets.map(function(b){
-                return '<span style="font-size:0.68rem;display:inline-block;padding:0.1rem 0.4rem;margin:0.1rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)">' + (b.player||'') + '</span>';
+                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)">' + (b.player||'') + '</span>';
             }).join('') + '</div>';
         }
-        // WDs from status
+
+        // WDs
         if (typeof PLAYER_STATUS !== 'undefined') {
-            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && s.status.indexOf('Valero') >= 0 || s.status.indexOf('WD from Valero') >= 0});
+            var wds = PLAYER_STATUS.filter(function(s){return s.status && (s.status.indexOf('WD from Valero') >= 0 || (s.status.indexOf('WD') >= 0 && s.type === 'rest' && s.updated === 'Mar 30'))});
             if (wds.length) {
-                html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Withdrawals</div>';
+                html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">Withdrawals</div>';
                 html += '<div style="margin-bottom:0.5rem">' + wds.map(function(w){
                     return '<span style="font-size:0.62rem;color:var(--cream-500)">' + w.player + '</span>';
                 }).join(' &middot; ') + '</div>';
             }
         }
-        // Latest process note
-        var latestProcess = (t.notes || []).filter(function(n){return n.type==='process'}).slice(-1)[0];
-        if (latestProcess) {
-            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Latest Update</div>';
-            html += '<div style="font-size:0.68rem;color:var(--cream-400);line-height:1.35">' + (latestProcess.ts ? '<span style="color:var(--cream-600);margin-right:0.3rem">' + latestProcess.ts + '</span>' : '') + latestProcess.text.substring(0, 150) + '...</div>';
+
+        // Rolling updates — last 5 notes (newest first), all types
+        var allNotes = (t.notes || []).slice().reverse().slice(0, 5);
+        if (allNotes.length) {
+            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Updates</div>';
+            html += '<div style="max-height:200px;overflow-y:auto">';
+            var icons = { like:'&#9650;', bet:'&#10003;', fade:'&#9660;', watch:'&#9673;', process:'&#9881;' };
+            var cls = { like:'pos', bet:'pos', fade:'neg', watch:'form-warm', process:'form-neutral' };
+            allNotes.forEach(function(n) {
+                var ic = icons[n.type] || '';
+                var c = cls[n.type] || '';
+                var ts = n.ts ? '<span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--cream-600);margin-right:0.25rem">' + n.ts + '</span>' : '';
+                var player = n.player ? '<strong>' + n.player + '</strong> ' : '';
+                html += '<div style="padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.65rem;line-height:1.3">' + ts + '<span class="' + c + '" style="margin-right:0.2rem">' + ic + '</span>' + player + '<span style="color:var(--cream-400)">' + n.text.substring(0, 100) + (n.text.length > 100 ? '...' : '') + '</span></div>';
+            });
+            html += '</div>';
         }
+
         otw.innerHTML = html;
     }
 
