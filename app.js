@@ -254,15 +254,14 @@ function loadIntelFeed() {
     }
 }
 
-// Auto-load if previously saved
+// Auto-load intel feed (default list or previously saved)
 (function() {
-    var saved = sessionStorage.getItem('intel_list_url');
-    if (saved) {
-        var input = document.getElementById('intel-list-url');
-        if (input) {
-            input.value = saved;
-            loadIntelFeed();
-        }
+    var defaultList = 'https://x.com/i/lists/2038624167235379584';
+    var saved = sessionStorage.getItem('intel_list_url') || defaultList;
+    var input = document.getElementById('intel-list-url');
+    if (input) {
+        input.value = saved;
+        loadIntelFeed();
     }
 })();
 
