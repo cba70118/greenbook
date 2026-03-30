@@ -641,6 +641,7 @@ const TOURNAMENT_DATA = {
             { type: "fade", player: "Hideki Matsuyama", text: "2025 Valero SG:TOT #88 (+1). PUTT#134 killed him. Despite our composite #6, his actual TPC SA putting is a liability. ARG was fine (#69) but not enough." },
             { type: "process", text: "2025 course SG data loaded. Key finding: Harman won with APP#3 + PUTT#7 dual fit. McCarthy was PUTT#1 but APP#120 = only got to -2. Fleetwood/Matsuyama both destroyed by PUTT rank >130. TPC SA rewards dual APP+PUTT, not single-skill specialists." },
             { type: "process", text: "Course metrics confirm: fairway accuracy 51.2% vs 60.5% Tour avg. GIR from fairway (64.5%) vs rough (50%) gap is much smaller than Tour avg (77% vs 52%). Missing fairways is less penalized here than anywhere on Tour." },
+            { type: "process", text: "Wind performance data (5yr, moderate-high): Morikawa #1, Fleetwood #2, Matsuyama #3, Spieth #4, Finau #5. Hisatsune #68 and Hughes #64 are weak in wind. One data point among many but worth noting if conditions are gusty." },
         ],
         densityCheck: { profiled: 6, total: 30, pct: 20, status: "HEALTHY" },
         radarAxes: ["APP", "ARG", "OTT", "Wind Mgmt", "PUTT", "Par 5 Scoring"],
