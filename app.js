@@ -120,7 +120,7 @@ function buildTheCut() {
     // Status Feed (compact, max 5)
     var statusFeed = document.getElementById('cut-status-feed');
     if (statusFeed && typeof PLAYER_STATUS !== 'undefined') {
-        var typeIcons = {injury:'&#9888;',rest:'&#9200;',travel:'&#9992;',motivation:'&#9733;',equipment:'&#9881;',note:'&#9432;'};
+        var typeIcons = {injury:'&#9888;',rest:'&#9200;',travel:'&#9992;',motivation:'&#9733;',equipment:'&#9881;',note:'&#9432;',form:'&#9650;'};
         statusFeed.innerHTML = PLAYER_STATUS.sort(function(a,b){
             return b.updated.localeCompare(a.updated);
         }).slice(0,5).map(function(ps) {
@@ -226,119 +226,7 @@ function buildTheCut() {
 }
 buildTheCut();
 
-// Intel Feed — X List embed
-function loadIntelFeed() {
-    var urlInput = document.getElementById('intel-list-url');
-    var embed = document.getElementById('intel-feed-embed');
-    var link = document.getElementById('intel-feed-link');
-    if (!urlInput || !embed) return;
-    var url = urlInput.value.trim();
-    if (!url) return;
 
-    // Save to sessionStorage so it persists during session
-    sessionStorage.setItem('intel_list_url', url);
-    link.href = url;
-
-    // Build X timeline embed
-    embed.innerHTML = '<a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-height="560" href="' + url + '">Loading Intel Feed...</a>';
-
-    // Load X widget script
-    if (!document.getElementById('twitter-wjs')) {
-        var s = document.createElement('script');
-        s.id = 'twitter-wjs';
-        s.src = 'https://platform.twitter.com/widgets.js';
-        s.charset = 'utf-8';
-        document.head.appendChild(s);
-    } else if (window.twttr && window.twttr.widgets) {
-        window.twttr.widgets.load(embed);
-    }
-}
-
-// RSS News Feed
-function loadRSSFeeds() {
-    var container = document.getElementById('rss-feed');
-    if (!container) return;
-    container.innerHTML = '<div style="color:var(--cream-600);font-size:0.72rem;padding:0.5rem">Loading news...</div>';
-
-    var feeds = [
-        {name:'ESPN Golf', url:'https://www.espn.com/espn/rss/golf/news', color:'var(--green-400)'},
-        {name:'Golf.com', url:'https://golf.com/feed/', color:'var(--brass-500)'},
-        {name:'Yahoo Golf', url:'https://sports.yahoo.com/golf/rss/', color:'var(--cream-400)'},
-    ];
-
-    var allItems = [];
-    var loaded = 0;
-
-    feeds.forEach(function(feed) {
-        // Use rss2json.com public API as CORS proxy
-        var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=10';
-        fetch(apiUrl).then(function(r){return r.json()}).then(function(data) {
-            if (data.items) {
-                data.items.forEach(function(item) {
-                    allItems.push({
-                        title: item.title,
-                        link: item.link,
-                        date: new Date(item.pubDate),
-                        source: feed.name,
-                        color: feed.color,
-                    });
-                });
-            }
-            loaded++;
-            if (loaded >= feeds.length) renderRSS(allItems);
-        }).catch(function() {
-            loaded++;
-            if (loaded >= feeds.length) renderRSS(allItems);
-        });
-    });
-}
-
-function renderRSS(items) {
-    var container = document.getElementById('rss-feed');
-    if (!container) return;
-
-    // Sort by date descending
-    items.sort(function(a,b){return b.date - a.date});
-
-    // Deduplicate by similar title
-    var seen = {};
-    var unique = items.filter(function(item) {
-        var key = item.title.toLowerCase().replace(/[^a-z0-9]/g,'').substring(0,40);
-        if (seen[key]) return false;
-        seen[key] = true;
-        return true;
-    });
-
-    if (!unique.length) {
-        container.innerHTML = '<div style="color:var(--cream-600);font-size:0.72rem;padding:0.5rem">No news available</div>';
-        return;
-    }
-
-    var now = new Date();
-    container.innerHTML = unique.slice(0, 20).map(function(item) {
-        var ago = Math.round((now - item.date) / (1000*60*60));
-        var timeStr = ago < 1 ? 'Just now' : ago < 24 ? ago + 'h ago' : Math.round(ago/24) + 'd ago';
-        return '<a href="' + item.link + '" target="_blank" style="display:block;padding:0.35rem 0.4rem;border-bottom:1px solid var(--border);text-decoration:none;transition:background 0.15s" onmouseover="this.style.background=\'rgba(201,160,70,0.05)\'" onmouseout="this.style.background=\'none\'">' +
-            '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem">' +
-            '<span style="font-size:0.72rem;color:var(--cream-200);line-height:1.35">' + item.title + '</span>' +
-            '<span style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-600);white-space:nowrap">' + timeStr + '</span>' +
-            '</div>' +
-            '<span style="font-family:var(--font-mono);font-size:0.5rem;color:' + item.color + ';letter-spacing:0.06em">' + item.source + '</span>' +
-            '</a>';
-    }).join('');
-}
-loadRSSFeeds();
-
-// Auto-load intel feed (default list or previously saved)
-(function() {
-    var defaultList = 'https://x.com/i/lists/2038624167235379584';
-    var saved = sessionStorage.getItem('intel_list_url') || defaultList;
-    var input = document.getElementById('intel-list-url');
-    if (input) {
-        input.value = saved;
-        loadIntelFeed();
-    }
-})();
 
 // Notes toggle
 var nt = document.getElementById('notes-toggle');
