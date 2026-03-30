@@ -175,7 +175,7 @@ const SCOUTING = [
       shape:"Fade", surface:"All", strengths:"Elite everything. T2 at Augusta on debut (2024). Young, ascending, fearless. Distance + iron combo.",
       weaknesses:"Only 1 Augusta start. ARG +0.12 is modest for the hardest ARG course.", notes:"If anyone is going to break the 'first-timers don't win' rule at Augusta, it's Aberg." },
     { name:"Rickie Fowler", tier:"Veteran", sg_tot:1.18, app:0.34, ott:0.46, arg:0.00, putt:0.38, putt_bermuda:0.35, putt_bent:0.4, putt_poa:0.3, dd:2.2,
-      shape:"Draw", surface:"All", strengths:"Putting is a weapon (+0.38). OTT +0.46 is solid. Fan favourite with experience everywhere.",
+      shape:"Draw", surface:"All", strengths:"Putting is a weapon (+0.38). OTT +0.46 is solid. Fan favorite with experience everywhere.",
       weaknesses:"ARG is dead zero. APP +0.34 is decent but not elite. Hasn't won since 2023. Missing Masters pressure.", notes:"Needs top-5 at Valero to qualify for Masters via OWGR. Hunger factor is real." },
     { name:"Max Greyserman", tier:"Mid-field", sg_tot:0.44, app:0.09, ott:-0.23, arg:0.17, putt:0.40, putt_bermuda:0.35, putt_bent:0.42, putt_poa:0.38, dd:6.5,
       shape:"Straight", surface:"Poa", strengths:"PUTT +0.40 is elite. ARG +0.17 fits short-grass courses. T7 Houston 2024 proves weakness-masked thesis.",
@@ -266,7 +266,7 @@ const SCOUTING = [
       weaknesses:"ARG -0.15 is a real weakness. PUTT -0.03 near zero. Scrambling is the hole in the game.", notes:"On Notice in our tracker. Young bomber whose short game needs development. Model backing remains strong." },
     { name:"Sahith Theegala", tier:"Contender", sg_tot:0.91, app:0.46, ott:0.01, arg:0.20, putt:0.24, putt_bermuda:0.2, putt_bent:0.28, putt_poa:0.18, dd:3.9,
       shape:"Draw", surface:"All", strengths:"Balanced game — positive in all 4 SG categories. APP +0.46 is strong. ARG and PUTT both solid.",
-      weaknesses:"OTT +0.01 is essentially average. DrDist +3.9 modest. Not a bomber — no distance edge.", notes:"Well-liked by narratives. Complete game without a signature elite category. Fan favourite with closing ability." },
+      weaknesses:"OTT +0.01 is essentially average. DrDist +3.9 modest. Not a bomber — no distance edge.", notes:"Well-liked by narratives. Complete game without a signature elite category. Fan favorite with closing ability." },
     { name:"Ryan Fox", tier:"Mid-field", sg_tot:0.54, app:0.18, ott:0.12, arg:0.10, putt:0.14, putt_bermuda:0.1, putt_bent:0.18, putt_poa:0.12, dd:9.1,
       shape:"Draw", surface:"All", strengths:"Bomber distance (DrDist +9.1). All 4 SG categories positive. No glaring weakness.",
       weaknesses:"No elite category either. APP +0.18, OTT +0.12, ARG +0.10, PUTT +0.14 all modest.", notes:"Jack of all trades, master of none. Kiwi who performs best at international events and bomber tracks." },
@@ -377,7 +377,7 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "Back spasm. DG HEADWIND 0.69. Worst course fit in field (-0.178). Mayo says should be favourite if healthy. DG disagrees strongly.", severity: "warning", updated: "Mar 30" },
+    { player: "Collin Morikawa", type: "injury", status: "Back spasm. DG HEADWIND 0.69. Worst course fit in field (-0.178). Mayo says should be favorite if healthy. DG disagrees strongly.", severity: "warning", updated: "Mar 30" },
     { player: "Ryan Gerard", type: "rest", status: "Burned out from playing every week including international travel. WD from Valero. Taking time off before Masters.", severity: "info", updated: "Mar 28" },
     { player: "Akshay Bhatia", type: "travel", status: "In India for Hero Indian Open (sponsor obligation). MC there. Flying back 2 weeks before Masters. Circadian rhythm concern.", severity: "caution", updated: "Mar 28" },
     { player: "Pierceson Coody", type: "injury", status: "WD from Valero. Back injury. No Masters invite. Taylor Moore replaces.", severity: "warning", updated: "Mar 30" },

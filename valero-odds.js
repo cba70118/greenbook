@@ -3,7 +3,7 @@
     if (!TOURNAMENT_DATA || !TOURNAMENT_DATA.valero) return;
 
     TOURNAMENT_DATA.valero.oddsBoard = [
-        { rank:1, name:"Tommy Fleetwood", best:"+1450 DK", t5:"+290", t20:"-144", b365:"+1400", b365_8:"+1200", b365_10:"+1100", form:"warm", note:"Market favourite. Meta #3 across 8 models. Klos #7, Noonan #6, Mayo #4. Masters tune-up risk." },
+        { rank:1, name:"Tommy Fleetwood", best:"+1450 DK", t5:"+290", t20:"-144", b365:"+1400", b365_8:"+1200", b365_10:"+1100", form:"warm", note:"Market favorite. Meta #3 across 8 models. Klos #7, Noonan #6, Mayo #4. Masters tune-up risk." },
         { rank:2, name:"Russell Henley", best:"+1600 DK", t5:"+315", t20:"-138", b365:"+1600", b365_8:"+1400", b365_10:"+1200", form:"warm", note:"Klos model #1. APP + ARG elite for TPC SA. Short hitter (Andy #102). Market sees him." },
         { rank:3, name:"Ludvig Aberg", best:"+1650 DK", t5:"+340", t20:"-120", b365:"+1400", b365_8:"+1200", b365_10:"+1100", form:"warm", note:"Meta #1 across 8 models. Noonan #1, Mayo #1, Andy #2. Distance + ball-striking dominant." },
         { rank:4, name:"Robert MacIntyre", best:"+1650 DK", t5:"+335", t20:"-124", b365:"+1800", b365_8:"+1600", b365_10:"+1400", form:"warm", note:"Not in our top-10 composite. Market pricing name + DP World form. Meta ~#13." },

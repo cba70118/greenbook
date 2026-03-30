@@ -55,7 +55,7 @@ if (cog) {
         winner: "Nico Echavarria",
         winnerOdds: "50/1",
         bestPick: "Echavarria E/W won +$312.50",
-        summary: "Best week of the season. Echavarria was composite #5 at neutral form — not a model favourite but correctly identified as a Bermuda putting specialist. Mitchell T6 placed on the 8pl E/W, and Smotherman's 62 in R1 hit the FRL at +10000. Three wins from 17 bets in a single week validated the Phase 2 analytical framework.",
+        summary: "Best week of the season. Echavarria was composite #5 at neutral form — not a model favorite but correctly identified as a Bermuda putting specialist. Mitchell T6 placed on the 8pl E/W, and Smotherman's 62 in R1 hit the FRL at +10000. Three wins from 17 bets in a single week validated the Phase 2 analytical framework.",
         picks: [
             { player:"Nico Echavarria", market:"E/W 1/4 5pl", odds:"+5000", finish:"Won (-17)", result:"Won", thesis:"Bermuda putting specialist. DG fair +1958.", verdict:"WINNER. Putting carried. Neutral form didn't predict a win, but course fit was perfect." },
             { player:"Keith Mitchell", market:"E/W 1/5 8pl", odds:"+2500", finish:"T6 (-11)", result:"Won", thesis:"APP + OTT double. Titanic lean.", verdict:"PLACED. Ball-striking carried to E/W cash. 8pl terms were key." },
@@ -202,7 +202,7 @@ if (pc) {
         summary: "Worst week of the season. Cameron Young won on ball-striking but wasn't on our card. Six of seven players with round-by-round data shot their worst round in R4. This was the week that first surfaced the R4 grinder-fade pattern. Straka co-led after R1 (67) but finished T8 on 5pl terms when 8pl would have cashed. Place-term structure cost us.",
         picks: [
             { player:"Sepp Straka", market:"E/W 1/4 5pl", odds:"+6000", finish:"T8 (-8)", result:"Lost", thesis:"Co-led R1 (67). APP +0.60 fits Sawgrass.", verdict:"3 spots outside 5pl. Would have CASHED on 8pl terms. E/W structure error." },
-            { player:"Russell Henley", market:"E/W 1/5 10pl", odds:"+2800", finish:"T13 (-6)", result:"Lost", thesis:"APP + ARG fit. Klos model favourite.", verdict:"R1 68 (T6) but faded each round: 68-71-71-72. Steady decline = no closing gear." },
+            { player:"Russell Henley", market:"E/W 1/5 10pl", odds:"+2800", finish:"T13 (-6)", result:"Lost", thesis:"APP + ARG fit. Klos model favorite.", verdict:"R1 68 (T6) but faded each round: 68-71-71-72. Steady decline = no closing gear." },
             { player:"Si Woo Kim", market:"E/W 1/5 10pl", odds:"+2200", finish:"T50 (+1)", result:"Lost", thesis:"APP elite. 6mo form #3.", verdict:"R4 76 COLLAPSE. Shot 68 in R3 then +8 swing in R4. Worst individual fade of the season." },
             { player:"Corey Conners", market:"E/W 1/5 10pl", odds:"+8000", finish:"T13 (-6)", result:"Lost", thesis:"APP fit. Course history.", verdict:"69-67-72-74. Classic R4 fade: R2 low raised expectations, R4 highest score." },
             { player:"Ryo Hisatsune", market:"E/W 1/5 10pl", odds:"+11000", finish:"T13 (-6)", result:"Lost", thesis:"APP model #3. 12 events gaining T2G.", verdict:"71-69-70-72. Steady but 3 spots outside 10pl. R4 was his worst round." },
