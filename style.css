@@ -339,6 +339,32 @@ nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .result-why { font-family: var(--font-body); font-size: 0.8rem; color: var(--cream-300); margin-top: 0.25rem; }
 .result-record { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cream-500); margin-top: 0.25rem; }
 
+/* ─── INTEL FEED NEWS LINKS ──────────────────────────────── */
+.intel-news-link {
+    display: block;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+.intel-news-link:hover { border-color: var(--brass-500); background: rgba(201,160,70,0.04); }
+.intel-news-source {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--cream-200);
+    letter-spacing: 0.03em;
+}
+.intel-news-desc {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--cream-500);
+    margin-top: 0.1rem;
+    line-height: 1.3;
+}
+
 /* ─── TOURNAMENT REVIEW ──────────────────────────────────── */
 .review-stat { display: flex; flex-direction: column; gap: 0.15rem; }
 .review-stat-label { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cream-600); }
