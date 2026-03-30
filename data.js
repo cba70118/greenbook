@@ -377,7 +377,7 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "Back spasm. WD after 1 hole at Players. Returned at Valero but status unclear.", severity: "caution", updated: "Mar 28" },
+    { player: "Collin Morikawa", type: "injury", status: "Back spasm. DG HEADWIND 0.69. Worst course fit in field (-0.178). Mayo says should be favourite if healthy. DG disagrees strongly.", severity: "warning", updated: "Mar 30" },
     { player: "Ryan Gerard", type: "rest", status: "Burned out from playing every week including international travel. WD from Valero. Taking time off before Masters.", severity: "info", updated: "Mar 28" },
     { player: "Akshay Bhatia", type: "travel", status: "In India for Hero Indian Open (sponsor obligation). MC there. Flying back 2 weeks before Masters. Circadian rhythm concern.", severity: "caution", updated: "Mar 28" },
     { player: "Pierceson Coody", type: "injury", status: "Back injury. WD from Houston after R1. May play Valero if healthy. Needs win to qualify for Masters.", severity: "warning", updated: "Mar 27" },
@@ -388,7 +388,7 @@ const PLAYER_STATUS = [
     { player: "Michael Thorbjornsen", type: "motivation", status: "Finished T3 at Houston (-15). Should crack OWGR top 50 for Masters invite.", severity: "info", updated: "Mar 29" },
     { player: "Gary Woodland", type: "form", status: "Won Houston by 5 (-21). TAILWIND 1.52x validated. Brain tumor comeback. Masters invite earned. Watch market overreaction.", severity: "info", updated: "Mar 29" },
     { player: "Jason Day", type: "form", status: "T9 at Houston (-13). Strong form heading into Masters where he has 4 T10s in 12 starts. We have him at +7000.", severity: "info", updated: "Mar 29" },
-    { player: "Sudarshan Yellamaraju", type: "form", status: "T8 at Houston (-13). Validates Valero odds board spot at +14000. Watch for more data this week.", severity: "info", updated: "Mar 29" },
+    { player: "Sudarshan Yellamaraju", type: "form", status: "T8 Houston but DG now HEADWIND 0.72 for Valero. Form fading. Negative course fit (-0.080). On card at DK +14000.", severity: "caution", updated: "Mar 30" },
 ];
 
 // Course library
