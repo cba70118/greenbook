@@ -418,24 +418,53 @@ function loadTournament(key) {
         drawRadar(t);
     }
 
-    // Tournament Notes
-    const notesEl = document.getElementById('tourney-notes');
-    const notesCard = document.getElementById('tourney-notes-card');
-    if (notesEl) notesEl.innerHTML = '';
+    // Player Board + Analysis Log (split from notes)
+    const boardEl = document.getElementById('player-board');
+    const boardCard = document.getElementById('player-board-card');
+    const logEl = document.getElementById('tourney-notes');
+    const logCard = document.getElementById('tourney-notes-card');
+    if (boardEl) boardEl.innerHTML = '';
+    if (logEl) logEl.innerHTML = '';
+
     if (t.notes && t.notes.length) {
-        if (notesCard) notesCard.style.display = '';
         const icons = { like: '&#9650;', bet: '&#10003;', fade: '&#9660;', watch: '&#9673;', process: '&#9881;' };
         const colors = { like: 'pos', bet: 'pos', fade: 'neg', watch: 'form-warm', process: 'form-neutral' };
         const labels = { like: 'LIKE', bet: 'ON CARD', fade: 'FADE', watch: 'WATCH', process: 'PROCESS' };
-        t.notes.forEach(n => {
-            const icon = icons[n.type] || '';
-            const cls = colors[n.type] || '';
-            const label = labels[n.type] || '';
-            const playerLine = n.player ? `<strong>${n.player}</strong> ` : '';
-            notesEl.innerHTML += `<div class="note-item"><span class="note-badge ${cls}">${icon} ${label}</span>${playerLine}<span class="note-text">${n.text}</span></div>`;
-        });
+
+        var playerNotes = t.notes.filter(n => n.type === 'like' || n.type === 'bet' || n.type === 'fade');
+
+        // Player Board — simple summary (bets first, then likes, then fades)
+        var typeOrder = ['bet', 'like', 'fade'];
+        playerNotes.sort((a, b) => typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type));
+
+        if (boardEl && playerNotes.length) {
+            if (boardCard) boardCard.style.display = '';
+            playerNotes.forEach(n => {
+                const icon = icons[n.type] || '';
+                const cls = colors[n.type] || '';
+                const label = labels[n.type] || '';
+                const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
+                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}</div>`;
+            });
+        } else if (boardCard) { boardCard.style.display = 'none'; }
+
+        // Analysis Log — ALL notes, reversed (newest first), with timestamps
+        var allNotes = t.notes.slice().reverse();
+        if (logEl && allNotes.length) {
+            if (logCard) logCard.style.display = '';
+            allNotes.forEach(n => {
+                const icon = icons[n.type] || '';
+                const cls = colors[n.type] || '';
+                const label = labels[n.type] || '';
+                const ts = n.ts || '';
+                const tsHtml = ts ? `<span style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-600);margin-right:0.3rem">${ts}</span>` : '';
+                const playerLine = n.player ? `<strong>${n.player}</strong> ` : '';
+                logEl.innerHTML += `<div class="note-item">${tsHtml}<span class="note-badge ${cls}">${icon} ${label}</span>${playerLine}<span class="note-text">${n.text}</span></div>`;
+            });
+        } else if (logCard) { logCard.style.display = 'none'; }
     } else {
-        if (notesCard) notesCard.style.display = 'none';
+        if (boardCard) boardCard.style.display = 'none';
+        if (logCard) logCard.style.display = 'none';
     }
 
     // Weather
