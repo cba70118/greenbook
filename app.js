@@ -226,6 +226,46 @@ function buildTheCut() {
 }
 buildTheCut();
 
+// Intel Feed — X List embed
+function loadIntelFeed() {
+    var urlInput = document.getElementById('intel-list-url');
+    var embed = document.getElementById('intel-feed-embed');
+    var link = document.getElementById('intel-feed-link');
+    if (!urlInput || !embed) return;
+    var url = urlInput.value.trim();
+    if (!url) return;
+
+    // Save to sessionStorage so it persists during session
+    sessionStorage.setItem('intel_list_url', url);
+    link.href = url;
+
+    // Build X timeline embed
+    embed.innerHTML = '<a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-height="560" href="' + url + '">Loading Intel Feed...</a>';
+
+    // Load X widget script
+    if (!document.getElementById('twitter-wjs')) {
+        var s = document.createElement('script');
+        s.id = 'twitter-wjs';
+        s.src = 'https://platform.twitter.com/widgets.js';
+        s.charset = 'utf-8';
+        document.head.appendChild(s);
+    } else if (window.twttr && window.twttr.widgets) {
+        window.twttr.widgets.load(embed);
+    }
+}
+
+// Auto-load if previously saved
+(function() {
+    var saved = sessionStorage.getItem('intel_list_url');
+    if (saved) {
+        var input = document.getElementById('intel-list-url');
+        if (input) {
+            input.value = saved;
+            loadIntelFeed();
+        }
+    }
+})();
+
 // Notes toggle
 var nt = document.getElementById('notes-toggle');
 if (nt) nt.addEventListener('click', function() {

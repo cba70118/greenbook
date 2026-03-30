@@ -89,6 +89,62 @@
             <h3>Field Snapshot</h3>
             <div id="cut-field-snapshot"></div>
         </div>
+
+        <!-- Row 4: Intel Feed -->
+        <div class="card">
+            <h3>Intel Feed</h3>
+            <p class="card-subtitle">Curated X list — field intel, injuries, betting picks, and clips from key sources in one feed. <a href="#" id="intel-feed-link" target="_blank" style="color:var(--brass-500)">View list on X</a></p>
+            <div id="intel-feed-content" style="max-height:600px;overflow-y:auto;border:1px solid var(--border);border-radius:4px;background:#000">
+                <div id="intel-feed-embed" style="padding:1rem;text-align:center;color:var(--cream-500);font-size:0.8rem">
+                    <p>To activate the Intel Feed:</p>
+                    <p style="margin-top:0.5rem">1. Create a private X list called <strong>"Golf Intel"</strong></p>
+                    <p>2. Add these accounts: @Underdog__Golf, @PGATOUR, @PGATOURComms, @RotoWireGolf, @PGASplits101, @ThePME, @RyNoonan, @KJStewartpga, @TitanicGambler, @NoLayingUp, @Skratch, @JustinRayGolf, @FriedEggGolf, @RickRunGood</p>
+                    <p style="margin-top:0.5rem">3. Copy the list URL and paste it below</p>
+                    <div style="margin-top:0.75rem">
+                        <input type="text" id="intel-list-url" class="calc-input" placeholder="https://x.com/i/lists/123456789" style="max-width:400px;margin-right:0.5rem">
+                        <button class="page-btn" onclick="loadIntelFeed()">Load Feed</button>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:0.75rem">
+                <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
+                <h4 style="font-size:0.75rem;color:var(--brass-500);font-family:var(--font-mono)">Source Directory</h4><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.72rem;margin-top:0.5rem">
+                    <div>
+                        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Field & Injuries</div>
+                        <div>@Underdog__Golf — Tee times, injuries, ownership</div>
+                        <div>@PGATOUR — Official WDs, highlights</div>
+                        <div>@PGATOURComms — Press releases, weather</div>
+                        <div>@RotoWireGolf — Player status blurbs</div>
+                        <div>@JustinRayGolf — Stats, records, context</div>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Betting & Analysis</div>
+                        <div>@PGASplits101 — Ron Klos, RH models</div>
+                        <div>@ThePME — Pat Mayo, course breakdowns</div>
+                        <div>@RyNoonan — Ryan Noonan, Betsperts</div>
+                        <div>@KJStewartpga — Keith Stewart, on-site</div>
+                        <div>@TitanicGambler — Weekly betting cards</div>
+                        <div>@RickRunGood — Rick Gehman, DFS+betting</div>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Clips & Content</div>
+                        <div>@NoLayingUp — Best golf media account</div>
+                        <div>@Skratch — Tour clips, behind-the-scenes</div>
+                        <div>@FriedEggGolf — Course architecture</div>
+                        <div>@MichaelKimPGA — Tour player perspective</div>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Off-X Access</div>
+                        <div><a href="https://www.golfdigest.com/" target="_blank" style="color:var(--green-400)">Golf Digest panel</a> — free weekly picks</div>
+                        <div><a href="https://mayomedia.substack.com/" target="_blank" style="color:var(--green-400)">Mayo Substack</a> — weekly newsletter</div>
+                        <div><a href="https://www.rotowire.com/golf/news.php" target="_blank" style="color:var(--green-400)">RotoWire News</a> — daily injury blurbs</div>
+                        <div><a href="https://betspertsgolf.com/newsletter" target="_blank" style="color:var(--green-400)">Betsperts Newsletter</a> — weekly email</div>
+                        <div><a href="https://www.readtheline.com/" target="_blank" style="color:var(--green-400)">ReadTheLine.com</a> — Stewart's on-site</div>
+                    </div>
+                </div>
+            </div></div>
+        </div>
     </section>
 
     <!-- ═══ TOURNAMENTS ═══ -->
