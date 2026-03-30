@@ -109,13 +109,35 @@ function buildTheCut() {
         }).catch(function(){});
     }
 
-    // One to Watch — pick the first LIKE from analysis notes
+    // Tournament Intel — bets, WDs, key flags
     var otw = document.getElementById('cut-one-to-watch');
-    if (otw && t && t.notes) {
-        var likeNote = t.notes.find(function(n){return n.type==='like' && n.player});
-        if (likeNote) {
-            otw.innerHTML = '<div class="cut-one-watch"><div class="cut-one-watch-label">One to Watch</div><strong>'+likeNote.player+'</strong> '+likeNote.text.substring(0,120)+'</div>';
+    if (otw && t) {
+        var html = '';
+        // Bets loaded
+        var bets = (t.notes || []).filter(function(n){return n.type==='bet'});
+        if (bets.length) {
+            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">On Card (' + bets.length + ')</div>';
+            html += '<div style="margin-bottom:0.5rem">' + bets.map(function(b){
+                return '<span style="font-size:0.68rem;display:inline-block;padding:0.1rem 0.4rem;margin:0.1rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)">' + (b.player||'') + '</span>';
+            }).join('') + '</div>';
         }
+        // WDs from status
+        if (typeof PLAYER_STATUS !== 'undefined') {
+            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && s.status.indexOf('Valero') >= 0 || s.status.indexOf('WD from Valero') >= 0});
+            if (wds.length) {
+                html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Withdrawals</div>';
+                html += '<div style="margin-bottom:0.5rem">' + wds.map(function(w){
+                    return '<span style="font-size:0.62rem;color:var(--cream-500)">' + w.player + '</span>';
+                }).join(' &middot; ') + '</div>';
+            }
+        }
+        // Latest process note
+        var latestProcess = (t.notes || []).filter(function(n){return n.type==='process'}).slice(-1)[0];
+        if (latestProcess) {
+            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Latest Update</div>';
+            html += '<div style="font-size:0.68rem;color:var(--cream-400);line-height:1.35">' + (latestProcess.ts ? '<span style="color:var(--cream-600);margin-right:0.3rem">' + latestProcess.ts + '</span>' : '') + latestProcess.text.substring(0, 150) + '...</div>';
+        }
+        otw.innerHTML = html;
     }
 
     // Status Feed (compact, max 5)
@@ -133,8 +155,7 @@ function buildTheCut() {
     var calendar = document.getElementById('cut-calendar');
     if (calendar) {
         var upcoming = [
-            {date:'Mar 26-29', name:'Houston Open', surface:'Poa Triv', status:'settled'},
-            {date:'Apr 2-5', name:'Valero Texas Open', surface:'Bermuda/Poa', status:'upcoming'},
+            {date:'Apr 2-5', name:'Valero Texas Open', surface:'Bermuda/Poa Triv', status:'upcoming'},
             {date:'Apr 10-13', name:'The Masters', surface:'Bentgrass', status:'upcoming'},
         ];
         calendar.innerHTML = upcoming.map(function(ev) {
