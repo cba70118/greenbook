@@ -58,10 +58,10 @@ document.addEventListener('click', function(e) {
     // Explicit clickable class
     var target = e.target.closest('.player-clickable');
     if (target) { e.preventDefault(); showPlayerPopup(target.textContent.trim()); return; }
-    // Strong tags in data tables, compare cards, skill-fit, notes
-    if (e.target.tagName === 'STRONG' && (e.target.closest('.data-table') || e.target.closest('.compare-card') || e.target.closest('.sf-name') || e.target.closest('.note-item'))) {
+    // Any strong tag with a player-like name (not dollar amounts, odds, or short labels)
+    if (e.target.tagName === 'STRONG') {
         var name = e.target.textContent.trim();
-        if (name.length > 3 && name.indexOf('$') < 0 && name.indexOf('+') < 0) {
+        if (name.length > 4 && name.indexOf('$') < 0 && name.indexOf('+') < 0 && name.indexOf('#') < 0 && name.indexOf('%') < 0 && /[A-Z]/.test(name[0]) && name.indexOf(' ') > 0) {
             showPlayerPopup(name);
         }
     }
