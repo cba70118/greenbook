@@ -193,6 +193,15 @@ if (pc) {
         { name:"Cameron Young", weakness:"ARG +0.13 (avg)", masked:"N/A", strength:"OTT +0.69 + PUTT +0.44", amplified:"YES (distance + Poa putting)", rank:4, form:"TAILWIND 1.28x", verdict:"WINNER. Breakthrough on ball-striking + hot putter week." },
         { name:"Sepp Straka", weakness:"PUTT +0.12 (modest)", masked:"N/A", strength:"APP +0.60", amplified:"YES (approach course)", rank:6, form:"warm 1.08x", verdict:"T8. Would have cashed on 8pl terms but we had 5pl." },
     ];
+    pc.narratives = [
+        { name:"Cameron Young", noonan:false, klos:false, mayo:false, stewart:false, titanic:false, count:0, rank:4, note:"WINNER. Not on any narrative radar. TAILWIND 1.28x was the signal we missed." },
+        { name:"Si Woo Kim", noonan:true, klos:true, mayo:true, stewart:false, titanic:false, count:3, rank:1, note:"Consensus #1. Collapsed R4 (76). Triple narrative backing failed." },
+        { name:"Collin Morikawa", noonan:true, klos:true, mayo:true, stewart:true, titanic:true, count:5, rank:3, note:"Maximum narrative consensus. WD after 1 hole (back). Bet voided." },
+        { name:"Russell Henley", noonan:true, klos:true, mayo:false, stewart:false, titanic:false, count:2, rank:2 },
+        { name:"Sepp Straka", noonan:false, klos:false, mayo:false, stewart:false, titanic:true, count:1, rank:6, note:"T8. Titanic pick. Would have cashed on 8pl." },
+        { name:"Corey Conners", noonan:false, klos:true, mayo:false, stewart:false, titanic:false, count:1, rank:5 },
+        { name:"Ryo Hisatsune", noonan:true, klos:false, mayo:true, stewart:false, titanic:false, count:2, rank:8 },
+    ];
     pc.review = {
         record: "0W-17L",
         pl: -110,
