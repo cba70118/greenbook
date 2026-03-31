@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 164,
+    totalBets: 165,
     settled: 147,
-    open: 17,
+    open: 18,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -89,6 +89,7 @@ const VALERO_CARD = [
     { num: 10, player: "Thorbjorn Olesen", market: "FRL", terms: "1/4 5pl", odds: "+5000", stake: 5, placed: "Mar 31", edge: "2025 SG:TOT#5. APP#7 6mo.", status: "Open" },
     { num: 11, player: "Mac Meissner", market: "FRL", terms: "1/4 5pl", odds: "+6000", stake: 5, placed: "Mar 31", edge: "Andy2 #6. AM wave. Dark horse.", status: "Open" },
     { num: 12, player: "Chad Ramey", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 5, placed: "Mar 31", edge: "PUTT#6. V25 SG:TOT#8.", status: "Open" },
+    { num: 13, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", stake: 10, placed: "Mar 31", edge: "Si Woo/Hisatsune/Olesen/Smalley/Novak/Svensson", status: "Open" },
 ];
 
 // Player rotation data
