@@ -136,6 +136,7 @@ const TOURNAMENT_DATA = {
         archetype: "Grinder / Penalty course",
         narrative: {
             description: "The Bear Trap (15-16-17) is the signature stretch — three of the toughest closing holes on Tour. Water on 6 of 18 holes. Bermuda greens running 12+ stimp. Narrow fairways demand accuracy. Wind off the Intracoastal creates unpredictable conditions. This is a survival course where bogey avoidance matters more than birdie-making.",
+            correlated: "TPC Southwind (Bermuda + water + bogey avoidance), Harbour Town (accuracy over distance, tight fairways), Colonial (Bermuda greens, narrow corridors). Common thread: accuracy courses where survival matters more than scoring.",
             tags: ["Bermuda Putting", "Water Hazards", "Bear Trap", "Bogey Avoidance", "Wind Exposed", "Narrow Fairways"],
             keyHoles: [
                 { num: 15, par: 3, yds: 179, note: "Bear Trap start. Water everywhere. Historically hardest par 3." },
@@ -186,6 +187,7 @@ const TOURNAMENT_DATA = {
         archetype: "Bermuda putting + Ball-striking",
         narrative: {
             description: "Bay Hill is the ultimate second-shot course with Bermuda greens. The closing stretch (16-17-18) with water everywhere demands nerve and precision. Wind off the lakes creates scoring variance. Signature Event since 2024 means elite 72-player field. Firm Bermuda greens at 12+ stimp reward distance control and trajectory management on approach.",
+            correlated: "Quail Hollow (approach + par 5 scoring + Bermuda), Memorial/Muirfield Village (Jack courses, firm greens), PGA National (water + Bermuda + bogey avoidance). Common thread: demanding approach + Bermuda putting + par 5 birdie opportunities.",
             tags: ["Bermuda Putting", "Second-Shot", "Signature Event", "Water Closing Stretch", "Firm Greens", "Wind Variable"],
             keyHoles: [
                 { num: 6, par: 5, yds: 558, note: "Risk-reward par 5. Water guards green. Scoring hole." },
@@ -238,6 +240,7 @@ const TOURNAMENT_DATA = {
         archetype: "Birdie-fest + Wind-exposed",
         narrative: {
             description: "Opposite-field event running alongside the Arnold Palmer Invitational. Grand Reserve is a Tom Kite links-style design on the northeast coast of Puerto Rico. Consistent trade winds define the challenge. Wide fairways but firm paspalum greens. The field is weaker than full-field events but hungry players fighting for FedExCup points create value.",
+            correlated: "Corales (Dominican Republic, similar wind + links feel), Sea Island (Bermuda/Paspalum, coastal wind), El Camaleon (Mexico, Caribbean wind conditions). Common thread: trade wind courses with firm paspalum/Bermuda greens.",
             tags: ["Opposite Field", "Wind Exposed", "Paspalum", "Trade Winds", "Hungry Field", "Birdie Opportunities"],
             keyHoles: [
                 { num: 18, par: 4, yds: 468, note: "Wind-exposed closer. Water left. Demands nerve." },
@@ -319,6 +322,7 @@ const TOURNAMENT_DATA = {
         archetype: "Second-shot + Penalty course",
         narrative: {
             description: "Pete Dye's masterpiece and the PGA Tour's flagship event. Island green at 17 is the most famous hole in golf. TPC Sawgrass is the hardest course to gain strokes on approach on Tour — the small, firm, elevated greens surrounded by water and waste areas demand absolute precision. Course history is moderately predictive. The 5th major in everything but name.",
+            correlated: "Harbour Town (Pete Dye, small greens, accuracy), TPC River Highlands (Dye design, water, precision), PGA National (water + penalty, demanding approach). Common thread: Pete Dye precision courses where approach miss = water/waste = bogey+.",
             tags: ["Signature Event", "Island Green", "Penalty Course", "Water Everywhere", "Small Greens", "Pete Dye", "5th Major"],
             keyHoles: [
                 { num: 12, par: 4, yds: 358, note: "Short but brutal. Tiny green. Miss = water/bunker." },
@@ -370,6 +374,7 @@ const TOURNAMENT_DATA = {
         archetype: "Second-shot + Poa putting",
         narrative: {
             description: "Larry Packard's Copperhead Course feels like Carolina hill country, not Florida. 12 doglegs (4 double doglegs) through tree-lined corridors. 5 par 3s averaging 212 yards and 4 par 5s averaging 583 yards. The Snake Pit (16-17-18) is one of the toughest closing stretches on Tour with 18%+ bogey rate on each hole. Less-than-driver course — driver used only 54% of holes. The 2nd fewest birdies and fewest eagles per 72 holes on Tour.",
+            correlated: "Harbour Town (tree-lined, accuracy, less-than-driver), Colonial (narrow corridors, Bermuda/Poa, accuracy premium), Riviera (difficult scoring, ball-striking test). Common thread: tree-lined accuracy courses where driving accuracy and bogey avoidance separate.",
             tags: ["Poa Putting", "Less-Than-Driver", "Snake Pit", "Tree-Lined", "Doglegs", "Hard Scoring", "5 Par 3s"],
             keyHoles: [
                 { num: 16, par: 4, yds: 475, note: "Snake Pit start. 23.2% bogey. Narrow + water." },
@@ -663,6 +668,7 @@ const TOURNAMENT_DATA = {
         ],
         narrative: {
             description: "Greg Norman/Sergio Garcia design on rolling Texas Hill Country terrain. Elevated Bermuda greens overseeded with Poa Trivialis, protected by 64 renovated bunkers. The course's primary defense is wind, not architecture. Scoring swings 8-10 strokes per day based on conditions. 3-inch rye/fescue rough increased from 2.25 inches in 2025. GIR from fairways is harder than Tour average (64% vs 77%) but GIR from rough is the same, making the fairway advantage less than expected. The week before the Masters, creating a bifurcated field: stars using it as a tune-up vs hungry players fighting for the final Masters spot.",
+            correlated: "Riviera (difficult GIR, elevated greens, approach precision), Harbour Town (wind + accuracy), Colonial (narrow + Bermuda/Poa), Copperhead/Valspar (Poa Trivialis, ball-striking, wind). Common thread: difficult approach courses with wind as primary defense and Poa/Bermuda putting surfaces.",
             tags: ["Wind Exposed", "Elevated Greens", "False Fronts", "Pre-Masters", "Bermuda/Poa", "64 Bunkers", "Hill Country", "Hungry Field"],
             keyHoles: [
                 { num: 9, par: 4, yds: 435, note: "One of hardest holes. Kevin Na's 16 (+12) in 2011. Narrow corridor." },
