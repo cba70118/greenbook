@@ -1612,8 +1612,9 @@ function renderLiveOdds(key) {
         var note = o.note || '';
         var formCls = sigCls(o.form);
         if (o.form === 'caution') formCls = 'form-cool';
+        var ewPrice = o.b365_8 || o.b365 || '';
 
-        tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + (o.best||'') + '</td><td style="font-family:var(--font-mono)">' + (o.b365||'') + '</td><td class="' + formCls + '">' + o.form + '</td><td style="font-size:0.72rem">' + statusIcon + note + '</td></tr>';
+        tb.innerHTML += '<tr><td>' + o.rank + '</td><td><strong>' + o.name + '</strong></td><td style="font-family:var(--font-mono)">' + (o.best||'') + '</td><td style="font-family:var(--font-mono)">' + ewPrice + '</td><td class="' + formCls + '">' + o.form + '</td><td style="font-size:0.72rem">' + statusIcon + note + '</td></tr>';
 
         if (o.form === 'TAILWIND') values.push(o);
         if (o.form === 'cool' || o.form === 'caution') fades.push(o);
@@ -1633,7 +1634,7 @@ function renderLiveOdds(key) {
 }
 
 document.getElementById('odds-tourney').addEventListener('change', function(e) { renderLiveOdds(e.target.value); });
-renderLiveOdds('masters');
+renderLiveOdds('valero');
 
 renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.onNotice,'soft-players');
