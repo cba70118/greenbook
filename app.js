@@ -551,20 +551,14 @@ function loadTournament(key) {
         weatherCard.style.display = 'none';
     }
 
-    // FRL — only show for upcoming tournaments, not live or settled
+    // FRL — show for upcoming tournaments that have FRL data
     var frlCard = document.getElementById('frl-card');
     var frlBody = document.getElementById('frl-body');
     var frlWave = document.getElementById('frl-wave-summary');
     if (frlBody) frlBody.innerHTML = '';
     if (frlWave) frlWave.innerHTML = '';
-    var isUpcoming = !t.result2026;
-    var activeBtn = document.querySelector('.timeline-btn.active');
-    var isLive = (activeBtn && activeBtn.classList.contains('live')) || (activeBtn && activeBtn.classList.contains('settled'));
-    // Also check by tournament key — houston is hardcoded as live for now
-    var liveKeys = [];
-    var settledKeys = ['cognizant','arnoldpalmer','puertorico','players','valspar','houston'];
-    if (typeof key !== 'undefined' && (liveKeys.indexOf(key) >= 0 || settledKeys.indexOf(key) >= 0)) isLive = true;
-    if (t.frl && t.frl.length && isUpcoming && !isLive) {
+    var isSettled = !!t.result2026;
+    if (t.frl && t.frl.length && !isSettled) {
         if (frlCard) frlCard.style.display = '';
         var amPlayers = t.frl.filter(function(f){return f.wave==='AM'});
         var pmPlayers = t.frl.filter(function(f){return f.wave==='PM'});
