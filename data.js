@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 159,
+    totalBets: 160,
     settled: 147,
-    open: 12,
+    open: 13,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -84,6 +84,7 @@ const VALERO_CARD = [
     { num: 5, player: "Maverick McNealy", market: "Outright", terms: "Win", odds: "+2400", stake: 10, placed: "Mar 29", edge: "Comp #4. Klos #2. +6 gap.", status: "Open" },
     { num: 6, player: "Maverick McNealy", market: "Top 10", terms: "Win", odds: "+225", stake: 10, placed: "Mar 29", edge: "Comp #4. T10 13.5%.", status: "Open" },
     { num: 7, player: "Denny McCarthy", market: "Outright", terms: "1/5 8pl", odds: "+3000", stake: 10, placed: "Mar 30", edge: "TPC SA #2 history. PUTT#1 2025.", status: "Open" },
+    { num: 8, player: "Sam Ryder", market: "FRL", terms: "1/4 5pl", odds: "+12500", stake: 5, placed: "Mar 31", edge: "TAILWIND 1.91. 2025 FRL winner (63).", status: "Open" },
 ];
 
 // Player rotation data
