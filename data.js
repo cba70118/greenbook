@@ -413,6 +413,7 @@ const PLAYER_STATUS = [
     { player: "Gary Woodland", type: "rest", status: "WD from Valero. Masters prep after Houston win. Jackson Suber replaces.", severity: "info", updated: "Mar 30" },
     { player: "Matti Schmid", type: "rest", status: "WD from Valero. Sam Ryder replaces.", severity: "info", updated: "Mar 30" },
     { player: "Daniel Berger", type: "injury", status: "WD from Valero.", severity: "warning", updated: "Mar 31" },
+    { player: "Aaron Wise", type: "rest", status: "WD from Valero.", severity: "info", updated: "Mar 31" },
     { player: "Jason Day", type: "form", status: "T9 at Houston (-13). Strong form heading into Masters where he has 4 T10s in 12 starts. We have him at +7000.", severity: "info", updated: "Mar 29" },
     { player: "Sudarshan Yellamaraju", type: "form", status: "T8 Houston but DG now HEADWIND 0.72 for Valero. Form fading. Negative course fit (-0.080). On card at DK +14000.", severity: "caution", updated: "Mar 30" },
 ];
