@@ -372,7 +372,6 @@ let formInst = null;
 function loadTournament(key) {
     const t = TOURNAMENT_DATA[key];
     if (!t) return;
-
     // Course bar
     document.getElementById('course-name').textContent = t.course || t.name;
     document.getElementById('course-meta').textContent = t.meta || '';
@@ -380,7 +379,7 @@ function loadTournament(key) {
 
     // Result banner
     const slot = document.getElementById('result-banner-slot');
-    slot.innerHTML = '';
+    if (slot) slot.innerHTML = '';
     if (t.result2026) {
         slot.innerHTML = `<div class="result-banner"><div class="result-winner"><span class="result-label">2026 Winner: </span>${t.result2026.winner} (${t.result2026.score})</div><div class="result-why">${t.result2026.why}</div></div>`;
     }
@@ -659,8 +658,8 @@ function loadTournament(key) {
 
     // Composite
     const cb = document.getElementById('composite-body');
-    cb.innerHTML = '';
-    if (t.composite && t.composite.length) {
+    if (cb) cb.innerHTML = '';
+    if (cb && t.composite && t.composite.length) {
         if (t.densityCheck) {
             const d = t.densityCheck;
             document.getElementById('density-bar').innerHTML = `<span class="density-label">Profile Density: ${d.profiled}/${d.total} (${d.pct}%)</span><span class="density-status density-${d.status.toLowerCase()}">${d.status}</span><div class="density-track"><div class="density-fill" style="width:${d.pct}%"></div></div>`;
@@ -755,7 +754,7 @@ function loadTournament(key) {
     // RH Heatmap — dynamic columns
     const rb = document.getElementById('rh-body');
     const rhHeader = document.getElementById('rh-header');
-    rb.innerHTML = '';
+    if (rb) rb.innerHTML = '';
     if (t.rhModelNames && rhHeader) {
         rhHeader.innerHTML = '<tr><th>Player</th>' + t.rhModelNames.map(n => '<th>'+n+'</th>').join('') + '<th>Meta</th></tr>';
     }
@@ -789,14 +788,14 @@ function loadTournament(key) {
 
     // Weakness masked
     const mb = document.getElementById('masked-body');
-    mb.innerHTML = '';
+    if (mb) mb.innerHTML = '';
     if (t.weaknessMasked && t.weaknessMasked.length) {
         t.weaknessMasked.forEach(p => { mb.innerHTML += `<tr><td>${p.name}</td><td>${p.weakness}</td><td class="${p.masked.startsWith('YES')?'pos':''}">${p.masked}</td><td>${p.strength}</td><td class="${p.amplified.startsWith('YES')?'pos':''}">${p.amplified}</td><td>#${p.rank}</td><td class="${sigCls(p.form.split(' ')[0])}">${p.form}</td><td>${p.verdict}</td></tr>`; });
     } else { mb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Weakness-masked analysis loads with tournament data</td></tr>'; }
 
     // Narrative matrix
     const nb = document.getElementById('narrative-body');
-    nb.innerHTML = '';
+    if (nb) nb.innerHTML = '';
     if (t.narratives && t.narratives.length) {
         t.narratives.sort((a,b)=>b.count-a.count).forEach(p => { nb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${ck(p.noonan)}${ck(p.klos)}${ck(p.mayo)}${ck(p.stewart)}${ck(p.titanic)}<td><strong class="${p.count>=3?'pos':''}">${p.count}</strong></td><td>#${p.rank}</td></tr>`; });
     } else { nb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with analysis</td></tr>'; }
