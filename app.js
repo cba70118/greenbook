@@ -499,15 +499,19 @@ function loadTournament(key) {
                     else if (txt.toLowerCase().indexOf('fd') >= 0 || txt.toLowerCase().indexOf('fanduel') >= 0) book = 'FD';
                     var tier = '';
                     var txtL = txt.toLowerCase();
+                    // Detect FRL
+                    var isFRL = txtL.indexOf('frl') >= 0 || txtL.indexOf('first round') >= 0;
                     if (txtL.indexOf('dart') >= 0 || txtL.indexOf('micro') >= 0 || txtL.indexOf('$1.') >= 0 || txtL.indexOf('$2.') >= 0) tier = 'dart';
-                    else if (txtL.indexOf('$5') >= 0) tier = 'mid';
+                    else if (txtL.indexOf('$5') >= 0) tier = isFRL ? 'frl' : 'mid';
                     else if (txtL.indexOf('$10') >= 0 || txtL.indexOf('$20') >= 0) tier = 'core';
-                    var tierColor = tier === 'core' ? 'var(--green-400)' : tier === 'mid' ? 'var(--brass-400)' : 'var(--cream-500)';
+                    var tierColor = tier === 'core' ? 'var(--green-400)' : tier === 'frl' ? '#6ba3d6' : tier === 'mid' ? 'var(--brass-400)' : 'var(--cream-500)';
                     var parts = [];
                     if (odds) parts.push(odds);
                     if (book) parts.push(book);
-                    if (tier) parts.push(tier);
+                    if (tier) parts.push(tier === 'frl' ? 'FRL' : tier);
                     meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + tierColor + '">' + parts.join(' ') + '</span>';
+                    // Override badge label for FRL bets
+                    if (isFRL) { label = 'FRL'; cls = ''; }
                 }
                 boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}${meta}</div>`;
             });
