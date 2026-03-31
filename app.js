@@ -521,8 +521,13 @@ function loadTournament(key) {
             });
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
-        // Analysis Log — ALL notes, reversed (newest first), with timestamps
-        var allNotes = t.notes.slice().reverse();
+        // Analysis Log — ALL notes, sorted by timestamp (newest first)
+        var tsOrder = {'Mar 31 Eve':10,'Mar 31 PM':9,'Mar 31 AM':8,'Mar 31':7,'Mar 30 Eve':6,'Mar 30 PM':5,'Mar 30 AM':4,'Mar 30':3,'Mar 29':2,'Mar 28':1,'':0};
+        var allNotes = t.notes.slice().sort(function(a,b) {
+            var aOrd = tsOrder[a.ts||''] || 0;
+            var bOrd = tsOrder[b.ts||''] || 0;
+            return bOrd - aOrd;
+        });
         if (logEl && allNotes.length) {
             if (logCard) logCard.style.display = '';
             allNotes.forEach(n => {
