@@ -724,7 +724,7 @@ const TOURNAMENT_DATA = {
             { name:"Christiaan Bezuidenhout", m1:16, m2:25, m3:45, m4:78, m5:12, m6:14, m7:25, m8:42, m9:17, meta:22 },
             { name:"Mac Meissner", m1:24, m2:20, m3:30, m4:50, m5:18, m6:20, m7:99, m8:26, m9:6, meta:21 },
             { name:"Sudarshan Yellamaraju", m1:93, m2:25, m3:31, m4:9, m5:16, m6:12, m7:99, m8:8, m9:99, meta:26 },
-            { name:"Daniel Berger", m1:14, m2:14, m3:29, m4:84, m5:23, m6:28, m7:24, m8:99, m9:99, meta:30 },
+            { name:"Daniel Berger", m1:14, m2:14, m3:29, m4:84, m5:23, m6:28, m7:24, m8:99, m9:99, meta:30, note:"WD" },
             { name:"Denny McCarthy", m1:50, m2:30, m3:40, m4:99, m5:40, m6:35, m7:99, m8:50, m9:23, meta:40 },
             { name:"Alex Smalley", m1:22, m2:18, m3:20, m4:50, m5:20, m6:22, m7:15, m8:12, m9:99, meta:18 },
             { name:"Jordan Smith", m1:60, m2:30, m3:50, m4:19, m5:30, m6:25, m7:99, m8:17, m9:99, meta:30 },
