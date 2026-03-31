@@ -487,9 +487,9 @@ function loadTournament(key) {
         if (boardEl && playerNotes.length) {
             if (boardCard) boardCard.style.display = '';
             playerNotes.forEach(n => {
-                const icon = icons[n.type] || '';
-                const cls = colors[n.type] || '';
-                const label = labels[n.type] || '';
+                var icon = icons[n.type] || '';
+                var cls = colors[n.type] || '';
+                var label = labels[n.type] || '';
                 const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
                 // Bet context: odds + book + tier inline
                 var meta = '';
