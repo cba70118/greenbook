@@ -401,7 +401,7 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "Back spasm. DG HEADWIND 0.69. Worst course fit in field (-0.178). Mayo says should be favorite if healthy. DG disagrees strongly.", severity: "warning", updated: "Mar 30" },
+    { player: "Collin Morikawa", type: "injury", status: "WD from Valero. Back injury. DG had him HEADWIND 0.69 all week. Masters status uncertain.", severity: "warning", updated: "Mar 31" },
     { player: "Ryan Gerard", type: "rest", status: "Burned out from playing every week including international travel. WD from Valero. Taking time off before Masters.", severity: "info", updated: "Mar 28" },
     { player: "Akshay Bhatia", type: "travel", status: "In India for Hero Indian Open (sponsor obligation). MC there. Flying back 2 weeks before Masters. Circadian rhythm concern.", severity: "caution", updated: "Mar 28" },
     { player: "Pierceson Coody", type: "injury", status: "WD from Valero. Back injury. No Masters invite. Taylor Moore replaces.", severity: "warning", updated: "Mar 30" },
