@@ -77,19 +77,19 @@ const MASTERS_CARD = [
 ];
 
 const VALERO_CARD = [
-    { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "Open" },
-    { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "Open" },
-    { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", stake: 2.50, placed: "Mar 28", edge: "Comp #9. Dark horse.", status: "Open" },
-    { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", stake: 2.50, placed: "Mar 28", edge: "Comp #5. Course fit.", status: "Open" },
-    { num: 5, player: "Maverick McNealy", market: "Outright", terms: "Win", odds: "+2400", stake: 10, placed: "Mar 29", edge: "Comp #4. Klos #2. +6 gap.", status: "Open" },
-    { num: 6, player: "Maverick McNealy", market: "Top 10", terms: "Win", odds: "+225", stake: 10, placed: "Mar 29", edge: "Comp #4. T10 13.5%.", status: "Open" },
-    { num: 7, player: "Denny McCarthy", market: "Outright", terms: "1/5 8pl", odds: "+3000", stake: 10, placed: "Mar 30", edge: "TPC SA #2 history. PUTT#1 2025.", status: "Open" },
-    { num: 8, player: "Sam Ryder", market: "FRL", terms: "1/4 5pl", odds: "+12500", stake: 5, placed: "Mar 31", edge: "TAILWIND 1.91. 2025 FRL winner (63).", status: "Open" },
-    { num: 9, player: "Ryo Hisatsune", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 5, placed: "Mar 31", edge: "Expert #8. APP+ARG dual. Rick loves.", status: "Open" },
-    { num: 10, player: "Thorbjorn Olesen", market: "FRL", terms: "1/4 5pl", odds: "+5000", stake: 5, placed: "Mar 31", edge: "2025 SG:TOT#5. APP#7 6mo.", status: "Open" },
-    { num: 11, player: "Mac Meissner", market: "FRL", terms: "1/4 5pl", odds: "+6000", stake: 5, placed: "Mar 31", edge: "Andy2 #6. AM wave. Dark horse.", status: "Open" },
-    { num: 12, player: "Chad Ramey", market: "FRL", terms: "1/4 5pl", odds: "+8000", stake: 5, placed: "Mar 31", edge: "PUTT#6. V25 SG:TOT#8.", status: "Open" },
-    { num: 13, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", stake: 10, placed: "Mar 31", edge: "Si Woo/Hisatsune/Olesen/Smalley/Novak/Svensson", status: "Open" },
+    { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", book: "DK", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "Open" },
+    { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", book: "DK", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "Open" },
+    { num: 3, player: "Sudarshan Yellamaraju", market: "Outright", terms: "Win", odds: "+14000", book: "DK", stake: 2.50, placed: "Mar 28", edge: "Comp #9. Dark horse.", status: "Open" },
+    { num: 4, player: "Mackenzie Hughes", market: "Outright", terms: "Win", odds: "+11500", book: "DK", stake: 2.50, placed: "Mar 28", edge: "Comp #5. Course fit.", status: "Open" },
+    { num: 5, player: "Maverick McNealy", market: "Outright", terms: "Win", odds: "+2400", book: "DK", stake: 10, placed: "Mar 29", edge: "Comp #4. Klos #2. +6 gap.", status: "Open" },
+    { num: 6, player: "Maverick McNealy", market: "Top 10", terms: "Win", odds: "+225", book: "DK", stake: 10, placed: "Mar 29", edge: "Comp #4. T10 13.5%.", status: "Open" },
+    { num: 7, player: "Denny McCarthy", market: "Outright", terms: "1/5 8pl", odds: "+3000", book: "b365", stake: 10, placed: "Mar 30", edge: "TPC SA #2 history. PUTT#1 2025.", status: "Open" },
+    { num: 8, player: "Sam Ryder", market: "FRL", terms: "1/4 5pl", odds: "+12500", book: "b365", stake: 5, placed: "Mar 31", edge: "TAILWIND 1.91. 2025 FRL winner (63).", status: "Open" },
+    { num: 9, player: "Ryo Hisatsune", market: "FRL", terms: "1/4 5pl", odds: "+4000", book: "b365", stake: 5, placed: "Mar 31", edge: "Expert #8. APP+ARG dual. Rick loves.", status: "Open" },
+    { num: 10, player: "Thorbjorn Olesen", market: "FRL", terms: "1/4 5pl", odds: "+5000", book: "b365", stake: 5, placed: "Mar 31", edge: "2025 SG:TOT#5. APP#7 6mo.", status: "Open" },
+    { num: 11, player: "Mac Meissner", market: "FRL", terms: "1/4 5pl", odds: "+6000", book: "b365", stake: 5, placed: "Mar 31", edge: "Andy2 #6. AM wave. Dark horse.", status: "Open" },
+    { num: 12, player: "Chad Ramey", market: "FRL", terms: "1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Mar 31", edge: "PUTT#6. V25 SG:TOT#8.", status: "Open" },
+    { num: 13, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 10, placed: "Mar 31", edge: "Si Woo/Hisatsune/Olesen/Smalley/Novak/Svensson", status: "Open" },
 ];
 
 // Player rotation data

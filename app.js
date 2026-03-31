@@ -1661,7 +1661,7 @@ function renderBetCard(data, tbodyId, book) {
         const sc = res==='Won'?'pos':res==='Lost'?'neg':d.status==='Lost'?'neg':d.status==='Open'?'':d.status.indexOf('T')===0||d.status.indexOf('-')>=0?'form-warm':'pos';
         let betType = d.market || 'Outright';
         if (d.terms && d.terms !== 'Win') betType += ' ' + d.terms;
-        const bk = book || d.book || 'bet365';
+        const bk = d.book || book || 'bet365';
         const placed = d.placed || '';
         tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">${placed}</td><td class="${sc}">${d.status}</td></tr>`;
     });
