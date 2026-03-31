@@ -1102,7 +1102,15 @@ function renderSkillFit(t, skill) {
     var display = document.getElementById('skill-fit-display');
     if (!display) return;
 
-    // For surface and weekfit, pull from all SCOUTING players
+    // Build field name set from tournament data (composite + oddsBoard + frl + radarPlayers)
+    var fieldNames = {};
+    if (t.composite) t.composite.forEach(function(p){fieldNames[p.name]=true});
+    if (t.oddsBoard) t.oddsBoard.forEach(function(p){fieldNames[p.name]=true});
+    if (t.frl) t.frl.forEach(function(p){fieldNames[p.player]=true});
+    if (t.radarPlayers) Object.keys(t.radarPlayers).forEach(function(n){fieldNames[n]=true});
+    var hasField = Object.keys(fieldNames).length > 0;
+
+    // For surface and weekfit, pull from SCOUTING players IN THE FIELD
     if (skill === 'surface' || skill === 'weekfit') {
         var surfScored;
         if (skill === 'surface') {
@@ -1115,7 +1123,7 @@ function renderSkillFit(t, skill) {
             if (!surfaces.length) surfaces = ['putt_bermuda','putt_bent','putt_poa'];
             var surfLabel = surfaces.map(function(s){return s.replace('putt_','').replace('bermuda','Bermuda').replace('bent','Bentgrass').replace('poa','Poa')}).join(' + ');
 
-            surfScored = SCOUTING.filter(function(p){return p[surfaces[0]] !== undefined}).map(function(p) {
+            surfScored = SCOUTING.filter(function(p){return p[surfaces[0]] !== undefined && (!hasField || fieldNames[p.name])}).map(function(p) {
                 var avg = surfaces.reduce(function(s,k){return s + (p[k]||0)},0) / surfaces.length;
                 return {name:p.name, score:Math.round((avg/0.7)*50+50), raw:avg};
             }).sort(function(a,b){return b.score - a.score}).slice(0,25);
@@ -1140,14 +1148,14 @@ function renderSkillFit(t, skill) {
         if (skill === 'weekfit') {
             // Pull from radar if available, otherwise use SCOUTING sorted by APP + ARG (general course fit)
             if (t && t.radarPlayers) {
-                var radarNames = Object.keys(t.radarPlayers);
+                var radarNames = Object.keys(t.radarPlayers).filter(function(n){return !hasField || fieldNames[n]});
                 surfScored = radarNames.map(function(name) {
                     var data = t.radarPlayers[name];
                     var avg = data.reduce(function(s,v){return s+v},0)/data.length;
                     return {name:name, score:Math.round(avg)};
                 }).sort(function(a,b){return b.score-a.score});
             } else {
-                surfScored = SCOUTING.map(function(p){return {name:p.name, score:Math.round(((p.app+p.arg)/1.4)*50+50)}}).sort(function(a,b){return b.score-a.score}).slice(0,25);
+                surfScored = SCOUTING.filter(function(p){return !hasField || fieldNames[p.name]}).map(function(p){return {name:p.name, score:Math.round(((p.app+p.arg)/1.4)*50+50)}}).sort(function(a,b){return b.score-a.score}).slice(0,25);
             }
             display.innerHTML = '<p class="card-subtitle" style="margin-bottom:0.5rem">Players ranked by overall fit for this week\'s course profile.</p>' +
                 '<div class="skill-fit-list">' + surfScored.map(function(p,i) {
@@ -1161,12 +1169,8 @@ function renderSkillFit(t, skill) {
     if (!t.radarAxes) return;
 
     // Build player list: radarPlayers + all SCOUTING players in the field
+    // (fieldNames already built at top of function)
     var radarP = t.radarPlayers || {};
-    var fieldNames = {};
-    if (t.composite) t.composite.forEach(function(p){fieldNames[p.name]=true});
-    if (t.oddsBoard) t.oddsBoard.forEach(function(p){fieldNames[p.name]=true});
-    if (t.frl) t.frl.forEach(function(p){fieldNames[p.player]=true});
-    Object.keys(radarP).forEach(function(n){fieldNames[n]=true});
 
     // For players not in radarPlayers, synthesize scores from SCOUTING SG data
     var axes = t.radarAxes;
