@@ -65,11 +65,11 @@ document.addEventListener('click', function(e) {
     // Explicit clickable class
     var target = e.target.closest('.player-clickable');
     if (target) { e.preventDefault(); showPlayerPopup(target.textContent.trim()); return; }
-    // Any strong tag OR any element with player-name-like text
+    // Any strong tag with a player-like name
     var el = e.target;
-    if (el.tagName === 'STRONG' || (el.tagName === 'SPAN' && el.style.cursor === 'pointer')) {
+    if (el.tagName === 'STRONG' && !el.id) {
         var name = el.textContent.trim();
-        if (name.length > 4 && name.length < 30 && name.indexOf('$') < 0 && name.indexOf('+') < 0 && name.indexOf('#') < 0 && name.indexOf('%') < 0 && /[A-Z]/.test(name[0]) && name.indexOf(' ') > 0 && !name.match(/^(On Card|Updated|Latest|Upcoming|Settled|Previous)/)) {
+        if (name.length > 4 && name.length < 30 && name.indexOf('$') < 0 && name.indexOf('+') < 0 && name.indexOf('#') < 0 && name.indexOf('%') < 0 && /[A-Z]/.test(name[0]) && name.indexOf(' ') > 0 && !name.match(/^(On Card|Updated|Latest|Upcoming|Settled|Previous|The Cut|BOOK|Green|Intel|News|Field|Status)/)) {
             showPlayerPopup(name);
         }
     }
