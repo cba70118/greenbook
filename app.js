@@ -127,13 +127,18 @@ function buildTheCut() {
         if (bets.length) {
             html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + bets.length + ')</div>';
             html += '<div style="margin-bottom:0.5rem">' + bets.map(function(b){
-                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid var(--green-500);border-radius:3px;color:var(--green-300)"><strong>' + (b.player||'') + '</strong></span>';
+                var txt = (b.text || '').toLowerCase();
+                var isFRL = txt.indexOf('frl') >= 0 || txt.indexOf('first round') >= 0;
+                var borderColor = isFRL ? '#6ba3d6' : 'var(--green-500)';
+                var textColor = isFRL ? '#6ba3d6' : 'var(--green-300)';
+                var suffix = isFRL ? ' <span style="font-size:0.5rem;opacity:0.7">FRL</span>' : '';
+                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid ' + borderColor + ';border-radius:3px;color:' + textColor + '"><strong>' + (b.player||'') + '</strong>' + suffix + '</span>';
             }).join('') + '</div>';
         }
 
         // WDs
         if (typeof PLAYER_STATUS !== 'undefined') {
-            var wds = PLAYER_STATUS.filter(function(s){return s.status && (s.status.indexOf('WD from Valero') >= 0 || (s.status.indexOf('WD') >= 0 && s.type === 'rest' && s.updated === 'Mar 30'))});
+            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && (s.status.indexOf('Valero') >= 0 || s.updated === 'Mar 30' || s.updated === 'Mar 31')});
             if (wds.length) {
                 html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">Withdrawals</div>';
                 html += '<div style="margin-bottom:0.5rem">' + wds.map(function(w){
