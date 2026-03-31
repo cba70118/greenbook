@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 162,
+    totalBets: 163,
     settled: 147,
-    open: 15,
+    open: 16,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -87,6 +87,7 @@ const VALERO_CARD = [
     { num: 8, player: "Sam Ryder", market: "FRL", terms: "1/4 5pl", odds: "+12500", stake: 5, placed: "Mar 31", edge: "TAILWIND 1.91. 2025 FRL winner (63).", status: "Open" },
     { num: 9, player: "Ryo Hisatsune", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 5, placed: "Mar 31", edge: "Expert #8. APP+ARG dual. Rick loves.", status: "Open" },
     { num: 10, player: "Thorbjorn Olesen", market: "FRL", terms: "1/4 5pl", odds: "+5000", stake: 5, placed: "Mar 31", edge: "2025 SG:TOT#5. APP#7 6mo.", status: "Open" },
+    { num: 11, player: "Mac Meissner", market: "FRL", terms: "1/4 5pl", odds: "+6000", stake: 5, placed: "Mar 31", edge: "Andy2 #6. AM wave. Dark horse.", status: "Open" },
 ];
 
 // Player rotation data
