@@ -676,6 +676,7 @@ const TOURNAMENT_DATA = {
             { type: "process", ts:"Mar 31", text: "b365 odds updated. Key CLV: McCarthy locked +3000, now +4000 (+33%). McNealy locked +2400 DK, b365 now +2800. Got a bad price on McCarthy — should have waited for drift. Lesson for future mid-week timing." },
             { type: "bet", player: "Sam Ryder", text: "FRL E/W 1/4 5pl +12500 b365 $5. DG TAILWIND 1.91 = highest form ratio in field. 2025 FRL winner (shot 63 R1). Mayo also bet FRL on Ryder." },
             { type: "bet", player: "Ryo Hisatsune", text: "FRL E/W 1/4 5pl +4000 b365 $5. Expert #8. APP+ARG dual fit. Rick: 'absolutely a Rio week.' T5 here 2025." },
+            { type: "bet", player: "Thorbjorn Olesen", text: "FRL E/W 1/4 5pl +5000 b365 $5. 2025 Valero SG:TOT#5. APP#7 in 6mo. Andy2 #11. Dark horse FRL backed by real course history." },
             { type: "like", player: "Andrew Novak", text: "Mayo's highest mid-tier conviction. Bet 60/1 E/W 3pl. T5 here 2025. Ball striking and driving accuracy back. 'First click' for single entry." },
             { type: "like", player: "Nick Taylor", text: "Mayo: 'my main man.' Irons great, ARG amazing. 'Most trustworthy guy if within 2 coming down the stretch.' DG TAILWIND 1.46." },
             { type: "process", ts:"Mar 31 PM", text: "Mayo ep3 (post-Morikawa WD): 'Incredibly windy all week.' Sustained 15-20mph Fri-Sun. Wide putting stance = advantage in wind (Hideki, Zalatoris). Straka 'way better in wind than anyone else.' 8K range (Mitchell/Spaun/Noren/Fowler) may all be underowned." },

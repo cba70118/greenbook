@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 161,
+    totalBets: 162,
     settled: 147,
-    open: 14,
+    open: 15,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -86,6 +86,7 @@ const VALERO_CARD = [
     { num: 7, player: "Denny McCarthy", market: "Outright", terms: "1/5 8pl", odds: "+3000", stake: 10, placed: "Mar 30", edge: "TPC SA #2 history. PUTT#1 2025.", status: "Open" },
     { num: 8, player: "Sam Ryder", market: "FRL", terms: "1/4 5pl", odds: "+12500", stake: 5, placed: "Mar 31", edge: "TAILWIND 1.91. 2025 FRL winner (63).", status: "Open" },
     { num: 9, player: "Ryo Hisatsune", market: "FRL", terms: "1/4 5pl", odds: "+4000", stake: 5, placed: "Mar 31", edge: "Expert #8. APP+ARG dual. Rick loves.", status: "Open" },
+    { num: 10, player: "Thorbjorn Olesen", market: "FRL", terms: "1/4 5pl", odds: "+5000", stake: 5, placed: "Mar 31", edge: "2025 SG:TOT#5. APP#7 6mo.", status: "Open" },
 ];
 
 // Player rotation data
