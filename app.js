@@ -650,11 +650,39 @@ function loadTournament(key) {
     if (t.radarAxes && t.radarPlayers && Object.keys(t.radarPlayers).length > 0) {
         if (skillCard) skillCard.style.display = '';
         renderSkillFit(t, 'overall');
+        // Multi-select: stat tabs (app, putt, ott, arg, dd) can be toggled together
+        // Special tabs (overall, surface, weekfit) are exclusive — clicking one clears all others
+        var multiSelectSkills = {app:true, putt:true, ott:true, arg:true, dd:true};
         document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(btn) {
             btn.onclick = function() {
-                document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
-                btn.classList.add('active');
-                renderSkillFit(t, btn.dataset.skill);
+                var skill = btn.dataset.skill;
+                if (multiSelectSkills[skill]) {
+                    // Deactivate any special tabs first
+                    document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(b){
+                        if (!multiSelectSkills[b.dataset.skill]) b.classList.remove('active');
+                    });
+                    // Toggle this stat tab
+                    btn.classList.toggle('active');
+                    // Collect all active stat tabs
+                    var activeSkills = [];
+                    document.querySelectorAll('#skill-fit-tabs .quick-tag.active').forEach(function(b){
+                        if (multiSelectSkills[b.dataset.skill]) activeSkills.push(b.dataset.skill);
+                    });
+                    if (activeSkills.length === 0) {
+                        // Nothing selected — default to overall
+                        document.querySelector('#skill-fit-tabs .quick-tag[data-skill="overall"]').classList.add('active');
+                        renderSkillFit(t, 'overall');
+                    } else if (activeSkills.length === 1) {
+                        renderSkillFit(t, activeSkills[0]);
+                    } else {
+                        renderSkillFitMulti(t, activeSkills);
+                    }
+                } else {
+                    // Special tab — exclusive selection, clear all others
+                    document.querySelectorAll('#skill-fit-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
+                    btn.classList.add('active');
+                    renderSkillFit(t, skill);
+                }
             };
         });
     } else {
@@ -1246,6 +1274,99 @@ function renderSkillFit(t, skill) {
         var start = pageState.current * PAGE_SIZE;
         var page = scored.slice(start, start + PAGE_SIZE);
         var html = '<div class="skill-fit-list">' + page.map(function(p, i) {
+            var barWidth = Math.max(5, Math.min(100, p.score));
+            var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
+            return '<div class="sf-row"><span class="sf-rank">' + (start+i+1) + '</span><span class="sf-name"><strong>' + p.name + '</strong></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
+        }).join('') + '</div>';
+        html += '<div class="paginated-controls"><button class="page-btn" id="sf-prev" '+(pageState.current===0?'disabled':'')+'>&#9664; Prev</button><span>'+(pageState.current+1)+' / '+pageState.total+'</span><button class="page-btn" id="sf-next" '+(pageState.current>=pageState.total-1?'disabled':'')+'>Next &#9654;</button></div>';
+        display.innerHTML = html;
+        document.getElementById('sf-prev').onclick = function(){if(pageState.current>0){pageState.current--;renderPage();}};
+        document.getElementById('sf-next').onclick = function(){if(pageState.current<pageState.total-1){pageState.current++;renderPage();}};
+    }
+    renderPage();
+}
+
+// Multi-skill Fit Renderer — averages scores across multiple selected skill categories
+function renderSkillFitMulti(t, skills) {
+    var display = document.getElementById('skill-fit-display');
+    if (!display || !t.radarAxes) return;
+
+    // Build field name set from tournament data
+    var fieldNames = {};
+    if (t.composite) t.composite.forEach(function(p){fieldNames[p.name]=true});
+    if (t.oddsBoard) t.oddsBoard.forEach(function(p){fieldNames[p.name]=true});
+    if (t.frl) t.frl.forEach(function(p){fieldNames[p.player]=true});
+    if (t.radarPlayers) Object.keys(t.radarPlayers).forEach(function(n){fieldNames[n]=true});
+
+    var radarP = t.radarPlayers || {};
+    var axes = t.radarAxes;
+    var allPlayers = {};
+    Object.keys(fieldNames).forEach(function(name) {
+        if (radarP[name]) {
+            allPlayers[name] = radarP[name];
+        } else {
+            var sc = SCOUTING.find(function(s){return s.name===name});
+            if (sc) {
+                allPlayers[name] = axes.map(function(axis) {
+                    var a = axis.toLowerCase();
+                    var val = 50;
+                    if (a.indexOf('app') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.app * 50 + 50)));
+                    else if (a.indexOf('arg') >= 0 || a.indexOf('short') >= 0 || a.indexOf('scrambl') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.arg * 80 + 50)));
+                    else if (a.indexOf('ott') >= 0 || a.indexOf('driver') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.ott * 50 + 50)));
+                    else if (a.indexOf('putt') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.putt * 80 + 50)));
+                    else if (a.indexOf('dist') >= 0 || a.indexOf('carry') >= 0) val = Math.round(Math.min(100, Math.max(0, sc.dd / 20 * 50 + 50)));
+                    else if (a.indexOf('wind') >= 0) val = Math.round(Math.min(100, Math.max(0, (sc.sg_tot * 30) + 50)));
+                    else if (a.indexOf('par 5') >= 0 || a.indexOf('birdie') >= 0) val = Math.round(Math.min(100, Math.max(0, (sc.sg_tot * 25 + sc.ott * 15) + 50)));
+                    return val;
+                });
+            }
+        }
+    });
+
+    var players = Object.keys(allPlayers);
+    var skillLabels = {app:'Approach', putt:'Putting', ott:'Off the Tee', arg:'Short Game', dd:'Distance'};
+
+    // For each player, get score for each selected skill, then average
+    var scored = players.map(function(name) {
+        var data = allPlayers[name];
+        var scores = skills.map(function(skill) {
+            if (skill === 'app') {
+                var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('app')>=0});
+                return idx >= 0 ? data[idx] : 0;
+            } else if (skill === 'putt') {
+                var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('putt')>=0 || a.toLowerCase().indexOf('3-putt')>=0});
+                return idx >= 0 ? data[idx] : 0;
+            } else if (skill === 'ott') {
+                var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('ott')>=0 || a.toLowerCase().indexOf('driver')>=0});
+                return idx >= 0 ? data[idx] : 0;
+            } else if (skill === 'arg') {
+                var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('arg')>=0 || a.toLowerCase().indexOf('short')>=0 || a.toLowerCase().indexOf('scrambl')>=0});
+                return idx >= 0 ? data[idx] : 0;
+            } else if (skill === 'dd') {
+                var idx = axes.findIndex(function(a){return a.toLowerCase().indexOf('dist')>=0 || a.toLowerCase().indexOf('carry')>=0});
+                if (idx < 0) {
+                    var sp = SCOUTING.find(function(s){return s.name===name});
+                    return sp ? Math.round((sp.dd / 20) * 50 + 50) : 50;
+                }
+                return data[idx];
+            }
+            return 0;
+        });
+        var avg = Math.round(scores.reduce(function(s,v){return s+v},0) / scores.length);
+        return { name: name, score: avg };
+    }).sort(function(a,b){return b.score - a.score});
+
+    var label = skills.map(function(s){return skillLabels[s] || s.toUpperCase()}).join(' + ');
+
+    // Paginated display
+    var PAGE_SIZE = 10;
+    var pageState = {current: 0, total: Math.ceil(scored.length / PAGE_SIZE)};
+
+    function renderPage() {
+        var start = pageState.current * PAGE_SIZE;
+        var page = scored.slice(start, start + PAGE_SIZE);
+        var html = '<p class="card-subtitle" style="margin-bottom:0.5rem">Ranked by average of <strong>' + label + '</strong></p>';
+        html += '<div class="skill-fit-list">' + page.map(function(p, i) {
             var barWidth = Math.max(5, Math.min(100, p.score));
             var cls = p.score >= 80 ? 'sf-elite' : p.score >= 60 ? 'sf-good' : p.score >= 40 ? 'sf-avg' : 'sf-weak';
             return '<div class="sf-row"><span class="sf-rank">' + (start+i+1) + '</span><span class="sf-name"><strong>' + p.name + '</strong></span><div class="sf-bar-track"><div class="sf-bar ' + cls + '" style="width:' + barWidth + '%"></div></div><span class="sf-score">' + p.score + '</span></div>';
