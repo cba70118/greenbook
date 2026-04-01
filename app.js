@@ -1782,6 +1782,7 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
 function renderBetCard(data, tbodyId, book) {
     const tb = document.getElementById(tbodyId);
     if (!tb) return;
+    var totalStake = 0;
     data.forEach(d => {
         const res = d.result || '';
         const sc = res==='Won'?'pos':res==='Lost'?'neg':d.status==='Lost'?'neg':d.status==='Open'?'':d.status.indexOf('T')===0||d.status.indexOf('-')>=0?'form-warm':'pos';
@@ -1789,8 +1790,10 @@ function renderBetCard(data, tbodyId, book) {
         if (d.terms && d.terms !== 'Win') betType += ' ' + d.terms;
         const bk = d.book || book || 'bet365';
         const placed = d.placed || '';
+        totalStake += d.stake || 0;
         tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">${placed}</td><td class="${sc}">${d.status}</td></tr>`;
     });
+    tb.innerHTML += `<tr style="border-top:2px solid var(--brass-500);font-weight:700"><td colspan="4" style="text-align:right;font-family:var(--font-mono);font-size:0.7rem;color:var(--brass-400)">Total Staked</td><td style="font-family:var(--font-mono)">$${totalStake.toFixed(2)}</td><td colspan="2"></td></tr>`;
 }
 renderBetCard(HOUSTON_CARD, 'ab-houston', 'bet365');
 renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
