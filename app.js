@@ -522,7 +522,7 @@ function loadTournament(key) {
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
         // Analysis Log — ALL notes, sorted by timestamp (newest first)
-        var tsOrder = {'Mar 31 Eve':10,'Mar 31 PM':9,'Mar 31 AM':8,'Mar 31':7,'Mar 30 Eve':6,'Mar 30 PM':5,'Mar 30 AM':4,'Mar 30':3,'Mar 29':2,'Mar 28':1,'':0};
+        var tsOrder = {'Apr 1':13,'Mar 31 Eve':12,'Mar 31 PM':11,'Mar 31 AM':10,'Mar 31':9,'Mar 30 Eve':8,'Mar 30 PM':7,'Mar 30 AM':6,'Mar 30':5,'Mar 29':4,'Mar 28':3,'':0};
         var allNotes = t.notes.slice().sort(function(a,b) {
             var aOrd = tsOrder[a.ts||''] || 0;
             var bOrd = tsOrder[b.ts||''] || 0;
