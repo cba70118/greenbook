@@ -1,8 +1,8 @@
 // Season data
 const SEASON = {
-    totalBets: 165,
+    totalBets: 169,
     settled: 147,
-    open: 18,
+    open: 22,
     staked: 1372.75,
     settledStaked: 1306.50,
     returned: 1276.25,
@@ -90,6 +90,10 @@ const VALERO_CARD = [
     { num: 11, player: "Mac Meissner", market: "FRL", terms: "1/4 5pl", odds: "+6000", book: "b365", stake: 5, placed: "Mar 31", edge: "Andy2 #6. AM wave. Dark horse.", status: "Open" },
     { num: 12, player: "Chad Ramey", market: "FRL", terms: "1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Mar 31", edge: "PUTT#6. V25 SG:TOT#8.", status: "Open" },
     { num: 13, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 10, placed: "Mar 31", edge: "Si Woo/Hisatsune/Olesen/Smalley/Novak/Svensson", status: "Open" },
+    { num: 14, player: "Hideki Matsuyama", market: "Outright", terms: "1/4 5pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 1", edge: "30% BOOST. APP+ARG dual. Expert #4.", status: "Open" },
+    { num: 15, player: "Alex Noren", market: "Outright", terms: "1/5 8pl", odds: "+3300", book: "b365", stake: 10, placed: "Apr 1", edge: "TAILWIND 1.24. Wind #6. Andy2 #4.", status: "Open" },
+    { num: 16, player: "Christiaan Bezuidenhout", market: "Outright", terms: "1/5 8pl", odds: "+6000", book: "b365", stake: 10, placed: "Apr 1", edge: "4 signals. ARG#7 PUTT#7. TAILWIND.", status: "Open" },
+    { num: 17, player: "Bud Cauley", market: "Outright", terms: "1/5 8pl", odds: "+10000", book: "b365", stake: 10, placed: "Apr 1", edge: "TAILWIND 1.50. V25 SG:TOT#7.", status: "Open" },
 ];
 
 // Player rotation data
