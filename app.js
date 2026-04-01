@@ -522,7 +522,7 @@ function loadTournament(key) {
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
         // Analysis Log — ALL notes, sorted by timestamp (newest first)
-        var tsOrder = {'Apr 1':13,'Mar 31 Eve':12,'Mar 31 PM':11,'Mar 31 AM':10,'Mar 31':9,'Mar 30 Eve':8,'Mar 30 PM':7,'Mar 30 AM':6,'Mar 30':5,'Mar 29':4,'Mar 28':3,'':0};
+        var tsOrder = {'Apr 1 PM':14,'Apr 1':13,'Mar 31 Eve':12,'Mar 31 PM':11,'Mar 31 AM':10,'Mar 31':9,'Mar 30 Eve':8,'Mar 30 PM':7,'Mar 30 AM':6,'Mar 30':5,'Mar 29':4,'Mar 28':3,'':0};
         var allNotes = t.notes.slice().sort(function(a,b) {
             var aOrd = tsOrder[a.ts||''] || 0;
             var bOrd = tsOrder[b.ts||''] || 0;
@@ -830,8 +830,8 @@ function loadTournament(key) {
     const nb = document.getElementById('narrative-body');
     if (nb) nb.innerHTML = '';
     if (t.narratives && t.narratives.length) {
-        t.narratives.sort((a,b)=>b.count-a.count).forEach(p => { nb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${ck(p.noonan)}${ck(p.klos)}${ck(p.mayo)}${ck(p.stewart)}${ck(p.titanic)}<td><strong class="${p.count>=3?'pos':''}">${p.count}</strong></td><td>#${p.rank}</td></tr>`; });
-    } else { nb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with analysis</td></tr>'; }
+        t.narratives.sort((a,b)=>b.count-a.count).forEach(p => { nb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${ck(p.noonan)}${ck(p.klos)}${ck(p.mayo)}${ck(p.stewart)}${ck(p.titanic)}${ck(p.action)}<td><strong class="${p.count>=3?'pos':''}">${p.count}</strong></td><td>#${p.rank}</td></tr>`; });
+    } else { nb.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with analysis</td></tr>'; }
 
     // Bets rendering moved to My Betting tab
 }
