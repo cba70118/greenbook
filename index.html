@@ -63,13 +63,6 @@
     <section id="thecut" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.25rem">The Cut</h2>
 
-        <!-- Live Tracker -->
-        <div class="card">
-            <h3>Live Tracker</h3>
-            <p class="card-subtitle">DraftKings / IMG Arena live leaderboard and shot-level data</p>
-            <iframe src="https://draftkings.apps.imgarena.com/golf/6.x/full/?eventId=1381&operator=draftkings&theme=default&language=en&env=prod&targetModule=full&options=eyJ2aWRlb1BsYXliYWNrRW5hYmxlZCI6dHJ1ZX0=" style="width:100%;height:700px;border:1px solid var(--border);border-radius:6px;background:#111" allowfullscreen></iframe>
-        </div>
-
         <!-- Row 1: This Week + Intel Feed -->
         <div class="grid-2">
             <div class="card">
@@ -112,6 +105,16 @@
         <div class="card">
             <h3>Field Snapshot</h3>
             <div id="cut-field-snapshot"></div>
+        </div>
+
+        <!-- Live Tracker (collapsible) -->
+        <div class="card" style="margin-top:0.75rem">
+            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed');var ifr=document.getElementById('cut-tracker');if(ifr&&!ifr.src&&ifr.dataset.src)ifr.src=ifr.dataset.src;">
+            <h3 style="display:inline">Live Tracker</h3> <span style="font-size:0.6rem;color:var(--cream-500);margin-left:0.5rem">DraftKings / IMG Arena</span><span class="collapsible-arrow">&#9660;</span></div>
+            <div class="collapsible-content collapsed">
+                <iframe id="cut-tracker" data-src="https://draftkings.apps.imgarena.com/golf/6.x/full/?eventId=1381&operator=draftkings&theme=default&language=en&env=prod&targetModule=full&options=eyJ2aWRlb1BsYXliYWNrRW5hYmxlZCI6dHJ1ZX0=" style="width:100%;height:500px;border:1px solid var(--border);border-radius:6px;background:#111;margin-top:0.5rem" allowfullscreen></iframe>
+                <p style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-700);margin-top:0.4rem">For full-screen view: <a href="leaderboard.html" style="color:var(--green-400)">Open Live Leaderboard</a></p>
+            </div>
         </div>
             <div style="margin-top:0.75rem">
                 <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
