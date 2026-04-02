@@ -56,7 +56,7 @@ document.addEventListener('click', function(e) {
 // Inject clickable name styles (inline to avoid CSS cache issues)
 (function(){
     var s = document.createElement('style');
-    s.textContent = '#app-content strong{cursor:pointer;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:2px;transition:color 0.15s}#app-content strong:hover{color:#c9a046;text-decoration-color:#c9a046}';
+    s.textContent = '#app-content strong{cursor:pointer;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);text-underline-offset:2px;transition:color 0.15s}#app-content strong:hover{color:#c9a046;text-decoration-color:#c9a046}#cut-link:hover,#lb-link:hover{background:var(--green-600)!important;color:#fff!important}';
     document.head.appendChild(s);
 })();
 
