@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Leaderboard — Greenbook</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a1a0f; font-family: 'DM Mono', 'Courier New', monospace; }
+        .topbar {
+            background: #0d2818;
+            border-bottom: 1px solid rgba(109,196,142,0.15);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; color: #e8dcc8; font-weight: 300; letter-spacing: 0.08em; }
+        .topbar h1 strong { font-weight: 700; }
+        .topbar a { color: #6dc48e; font-size: 0.65rem; text-decoration: none; border: 1px solid rgba(109,196,142,0.3); padding: 0.2rem 0.6rem; border-radius: 3px; }
+        .topbar a:hover { background: rgba(109,196,142,0.15); }
+        iframe { width: 100%; height: calc(100vh - 45px); border: none; background: #111; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="topbar">
+        <h1>GREEN<strong>BOOK</strong> <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:#6dc48e;margin-left:0.5rem">Live Leaderboard</span></h1>
+        <a href="index.html">Back to Dashboard</a>
+    </div>
+    <iframe src="https://draftkings.apps.imgarena.com/golf/6.x/full/?eventId=1381&operator=draftkings&theme=default&language=en&env=prod&targetModule=full&options=eyJ2aWRlb1BsYXliYWNrRW5hYmxlZCI6dHJ1ZX0=" allowfullscreen></iframe>
+</body>
+</html>

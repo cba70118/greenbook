@@ -85,16 +85,6 @@ document.addEventListener('click', function(e) {
         renderNewsTicker();
         window.scrollTo(0, 0);
     }
-    if (e.target.id === 'lb-link' || e.target.closest('#lb-link')) {
-        document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
-        document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
-        document.getElementById('liveleaderboard').classList.add('active');
-        try { sessionStorage.setItem('greenbook_tab', 'liveleaderboard'); } catch(ex){}
-        // Lazy-load iframe on first visit
-        var iframe = document.getElementById('lb-iframe');
-        if (iframe && !iframe.src && iframe.dataset.src) { iframe.src = iframe.dataset.src; }
-        window.scrollTo(0, 0);
-    }
 });
 
 function buildTheCut() {
@@ -354,11 +344,6 @@ try {
             savedPanel.classList.add('active');
             var savedBtn = document.querySelector('[data-section="'+savedTab+'"]');
             if (savedBtn) savedBtn.classList.add('active');
-            // Lazy-load leaderboard iframe if restoring that tab
-            if (savedTab === 'liveleaderboard') {
-                var iframe = document.getElementById('lb-iframe');
-                if (iframe && !iframe.src && iframe.dataset.src) iframe.src = iframe.dataset.src;
-            }
             if (savedTab === 'thecut') renderNewsTicker();
         }
     }
