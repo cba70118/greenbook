@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 169,
+    totalBets: 171,
     settled: 147,
-    open: 21,
+    open: 23,
     voided: 1,
-    staked: 1482.75,
+    staked: 1522.75,
     settledStaked: 1306.50,
-    openStaked: 176.25,
+    openStaked: 216.25,
     returned: 1276.25,
     pl: -30.25,
     roi: -2.3,
@@ -72,10 +72,12 @@ const HOUSTON_CARD = [
 ];
 
 const MASTERS_CARD = [
-    { num: 1, player: "Akshay Bhatia", market: "Outright", terms: "1/5 10pl", odds: "+5500", stake: 10, placed: "Mar 8", t10s: 0, comp: "#15", status: "Open" },
-    { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", stake: 20, placed: "Mar 8", t10s: 2, comp: "#33", status: "Open" },
-    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", stake: 10, placed: "Mar 27", t10s: 3, comp: "#18", status: "Open" },
-    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", stake: 10, placed: "Mar 27", t10s: 4, comp: "#53", status: "Open" },
+    { num: 1, player: "Akshay Bhatia", market: "Outright", terms: "1/5 10pl", odds: "+5500", book: "b365", stake: 10, placed: "Mar 8", t10s: 0, comp: "#15", status: "Open" },
+    { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", book: "b365", stake: 20, placed: "Mar 8", t10s: 2, comp: "#23", status: "Open" },
+    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Mar 27", t10s: 3, comp: "#19", status: "Open" },
+    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Mar 27", t10s: 4, comp: "#29", status: "Open" },
+    { num: 5, player: "Russell Henley", market: "Prop", terms: "Top 20", odds: "+102", book: "DK", stake: 20, placed: "Apr 5", t10s: 1, comp: "#8", status: "Open" },
+    { num: 6, player: "Corey Conners", market: "Prop", terms: "Top 20", odds: "+172", book: "DK", stake: 20, placed: "Apr 5", t10s: 4, comp: "#12", status: "Open" },
 ];
 
 const VALERO_CARD = [
