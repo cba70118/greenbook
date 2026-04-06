@@ -489,47 +489,38 @@ function loadTournament(key) {
         const colors = { like: 'pos', bet: 'pos', fade: 'neg', watch: 'form-warm', process: 'form-neutral' };
         const labels = { like: 'LIKE', bet: 'ON CARD', fade: 'FADE', watch: 'WATCH', process: 'PROCESS' };
 
-        var playerNotes = t.notes.filter(n => n.type === 'like' || n.type === 'bet' || n.type === 'fade');
+        // Player Board — pull actual bets from MASTERS_CARD, likes/fades from notes
+        var likesFades = t.notes.filter(n => n.type === 'like' || n.type === 'fade');
 
-        // Player Board — simple summary (bets first, then likes, then fades)
-        var typeOrder = ['bet', 'like', 'fade'];
-        playerNotes.sort((a, b) => typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type));
-
-        if (boardEl && playerNotes.length) {
+        if (boardEl) {
             if (boardCard) boardCard.style.display = '';
-            playerNotes.forEach(n => {
+            // First: render actual card bets from MASTERS_CARD
+            var actualCard = typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
+            var openBets = actualCard.filter(function(b){return b.status === 'Open'});
+            openBets.forEach(function(b) {
+                var market = (b.market || '').toLowerCase();
+                var isFRL = market.indexOf('frl') >= 0;
+                var isT10 = market.indexOf('top 10') >= 0 || market.indexOf('eor1') >= 0;
+                var isT20 = (b.terms || '').indexOf('Top 20') >= 0;
+                var label = isFRL ? 'FRL' : isT10 ? 'T10' : isT20 ? 'T20' : 'ON CARD';
+                var cls = isFRL ? '' : isT10 ? '' : isT20 ? '' : 'pos';
+                var badgeColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-400)';
+                var meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + badgeColor + '">' + b.odds + ' ' + (b.book||'') + ' $' + b.stake + '</span>';
+                boardEl.innerHTML += '<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge" style="flex-shrink:0;color:' + badgeColor + '">&#10003; ' + label + '</span><strong>' + b.player + '</strong>' + meta + '</div>';
+            });
+            // Then: render likes and fades from notes (deduplicated by player)
+            var seen = {};
+            likesFades.forEach(n => {
+                var key = (n.player||'') + '_' + n.type;
+                if (seen[key]) return;
+                seen[key] = true;
                 var icon = icons[n.type] || '';
                 var cls = colors[n.type] || '';
                 var label = labels[n.type] || '';
                 const playerLine = n.player ? `<strong>${n.player}</strong>` : '';
-                // Bet context: odds + book + tier inline
-                var meta = '';
-                if (n.type === 'bet') {
-                    var txt = n.text || '';
-                    var oddsMatch = txt.match(/\+\d{3,}/);
-                    var odds = oddsMatch ? oddsMatch[0] : '';
-                    var book = '';
-                    if (txt.toLowerCase().indexOf('b365') >= 0 || txt.toLowerCase().indexOf('bet365') >= 0) book = 'b365';
-                    else if (txt.toLowerCase().indexOf('dk') >= 0 || txt.toLowerCase().indexOf('draftkings') >= 0) book = 'DK';
-                    else if (txt.toLowerCase().indexOf('fd') >= 0 || txt.toLowerCase().indexOf('fanduel') >= 0) book = 'FD';
-                    var tier = '';
-                    var txtL = txt.toLowerCase();
-                    // Detect FRL
-                    var isFRL = txtL.indexOf('frl') >= 0 || txtL.indexOf('first round') >= 0;
-                    if (txtL.indexOf('dart') >= 0 || txtL.indexOf('micro') >= 0 || txtL.indexOf('$1.') >= 0 || txtL.indexOf('$2.') >= 0) tier = 'dart';
-                    else if (txtL.indexOf('$5') >= 0) tier = isFRL ? 'frl' : 'mid';
-                    else if (txtL.indexOf('$10') >= 0 || txtL.indexOf('$20') >= 0) tier = 'core';
-                    var tierColor = tier === 'core' ? 'var(--green-400)' : tier === 'frl' ? '#6ba3d6' : tier === 'mid' ? 'var(--brass-400)' : 'var(--cream-500)';
-                    var parts = [];
-                    if (odds) parts.push(odds);
-                    if (book) parts.push(book);
-                    if (tier) parts.push(tier === 'frl' ? 'FRL' : tier);
-                    meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + tierColor + '">' + parts.join(' ') + '</span>';
-                    // Override badge label for FRL bets
-                    if (isFRL) { label = 'FRL'; cls = ''; }
-                }
-                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}${meta}</div>`;
+                boardEl.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge ${cls}" style="flex-shrink:0">${icon} ${label}</span>${playerLine}</div>`;
             });
+            if (!openBets.length && !likesFades.length && boardCard) boardCard.style.display = 'none';
         } else if (boardCard) { boardCard.style.display = 'none'; }
 
         // Analysis Log — ALL notes, sorted by timestamp (newest first)
