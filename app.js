@@ -137,7 +137,8 @@ function buildTheCut() {
 
         // WDs
         if (typeof PLAYER_STATUS !== 'undefined') {
-            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && s.status.indexOf('Valero') >= 0});
+            var currentName = t ? (t.name || '').split(' ')[0] : '';
+            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && (currentName && s.status.indexOf(currentName) >= 0 || s.status.indexOf('Masters') >= 0)});
             if (wds.length) {
                 html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">Withdrawals</div>';
                 html += '<div style="margin-bottom:0.5rem">' + wds.map(function(w){
