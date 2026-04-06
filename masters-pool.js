@@ -182,8 +182,12 @@ function renderPoolPicks() {
     container.innerHTML = html;
 }
 
-// Init on page load
-if (document.getElementById('pool-tiers')) {
-    renderPoolTiers();
-    renderPoolPicks();
-}
+// Init when tab becomes visible
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.nav-btn[data-section="masterspool"]');
+    if (btn) {
+        setTimeout(function() { renderPoolTiers(); renderPoolPicks(); }, 50);
+    }
+});
+// Also try on load in case tab is already active
+try { if (document.getElementById('pool-tiers') && document.getElementById('masterspool').classList.contains('active')) { renderPoolTiers(); renderPoolPicks(); } } catch(ex) {}
