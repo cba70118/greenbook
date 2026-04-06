@@ -969,6 +969,7 @@ const TOURNAMENT_DATA = {
             { type: "process", ts:"Apr 5 R4", text: "FAILURE ANALYSIS: (1) FRL-only structure on Olesen/Hisatsune was the critical error — both finished in placement range but we had zero outright on them. (2) Cauley R3-R4 fade: T3->T21 in 2 rounds. The R4 grinder-fade hypothesis adds another data point. (3) McCarthy MC validates that 1.83x TAILWIND from very low SG:TOT base doesn't override poor skill. (4) Spaun was comp #30, DG warm 1.09 — we liked him but didn't bet. Process identified him, conviction didn't follow." },
             { type: "process", ts:"Apr 3", text: "WEEKEND WEATHER REMINDER: R3 Sat SEVERE (82% rain PM, front at 6pm). R4 Sun BRUTAL (51F, NNE 20mph gusts 38). Grinders + wind players get rewarded. Olesen (wind specialist), Noren (TAILWIND + wind), Cauley (TAILWIND 1.49) all profile well for tough conditions. MacIntyre clear leader at 53% win." },
         ],
+        result2026: { winner:"J.J. Spaun", score:"-11", odds:"50/1", why:"2022 champion returned. DG warm 1.09x, comp #30. We liked him but didn't bet. Process identified, conviction didn't follow.", record:"0W-17L | -$126.25 | -100% ROI" },
         densityCheck: { profiled: 6, total: 30, pct: 20, status: "HEALTHY" },
         radarAxes: ["APP", "ARG", "OTT", "Wind Mgmt", "PUTT", "Par 5 Scoring"],
         winnerProfile: [85, 75, 72, 80, 68, 70],

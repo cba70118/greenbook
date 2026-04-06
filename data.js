@@ -24,6 +24,7 @@ const TOURNAMENTS = [
     { name: "Players", bets: 17, staked: 125, returned: 15, pl: -110, phase: 2 },
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
     { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
+    { name: "Valero", bets: 17, staked: 126.25, returned: 0, pl: -126.25, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
