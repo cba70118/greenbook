@@ -121,17 +121,20 @@ function buildTheCut() {
     if (otw && t) {
         var html = '';
 
-        // On Card chips
-        var bets = (t.notes || []).filter(function(n){return n.type==='bet'});
-        if (bets.length) {
-            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + bets.length + ')</div>';
-            html += '<div style="margin-bottom:0.5rem">' + bets.map(function(b){
-                var txt = (b.text || '').toLowerCase();
-                var isFRL = txt.indexOf('frl') >= 0 || txt.indexOf('first round') >= 0;
-                var borderColor = isFRL ? '#6ba3d6' : 'var(--green-500)';
-                var textColor = isFRL ? '#6ba3d6' : 'var(--green-300)';
-                var suffix = isFRL ? ' <span style="font-size:0.5rem;opacity:0.7">FRL</span>' : '';
-                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid ' + borderColor + ';border-radius:3px;color:' + textColor + '"><strong>' + (b.player||'') + '</strong>' + suffix + '</span>';
+        // On Card chips — pull from actual card data, not notes
+        var cardData = typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
+        var openBets = cardData.filter(function(b){return b.status === 'Open'});
+        if (openBets.length) {
+            html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + openBets.length + ')</div>';
+            html += '<div style="margin-bottom:0.5rem">' + openBets.map(function(b){
+                var market = (b.market || '').toLowerCase();
+                var isFRL = market.indexOf('frl') >= 0;
+                var isT10 = market.indexOf('top 10') >= 0 || market.indexOf('eor1') >= 0;
+                var isT20 = market.indexOf('top 20') >= 0 || (b.terms || '').indexOf('Top 20') >= 0;
+                var borderColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-500)';
+                var textColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-300)';
+                var suffix = isFRL ? ' <span style="font-size:0.5rem;opacity:0.7">FRL</span>' : isT10 ? ' <span style="font-size:0.5rem;opacity:0.7">T10</span>' : isT20 ? ' <span style="font-size:0.5rem;opacity:0.7">T20</span>' : ' <span style="font-size:0.5rem;opacity:0.7">E/W</span>';
+                return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid ' + borderColor + ';border-radius:3px;color:' + textColor + '"><strong>' + b.player + '</strong>' + suffix + '</span>';
             }).join('') + '</div>';
         }
 
