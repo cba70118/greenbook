@@ -1767,7 +1767,7 @@ function renderLiveOdds(key) {
 }
 
 document.getElementById('odds-tourney').addEventListener('change', function(e) { renderLiveOdds(e.target.value); });
-renderLiveOdds('valero');
+renderLiveOdds('masters');
 
 renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.onNotice,'soft-players');

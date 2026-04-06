@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=19">
+    <link rel="stylesheet" href="style.css?v=20">
 
 </head>
 <body>
@@ -153,8 +153,9 @@
 
         <!-- Tournament Nav -->
         <div class="timeline-strip">
-            <div class="timeline-btn settled recent" data-t="valero"><span class="tl-name">Valero</span><span class="tl-settled-result">Spaun -11</span></div>
+            <div class="timeline-btn settled recent" data-t="valero"><span class="tl-name">Valero</span><span class="tl-settled-result">Spaun -17</span></div>
             <div class="timeline-btn upcoming live" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
+            <div class="timeline-btn upcoming" data-t="rbcheritage"><span class="tl-name">RBC Heritage</span><span class="tl-date">Apr 17</span></div>
             <div class="tl-divider"></div>
             <div class="timeline-btn settled recent" data-t="houston"><span class="tl-name">Houston</span><span class="tl-settled-result">Woodland -21</span></div>
             <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-settled-result">Fitzpatrick -11</span></div>
@@ -473,8 +474,9 @@
             <h3>Outright Win Market</h3>
             <div style="margin-bottom:1rem">
                 <select id="odds-tourney" class="calc-input" style="max-width:280px">
-                    <option value="valero" selected>Valero Texas Open</option>
-                    <option value="masters">The Masters</option>
+                    <option value="masters" selected>The Masters</option>
+                    <option value="rbcheritage">RBC Heritage</option>
+                    <option value="valero">Valero Texas Open</option>
                 </select>
             </div>
             <table class="data-table" id="live-odds-table">
@@ -626,6 +628,7 @@
             <p class="card-subtitle">Composite-implied fair odds vs book price.</p>
             <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
                 <option value="masters">Masters</option>
+                <option value="rbcheritage">RBC Heritage</option>
                 <option value="valero">Valero Texas Open</option>
             </select>
             <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
@@ -654,21 +657,21 @@
                     <tr><td>Valspar Championship</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$85.00</td><td>$0.00</td><td class="neg">-$85.00</td></tr>
                     <tr><td>Houston Open</td><td>11</td><td>1</td><td>10</td><td>0</td><td>$130.00</td><td>$72.00</td><td class="neg">-$58.00</td></tr>
                     <tr><td>Valero Texas Open</td><td>17</td><td>-</td><td>-</td><td>17</td><td>$126.25</td><td>-</td><td>Upcoming</td></tr>
-                    <tr><td>The Masters</td><td>6</td><td>-</td><td>-</td><td>6</td><td>$90.00</td><td>-</td><td>Upcoming</td></tr>
-                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>171</td><td>12</td><td>153</td><td>6</td><td>$1,522.75</td><td>$1,319.45</td><td>TBD</td></tr>
                     <tr><td>Valero Texas Open</td><td>17</td><td>1</td><td>16</td><td>0</td><td>$126.25</td><td>$43.20</td><td class="neg">-$83.05</td></tr>
-                    <tr style="font-weight:700"><td>Settled Only</td><td>165</td><td>12</td><td>153</td><td>-</td><td>$1,432.75</td><td>$1,319.45</td><td class="neg">-$113.30</td></tr>
+                    <tr><td>The Masters</td><td>9</td><td>-</td><td>-</td><td>9</td><td>$130.00</td><td>-</td><td>Upcoming</td></tr>
+                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>174</td><td>13</td><td>151</td><td>9</td><td>$1,562.75</td><td>$1,362.65</td><td>TBD</td></tr>
+                    <tr style="font-weight:700"><td>Settled Only</td><td>164</td><td>13</td><td>151</td><td>-</td><td>$1,432.75</td><td>$1,319.45</td><td class="neg">-$113.30</td></tr>
                 </tbody>
             </table>
         </div>
 
         <!-- Key Numbers -->
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-value">171</div><div class="stat-label">Total Bets</div></div>
+            <div class="stat-card"><div class="stat-value">174</div><div class="stat-label">Total Bets</div></div>
             <div class="stat-card negative"><div class="stat-value">-$113.30</div><div class="stat-label">Settled P/L</div></div>
             <div class="stat-card"><div class="stat-value">-7.9%</div><div class="stat-label">ROI (settled)</div></div>
-            <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Winners</div></div>
-            <div class="stat-card"><div class="stat-value">7.5%</div><div class="stat-label">Win Rate</div></div>
+            <div class="stat-card"><div class="stat-value">13</div><div class="stat-label">Winners</div></div>
+            <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Open Bets</div></div>
             <div class="stat-card"><div class="stat-value">23</div><div class="stat-label">Open Bets</div></div>
         </div>
         <div class="grid-2">
@@ -813,16 +816,16 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=19"></script>
-    <script src="data.js?v=19"></script>
-    <script src="tournament-data.js?v=19"></script>
-    <script src="settled-data.js?v=19"></script>
-    <script src="masters-odds.js?v=19"></script>
-    <script src="valero-odds.js?v=19"></script>
-    <script src="tools-data.js?v=19"></script>
-    <script src="news-feed.js?v=19"></script>
-    <script src="app.js?v=19"></script>
-    <script src="masters-pool.js?v=19"></script>
-    <script src="tools.js?v=19"></script>
+    <script src="auth.js?v=20"></script>
+    <script src="data.js?v=20"></script>
+    <script src="tournament-data.js?v=20"></script>
+    <script src="settled-data.js?v=20"></script>
+    <script src="masters-odds.js?v=20"></script>
+    <script src="valero-odds.js?v=20"></script>
+    <script src="tools-data.js?v=20"></script>
+    <script src="news-feed.js?v=20"></script>
+    <script src="app.js?v=20"></script>
+    <script src="masters-pool.js?v=20"></script>
+    <script src="tools.js?v=20"></script>
 </body>
 </html>
