@@ -1,16 +1,16 @@
 // Season data
 const SEASON = {
     totalBets: 171,
-    settled: 164,
+    settled: 165,
     open: 6,
     voided: 1,
     staked: 1522.75,
     settledStaked: 1432.75,
     openStaked: 90.00,
-    returned: 1276.25,
-    pl: -156.50,
-    roi: -10.9,
-    winners: 11
+    returned: 1319.45,
+    pl: -113.30,
+    roi: -7.9,
+    winners: 12
 };
 
 const TOURNAMENTS = [
@@ -24,7 +24,7 @@ const TOURNAMENTS = [
     { name: "Players", bets: 17, staked: 125, returned: 15, pl: -110, phase: 2 },
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
     { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
-    { name: "Valero", bets: 17, staked: 126.25, returned: 0, pl: -126.25, phase: 2, status: "settled" },
+    { name: "Valero", bets: 17, staked: 126.25, returned: 43.20, pl: -83.05, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
