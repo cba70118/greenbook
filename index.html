@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=23">
+    <link rel="stylesheet" href="style.css?v=24">
 
 </head>
 <body>
@@ -45,7 +45,7 @@
 
     <!-- ═══ NOTES ═══ -->
     <div class="notes-bar" id="notes-bar">
-        <div class="notes-entry notes-latest"><span class="notes-date">Apr 8</span>DG FLIPPED TO MASTERS. 23 form signals loaded. TAILWIND: Rose 1.98x (highest), Spieth 1.75x, Matsuyama 1.50x, Reed 1.50x, Day 1.29x, Rahm 1.28x, Fitzpatrick 1.24x. HEADWIND: Bhatia 0.73x (ON CARD), Gotterup 0.76x, Bridgeman 0.74x (debutants). Rick Rungood + Mayo article narratives added. DFS Lineup 1 built ($50K exact). 9 bets ($130).</div>
+        <div class="notes-entry notes-latest"><span class="notes-date">Apr 8</span>FULL UPDATE: 11 bets ($145). DG form signals live (23 players). Mayo 17-trend: only Fitz/Schauffele/Fleetwood survive all. Skratch +1.7 T2G filter: 11 qualifiers (no card outrights). DG E/W analysis: Fleetwood +5.1% EV, Scott +7.7% EV. DFS lineups rebuilt ($50K). Rick/Mayo/Klos narratives loaded. New greens 11/14/16. Kim FRL +9000 added. Hojgaard FRL +5000 added.</div>
         <div class="notes-entry"><span class="notes-date">Apr 8</span>Rose stack added: EoR1 T10 +280 (DK) + FRL +3000 E/W 1/4 5pl (b365). 4x FRL winner at Augusta, 2025 runner-up. Klos narrative confirms our framework. Top English +370 flagged. Rick model: Scott #5, Fitz #6, Fleetwood #8, Rose #9.</div>
         <div class="notes-entry"><span class="notes-date">Apr 6</span>MASTERS WEEK. Weather: R1 77F calm, R2 83F benign (scoring day), R3 84F calm. No severe weather = -10 to -12 winning score. Field 91 confirmed.</div>
         <div class="notes-entry"><span class="notes-date">Apr 5</span>MASTERS INTEL: Mayo 7-trend = only Fleetwood survives all filters. 5 RH models loaded. GBS: Rahm #1 pick, Cam Young 25/1, English 150/1. Tindall live: Rahm 76/79. Bamford: distance + par-4 BoB = key stats. FRL: need 65 to lead, no debutant since 2007.</div>
@@ -599,28 +599,27 @@
     <section id="activebets" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.5rem">Active Bets</h2>
 
-        <!-- Valero (Upcoming) -->
-        <div class="card">
-            <h3>Valero Texas Open <span class="badge upcoming">APR 2</span></h3>
-            <p class="card-subtitle">Augusta National | Apr 10-13 | 11 bets</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-valero"></tbody></table>
-        </div>
-
-        <!-- Masters (Upcoming) -->
-        <div class="card">
-            <h3>The Masters <span class="badge upcoming">APR 10</span></h3>
-            <p class="card-subtitle">Augusta National | Apr 10-13 | 4 bets</p>
+        <!-- Masters (Active) -->
+        <div class="card" style="border-left:3px solid var(--green-500)">
+            <h3>The Masters <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">LIVE | APR 10-13</span></h3>
+            <p class="card-subtitle">Augusta National | 11 bets | $145 staked</p>
             <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-masters"></tbody></table>
         </div>
 
-        <!-- Recently Settled -->
-        <div class="card" style="border-left:2px solid var(--green-800);opacity:0.85">
+        <!-- Previously Settled -->
+        <div class="card" style="border-left:2px solid var(--border);opacity:0.8">
             <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Houston Open <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--green-500);font-weight:400">SETTLED | Woodland -21 | 1W-10L | -$58</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Finish</th><th>Result</th></tr></thead>
+            <h3>Previous Tournaments <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);font-weight:400">Season History</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+
+            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:0.75rem 0 0.25rem;font-family:var(--font-mono)">Valero Texas Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Spaun -17 | 1W-16L | -$83.05</span></h4>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
+            <tbody id="ab-valero"></tbody></table>
+
+            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:1rem 0 0.25rem;font-family:var(--font-mono)">Houston Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Woodland -21 | 1W-10L | -$58</span></h4>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-houston"></tbody></table>
+
         </div></div>
 
         <!-- Odds Board -->
@@ -713,81 +712,81 @@
     <!-- ═══ DFS ═══ -->
     <section id="dfs" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Daily Fantasy</h2>
-        <p class="card-subtitle" style="margin-bottom:1.5rem">DraftKings analysis for Valero Texas Open. RH model composite + DK salary.</p>
+        <p class="card-subtitle" style="margin-bottom:1.5rem">The Masters 2026 | Augusta National | Betsperts model + DK salary | Augusta-weighted scoring (APP 35%, T2G 25%, ARG 20%, PUTT 10%, TOT 10%)</p>
 
         <div class="grid-2">
             <div class="card">
-                <h3>Smash Plays</h3>
-                <p class="card-subtitle">RH top-15 + under $8.5K = best value per dollar.</p>
+                <h3>Augusta Fit Plays</h3>
+                <p class="card-subtitle">APP top 15 + TOT top 25 = elite Augusta profile at value salary.</p>
                 <div style="font-size:0.75rem">
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Ryo Hisatsune</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,300</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#4 | 10.1 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Sudarshan Yellamaraju</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,100</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#8 | 9.9 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Alex Smalley</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,600</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#12 | 9.7 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Thorbjorn Olesen</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,800</span> <span style="font-family:var(--font-mono);color:var(--green-400)">RH#15 | 9.2 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Si Woo Kim</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,800</span> <span style="font-family:var(--font-mono);color:var(--green-400)">APP#1 | T2G#2 | TOT#7</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Akshay Bhatia</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,800</span> <span style="font-family:var(--font-mono);color:var(--green-400)">APP#8 | PUTT#4 | TOT#14</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Adam Scott</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,200</span> <span style="font-family:var(--font-mono);color:var(--green-400)">APP#2 | T2G#13 | TOT#19</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Ryan Gerard</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$6,800</span> <span style="font-family:var(--font-mono);color:var(--green-400)">APP#4 | T2G#15 | TOT#15</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>N. Hojgaard</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,500</span> <span style="font-family:var(--font-mono);color:var(--green-400)">APP#10 | T2G#12 | TOT#5</span></div>
                 </div>
             </div>
             <div class="card">
-                <h3>Leverage Plays</h3>
-                <p class="card-subtitle">RH top-25 + under $7.5K = low ownership, high upside.</p>
+                <h3>Key Filters</h3>
+                <p class="card-subtitle">Cross-source validation for Masters DFS.</p>
                 <div style="font-size:0.75rem">
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Austin Smotherman</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,000</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#19 | 9.6 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Jesper Svensson</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$6,800</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#21 | 9.6 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>David Ford</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$6,700</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#22 | 9.6 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>John Parry</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,200</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#20 | 9.2 pts/$1K</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Mac Meissner</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,300</span> <span style="font-family:var(--font-mono);color:var(--brass-400)">RH#24 | 8.7 pts/$1K</span></div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--green-400)"><strong>+1.7 SG:T2G (3mo)</strong> — 85% winner predictor. 11 qualify: Morikawa, Fitz, Si Woo, Rahm, Rory, Scheffler, Cam Young, Aberg, Min Woo, Gotterup, Straka</div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>DG Bomber Disadvantage</strong> — Since 2021, bombers underperform ~0.1 strokes/rd. Accuracy > distance. Favors: Fitz, Si Woo, Conners</div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>ARG > Putting</strong> — DG newsletter: winners since 2021 had ARG as strength, putting as weakest. Favors: Fleetwood ARG#1, Matsuyama ARG#9, Day ARG#3</div>
+                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>New Greens 2026</strong> — Holes 11, 14, 16 resodded. Firmer = high apex advantage, debutant disadvantage</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h3>Sample Lineups</h3>
-            <p class="card-subtitle">$50K salary cap. 6 players. Built from RH composite + course fit analysis.</p>
+            <h3>Optimized Lineups</h3>
+            <p class="card-subtitle">$50K salary cap. 6 players. Augusta-weighted optimization (Betsperts ranks). Core 4 appear in every top lineup.</p>
             <div class="grid-3" style="gap:1rem">
                 <div>
-                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">BALANCED ($48.9K)</div>
-                    <div style="font-size:0.7rem"><strong>Si Woo Kim</strong> $9.6K RH#1</div>
-                    <div style="font-size:0.7rem"><strong>Sepp Straka</strong> $9.2K RH#7</div>
-                    <div style="font-size:0.7rem"><strong>Ryo Hisatsune</strong> $8.3K RH#4</div>
-                    <div style="font-size:0.7rem"><strong>Thorbjorn Olesen</strong> $7.8K RH#15</div>
-                    <div style="font-size:0.7rem"><strong>John Parry</strong> $7.2K RH#20</div>
-                    <div style="font-size:0.7rem"><strong>Jesper Svensson</strong> $6.8K RH#21</div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--green-400);margin-bottom:0.3rem">OPTIMAL ($50,000 exact)</div>
+                    <div style="font-size:0.7rem"><strong>Fleetwood</strong> $9.3K T2G#3 ARG#1</div>
+                    <div style="font-size:0.7rem"><strong>Matsuyama</strong> $8.9K APP#11 ARG#9</div>
+                    <div style="font-size:0.7rem"><strong>Fitzpatrick</strong> $8.7K T2G#1 APP#5</div>
+                    <div style="font-size:0.7rem"><strong>Si Woo Kim</strong> $7.8K APP#1 T2G#2</div>
+                    <div style="font-size:0.7rem"><strong>Bhatia</strong> $7.8K APP#8 PUTT#4</div>
+                    <div style="font-size:0.7rem"><strong>N. Hojgaard</strong> $7.5K TOT#5 APP#10</div>
                 </div>
                 <div>
-                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">VALUE STACK ($46.7K)</div>
-                    <div style="font-size:0.7rem"><strong>Maverick McNealy</strong> $9.0K RH#3</div>
-                    <div style="font-size:0.7rem"><strong>Ryo Hisatsune</strong> $8.3K RH#4</div>
-                    <div style="font-size:0.7rem"><strong>Sudarshan Yellamaraju</strong> $8.1K RH#8</div>
-                    <div style="font-size:0.7rem"><strong>Alex Smalley</strong> $7.6K RH#12</div>
-                    <div style="font-size:0.7rem"><strong>Austin Smotherman</strong> $7.0K RH#19</div>
-                    <div style="font-size:0.7rem"><strong>David Ford</strong> $6.7K RH#22</div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);margin-bottom:0.3rem">CEILING GPP ($49,300)</div>
+                    <div style="font-size:0.7rem"><strong>Morikawa</strong> $9.5K APP#3 T2G#4</div>
+                    <div style="font-size:0.7rem"><strong>Fitzpatrick</strong> $8.7K T2G#1 APP#5</div>
+                    <div style="font-size:0.7rem"><strong>Gotterup</strong> $8.0K T2G#5 ARG#12</div>
+                    <div style="font-size:0.7rem"><strong>Si Woo Kim</strong> $7.8K APP#1 T2G#2</div>
+                    <div style="font-size:0.7rem"><strong>Bhatia</strong> $7.8K APP#8 PUTT#4</div>
+                    <div style="font-size:0.7rem"><strong>N. Hojgaard</strong> $7.5K TOT#5 APP#10</div>
                 </div>
                 <div>
-                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);margin-bottom:0.3rem">TOMMY ANCHOR ($47.4K)</div>
-                    <div style="font-size:0.7rem"><strong>Tommy Fleetwood</strong> $10.5K RH#5</div>
-                    <div style="font-size:0.7rem"><strong>Maverick McNealy</strong> $9.0K RH#3</div>
-                    <div style="font-size:0.7rem"><strong>Thorbjorn Olesen</strong> $7.8K RH#15</div>
-                    <div style="font-size:0.7rem"><strong>Jesper Svensson</strong> $6.8K RH#21</div>
-                    <div style="font-size:0.7rem"><strong>David Ford</strong> $6.7K RH#22</div>
-                    <div style="font-size:0.7rem"><strong>Adrien Saddier</strong> $6.6K RH#50</div>
+                    <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);margin-bottom:0.3rem">CAM YOUNG PIVOT ($49,900)</div>
+                    <div style="font-size:0.7rem"><strong>Cam Young</strong> $9.2K TOT#8 T2G#9</div>
+                    <div style="font-size:0.7rem"><strong>Matsuyama</strong> $8.9K APP#11 ARG#9</div>
+                    <div style="font-size:0.7rem"><strong>Fitzpatrick</strong> $8.7K T2G#1 APP#5</div>
+                    <div style="font-size:0.7rem"><strong>Si Woo Kim</strong> $7.8K APP#1 T2G#2</div>
+                    <div style="font-size:0.7rem"><strong>Bhatia</strong> $7.8K APP#8 PUTT#4</div>
+                    <div style="font-size:0.7rem"><strong>N. Hojgaard</strong> $7.5K TOT#5 APP#10</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h3>Core Plays (RH Top 10)</h3>
-            <p class="card-subtitle">Highest-floor players by RH composite. These are the anchors for any lineup.</p>
-            <table class="data-table"><thead><tr><th>RH</th><th>Player</th><th>DK Salary</th><th>Score</th><th>Pts/$1K</th></tr></thead>
+            <h3>Augusta Core (Betsperts Top 10)</h3>
+            <p class="card-subtitle">Highest Augusta-weighted score. APP 35% + T2G 25% + ARG 20% + PUTT 10% + TOT 10%.</p>
+            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>DK Salary</th><th>TOT</th><th>APP</th><th>T2G</th><th>ARG</th><th>PUTT</th></tr></thead>
             <tbody>
-                <tr><td>1</td><td><strong>Si Woo Kim</strong></td><td style="font-family:var(--font-mono)">$9,600</td><td>85.1</td><td class="pos">8.9</td></tr>
-                <tr><td>2</td><td><strong>Ludvig Aberg</strong></td><td style="font-family:var(--font-mono)">$10,100</td><td>84.8</td><td>8.4</td></tr>
-                <tr><td>3</td><td><strong>Maverick McNealy</strong></td><td style="font-family:var(--font-mono)">$9,000</td><td>84.4</td><td class="pos">9.4</td></tr>
-                <tr><td>4</td><td><strong>Ryo Hisatsune</strong></td><td style="font-family:var(--font-mono)">$8,300</td><td>84.2</td><td class="pos">10.1</td></tr>
-                <tr><td>5</td><td><strong>Tommy Fleetwood</strong></td><td style="font-family:var(--font-mono)">$10,500</td><td>83.9</td><td>8.0</td></tr>
-                <tr><td>6</td><td><strong>Russell Henley</strong></td><td style="font-family:var(--font-mono)">$9,800</td><td>81.3</td><td>8.3</td></tr>
-                <tr><td>7</td><td><strong>Sepp Straka</strong></td><td style="font-family:var(--font-mono)">$9,200</td><td>81.1</td><td class="pos">8.8</td></tr>
-                <tr><td>8</td><td><strong>Sudarshan Yellamaraju</strong></td><td style="font-family:var(--font-mono)">$8,100</td><td>80.0</td><td class="pos">9.9</td></tr>
-                <tr><td>9</td><td><strong>Jordan Spieth</strong></td><td style="font-family:var(--font-mono)">$9,500</td><td>79.2</td><td>8.3</td></tr>
-                <tr><td>10</td><td><strong>Rickie Fowler</strong></td><td style="font-family:var(--font-mono)">$8,800</td><td>74.7</td><td>8.5</td></tr>
+                <tr><td>1</td><td><strong>Matt Fitzpatrick</strong></td><td style="font-family:var(--font-mono)">$8,700</td><td>#8</td><td class="pos">#5</td><td class="pos">#1</td><td class="pos">#11</td><td>#46</td></tr>
+                <tr><td>2</td><td><strong>Si Woo Kim</strong></td><td style="font-family:var(--font-mono)">$7,800</td><td>#7</td><td class="pos">#1</td><td class="pos">#2</td><td>#22</td><td>#62</td></tr>
+                <tr><td>3</td><td><strong>Hideki Matsuyama</strong></td><td style="font-family:var(--font-mono)">$8,900</td><td>#13</td><td class="pos">#11</td><td>#16</td><td class="pos">#9</td><td>#24</td></tr>
+                <tr><td>4</td><td><strong>Akshay Bhatia</strong></td><td style="font-family:var(--font-mono)">$7,800</td><td>#14</td><td class="pos">#8</td><td>#18</td><td>#23</td><td class="pos">#4</td></tr>
+                <tr><td>5</td><td><strong>Nicolai Hojgaard</strong></td><td style="font-family:var(--font-mono)">$7,500</td><td class="pos">#5</td><td class="pos">#10</td><td>#12</td><td>#33</td><td>#11</td></tr>
+                <tr><td>6</td><td><strong>Rory McIlroy</strong></td><td style="font-family:var(--font-mono)">$11,600</td><td>#11</td><td class="pos">#15</td><td>#6</td><td class="pos">#13</td><td>#51</td></tr>
+                <tr><td>7</td><td><strong>Collin Morikawa</strong></td><td style="font-family:var(--font-mono)">$9,500</td><td>#12</td><td class="pos">#3</td><td class="pos">#4</td><td>#38</td><td>#49</td></tr>
+                <tr><td>8</td><td><strong>Chris Gotterup</strong></td><td style="font-family:var(--font-mono)">$8,000</td><td>#16</td><td>#22</td><td class="pos">#5</td><td class="pos">#12</td><td>#40</td></tr>
+                <tr><td>9</td><td><strong>Tommy Fleetwood</strong></td><td style="font-family:var(--font-mono)">$9,300</td><td>#17</td><td>#26</td><td class="pos">#3</td><td class="pos">#1</td><td>#57</td></tr>
+                <tr><td>10</td><td><strong>Xander Schauffele</strong></td><td style="font-family:var(--font-mono)">$9,600</td><td class="pos">#4</td><td class="pos">#12</td><td>#14</td><td>#41</td><td>#19</td></tr>
             </tbody></table>
         </div>
     </section>
@@ -817,16 +816,16 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=23"></script>
-    <script src="data.js?v=23"></script>
-    <script src="tournament-data.js?v=23"></script>
-    <script src="settled-data.js?v=23"></script>
-    <script src="masters-odds.js?v=23"></script>
-    <script src="valero-odds.js?v=23"></script>
-    <script src="tools-data.js?v=23"></script>
-    <script src="news-feed.js?v=23"></script>
-    <script src="app.js?v=23"></script>
-    <script src="masters-pool.js?v=23"></script>
-    <script src="tools.js?v=23"></script>
+    <script src="auth.js?v=24"></script>
+    <script src="data.js?v=24"></script>
+    <script src="tournament-data.js?v=24"></script>
+    <script src="settled-data.js?v=24"></script>
+    <script src="masters-odds.js?v=24"></script>
+    <script src="valero-odds.js?v=24"></script>
+    <script src="tools-data.js?v=24"></script>
+    <script src="news-feed.js?v=24"></script>
+    <script src="app.js?v=24"></script>
+    <script src="masters-pool.js?v=24"></script>
+    <script src="tools.js?v=24"></script>
 </body>
 </html>
