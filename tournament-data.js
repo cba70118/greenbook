@@ -219,7 +219,7 @@ const TOURNAMENT_DATA = {
             { rank:29, name:"Sam Burns", noonan:30, mayo:39, avg:34.5, note:"Streaky. +8000." },
             { rank:30, name:"Chris Gotterup", noonan:45, mayo:26, avg:35.5, note:"SPLIT: Mayo #26 vs Noonan #45. Debutant." },
         ],
-        rhModelNames: ["Noonan", "Mayo", "RH30", "RH31", "RH32"],
+        rhModelNames: ["Noonan", "Mayo", "RH30", "RH31", "RH32", "RH33", "RH34"],
         rhModels: [
             { name:"Scottie Scheffler", m1:1, m2:1, m3:1, m4:1, m5:4, m6:2, m7:2, meta:1.7, note:"Unanimous top 2 across all 7 models" },
             { name:"Rory McIlroy", m1:2, m2:4, m3:3, m4:2, m5:3, m6:1, m7:1, meta:2.3, note:"#1 in both new models. Defending champ risk." },

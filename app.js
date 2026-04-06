@@ -700,11 +700,17 @@ function loadTournament(key) {
             const d = t.densityCheck;
             document.getElementById('density-bar').innerHTML = `<span class="density-label">Profile Density: ${d.profiled}/${d.total} (${d.pct}%)</span><span class="density-status density-${d.status.toLowerCase()}">${d.status}</span><div class="density-track"><div class="density-fill" style="width:${d.pct}%"></div></div>`;
         }
+        // Detect format and update table header
+        var isMastersFormat = t.composite[0] && t.composite[0].comp == null && t.composite[0].avg != null;
+        var compTable = cb.closest('table');
+        if (compTable && isMastersFormat) {
+            var thead = compTable.querySelector('thead');
+            if (thead) thead.innerHTML = '<tr><th>Rk</th><th>Player</th><th>Avg Rank</th><th>Noonan</th><th>Mayo</th><th colspan="8">Note</th></tr>';
+        }
         t.composite.forEach(p => {
             // Detect Masters-style composite (has avg/noonan/mayo) vs standard (has comp/form/signal)
             if (p.comp == null && p.avg != null) {
-                // Masters 5-model composite format
-                cb.innerHTML += `<tr><td>${p.rank}</td><td><strong>${p.name}</strong></td><td>${p.avg}</td><td colspan="10" style="font-size:0.72rem;color:var(--cream-500)">${p.note||''}</td></tr>`;
+                cb.innerHTML += `<tr><td>${p.rank}</td><td><strong>${p.name}</strong></td><td style="font-family:var(--font-mono)">${p.avg}</td><td style="font-family:var(--font-mono)">${p.noonan||'-'}</td><td style="font-family:var(--font-mono)">${p.mayo||'-'}</td><td colspan="8" style="font-size:0.72rem;color:var(--cream-500)">${p.note||''}</td></tr>`;
                 return;
             }
             // Model fits as green dots instead of text codes
@@ -815,12 +821,13 @@ function loadTournament(key) {
     if (t.formSignals && t.formSignals.length) {
         if (formPlaceholder) formPlaceholder.style.display = 'none';
         if (formCanvas) formCanvas.style.display = '';
-        const sorted = [...t.formSignals].sort((a,b) => b.bhf - a.bhf);
+        // Support both field naming conventions: base/bhf (old) and baseline/histFit (new)
+        const sorted = [...t.formSignals].sort((a,b) => (b.bhf||b.histFit||0) - (a.bhf||a.histFit||0));
         formInst = new Chart(document.getElementById('form-chart'), {
             type:'bar', data: { labels: sorted.map(d=>d.name.split(' ').pop()),
             datasets: [
-                { label:'Baseline %', data:sorted.map(d=>d.base), backgroundColor:'rgba(168,152,128,0.3)', borderRadius:2 },
-                { label:'BHF %', data:sorted.map(d=>d.bhf), backgroundColor:sorted.map(d=> d.signal==='TAILWIND'?GREEN_BAR:d.signal==='warm'?'rgba(109,196,142,0.5)':d.signal==='cool'?'rgba(201,160,70,0.5)':d.signal==='HEADWIND'?RED_BAR:'rgba(168,152,128,0.5)'), borderRadius:2 }
+                { label:'Baseline %', data:sorted.map(d=>(d.base||d.baseline||0)), backgroundColor:'rgba(168,152,128,0.3)', borderRadius:2 },
+                { label:'BHF %', data:sorted.map(d=>(d.bhf||d.histFit||0)), backgroundColor:sorted.map(d=> d.signal==='TAILWIND'?GREEN_BAR:d.signal==='warm'?'rgba(109,196,142,0.5)':d.signal==='cool'?'rgba(201,160,70,0.5)':d.signal==='HEADWIND'?RED_BAR:'rgba(168,152,128,0.5)'), borderRadius:2 }
             ]}, options: { responsive:true, plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:9}}}}, scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:8}}}} }
         });
     } else {
@@ -835,10 +842,44 @@ function loadTournament(key) {
         t.weaknessMasked.forEach(p => { mb.innerHTML += `<tr><td>${p.name}</td><td>${p.weakness}</td><td class="${p.masked.startsWith('YES')?'pos':''}">${p.masked}</td><td>${p.strength}</td><td class="${p.amplified.startsWith('YES')?'pos':''}">${p.amplified}</td><td>#${p.rank}</td><td class="${sigCls(p.form.split(' ')[0])}">${p.form}</td><td>${p.verdict}</td></tr>`; });
     } else { mb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Weakness-masked analysis loads with tournament data</td></tr>'; }
 
-    // Narrative matrix
+    // Narrative matrix — build from narratives array
     const nb = document.getElementById('narrative-body');
+    const narrativeHeader = nb ? nb.closest('table').querySelector('thead') : null;
     if (nb) nb.innerHTML = '';
-    if (t.narratives && t.narratives.length) {
+    if (t.narratives && t.narratives.length && t.narratives[0].source) {
+        // New format: [{source, player, text, tier}] — build matrix dynamically
+        var sourceCols = {};
+        var playerData = {};
+        t.narratives.forEach(function(n) {
+            if (!n.player || n.player === 'Field') return;
+            var srcKey = (n.source || '').split('/')[0].split(' ')[0]; // First word of source
+            sourceCols[srcKey] = true;
+            if (!playerData[n.player]) playerData[n.player] = { sources: {}, count: 0 };
+            if (!playerData[n.player].sources[srcKey]) {
+                playerData[n.player].sources[srcKey] = n.tier || 'mid';
+                playerData[n.player].count++;
+            }
+        });
+        var sourceList = Object.keys(sourceCols).slice(0, 8); // Max 8 columns
+        // Update header
+        if (narrativeHeader) {
+            narrativeHeader.innerHTML = '<tr><th>Player</th>' + sourceList.map(function(s) { return '<th>' + s.substring(0, 5) + '</th>'; }).join('') + '<th>#</th></tr>';
+        }
+        // Sort by source count
+        var sorted = Object.entries(playerData).sort(function(a,b) { return b[1].count - a[1].count; });
+        sorted.forEach(function(entry) {
+            var name = entry[0], d = entry[1];
+            var cells = sourceList.map(function(src) {
+                var tier = d.sources[src];
+                if (!tier) return '<td style="color:var(--border)">-</td>';
+                var cls = tier === 'top' ? 'pos' : tier === 'fade' ? 'neg' : '';
+                var icon = tier === 'top' ? '&#9650;' : tier === 'fade' ? '&#9660;' : '&#9679;';
+                return '<td class="' + cls + '">' + icon + '</td>';
+            }).join('');
+            nb.innerHTML += '<tr><td><strong>' + name + '</strong></td>' + cells + '<td><strong class="' + (d.count >= 3 ? 'pos' : '') + '">' + d.count + '</strong></td></tr>';
+        });
+    } else if (t.narratives && t.narratives.length && t.narratives[0].count != null) {
+        // Old format: [{name, noonan, klos, mayo, stewart, titanic, action, count, rank}]
         t.narratives.sort((a,b)=>b.count-a.count).forEach(p => { nb.innerHTML += `<tr><td><strong>${p.name}</strong></td>${ck(p.noonan)}${ck(p.klos)}${ck(p.mayo)}${ck(p.stewart)}${ck(p.titanic)}${ck(p.action)}<td><strong class="${p.count>=3?'pos':''}">${p.count}</strong></td><td>#${p.rank}</td></tr>`; });
     } else { nb.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--cream-500);font-style:italic;padding:1rem">Narrative source data loads with analysis</td></tr>'; }
 
