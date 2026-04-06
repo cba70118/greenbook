@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 174,
+    totalBets: 175,
     settled: 164,
-    open: 9,
+    open: 10,
     voided: 1,
-    staked: 1562.75,
+    staked: 1572.75,
     settledStaked: 1432.75,
-    openStaked: 130.00,
+    openStaked: 140.00,
     returned: 1319.45,
     pl: -113.30,
     roi: -7.9,
@@ -83,6 +83,7 @@ const MASTERS_CARD = [
     { num: 7, player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 5", t10s: 1, comp: "#4", status: "Open" },
     { num: 8, player: "Justin Rose", market: "EoR1 Top 10", terms: "Win", odds: "+280", book: "DK", stake: 10, placed: "Apr 8", t10s: 0, comp: "-", status: "Open" },
     { num: 9, player: "Justin Rose", market: "FRL", terms: "E/W 1/4 5pl", odds: "+3000", book: "b365", stake: 10, placed: "Apr 8", t10s: 0, comp: "-", status: "Open" },
+    { num: 10, player: "Nicolai Hojgaard", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 8", t10s: 0, comp: "#5 TOT", status: "Open" },
 ];
 
 const VALERO_CARD = [
