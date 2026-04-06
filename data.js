@@ -505,22 +505,12 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "WD from Valero. Back injury. DG had him HEADWIND 0.69 all week. Masters status uncertain.", severity: "warning", updated: "Mar 31" },
-    { player: "Ryan Gerard", type: "rest", status: "Burned out from playing every week including international travel. WD from Valero. Taking time off before Masters.", severity: "info", updated: "Mar 28" },
-    { player: "Akshay Bhatia", type: "travel", status: "In India for Hero Indian Open (sponsor obligation). MC there. Flying back 2 weeks before Masters. Circadian rhythm concern.", severity: "caution", updated: "Mar 28" },
-    { player: "Pierceson Coody", type: "injury", status: "WD from Valero. Back injury. No Masters invite. Taylor Moore replaces.", severity: "warning", updated: "Mar 30" },
-    { player: "Scottie Scheffler", type: "rest", status: "WD from Houston (birth of second child). Preparing for Masters. Fully healthy.", severity: "info", updated: "Mar 25" },
-    { player: "Xander Schauffele", type: "injury", status: "Returning from early-season injury. Showed form at Valspar (T4). Putting rank 76th this year.", severity: "caution", updated: "Mar 22" },
-    { player: "Will Zalatoris", type: "injury", status: "Back from injury. First return at Houston. MC on the number. Approach play looked ok, driving and chipping did not.", severity: "caution", updated: "Mar 27" },
-    { player: "Nicolai Hojgaard", type: "rest", status: "WD from Valero. Masters prep after 2nd at Houston. Joel Dahmen replaces.", severity: "info", updated: "Mar 30" },
-    { player: "Michael Thorbjornsen", type: "motivation", status: "Finished T3 at Houston (-15). Should crack OWGR top 50 for Masters invite.", severity: "info", updated: "Mar 29" },
-    { player: "Gary Woodland", type: "rest", status: "WD from Valero. Masters prep after Houston win. Jackson Suber replaces.", severity: "info", updated: "Mar 30" },
-    { player: "Matti Schmid", type: "rest", status: "WD from Valero. Sam Ryder replaces.", severity: "info", updated: "Mar 30" },
-    { player: "Daniel Berger", type: "injury", status: "WD from Valero.", severity: "warning", updated: "Mar 31" },
-    { player: "Aaron Wise", type: "rest", status: "WD from Valero.", severity: "info", updated: "Mar 31" },
-    { player: "David Lipsky", type: "rest", status: "WD from Valero.", severity: "info", updated: "Mar 31" },
-    { player: "Jason Day", type: "form", status: "T9 at Houston (-13). Strong form heading into Masters where he has 4 T10s in 12 starts. We have him at +7000.", severity: "info", updated: "Mar 29" },
-    { player: "Sudarshan Yellamaraju", type: "form", status: "T8 Houston but DG now HEADWIND 0.72 for Valero. Form fading. Negative course fit (-0.080). On card at DK +14000.", severity: "caution", updated: "Mar 30" },
+    { player: "Collin Morikawa", type: "injury", status: "Masters: Back injury from Players R1. WD from Valero 2 days before. No updates since. Mayo: 'Maybe he's fine? Doesn't seem like it.' DG HEADWIND 0.94x.", severity: "warning", updated: "Apr 8" },
+    { player: "Scottie Scheffler", type: "rest", status: "Masters: Second child born ~2 weeks ago (kept private). 3-week layoff. APP collapsed to +0.08/rd (43rd in field). Not following typical Masters prep.", severity: "caution", updated: "Apr 8" },
+    { player: "Rory McIlroy", type: "injury", status: "Masters: Back injury WD from Arnold Palmer. Returned at Players — ball speed fine but -5.37 SG:PUTT (worst since 2024 St. Jude). Defending champ curse. DG TAILWIND 1.26x.", severity: "caution", updated: "Apr 8" },
+    { player: "Akshay Bhatia", type: "travel", status: "Masters: MC at Hero Indian Open in India between Players and Masters. Circadian rhythm concern. DG HEADWIND 0.73x. But 3rd APP, 3rd putting over last 20 rounds.", severity: "caution", updated: "Apr 8" },
+    { player: "Tiger Woods", type: "injury", status: "Masters: Not competing. 'Personal health matter.' First Masters without Tiger or Phil since 1994.", severity: "info", updated: "Apr 8" },
+    { player: "Phil Mickelson", type: "injury", status: "Masters: Not competing. Personal health matter. Missed most LIV events in 2026.", severity: "info", updated: "Apr 8" },
 ];
 
 // Course library
@@ -530,14 +520,14 @@ const COURSES = [
         archetype: "Second-shot + Short game", scoring: "Difficult", dataKey: "masters",
         topStats: ["SG:APP 150+", "Course History", "Carry Distance", "SG:ARG", "Par 5 BoB%"],
         masked: "Driving accuracy, seasonal putting", amplified: "Approach precision, short-grass ARG, Par 5 scoring",
-        bets: 4, pl: 0, status: "upcoming"
+        bets: 9, pl: 0, status: "live"
     },
     {
         name: "Memorial Park GC", event: "Houston Open", surface: "Poa Trivialis", length: "7,475 yds",
         archetype: "Second-shot + Bomber", scoring: "Hard", dataKey: "houston",
         topStats: ["SG:APP", "DrDist", "SG:ARG (short grass)", "SG:OTT", "Bogey Avoidance"],
         masked: "Driving accuracy (1.25in rough)", amplified: "Distance, approach 150+, short-grass scrambling",
-        bets: 11, pl: -40, status: "live"
+        bets: 11, pl: -58, status: "settled"
     },
     {
         name: "Innisbrook (Copperhead)", event: "Valspar Championship", surface: "Poa Trivialis", length: "7,352 yds",

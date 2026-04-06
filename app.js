@@ -137,10 +137,16 @@ function buildTheCut() {
 
         // WDs
         if (typeof PLAYER_STATUS !== 'undefined') {
-            var currentName = t ? (t.name || '').split(' ')[0] : '';
-            var wds = PLAYER_STATUS.filter(function(s){return s.status && s.status.indexOf('WD') >= 0 && (currentName && s.status.indexOf(currentName) >= 0 || s.status.indexOf('Masters') >= 0)});
+            var currentEvent = t ? (t.name || '') : '';
+            // Extract event keyword (e.g. "Masters" from "The Masters 2026")
+            var eventWords = currentEvent.replace(/^The\s+/i,'').replace(/\s*\d{4}$/,'').trim().split(' ');
+            var eventKey = eventWords[0] || '';
+            var wds = PLAYER_STATUS.filter(function(s){
+                if (!s.status || !eventKey) return false;
+                return s.status.indexOf(eventKey) >= 0 && (s.severity === 'warning' || s.severity === 'caution');
+            });
             if (wds.length) {
-                html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">Withdrawals</div>';
+                html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">Status Alerts</div>';
                 html += '<div style="margin-bottom:0.5rem">' + wds.map(function(w){
                     return '<span style="font-size:0.62rem;color:var(--cream-500)">' + w.player + '</span>';
                 }).join(' &middot; ') + '</div>';
