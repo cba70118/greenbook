@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=15">
+    <link rel="stylesheet" href="style.css?v=16">
 
 </head>
 <body>
@@ -36,6 +36,7 @@
             <button class="nav-btn" data-section="activebets">Active Bets</button>
             <button class="nav-btn" data-section="betting">Season P/L</button>
             <button class="nav-btn" data-section="dfs">DFS</button>
+            <button class="nav-btn" data-section="masterspool" style="color:var(--green-300);border-color:var(--green-600)">Masters Pool</button>
         </nav>
     </header>
 
@@ -790,6 +791,21 @@
         </div>
     </section>
 
+    <!-- ═══ MASTERS POOL ═══ -->
+    <section id="masterspool" class="panel">
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Masters Pool Picks</h2>
+        <p class="card-subtitle" style="margin-bottom:1.25rem">Pick 1 per tier. Best 4 of 6 combined to-par scores. Data from 5 RH models, Tindall trends, Noonan Augusta SG, Mayo trends, GBS model.</p>
+
+        <div id="pool-tiers"></div>
+
+        <!-- My Picks Summary -->
+        <div class="card" style="margin-top:1rem">
+            <h3>My Picks</h3>
+            <p class="card-subtitle">Click a player in any tier to select them. Your 6 picks appear here.</p>
+            <div id="pool-picks" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem"></div>
+        </div>
+    </section>
+
     <script>
     // Load sparkline data if available
     var SPARKLINES = {};
@@ -800,15 +816,16 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=15"></script>
-    <script src="data.js?v=15"></script>
-    <script src="tournament-data.js?v=15"></script>
-    <script src="settled-data.js?v=15"></script>
-    <script src="masters-odds.js?v=15"></script>
-    <script src="valero-odds.js?v=15"></script>
-    <script src="tools-data.js?v=15"></script>
-    <script src="news-feed.js?v=15"></script>
-    <script src="app.js?v=15"></script>
-    <script src="tools.js?v=15"></script>
+    <script src="auth.js?v=16"></script>
+    <script src="data.js?v=16"></script>
+    <script src="tournament-data.js?v=16"></script>
+    <script src="settled-data.js?v=16"></script>
+    <script src="masters-odds.js?v=16"></script>
+    <script src="valero-odds.js?v=16"></script>
+    <script src="tools-data.js?v=16"></script>
+    <script src="news-feed.js?v=16"></script>
+    <script src="app.js?v=16"></script>
+    <script src="masters-pool.js?v=16"></script>
+    <script src="tools.js?v=16"></script>
 </body>
 </html>
