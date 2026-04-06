@@ -500,9 +500,10 @@ function loadTournament(key) {
             openBets.forEach(function(b) {
                 var market = (b.market || '').toLowerCase();
                 var isFRL = market.indexOf('frl') >= 0;
-                var isT10 = market.indexOf('top 10') >= 0 || market.indexOf('eor1') >= 0;
+                var isEoR1 = market.indexOf('eor1') >= 0;
+                var isT10 = !isEoR1 && market.indexOf('top 10') >= 0;
                 var isT20 = (b.terms || '').indexOf('Top 20') >= 0;
-                var label = isFRL ? 'FRL' : isT10 ? 'T10' : isT20 ? 'T20' : 'ON CARD';
+                var label = isFRL ? 'FRL' : isEoR1 ? 'R1 T10' : isT10 ? 'T10' : isT20 ? 'T20' : 'ON CARD';
                 var cls = isFRL ? '' : isT10 ? '' : isT20 ? '' : 'pos';
                 var badgeColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-400)';
                 var meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + badgeColor + '">' + b.odds + ' ' + (b.book||'') + ' $' + b.stake + '</span>';
