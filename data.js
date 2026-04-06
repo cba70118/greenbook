@@ -1,15 +1,15 @@
 // Season data
 const SEASON = {
     totalBets: 171,
-    settled: 147,
-    open: 23,
+    settled: 164,
+    open: 6,
     voided: 1,
     staked: 1522.75,
-    settledStaked: 1306.50,
-    openStaked: 216.25,
+    settledStaked: 1432.75,
+    openStaked: 90.00,
     returned: 1276.25,
-    pl: -30.25,
-    roi: -2.3,
+    pl: -156.50,
+    roi: -10.9,
     winners: 11
 };
 
