@@ -238,7 +238,8 @@ function buildTheCut() {
             var top5 = t.composite.slice(0,5);
             html += '<div style="text-align:center"><div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Top 5 Composite</div>';
             top5.forEach(function(p) {
-                html += '<div style="font-size:0.72rem;padding:0.1rem 0"><strong>'+p.name+'</strong> <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500)">'+p.comp.toFixed(2)+'</span></div>';
+                var compVal = p.comp != null ? p.comp : p.avg != null ? p.avg : 0;
+                html += '<div style="font-size:0.72rem;padding:0.1rem 0"><strong>'+p.name+'</strong> <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500)">'+(typeof compVal === 'number' ? compVal.toFixed(2) : compVal)+'</span></div>';
             });
             html += '</div>';
         }
@@ -699,6 +700,12 @@ function loadTournament(key) {
             document.getElementById('density-bar').innerHTML = `<span class="density-label">Profile Density: ${d.profiled}/${d.total} (${d.pct}%)</span><span class="density-status density-${d.status.toLowerCase()}">${d.status}</span><div class="density-track"><div class="density-fill" style="width:${d.pct}%"></div></div>`;
         }
         t.composite.forEach(p => {
+            // Detect Masters-style composite (has avg/noonan/mayo) vs standard (has comp/form/signal)
+            if (p.comp == null && p.avg != null) {
+                // Masters 5-model composite format
+                cb.innerHTML += `<tr><td>${p.rank}</td><td><strong>${p.name}</strong></td><td>${p.avg}</td><td colspan="10" style="font-size:0.72rem;color:var(--cream-500)">${p.note||''}</td></tr>`;
+                return;
+            }
             // Model fits as green dots instead of text codes
             var spikeDots = '';
             if (p.spikes) {
