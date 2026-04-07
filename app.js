@@ -128,12 +128,17 @@ function buildTheCut() {
             html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + openBets.length + ')</div>';
             html += '<div style="margin-bottom:0.5rem">' + openBets.map(function(b){
                 var market = (b.market || '').toLowerCase();
+                var terms = (b.terms || '');
                 var isFRL = market.indexOf('frl') >= 0;
-                var isT10 = market.indexOf('top 10') >= 0 || market.indexOf('eor1') >= 0;
-                var isT20 = market.indexOf('top 20') >= 0 || (b.terms || '').indexOf('Top 20') >= 0;
-                var borderColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-500)';
-                var textColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-300)';
-                var suffix = isFRL ? ' <span style="font-size:0.5rem;opacity:0.7">FRL</span>' : isT10 ? ' <span style="font-size:0.5rem;opacity:0.7">T10</span>' : isT20 ? ' <span style="font-size:0.5rem;opacity:0.7">T20</span>' : ' <span style="font-size:0.5rem;opacity:0.7">E/W</span>';
+                var isEoR1 = market.indexOf('eor1') >= 0;
+                var isT10 = !isEoR1 && market.indexOf('top 10') >= 0;
+                var isT20 = market.indexOf('top 20') >= 0 || terms.indexOf('Top 20') >= 0;
+                var isProp = market.indexOf('prop') >= 0 && !isT20;
+                var isOutright = market.indexOf('outright') >= 0;
+                var borderColor = isFRL ? '#6ba3d6' : (isT10 || isEoR1) ? '#d29922' : isT20 ? '#bc8cff' : isProp ? '#e3b341' : 'var(--green-500)';
+                var textColor = isFRL ? '#6ba3d6' : (isT10 || isEoR1) ? '#d29922' : isT20 ? '#bc8cff' : isProp ? '#e3b341' : 'var(--green-300)';
+                var suffixText = isFRL ? 'FRL' : isEoR1 ? 'R1 T10' : isT10 ? 'T10' : isT20 ? 'T20' : isProp ? terms : isOutright ? 'E/W' : 'BET';
+                var suffix = ' <span style="font-size:0.5rem;opacity:0.7">' + suffixText + '</span>';
                 return '<span style="font-size:0.65rem;display:inline-block;padding:0.1rem 0.35rem;margin:0.08rem;border:1px solid ' + borderColor + ';border-radius:3px;color:' + textColor + '"><strong>' + b.player + '</strong>' + suffix + '</span>';
             }).join('') + '</div>';
         }
@@ -499,13 +504,16 @@ function loadTournament(key) {
             var openBets = actualCard.filter(function(b){return b.status === 'Open'});
             openBets.forEach(function(b) {
                 var market = (b.market || '').toLowerCase();
+                var terms = (b.terms || '').toLowerCase();
                 var isFRL = market.indexOf('frl') >= 0;
                 var isEoR1 = market.indexOf('eor1') >= 0;
                 var isT10 = !isEoR1 && market.indexOf('top 10') >= 0;
-                var isT20 = (b.terms || '').indexOf('Top 20') >= 0;
-                var label = isFRL ? 'FRL' : isEoR1 ? 'R1 T10' : isT10 ? 'T10' : isT20 ? 'T20' : 'ON CARD';
-                var cls = isFRL ? '' : isT10 ? '' : isT20 ? '' : 'pos';
-                var badgeColor = isFRL ? '#6ba3d6' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : 'var(--green-400)';
+                var isT20 = terms.indexOf('top 20') >= 0;
+                var isProp = market.indexOf('prop') >= 0 && !isT20;
+                var isOutright = market.indexOf('outright') >= 0;
+                var propLabel = isProp ? b.terms : '';
+                var label = isFRL ? 'FRL' : isEoR1 ? 'R1 T10' : isT10 ? 'T10' : isT20 ? 'T20' : isProp ? propLabel : isOutright ? 'E/W' : 'BET';
+                var badgeColor = isFRL ? '#6ba3d6' : isEoR1 ? '#d29922' : isT10 ? '#d29922' : isT20 ? '#bc8cff' : isProp ? '#e3b341' : 'var(--green-400)';
                 var meta = ' <span style="font-family:var(--font-mono);font-size:0.58rem;color:' + badgeColor + '">' + b.odds + ' ' + (b.book||'') + ' $' + b.stake + '</span>';
                 boardEl.innerHTML += '<div style="display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.78rem"><span class="note-badge" style="flex-shrink:0;color:' + badgeColor + '">&#10003; ' + label + '</span><strong>' + b.player + '</strong>' + meta + '</div>';
             });
