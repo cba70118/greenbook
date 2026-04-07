@@ -1911,9 +1911,10 @@ function renderBettingOdds(key) {
     ob.innerHTML = '';
     if (t && t.oddsBoard && t.oddsBoard.length) {
         t.oddsBoard.forEach(o => {
-            const ev = parseFloat(o.edge);
+            const ev = parseFloat(o.edge || 0);
             const ec = ev>3?'pos':ev>0?'form-warm':ev>-3?'form-neutral':'neg';
-            const vc = o.verdict.includes('VALUE')?'pos':o.verdict.includes('OVERPRICED')?'neg':'';
+            const verdict = o.verdict || '';
+            const vc = verdict.includes('VALUE')?'pos':verdict.includes('OVERPRICED')?'neg':'';
             ob.innerHTML += `<tr><td>${o.rank}</td><td><strong>${o.name}</strong></td><td style="font-family:var(--font-mono)">${o.fair}</td><td style="font-family:var(--font-mono)">${o.best}</td><td style="font-family:var(--font-mono)">${o.b365}</td><td class="${ec}" style="font-family:var(--font-mono);font-weight:600">${o.edge}</td><td class="${sigCls(o.form)}">${o.form}</td><td class="${vc}" style="font-size:0.72rem">${o.verdict}</td></tr>`;
         });
     } else {
