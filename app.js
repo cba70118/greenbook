@@ -1849,6 +1849,31 @@ renderBetCard(HOUSTON_CARD, 'ab-houston', 'bet365');
 renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
 renderBetCard(MASTERS_CARD, 'ab-masters', 'bet365');
 
+// Portfolio Exposure Stats
+(function() {
+    var el = document.getElementById('exposure-stats');
+    if (!el) return;
+    var bankroll = 500; // Approximate bankroll
+    var openBets = MASTERS_CARD.filter(function(b) { return b.status === 'Open'; });
+    var openStake = openBets.reduce(function(s, b) { return s + (b.stake || 0); }, 0);
+    var pct = (openStake / bankroll * 100).toFixed(1);
+    var markets = {};
+    openBets.forEach(function(b) {
+        var m = b.market || 'Other';
+        if (m.indexOf('FRL') >= 0) m = 'FRL';
+        else if (m.indexOf('Top 20') >= 0 || (b.terms || '').indexOf('Top 20') >= 0) m = 'Props';
+        else if (m.indexOf('Top 10') >= 0 || m.indexOf('EoR1') >= 0) m = 'Props';
+        else m = 'Outright';
+        markets[m] = (markets[m] || 0) + (b.stake || 0);
+    });
+    var breakdown = Object.entries(markets).map(function(e) { return e[0] + ' $' + e[1]; }).join(' | ');
+    el.innerHTML =
+        '<div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value">' + openBets.length + '</div><div class="stat-label">Open Bets</div></div>' +
+        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">$' + openStake.toFixed(0) + '</div><div class="stat-label">Open Exposure</div></div>' +
+        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">' + pct + '%</div><div class="stat-label">% of Bankroll</div></div>' +
+        '<div class="stat-card"><div class="stat-value" style="font-size:0.7rem">' + breakdown + '</div><div class="stat-label">By Market</div></div>';
+})();
+
 // Odds board in My Betting
 function renderBettingOdds(key) {
     const t = TOURNAMENT_DATA[key];

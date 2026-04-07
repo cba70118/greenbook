@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=26">
 
 </head>
 <body>
@@ -597,7 +597,10 @@
 
     <!-- ═══ ACTIVE BETS ═══ -->
     <section id="activebets" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.5rem">Active Bets</h2>
+        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Active Bets</h2>
+
+        <!-- Portfolio Exposure -->
+        <div class="stats-row" style="margin-bottom:1.5rem" id="exposure-stats"></div>
 
         <!-- Masters (Active) -->
         <div class="card" style="border-left:3px solid var(--green-500)">
@@ -639,6 +642,20 @@
     <!-- ═══ SEASON P/L ═══ -->
     <section id="betting" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1rem">2026 Season Tracker</h2>
+
+        <!-- Phase 2 Callout -->
+        <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+            <div class="card" style="flex:1;min-width:200px;border-left:3px solid #c44;padding:0.75rem 1rem">
+                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 1 (AMEX - WM Open)</div>
+                <div style="font-size:1.1rem;font-weight:700;color:#c44">0-44 | -$319.50</div>
+                <div style="font-size:0.7rem;color:var(--cream-500)">-96.9% ROI | Learning curve</div>
+            </div>
+            <div class="card" style="flex:1;min-width:200px;border-left:3px solid var(--green-400);padding:0.75rem 1rem">
+                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 2 (Genesis - Present)</div>
+                <div style="font-size:1.1rem;font-weight:700;color:var(--green-400)">13W | +$206.20</div>
+                <div style="font-size:0.7rem;color:var(--cream-500)">+18.5% ROI | Process works</div>
+            </div>
+        </div>
 
         <!-- Season Summary Table (like the Excel tracker) -->
         <div class="card">
@@ -815,16 +832,16 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=25"></script>
-    <script src="data.js?v=25"></script>
-    <script src="tournament-data.js?v=25"></script>
-    <script src="settled-data.js?v=25"></script>
-    <script src="masters-odds.js?v=25"></script>
-    <script src="valero-odds.js?v=25"></script>
-    <script src="tools-data.js?v=25"></script>
-    <script src="news-feed.js?v=25"></script>
-    <script src="app.js?v=25"></script>
-    <script src="masters-pool.js?v=25"></script>
-    <script src="tools.js?v=25"></script>
+    <script src="auth.js?v=26"></script>
+    <script src="data.js?v=26"></script>
+    <script src="tournament-data.js?v=26"></script>
+    <script src="settled-data.js?v=26"></script>
+    <script src="masters-odds.js?v=26"></script>
+    <script src="valero-odds.js?v=26"></script>
+    <script src="tools-data.js?v=26"></script>
+    <script src="news-feed.js?v=26"></script>
+    <script src="app.js?v=26"></script>
+    <script src="masters-pool.js?v=26"></script>
+    <script src="tools.js?v=26"></script>
 </body>
 </html>
