@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 185,
+    totalBets: 187,
     settled: 164,
-    open: 20,
+    open: 22,
     voided: 1,
-    staked: 1692.75,
+    staked: 1732.75,
     settledStaked: 1432.75,
-    openStaked: 260.00,
+    openStaked: 300.00,
     returned: 1319.45,
     pl: -113.30,
     roi: -7.9,
@@ -94,6 +94,8 @@ const MASTERS_CARD = [
     { num: 18, player: "Patrick Reed", market: "Prop", terms: "Top 10", odds: "+350", book: "FD", stake: 20, placed: "Apr 9", t10s: 0, comp: "-", status: "Open" },
     { num: 19, player: "Patrick Reed", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2500", book: "b365", stake: 10, placed: "Apr 9", t10s: 0, comp: "-", status: "Open" },
     { num: 20, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+3500", book: "b365", stake: 10, placed: "Apr 9", t10s: 1, comp: "#8", status: "Open" },
+    { num: 21, player: "Corey Conners", market: "3-Ball R1", terms: "Win", odds: "+130", book: "b365", stake: 20, placed: "Apr 7", t10s: 4, comp: "#40", status: "Open" },
+    { num: 22, player: "Jacob Bridgeman", market: "3-Ball R1", terms: "Win", odds: "+120", book: "b365", stake: 20, placed: "Apr 7", t10s: 0, comp: "#39", status: "Open" },
 ];
 
 const VALERO_CARD = [
