@@ -1923,6 +1923,41 @@ function renderBettingOdds(key) {
 document.getElementById('betting-tourney-select').addEventListener('change', e => renderBettingOdds(e.target.value));
 renderBettingOdds('masters');
 
+// ═══ ACTIVE BETS FILTER ═══
+(function() {
+    var filters = document.getElementById('ab-filters');
+    if (!filters) return;
+    filters.querySelectorAll('[data-filter]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            filters.querySelectorAll('[data-filter]').forEach(function(b) {
+                b.style.background = 'transparent';
+                b.style.color = 'var(--cream-500)';
+                b.classList.remove('active');
+            });
+            btn.style.background = 'var(--green-800)';
+            btn.style.color = 'var(--green-300)';
+            btn.classList.add('active');
+
+            var filter = btn.dataset.filter;
+            var tbody = document.getElementById('ab-masters');
+            if (!tbody) return;
+            Array.from(tbody.querySelectorAll('tr')).forEach(function(row) {
+                var betCell = row.cells[1] ? row.cells[1].textContent.toLowerCase() : '';
+                var show = false;
+                if (filter === 'all') show = true;
+                else if (filter === 'outright') show = betCell.indexOf('outright') >= 0;
+                else if (filter === 'frl') show = betCell.indexOf('frl') >= 0;
+                else if (filter === 'prop') show = betCell.indexOf('prop') >= 0 || betCell.indexOf('eor1') >= 0;
+                else if (filter === '3-ball') show = betCell.indexOf('3-ball') >= 0 || betCell.indexOf('parlay') >= 0;
+                else if (filter === 'other') show = betCell.indexOf('dfs') >= 0 || betCell.indexOf('pool') >= 0;
+                // Always show total row
+                if (row.style.borderTop || row.querySelector('td[colspan]')) show = true;
+                row.style.display = show ? '' : 'none';
+            });
+        });
+    });
+})();
+
 // ═══ SORTABLE TABLES ═══
 // Click any <th> in a .data-table to sort by that column.
 // Toggles ascending/descending. Works on text and numbers.

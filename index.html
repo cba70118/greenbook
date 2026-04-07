@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=31">
+    <link rel="stylesheet" href="style.css?v=32">
 
 </head>
 <body>
@@ -602,7 +602,15 @@
         <!-- Masters (Active) -->
         <div class="card" style="border-left:3px solid var(--green-500)">
             <h3>The Masters <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">LIVE | APR 10-13</span></h3>
-            <p class="card-subtitle">Augusta National | 20 bets | $260 staked</p>
+            <p class="card-subtitle">Augusta National | 26 bets | $499 staked</p>
+            <div id="ab-filters" style="margin-bottom:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap">
+                <button class="sub-tab active" data-filter="all" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:var(--green-800);color:var(--green-300);cursor:pointer">All</button>
+                <button class="sub-tab" data-filter="outright" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">E/W</button>
+                <button class="sub-tab" data-filter="frl" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">FRL</button>
+                <button class="sub-tab" data-filter="prop" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Props</button>
+                <button class="sub-tab" data-filter="3-ball" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">3-Ball</button>
+                <button class="sub-tab" data-filter="other" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">DFS/Pool</button>
+            </div>
             <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-masters"></tbody></table>
         </div>
@@ -837,17 +845,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=31"></script>
-    <script src="data.js?v=31"></script>
-    <script src="tournament-data.js?v=31"></script>
-    <script src="settled-data.js?v=31"></script>
-    <script src="masters-odds.js?v=31"></script>
-    <script src="valero-odds.js?v=31"></script>
-    <script src="tools-data.js?v=31"></script>
-    <script src="news-feed.js?v=31"></script>
-    <script src="source-attribution.js?v=31"></script>
-    <script src="app.js?v=31"></script>
-    <script src="masters-pool.js?v=31"></script>
-    <script src="tools.js?v=31"></script>
+    <script src="auth.js?v=32"></script>
+    <script src="data.js?v=32"></script>
+    <script src="tournament-data.js?v=32"></script>
+    <script src="settled-data.js?v=32"></script>
+    <script src="masters-odds.js?v=32"></script>
+    <script src="valero-odds.js?v=32"></script>
+    <script src="tools-data.js?v=32"></script>
+    <script src="news-feed.js?v=32"></script>
+    <script src="source-attribution.js?v=32"></script>
+    <script src="app.js?v=32"></script>
+    <script src="masters-pool.js?v=32"></script>
+    <script src="tools.js?v=32"></script>
 </body>
 </html>
