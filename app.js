@@ -1932,26 +1932,26 @@ renderBettingOdds('masters');
             filters.querySelectorAll('[data-filter]').forEach(function(b) {
                 b.style.background = 'transparent';
                 b.style.color = 'var(--cream-500)';
-                b.classList.remove('active');
             });
             btn.style.background = 'var(--green-800)';
             btn.style.color = 'var(--green-300)';
-            btn.classList.add('active');
 
             var filter = btn.dataset.filter;
             var tbody = document.getElementById('ab-masters');
             if (!tbody) return;
-            Array.from(tbody.querySelectorAll('tr')).forEach(function(row) {
-                var betCell = row.cells[1] ? row.cells[1].textContent.toLowerCase() : '';
+            var rows = tbody.querySelectorAll('tr');
+            rows.forEach(function(row) {
+                // Total row has colspan — always show
+                if (row.querySelector('td[colspan]')) { row.style.display = ''; return; }
+                if (!row.cells || !row.cells[1]) return;
+                var betText = row.cells[1].textContent.toLowerCase();
                 var show = false;
                 if (filter === 'all') show = true;
-                else if (filter === 'outright') show = betCell.indexOf('outright') >= 0;
-                else if (filter === 'frl') show = betCell.indexOf('frl') >= 0;
-                else if (filter === 'prop') show = betCell.indexOf('prop') >= 0 || betCell.indexOf('eor1') >= 0;
-                else if (filter === '3-ball') show = betCell.indexOf('3-ball') >= 0 || betCell.indexOf('parlay') >= 0;
-                else if (filter === 'other') show = betCell.indexOf('dfs') >= 0 || betCell.indexOf('pool') >= 0;
-                // Always show total row
-                if (row.style.borderTop || row.querySelector('td[colspan]')) show = true;
+                else if (filter === 'outright') show = betText.indexOf('outright') >= 0;
+                else if (filter === 'frl') show = betText.indexOf('frl') >= 0;
+                else if (filter === 'prop') show = betText.indexOf('prop') >= 0 || betText.indexOf('eor1') >= 0;
+                else if (filter === '3-ball') show = betText.indexOf('3-ball') >= 0 || betText.indexOf('parlay') >= 0;
+                else if (filter === 'other') show = betText.indexOf('dfs') >= 0 || betText.indexOf('pool') >= 0;
                 row.style.display = show ? '' : 'none';
             });
         });
