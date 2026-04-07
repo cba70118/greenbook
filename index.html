@@ -213,6 +213,12 @@
         <div class="card" id="player-board-card">
             <h3>Player Board</h3>
             <p class="card-subtitle">Players on card, likes, and fades for this tournament.</p>
+            <div id="pb-filters" style="margin-bottom:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap">
+                <button data-pbfilter="all" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:var(--green-800);color:var(--green-300);cursor:pointer">All</button>
+                <button data-pbfilter="card" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">On Card</button>
+                <button data-pbfilter="like" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Likes</button>
+                <button data-pbfilter="fade" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Fades</button>
+            </div>
             <div id="player-board"></div>
         </div>
 

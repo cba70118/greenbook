@@ -1923,6 +1923,37 @@ function renderBettingOdds(key) {
 document.getElementById('betting-tourney-select').addEventListener('change', e => renderBettingOdds(e.target.value));
 renderBettingOdds('masters');
 
+// ═══ PLAYER BOARD FILTER ═══
+(function() {
+    var filters = document.getElementById('pb-filters');
+    if (!filters) return;
+    filters.querySelectorAll('[data-pbfilter]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            filters.querySelectorAll('[data-pbfilter]').forEach(function(b) {
+                b.style.background = 'transparent';
+                b.style.color = 'var(--cream-500)';
+            });
+            btn.style.background = 'var(--green-800)';
+            btn.style.color = 'var(--green-300)';
+
+            var filter = btn.dataset.pbfilter;
+            var board = document.getElementById('player-board');
+            if (!board) return;
+            board.querySelectorAll(':scope > div').forEach(function(row) {
+                var badge = row.querySelector('.note-badge');
+                if (!badge) return;
+                var text = badge.textContent.toLowerCase();
+                var show = false;
+                if (filter === 'all') show = true;
+                else if (filter === 'card') show = text.indexOf('\u2713') >= 0 || text.indexOf('e/w') >= 0 || text.indexOf('frl') >= 0 || text.indexOf('t10') >= 0 || text.indexOf('t20') >= 0 || text.indexOf('top') >= 0 || text.indexOf('3-ball') >= 0 || text.indexOf('dfs') >= 0 || text.indexOf('pool') >= 0 || text.indexOf('bet') >= 0;
+                else if (filter === 'like') show = text.indexOf('like') >= 0;
+                else if (filter === 'fade') show = text.indexOf('fade') >= 0;
+                row.style.display = show ? '' : 'none';
+            });
+        });
+    });
+})();
+
 // ═══ ACTIVE BETS FILTER ═══
 (function() {
     var filters = document.getElementById('ab-filters');
