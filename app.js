@@ -1924,70 +1924,69 @@ document.getElementById('betting-tourney-select').addEventListener('change', e =
 renderBettingOdds('masters');
 
 // ═══ PLAYER BOARD FILTER ═══
-(function() {
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-pbfilter]');
+    if (!btn) return;
     var filters = document.getElementById('pb-filters');
-    if (!filters) return;
-    filters.querySelectorAll('[data-pbfilter]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            filters.querySelectorAll('[data-pbfilter]').forEach(function(b) {
-                b.style.background = 'transparent';
-                b.style.color = 'var(--cream-500)';
-            });
-            btn.style.background = 'var(--green-800)';
-            btn.style.color = 'var(--green-300)';
-
-            var filter = btn.dataset.pbfilter;
-            var board = document.getElementById('player-board');
-            if (!board) return;
-            board.querySelectorAll(':scope > div').forEach(function(row) {
-                var badge = row.querySelector('.note-badge');
-                if (!badge) return;
-                var text = badge.textContent.toLowerCase();
-                var show = false;
-                if (filter === 'all') show = true;
-                else if (filter === 'card') show = text.indexOf('\u2713') >= 0 || text.indexOf('e/w') >= 0 || text.indexOf('frl') >= 0 || text.indexOf('t10') >= 0 || text.indexOf('t20') >= 0 || text.indexOf('top') >= 0 || text.indexOf('3-ball') >= 0 || text.indexOf('dfs') >= 0 || text.indexOf('pool') >= 0 || text.indexOf('bet') >= 0;
-                else if (filter === 'like') show = text.indexOf('like') >= 0;
-                else if (filter === 'fade') show = text.indexOf('fade') >= 0;
-                row.style.display = show ? '' : 'none';
-            });
+    if (filters) {
+        filters.querySelectorAll('[data-pbfilter]').forEach(function(b) {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--cream-500)';
         });
-    });
-})();
+    }
+    btn.style.background = 'var(--green-800)';
+    btn.style.color = 'var(--green-300)';
+
+    var filter = btn.dataset.pbfilter;
+    var board = document.getElementById('player-board');
+    if (!board) return;
+    var children = board.children;
+    for (var i = 0; i < children.length; i++) {
+        var row = children[i];
+        var badge = row.querySelector('.note-badge');
+        if (!badge) { row.style.display = ''; continue; }
+        var text = badge.textContent.toLowerCase();
+        var show = false;
+        if (filter === 'all') show = true;
+        else if (filter === 'card') show = text.indexOf('\u2713') >= 0;
+        else if (filter === 'like') show = text.indexOf('like') >= 0;
+        else if (filter === 'fade') show = text.indexOf('fade') >= 0;
+        row.style.display = show ? '' : 'none';
+    }
+});
 
 // ═══ ACTIVE BETS FILTER ═══
-(function() {
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
     var filters = document.getElementById('ab-filters');
-    if (!filters) return;
-    filters.querySelectorAll('[data-filter]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            filters.querySelectorAll('[data-filter]').forEach(function(b) {
-                b.style.background = 'transparent';
-                b.style.color = 'var(--cream-500)';
-            });
-            btn.style.background = 'var(--green-800)';
-            btn.style.color = 'var(--green-300)';
-
-            var filter = btn.dataset.filter;
-            var tbody = document.getElementById('ab-masters');
-            if (!tbody) return;
-            var rows = tbody.querySelectorAll('tr');
-            rows.forEach(function(row) {
-                // Total row has colspan — always show
-                if (row.querySelector('td[colspan]')) { row.style.display = ''; return; }
-                if (!row.cells || !row.cells[1]) return;
-                var betText = row.cells[1].textContent.toLowerCase();
-                var show = false;
-                if (filter === 'all') show = true;
-                else if (filter === 'outright') show = betText.indexOf('outright') >= 0;
-                else if (filter === 'frl') show = betText.indexOf('frl') >= 0;
-                else if (filter === 'prop') show = betText.indexOf('prop') >= 0 || betText.indexOf('eor1') >= 0;
-                else if (filter === '3-ball') show = betText.indexOf('3-ball') >= 0 || betText.indexOf('parlay') >= 0;
-                else if (filter === 'other') show = betText.indexOf('dfs') >= 0 || betText.indexOf('pool') >= 0;
-                row.style.display = show ? '' : 'none';
-            });
+    if (filters) {
+        filters.querySelectorAll('[data-filter]').forEach(function(b) {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--cream-500)';
         });
+    }
+    btn.style.background = 'var(--green-800)';
+    btn.style.color = 'var(--green-300)';
+
+    var filter = btn.dataset.filter;
+    var tbody = document.getElementById('ab-masters');
+    if (!tbody) return;
+    var rows = tbody.querySelectorAll('tr');
+    rows.forEach(function(row) {
+        if (row.querySelector('td[colspan]')) { row.style.display = ''; return; }
+        if (!row.cells || !row.cells[1]) return;
+        var betText = row.cells[1].textContent.toLowerCase();
+        var show = false;
+        if (filter === 'all') show = true;
+        else if (filter === 'outright') show = betText.indexOf('outright') >= 0;
+        else if (filter === 'frl') show = betText.indexOf('frl') >= 0;
+        else if (filter === 'prop') show = betText.indexOf('prop') >= 0 || betText.indexOf('eor1') >= 0;
+        else if (filter === '3-ball') show = betText.indexOf('3-ball') >= 0 || betText.indexOf('parlay') >= 0;
+        else if (filter === 'other') show = betText.indexOf('dfs') >= 0 || betText.indexOf('pool') >= 0;
+        row.style.display = show ? '' : 'none';
     });
-})();
+});
 
 // ═══ SORTABLE TABLES ═══
 // Click any <th> in a .data-table to sort by that column.
