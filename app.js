@@ -1757,6 +1757,20 @@ new Chart(document.getElementById('ew-chart'), { type:'bar', data:{labels:EW_TER
 document.getElementById('winners-table').innerHTML = WINNERS.map(w => `<tr><td>${w.tournament}</td><td>${w.player}</td><td>${w.market}</td><td>${w.odds}</td><td>$${w.stake.toFixed(2)}</td><td>$${w.ret.toFixed(2)}</td><td class="pos">+$${w.pl.toFixed(2)}</td></tr>`).join('');
 
 function renderPlayers(list, id) { const el=document.getElementById(id); list.forEach(p=>{ el.innerHTML += `<span class="player-tag">${p.name} <span class="${p.pl>=0?'pos':'neg'}">${p.pl>=0?'+':''}$${p.pl}</span></span>`; }); }
+
+// Source Attribution table
+(function() {
+    var tb = document.getElementById('source-attr-body');
+    if (!tb || typeof SOURCE_ATTRIBUTION === 'undefined') return;
+    SOURCE_ATTRIBUTION.forEach(function(s) {
+        var plCls = s.pl >= 0 ? 'pos' : 'neg';
+        var roiCls = s.roi >= 0 ? 'pos' : 'neg';
+        var pl = (s.pl >= 0 ? '+$' : '-$') + Math.abs(s.pl).toFixed(0);
+        var roi = (s.roi >= 0 ? '+' : '') + s.roi.toFixed(1) + '%';
+        tb.innerHTML += '<tr><td><strong>' + s.name + '</strong></td><td>' + s.bets + '</td><td>' + s.wins + '</td><td>' + s.losses + '</td><td>' + s.winRate.toFixed(1) + '%</td><td style="font-family:var(--font-mono)">$' + s.staked.toFixed(0) + '</td><td style="font-family:var(--font-mono)">$' + s.returned.toFixed(0) + '</td><td class="' + plCls + '" style="font-family:var(--font-mono)">' + pl + '</td><td class="' + roiCls + '" style="font-family:var(--font-mono);font-weight:600">' + roi + '</td></tr>';
+    });
+})();
+
 // ═══ LIVE ODDS ═══
 
 function renderLiveOdds(key) {

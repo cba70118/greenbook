@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=26">
+    <link rel="stylesheet" href="style.css?v=27">
 
 </head>
 <body>
@@ -698,6 +698,12 @@
             <div class="card"><h3>By Market Type</h3><canvas id="market-chart"></canvas></div>
             <div class="card"><h3>By E/W Terms</h3><canvas id="ew-chart"></canvas></div>
         </div>
+        <div class="card">
+            <h3>Source Attribution</h3>
+            <p class="card-subtitle">Auto-generated from tracker. Which books, markets, and signals generate alpha? Updated via <code>node scripts/tracker-sync.js</code></p>
+            <table class="data-table"><thead><tr><th>Source</th><th>Bets</th><th>W</th><th>L</th><th>Win%</th><th>Staked</th><th>Returned</th><th>P/L</th><th>ROI</th></tr></thead>
+            <tbody id="source-attr-body"></tbody></table>
+        </div>
         <div class="card"><h3>Phase Analysis</h3>
             <div class="phase-grid">
                 <div class="phase-card negative"><h4>Phase 1 (AMEX - WM Open)</h4><div class="phase-stat">0-44 | -$319.50 | -96.9%</div><p>Pre-process. No course-fit weighting.</p></div>
@@ -832,16 +838,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=26"></script>
-    <script src="data.js?v=26"></script>
-    <script src="tournament-data.js?v=26"></script>
-    <script src="settled-data.js?v=26"></script>
-    <script src="masters-odds.js?v=26"></script>
-    <script src="valero-odds.js?v=26"></script>
-    <script src="tools-data.js?v=26"></script>
-    <script src="news-feed.js?v=26"></script>
-    <script src="app.js?v=26"></script>
-    <script src="masters-pool.js?v=26"></script>
-    <script src="tools.js?v=26"></script>
+    <script src="auth.js?v=27"></script>
+    <script src="data.js?v=27"></script>
+    <script src="tournament-data.js?v=27"></script>
+    <script src="settled-data.js?v=27"></script>
+    <script src="masters-odds.js?v=27"></script>
+    <script src="valero-odds.js?v=27"></script>
+    <script src="tools-data.js?v=27"></script>
+    <script src="news-feed.js?v=27"></script>
+    <script src="source-attribution.js?v=27"></script>
+    <script src="app.js?v=27"></script>
+    <script src="masters-pool.js?v=27"></script>
+    <script src="tools.js?v=27"></script>
 </body>
 </html>
