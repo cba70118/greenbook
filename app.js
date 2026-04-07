@@ -1922,3 +1922,53 @@ function renderBettingOdds(key) {
 }
 document.getElementById('betting-tourney-select').addEventListener('change', e => renderBettingOdds(e.target.value));
 renderBettingOdds('masters');
+
+// ═══ SORTABLE TABLES ═══
+// Click any <th> in a .data-table to sort by that column.
+// Toggles ascending/descending. Works on text and numbers.
+(function() {
+    document.querySelectorAll('.data-table').forEach(function(table) {
+        var headers = table.querySelectorAll('th');
+        headers.forEach(function(th, colIdx) {
+            th.style.cursor = 'pointer';
+            th.style.userSelect = 'none';
+            th.title = 'Click to sort';
+            var sortDir = 0; // 0=unsorted, 1=asc, -1=desc
+            th.addEventListener('click', function() {
+                var tbody = table.querySelector('tbody');
+                if (!tbody) return;
+                var rows = Array.from(tbody.querySelectorAll('tr'));
+                // Skip summary/total rows (bold borders)
+                var dataRows = rows.filter(function(r) { return !r.style.borderTop && !r.querySelector('td[colspan]'); });
+                if (dataRows.length < 2) return;
+
+                // Toggle direction
+                sortDir = sortDir === 1 ? -1 : 1;
+
+                // Clear arrows on siblings
+                headers.forEach(function(h) { h.textContent = h.textContent.replace(/ [▲▼]/g, ''); });
+                th.textContent += sortDir === 1 ? ' ▲' : ' ▼';
+
+                dataRows.sort(function(a, b) {
+                    var aCell = a.cells[colIdx];
+                    var bCell = b.cells[colIdx];
+                    if (!aCell || !bCell) return 0;
+                    var aText = aCell.textContent.trim();
+                    var bText = bCell.textContent.trim();
+
+                    // Try numeric (strip $, +, %, #, commas)
+                    var aNum = parseFloat(aText.replace(/[$+%#,]/g, ''));
+                    var bNum = parseFloat(bText.replace(/[$+%#,]/g, ''));
+                    if (!isNaN(aNum) && !isNaN(bNum)) {
+                        return sortDir * (aNum - bNum);
+                    }
+                    // Fall back to string
+                    return sortDir * aText.localeCompare(bText);
+                });
+
+                // Re-append sorted rows (keeps non-data rows at end)
+                dataRows.forEach(function(r) { tbody.appendChild(r); });
+            });
+        });
+    });
+})();
