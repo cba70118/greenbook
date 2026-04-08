@@ -1,15 +1,27 @@
-// News feed -- updated 2026-04-09 06:50 CDT
+// News feed -- updated 2026-04-08 14:30 CDT
 const NEWS_FEED = [
   {
-    "title": "FINAL b365 E/W PRICES: Bhatia +36% CLV (best on card, +5500->+3500 at 10pl). Scott +12.5% CLV. Day slight neg CLV (-6.7%). Fleetwood/DeChambeau/Reed/Henley flat. Matsuyama still unbetted at +20.7% DG edge.",
+    "title": "DG ODDS SWEEP (2:30 PM): Full field refreshed. Matsuyama 5th straight shortening (+2500, PIN +2718). Reed shortened to +3300 (firm course buzz). Hojgaard MASSIVE move +11000->+5000. Scheffler/Rahm/DeChambeau/Rory all tightened ~25%. DG model still Apr 7 — final refresh expected pre-R1.",
     "link": "",
-    "date": "Wed, 09 Apr 2026 11:50:00 +0000",
+    "date": "Wed, 08 Apr 2026 19:30:00 +0000",
+    "source": "DataGolf / Greenbook"
+  },
+  {
+    "title": "TEE TIMES + WAVES: Our core 5/6 DFS players in AM gusty wave (34mph gusts). Kitayama 8:50 AM = worst slot. Si Woo 1:56 PM = only calm wave player. Reed/Fleetwood/Bhatia group 9:55 AM. Rose 1:20 PM (calm). DG ownership: Scheffler 25.8%, Rahm 25.1% = chalk fades. Kitayama 6.9%, Griffin 4.3% = leverage.",
+    "link": "",
+    "date": "Wed, 08 Apr 2026 19:00:00 +0000",
+    "source": "DataGolf"
+  },
+  {
+    "title": "b365 E/W PRICES + CLV: Bhatia +36% CLV (best on card). Scott +12.5% CLV. Rose FRL +16.7% CLV. Hojgaard FRL +20% CLV. Day recovered to flat. Matsuyama still unbetted at +20.7% DG edge.",
+    "link": "",
+    "date": "Wed, 08 Apr 2026 17:00:00 +0000",
     "source": "bet365 / Greenbook"
   },
   {
     "title": "MAYO ON-SITE (Podcast #2): Scheffler agitated/anxious (bad body language). Rory enhanced/comfortable. Morikawa ball speed 172 (down from high 170s) — fade. Course super firm, will get firmer. High ball flight = advantage. Bridgeman > Gotterup (Riviera-Augusta correlation).",
     "link": "",
-    "date": "Wed, 09 Apr 2026 06:00:00 +0000",
+    "date": "Wed, 08 Apr 2026 16:00:00 +0000",
     "source": "Pat Mayo Experience"
   },
   {
