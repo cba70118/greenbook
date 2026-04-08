@@ -1,9 +1,9 @@
 // News feed -- updated 2026-04-08 14:30 CDT
 const NEWS_FEED = [
   {
-    "title": "DG ODDS SWEEP (2:30 PM): Full field refreshed. Matsuyama 5th straight shortening (+2500, PIN +2718). Reed shortened to +3300 (firm course buzz). Hojgaard MASSIVE move +11000->+5000. Scheffler/Rahm/DeChambeau/Rory all tightened ~25%. DG model still Apr 7 — final refresh expected pre-R1.",
+    "title": "FINAL DG SWEEP (4:44 PM): Matsuyama PIN +2550 — NOW SHORTER THAN b365 (+2500). 6th straight shortening. Sharps paying retail. DeChambeau PIN drifted +1290->+1390 (sharps fading). Reed PIN drifted +3529->+3734 (cooling). Scott PIN +8416 (drifted). DG model still Apr 7. Field: 91, no WDs.",
     "link": "",
-    "date": "Wed, 08 Apr 2026 19:30:00 +0000",
+    "date": "Wed, 08 Apr 2026 21:44:00 +0000",
     "source": "DataGolf / Greenbook"
   },
   {
