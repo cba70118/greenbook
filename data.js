@@ -631,10 +631,10 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "Masters: Back injury from Players R1. WD from Valero 2 days before. No updates since. Mayo: 'Maybe he's fine? Doesn't seem like it.' DG HEADWIND 0.94x.", severity: "warning", updated: "Apr 8" },
-    { player: "Scottie Scheffler", type: "rest", status: "Masters: Second child born ~2 weeks ago (kept private). 3-week layoff. APP collapsed to +0.08/rd (43rd in field). Not following typical Masters prep.", severity: "caution", updated: "Apr 8" },
-    { player: "Rory McIlroy", type: "injury", status: "Masters: Back injury WD from Arnold Palmer. Returned at Players — ball speed fine but -5.37 SG:PUTT (worst since 2024 St. Jude). Defending champ curse. DG TAILWIND 1.26x.", severity: "caution", updated: "Apr 8" },
-    { player: "Akshay Bhatia", type: "travel", status: "Masters: MC at Hero Indian Open in India between Players and Masters. Circadian rhythm concern. DG HEADWIND 0.73x. But 3rd APP, 3rd putting over last 20 rounds.", severity: "caution", updated: "Apr 8" },
+    { player: "Collin Morikawa", type: "injury", status: "Ball speed 172 on-site (down from high 170s). Mayo: fade signal — not hitting hard. Back injury from Players R1. WD from Valero. Playing through it. 10:19 AM early wave.", severity: "warning", updated: "Apr 8 PM" },
+    { player: "Scottie Scheffler", type: "rest", status: "AGITATED/ANXIOUS body language on-site per Mayo. Baby born ~2 weeks ago. 3-week layoff. APP collapsed +0.08/rd (43rd). PIN drifting out (+592->+615). Strongest fade case of week.", severity: "warning", updated: "Apr 8 PM" },
+    { player: "Rory McIlroy", type: "info", status: "ENHANCED/COMFORTABLE on-site per Mayo. Good body language. Defending champ (0/10 repeat). DG TAILWIND 1.26x. PIN drifting (+1440).", severity: "caution", updated: "Apr 8 PM" },
+    { player: "Akshay Bhatia", type: "travel", status: "In Reed/Fleetwood group 9:55 AM (gusty). MC in India. DG HEADWIND 0.73x. +36% CLV on our lock. Market shortened hard.", severity: "caution", updated: "Apr 8 PM" },
     { player: "Tiger Woods", type: "injury", status: "Masters: Not competing. 'Personal health matter.' First Masters without Tiger or Phil since 1994.", severity: "info", updated: "Apr 8" },
     { player: "Phil Mickelson", type: "injury", status: "Masters: Not competing. Personal health matter. Missed most LIV events in 2026.", severity: "info", updated: "Apr 8" },
 ];

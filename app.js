@@ -1445,7 +1445,7 @@ function renderSkillFitMulti(t, skills) {
 
 // Helpers
 function sigCls(s) { return s==='TAILWIND'?'form-tailwind':s==='warm'?'form-warm':s==='neutral'?'form-neutral':s==='cool'?'form-cool':s==='HEADWIND'?'form-headwind':''; }
-function flagCls(f) { return f==='ON CARD'||f.includes('WON')?'pos':f==='DARK HORSE'?'flag-value':f==='FADE'?'flag-fade':f==='BENCHED'?'neg':''; }
+function flagCls(f) { if(!f) return ''; return f==='ON CARD'||f.includes('WON')?'pos':f==='DARK HORSE'?'flag-value':f==='FADE'?'flag-fade':f==='BENCHED'?'neg':''; }
 function sg(v) { const c=v>0?'pos':v<0?'neg':''; return `<span class="${c}">${v>0?'+':''}${v.toFixed(2)}</span>`; }
 function hc(v) { const c=v<=5?'heat-elite':v<=10?'heat-top10':v<=25?'heat-top25':'heat-mid'; return `<td class="${c}">${v}</td>`; }
 function ck(v) { return v?'<td class="pos">&#10003;</td>':'<td style="color:var(--cream-700)">-</td>'; }

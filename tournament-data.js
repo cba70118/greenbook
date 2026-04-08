@@ -186,7 +186,6 @@ const TOURNAMENT_DATA = {
             "Robert MacIntyre": [52, 62, 42, 65, 55, 55],
         },
         oddsBoard: [
-        oddsBoard: [
             // FINAL PRE-R1 — DG 4:44PM CDT (20:16 UTC) | b365 outright | PIN sharp | DG fair (bhf)
             { rank:1, name:"Scottie Scheffler", fair:"+721", best:"+550", b365:"+550", b365_8:"+615", edge:"-24", form:"warm", verdict:"Overpriced vs DG (+721). PIN drifted +592->+615. APP collapsed. Agitated on-site. No value.", note:"PIN drifting out. DG bearish." },
             { rank:2, name:"Jon Rahm", fair:"+1279", best:"+1100", b365:"+1100", b365_8:"+1227", edge:"+14", form:"TAILWIND", verdict:"VALUE. DG +1279 vs b365 +1100. PIN +1227 (drifted from +1143). Tindall #1. TAILWIND 1.28x.", note:"PIN drifting. Still value." },
