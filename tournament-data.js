@@ -9,12 +9,22 @@ const TOURNAMENT_DATA = {
         archetype: "Second-shot + Short game",
         location: "Augusta, Georgia",
         frl: [
-            { player:"Scottie Scheffler", wave:"AM", odds:"+1200", windAdv:"Neutral", form:"warm", history:"Led R1 2024" },
-            { player:"Rory McIlroy", wave:"AM", odds:"+1600", windAdv:"Neutral", form:"warm", history:"R1 65 in 2025 (won)" },
-            { player:"Collin Morikawa", wave:"PM", odds:"+2500", windAdv:"TBD", form:"warm", history:"No R1 lead" },
-            { player:"Jon Rahm", wave:"AM", odds:"+2000", windAdv:"Neutral", form:"warm", history:"R1 65 in 2023 (won)" },
-            { player:"Cameron Young", wave:"TBD", odds:"+3500", windAdv:"TBD", form:"TAILWIND", history:"No R1 lead" },
-            { player:"Jordan Spieth", wave:"TBD", odds:"+5000", windAdv:"TBD", form:"cool", history:"Led R1 2015 (won), R1 64" },
+            // Updated Apr 9 — b365 E/W 1/4 5pl FRL + DG fair values. R1 wind: AM gusty (34mph gusts), PM calmer (12mph).
+            // ON CARD bets marked. Wave from tee times where known.
+            { player:"Scottie Scheffler", wave:"AM", odds:"+1400 b365", windAdv:"Gusty", form:"warm", history:"Led R1 2024. DG fair +1521." },
+            { player:"Jon Rahm", wave:"AM", odds:"+2000 b365", windAdv:"Gusty", form:"TAILWIND", history:"R1 65 in 2023 (won). DG fair +2271." },
+            { player:"Rory McIlroy", wave:"AM", odds:"+2000 b365", windAdv:"Gusty", form:"TAILWIND", history:"R1 65 in 2025 (won). DG fair +2591." },
+            { player:"Xander Schauffele", wave:"AM", odds:"+2000 b365", windAdv:"Gusty", form:"warm", history:"No R1 lead. DG fair +2947. Mayo pick to win." },
+            { player:"Matt Fitzpatrick", wave:"TBD", odds:"+2500 b365", windAdv:"TBD", form:"TAILWIND", history:"No R1 lead. DG fair +3309. Klos top pick." },
+            { player:"Justin Rose", wave:"PM", odds:"+2500 b365", windAdv:"Calm", form:"TAILWIND", history:"ON CARD FRL $10. 4x FRL king. Led R1 2025 (PM wave). DG fair +5136 (overpriced per DG). TAILWIND 2.34x." },
+            { player:"Tommy Fleetwood", wave:"AM (9:55)", odds:"+2800 b365", windAdv:"Gusty", form:"warm", history:"ON CARD outright. No R1 lead. DG fair +3590. All 8 models top 7." },
+            { player:"Hideki Matsuyama", wave:"TBD", odds:"+3000 b365", windAdv:"TBD", form:"TAILWIND", history:"2x FRL. DG fair +3707. +20.7% E/W edge." },
+            { player:"Patrick Reed", wave:"AM (9:55)", odds:"+3500 b365", windAdv:"Gusty", form:"TAILWIND", history:"ON CARD FRL $10. 2018 champ (led R1). DG fair +9088 (DG hates). High ball flight = firm advantage." },
+            { player:"Si Woo Kim", wave:"PM", odds:"+4000 b365", windAdv:"Calm", form:"cool", history:"ON CARD FRL $10. APP #1 in models. DG fair +4963. Late wave = calm conditions." },
+            { player:"Nicolai Hojgaard", wave:"TBD", odds:"+5500 b365", windAdv:"TBD", form:"cool", history:"ON CARD FRL $10. Hot form (Houston 2nd). DG fair +5829. DG +33.3% E/W edge." },
+            { player:"Adam Scott", wave:"TBD", odds:"+5500 b365", windAdv:"TBD", form:"neutral", history:"Won 2013. Mayo FRL pick. DG fair +7889." },
+            { player:"Michael Kim", wave:"TBD", odds:"+9000 b365", windAdv:"TBD", form:"neutral", history:"ON CARD FRL $5. Rick punt play. DG fair +44676 (extreme fade)." },
+            { player:"Jordan Spieth", wave:"TBD", odds:"+4000 b365", windAdv:"TBD", form:"TAILWIND", history:"Led R1 2015 (won, 64). DG fair +5560. 1.75x TAILWIND." },
         ],
         narrative: {
             description: "MacKenzie/Jones masterpiece (1933). Alister MacKenzie and Bobby Jones designed the course on a single broad downslope ending at Rae's Creek. The most predictive course on Tour — course history matters more here than anywhere else. Wide fairways with no real rough (1-3/8in second cut), but severely contoured elevated greens (1/8in, 13.5 stimp) with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hole 10 is the hardest in Masters history (4.31 avg). Hurricane Helene (2024) destroyed Hole 16 and removed many trees, opening sightlines and changing wind patterns. Rebuilt to original spec.",
