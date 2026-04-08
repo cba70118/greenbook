@@ -1,5 +1,17 @@
-// News feed -- updated 2026-04-08 07:15 CDT
+// News feed -- updated 2026-04-09 06:50 CDT
 const NEWS_FEED = [
+  {
+    "title": "FINAL b365 E/W PRICES: Bhatia +36% CLV (best on card, +5500->+3500 at 10pl). Scott +12.5% CLV. Day slight neg CLV (-6.7%). Fleetwood/DeChambeau/Reed/Henley flat. Matsuyama still unbetted at +20.7% DG edge.",
+    "link": "",
+    "date": "Wed, 09 Apr 2026 11:50:00 +0000",
+    "source": "bet365 / Greenbook"
+  },
+  {
+    "title": "MAYO ON-SITE (Podcast #2): Scheffler agitated/anxious (bad body language). Rory enhanced/comfortable. Morikawa ball speed 172 (down from high 170s) — fade. Course super firm, will get firmer. High ball flight = advantage. Bridgeman > Gotterup (Riviera-Augusta correlation).",
+    "link": "",
+    "date": "Wed, 09 Apr 2026 06:00:00 +0000",
+    "source": "Pat Mayo Experience"
+  },
   {
     "title": "R4 WEATHER SHIFT: Sunday gusts dropped from 25mph to 9mph. All 4 days now scoreable. Winning score could push -14 to -16. Adjust pool tiebreakers.",
     "link": "",
@@ -7,7 +19,7 @@ const NEWS_FEED = [
     "source": "Open-Meteo"
   },
   {
-    "title": "FINAL CARD: 26 bets, $499 total exposure. Added Coley 3-balls (Conners/Bridgeman), nationality parlay, Reed T10+E/W, Henley E/W layering, DFS $109, Pools $50.",
+    "title": "FINAL CARD: 26 bets, $499 total exposure. Added Coley 3-balls (Conners/Bridgeman), nationality parlay, Reed T10+E/W layering, Henley E/W layering, DFS $109, Pools $50.",
     "link": "",
     "date": "Wed, 08 Apr 2026 12:00:00 +0000",
     "source": "Greenbook"
@@ -19,7 +31,7 @@ const NEWS_FEED = [
     "source": "Pinnacle / DataGolf"
   },
   {
-    "title": "Coley (Sporting Life): Conners + Bridgeman R1 3-ball double at 4/1. Late wave bias for FRL — 'warmer and calmer.' Rose led R1 last year from afternoon wave.",
+    "title": "Coley (Sporting Life): Conners + Bridgeman R1 3-ball double at 4/1. Late wave bias for FRL. Rose led R1 last year from afternoon wave.",
     "link": "",
     "date": "Tue, 07 Apr 2026 20:00:00 +0000",
     "source": "Sporting Life"
@@ -31,40 +43,22 @@ const NEWS_FEED = [
     "source": "DG / Open-Meteo"
   },
   {
-    "title": "Mayo new podcast: Xander pick to win. Shortlist: Rahm/CamY/Fleetwood/Fitz/MacIntyre. FRL: Scott + Kim 90/1 + Reed + Hojgaard. Hideki bearish: 'what has he done?'",
+    "title": "Mayo podcast #1: Xander pick to win. Shortlist: Rahm/CamY/Fleetwood/Fitz/MacIntyre. FRL: Scott + Kim 90/1 + Reed + Hojgaard. Hideki bearish.",
     "link": "",
     "date": "Tue, 07 Apr 2026 14:00:00 +0000",
     "source": "Pat Mayo Experience"
   },
   {
-    "title": "Noonan article: Rahm 15/1, Schauffele 20/1, Cam Young 23/1, Min Woo 66/1, Hojgaard 100/1 ('fave longshot'). Top debutant: Stevens 11/1. Low Am: Laopakdee.",
+    "title": "Noonan article: Rahm 15/1, Schauffele 20/1, Cam Young 23/1, Min Woo 66/1, Hojgaard 100/1 ('fave longshot'). Top debutant: Stevens 11/1.",
     "link": "https://betspertsgolf.com",
     "date": "Tue, 07 Apr 2026 12:00:00 +0000",
     "source": "Betsperts Golf"
-  },
-  {
-    "title": "Klos/Golf Digest DFS: Fitzpatrick 'biggest misprice on slate.' Fade Scheffler $14K. Min Woo 67% par-5 BoB (leads field). R. Hojgaard $6.9K punt.",
-    "link": "https://www.golfdigest.com/story/masters-dfs-picks-2026",
-    "date": "Tue, 07 Apr 2026 10:00:00 +0000",
-    "source": "Golf Digest / Klos"
-  },
-  {
-    "title": "Betsperts model #31: Fleetwood #17->#2 (TOT). Min Woo crashed #2->#53. Kitayama #33->#18. RH35 (8th model) added. Fleetwood ALL 8 models top 7.",
-    "link": "",
-    "date": "Tue, 07 Apr 2026 08:00:00 +0000",
-    "source": "Betsperts / Rabbit Hole"
   },
   {
     "title": "DG official E/W EV: Matsuyama +20.7%, Henley +31.8%, Hojgaard +33.3%, McNealy +53%. DeChambeau -25.8%. Rose TAILWIND 2.34x (highest in field).",
     "link": "",
     "date": "Mon, 06 Apr 2026 14:00:00 +0000",
     "source": "DataGolf"
-  },
-  {
-    "title": "b365 line moves: DeChambeau drifted +1000->+1400 (+40%). Matsuyama shortened +3500->+2500. Rose FRL +3000->+2500 (positive CLV on our lock). New 1/5 12pl structure.",
-    "link": "",
-    "date": "Mon, 06 Apr 2026 12:00:00 +0000",
-    "source": "bet365 Odds Tracker"
   },
   {
     "title": "No WDs. 91-player field confirmed. Morikawa has tee time (10:19 AM early wave) — playing through back injury.",
