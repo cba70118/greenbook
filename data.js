@@ -1,16 +1,16 @@
 // Season data
 const SEASON = {
-    totalBets: 191,
-    settled: 164,
-    open: 26,
+    totalBets: 196,
+    settled: 191,
+    open: 4,
     voided: 1,
-    staked: 1931.75,
-    settledStaked: 1432.75,
-    openStaked: 499.00,
-    returned: 1319.45,
-    pl: -113.30,
-    roi: -7.9,
-    winners: 13
+    staked: 1972.15,
+    settledStaked: 1952.15,
+    openStaked: 20.00,
+    returned: 2391.49,
+    pl: 439.34,
+    roi: 22.5,
+    winners: 21
 };
 
 const TOURNAMENTS = [
@@ -25,6 +25,7 @@ const TOURNAMENTS = [
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
     { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
     { name: "Valero", bets: 17, staked: 126.25, returned: 43.20, pl: -83.05, phase: 2, status: "settled" },
+    { name: "Masters", bets: 27, staked: 519.40, returned: 1072.04, pl: 552.64, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -40,15 +41,24 @@ const WINNERS = [
     { tournament: "Arnold Palmer", player: "DFS Lineup", market: "GPP", odds: "-", stake: 20, ret: 144, pl: 124 },
     { tournament: "Houston", player: "Nicolai Hojgaard", market: "E/W 1/4 5pl", odds: "+2500", stake: 20, ret: 72, pl: 52 },
     { tournament: "Valero", player: "DFS Lineup", market: "GPP", odds: "-", stake: 10, ret: 43.20, pl: 33.20 },
+    { tournament: "Masters", player: "Justin Rose", market: "EoR1 Top 10", odds: "+280", stake: 10, ret: 38, pl: 28 },
+    { tournament: "Masters", player: "Patrick Reed", market: "FRL E/W Placed", odds: "+3500 1/4", stake: 10, ret: 48.75, pl: 38.75 },
+    { tournament: "Masters", player: "Zach Johnson", market: "Top Senior", odds: "-102", stake: 40.40, ret: 80, pl: 39.60 },
+    { tournament: "Masters", player: "Jacob Bridgeman", market: "3-Ball R1 DH", odds: "+120", stake: 20, ret: 22, pl: 2 },
+    { tournament: "Masters", player: "Russell Henley", market: "Top 20", odds: "+102", stake: 20, ret: 40.40, pl: 20.40 },
+    { tournament: "Masters", player: "Russell Henley", market: "E/W Placed T3", odds: "+3500 1/5", stake: 10, ret: 40, pl: 30 },
+    { tournament: "Masters", player: "DFS Lineup", market: "GPP", odds: "-", stake: 109, ret: 750, pl: 641 },
+    { tournament: "Masters", player: "McNealy/Henley", market: "R3 Matchup Parlay", odds: "+164", stake: 20, ret: 52.89, pl: 32.89 },
 ];
 
 const MARKETS = [
-    { type: "Outright E/W", bets: 51, pl: 267, roi: 64.6 },
-    { type: "FRL", bets: 49, pl: -159.75, roi: -46.1 },
-    { type: "Props (T10)", bets: 20, pl: -42.60, roi: -21.8 },
-    { type: "DFS", bets: 5, pl: 69, roi: 92.0 },
-    { type: "Matchups", bets: 3, pl: 19.10, roi: 47.8 },
-    { type: "3-Ball", bets: 4, pl: -80, roi: -100 },
+    { type: "Outright E/W", bets: 61, pl: 197, roi: 30.2 },
+    { type: "FRL", bets: 54, pl: -116, roi: -29.2 },
+    { type: "Props", bets: 26, pl: 47.40, roi: 9.0 },
+    { type: "DFS", bets: 7, pl: 743, roi: 263.5 },
+    { type: "Matchups/Parlays", bets: 7, pl: -5.01, roi: -7.2 },
+    { type: "3-Ball", bets: 6, pl: -76, roi: -63.3 },
+    { type: "Pool", bets: 1, pl: -50, roi: -100 },
 ];
 
 const EW_TERMS = [
@@ -76,11 +86,11 @@ const HOUSTON_CARD = [
 const MASTERS_CARD = [
     { num: 1, player: "Akshay Bhatia", market: "Outright", terms: "1/5 10pl", odds: "+5500", book: "b365", stake: 10, placed: "Mar 8", t10s: 0, comp: "#15", status: "MC +6 (Lost)" },
     { num: 2, player: "Bryson DeChambeau", market: "Outright", terms: "1/4 5pl", odds: "+1400", book: "b365", stake: 20, placed: "Mar 8", t10s: 2, comp: "#23", status: "MC +6 (Lost)" },
-    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Mar 27", t10s: 3, comp: "#19", status: "T39 +2" },
-    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Mar 27", t10s: 4, comp: "#29", status: "T7 -4" },
-    { num: 5, player: "Russell Henley", market: "Prop", terms: "Top 20", odds: "+102", book: "DK", stake: 20, placed: "Apr 5", t10s: 1, comp: "#8", status: "T24 E" },
-    { num: 6, player: "Corey Conners", market: "Prop", terms: "Top 20", odds: "+172", book: "DK", stake: 20, placed: "Apr 5", t10s: 4, comp: "#12", status: "T47 +4" },
-    { num: 7, player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 5", t10s: 1, comp: "#4", status: "T4 -5" },
+    { num: 3, player: "Adam Scott", market: "Outright", terms: "1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Mar 27", t10s: 3, comp: "#19", status: "T24 -2 (Lost)" },
+    { num: 4, player: "Jason Day", market: "Outright", terms: "1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Mar 27", t10s: 4, comp: "#29", status: "T12 -5 (Lost)" },
+    { num: 5, player: "Russell Henley", market: "Prop", terms: "Top 20", odds: "+102", book: "DK", stake: 20, placed: "Apr 5", t10s: 1, comp: "#8", status: "WON T3 +$20.40" },
+    { num: 6, player: "Corey Conners", market: "Prop", terms: "Top 20", odds: "+172", book: "DK", stake: 20, placed: "Apr 5", t10s: 4, comp: "#12", status: "T49 +6 (Lost)" },
+    { num: 7, player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 5", t10s: 1, comp: "#4", status: "T33 E (Lost)" },
     { num: 8, player: "Justin Rose", market: "EoR1 Top 10", terms: "Win", odds: "+280", book: "DK", stake: 10, placed: "Apr 8", t10s: 0, comp: "-", status: "WON +$28" },
     { num: 9, player: "Justin Rose", market: "FRL", terms: "E/W 1/4 5pl", odds: "+3000", book: "b365", stake: 10, placed: "Apr 8", t10s: 0, comp: "-", status: "Lost (T6 R1)" },
     { num: 10, player: "Nicolai Hojgaard", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 8", t10s: 0, comp: "#5 TOT", status: "Lost (R1 76)" },
@@ -88,17 +98,17 @@ const MASTERS_CARD = [
     { num: 12, player: "Zach Johnson", market: "Prop", terms: "Top Senior", odds: "-102", book: "DK", stake: 40.40, placed: "Apr 9", t10s: 0, comp: "-", status: "WON +$39.60" },
     { num: 13, player: "Si Woo Kim", market: "FRL", terms: "E/W 1/4 5pl", odds: "+3500", book: "b365", stake: 10, placed: "Apr 9", t10s: 0, comp: "#11 TOT", status: "Lost (R1 75)" },
     { num: 14, player: "Patrick Reed", market: "FRL", terms: "E/W 1/4 5pl", odds: "+3500", book: "b365", stake: 10, placed: "Apr 9", t10s: 0, comp: "-", status: "Placed +$38.75" },
-    { num: 15, player: "Nicolai Hojgaard", market: "Prop", terms: "Top Dane", odds: "+106", book: "DK", stake: 20, placed: "Apr 9", t10s: 0, comp: "#15 TOT", status: "MC (Pending)" },
+    { num: 15, player: "Nicolai Hojgaard", market: "Prop", terms: "Top Dane", odds: "+106", book: "DK", stake: 20, placed: "Apr 9", t10s: 0, comp: "#15 TOT", status: "Lost (R.Hojgaard beat)" },
     { num: 16, player: "Fifa Laopakdee", market: "Prop", terms: "Low Amateur", odds: "+350", book: "Fanatics", stake: 10, placed: "Apr 9", t10s: 0, comp: "-", status: "Lost (MC)" },
     { num: 17, player: "Carlos Ortiz", market: "Outright", terms: "E/W 1/4 5pl", odds: "+16000", book: "b365", stake: 5, placed: "Apr 9", t10s: 0, comp: "#25 TOT", status: "MC +11 (Lost)" },
-    { num: 18, player: "Patrick Reed", market: "Prop", terms: "Top 10", odds: "+350", book: "FD", stake: 20, placed: "Apr 9", t10s: 0, comp: "-", status: "T2 -6 (Live)" },
-    { num: 19, player: "Patrick Reed", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2500", book: "b365", stake: 10, placed: "Apr 9", t10s: 0, comp: "-", status: "T2 -6 (Live)" },
-    { num: 20, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+3500", book: "b365", stake: 10, placed: "Apr 9", t10s: 1, comp: "#8", status: "T24 E" },
+    { num: 18, player: "Patrick Reed", market: "Prop", terms: "Top 10", odds: "+350", book: "FD", stake: 20, placed: "Apr 9", t10s: 0, comp: "-", status: "T12 -5 (Lost)" },
+    { num: 19, player: "Patrick Reed", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2500", book: "b365", stake: 10, placed: "Apr 9", t10s: 0, comp: "-", status: "T12 -5 (Lost)" },
+    { num: 20, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+3500", book: "b365", stake: 10, placed: "Apr 9", t10s: 1, comp: "#8", status: "Placed T3 +$30" },
     { num: 21, player: "Corey Conners", market: "3-Ball R1", terms: "Win", odds: "+130", book: "b365", stake: 20, placed: "Apr 7", t10s: 4, comp: "#40", status: "Lost (Brennan won)" },
     { num: 22, player: "Jacob Bridgeman", market: "3-Ball R1", terms: "Win", odds: "+120", book: "b365", stake: 20, placed: "Apr 7", t10s: 0, comp: "#39", status: "Tied (DH +$2)" },
     { num: 23, player: "Conners/Bridgeman", market: "3-Ball Parlay", terms: "R1 Double", odds: "+406", book: "b365", stake: 10, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost (Conners leg)" },
     { num: 24, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 109, placed: "Apr 7", t10s: 0, comp: "-", status: "WON +$641" },
-    { num: 25, player: "Masters Pools", market: "Pool", terms: "3 entries", odds: "-", book: "Pool", stake: 50, placed: "Apr 7", t10s: 0, comp: "-", status: "Live" },
+    { num: 25, player: "Masters Pools", market: "Pool", terms: "3 entries", odds: "-", book: "Pool", stake: 50, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost" },
     { num: 26, player: "Conners/Aberg/N.Hojgaard", market: "Parlay", terms: "R1 Top Nationality", odds: "+573", book: "b365", stake: 10, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost (Taylor won CAN)" },
     { num: 27, player: "McNealy/Henley", market: "Matchup Parlay", terms: "R3 2-Ball", odds: "+164", book: "b365", stake: 20, placed: "Apr 11", t10s: 0, comp: "-", status: "WON +$32.89" },
 ];
@@ -133,14 +143,16 @@ const VALERO_CARD = [
 // Player rotation data
 const PLAYERS = {
     active: [
+        { name: "Russell Henley", bets: 4, wins: 2, pl: 40.40, roi: 67, note: "Masters T3. Double-cash. Season MVP." },
         { name: "Collin Morikawa", bets: 6, wins: 2, pl: 35, roi: 50 },
         { name: "Ricky Castillo", bets: 3, wins: 1, pl: 270, roi: 1080 },
-        { name: "Tommy Fleetwood", bets: 3, wins: 1, pl: 17.40, roi: 50 },
+        { name: "Maverick McNealy", bets: 4, wins: 1, pl: 12.89, roi: 43, note: "Masters R3 parlay cashed. DG edge validated." },
         { name: "Keith Mitchell", bets: 7, wins: 1, pl: -42, roi: -38 },
-        { name: "Stephan Jaeger", bets: 5, wins: 0, pl: -21, roi: -100 },
-        { name: "Nicolai Hojgaard", bets: 6, wins: 1, pl: 47, roi: 34 },
+        { name: "Nicolai Hojgaard", bets: 8, wins: 1, pl: 17, roi: 11, note: "Masters MC but RBC Heritage early dart placed." },
     ],
     onNotice: [
+        { name: "Tommy Fleetwood", bets: 5, wins: 1, pl: -22.60, consec: 2, reason: "Masters T33. R4 76 collapse. Was T4 after R2." },
+        { name: "Patrick Reed", bets: 4, wins: 1, pl: -1.25, consec: 0, reason: "Masters T12. FRL placed T3 R1. Faded R3-R4." },
         { name: "Sepp Straka", bets: 3, wins: 0, pl: -25, consec: 3, reason: "T8 Players near-miss" },
         { name: "Ryo Hisatsune", bets: 3, wins: 0, pl: -7.50, consec: 3, reason: "T13 Players near-miss" },
         { name: "Pierceson Coody", bets: 3, wins: 0, pl: -15, consec: 2, reason: "Model backing strong" },
@@ -639,12 +651,11 @@ const SCOUTING = [
 // Player status flags (updated from conversation intel, podcasts, news)
 // Types: injury, rest, travel, motivation, equipment, form, note
 const PLAYER_STATUS = [
-    { player: "Collin Morikawa", type: "injury", status: "Ball speed 172 on-site (down from high 170s). Mayo: fade signal — not hitting hard. Back injury from Players R1. WD from Valero. Playing through it. 10:19 AM early wave.", severity: "warning", updated: "Apr 8 PM" },
-    { player: "Scottie Scheffler", type: "rest", status: "AGITATED/ANXIOUS body language on-site per Mayo. Baby born ~2 weeks ago. 3-week layoff. APP collapsed +0.08/rd (43rd). PIN drifting out (+592->+615). Strongest fade case of week.", severity: "warning", updated: "Apr 8 PM" },
-    { player: "Rory McIlroy", type: "info", status: "ENHANCED/COMFORTABLE on-site per Mayo. Good body language. Defending champ (0/10 repeat). DG TAILWIND 1.26x. PIN drifting (+1440).", severity: "caution", updated: "Apr 8 PM" },
-    { player: "Akshay Bhatia", type: "travel", status: "In Reed/Fleetwood group 9:55 AM (gusty). MC in India. DG HEADWIND 0.73x. +36% CLV on our lock. Market shortened hard.", severity: "caution", updated: "Apr 8 PM" },
-    { player: "Tiger Woods", type: "injury", status: "Masters: Not competing. 'Personal health matter.' First Masters without Tiger or Phil since 1994.", severity: "info", updated: "Apr 8" },
-    { player: "Phil Mickelson", type: "injury", status: "Masters: Not competing. Personal health matter. Missed most LIV events in 2026.", severity: "info", updated: "Apr 8" },
+    { player: "Collin Morikawa", type: "injury", status: "Back injury persisted through Masters (T7 -9 finish despite it). Ball speed down. Monitor for RBC Heritage — if playing, elite Harbour Town fit.", severity: "caution", updated: "Apr 12" },
+    { player: "Rory McIlroy", type: "info", status: "Won Masters back-to-back (-12). 67-65-73-71. +7.75 SG total dominated. Likely skip RBC Heritage.", severity: "info", updated: "Apr 12" },
+    { player: "Russell Henley", type: "info", status: "Masters T3 (-10)! Shot 66 R3. Both T20 prop and E/W place cashed. Hot form heading into RBC Heritage — strong Harbour Town fit.", severity: "info", updated: "Apr 12" },
+    { player: "Tommy Fleetwood", type: "caution", status: "Masters T33 (E). Collapsed R4 with 76. Was T4 after R2. R4 fade pattern concern — mid-tier grinder fading Sunday. Monitor.", severity: "caution", updated: "Apr 12" },
+    { player: "Patrick Reed", type: "info", status: "Masters T12 (-5). R1-R2 brilliant (69-69, FRL placed T3). Faded R3-R4 (72-73). TAILWIND thesis partially validated.", severity: "info", updated: "Apr 12" },
 ];
 
 // Course library
