@@ -103,6 +103,13 @@ const MASTERS_CARD = [
     { num: 27, player: "McNealy/Henley", market: "Matchup Parlay", terms: "R3 2-Ball", odds: "+164", book: "b365", stake: 20, placed: "Apr 11", t10s: 0, comp: "-", status: "WON +$32.89" },
 ];
 
+const RBC_CARD = [
+    { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
+    { num: 2, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+6800", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
+    { num: 3, player: "Rickie Fowler", market: "Outright", terms: "Win", odds: "+5600", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
+    { num: 4, player: "Harris English", market: "Outright", terms: "Win", odds: "+5000", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
+];
+
 const VALERO_CARD = [
     { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", book: "DK", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "T30 (-7)", result: "Lost" },
     { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", book: "DK", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "MC (-1)", result: "Lost" },
