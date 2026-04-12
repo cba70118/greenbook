@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=40">
+    <link rel="stylesheet" href="style.css?v=41">
 
 </head>
 <body>
@@ -36,7 +36,6 @@
             <button class="nav-btn" data-section="activebets">Active Bets</button>
             <button class="nav-btn" data-section="betting">Season P/L</button>
             <button class="nav-btn" data-section="dfs">DFS</button>
-            <button class="nav-btn" data-section="masterspool" style="color:var(--green-300);border-color:var(--green-600)">Masters Pool</button>
         </nav>
     </header>
 
@@ -478,8 +477,8 @@
             <h3>Outright Win Market</h3>
             <div style="margin-bottom:1rem">
                 <select id="odds-tourney" class="calc-input" style="max-width:280px">
-                    <option value="masters" selected>The Masters</option>
-                    <option value="rbcheritage">RBC Heritage</option>
+                    <option value="rbcheritage" selected>RBC Heritage</option>
+                    <option value="masters">The Masters</option>
                     <option value="valero">Valero Texas Open</option>
                 </select>
             </div>
@@ -605,20 +604,12 @@
         <!-- Portfolio Exposure -->
         <div class="stats-row" style="margin-bottom:1.5rem" id="exposure-stats"></div>
 
-        <!-- Masters (Active) -->
+        <!-- RBC Heritage (Active) -->
         <div class="card" style="border-left:3px solid var(--green-500)">
-            <h3>The Masters <span class="badge" style="background:var(--green-900);color:var(--cream-500)">SETTLED | +$552.64</span></h3>
-            <p class="card-subtitle">Augusta National | 8W-19L on 27 bets | $519.40 staked | $1,072.04 returned | 106% ROI</p>
-            <div id="ab-filters" style="margin-bottom:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap">
-                <button class="sub-tab active" data-filter="all" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:var(--green-800);color:var(--green-300);cursor:pointer">All</button>
-                <button class="sub-tab" data-filter="outright" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">E/W</button>
-                <button class="sub-tab" data-filter="frl" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">FRL</button>
-                <button class="sub-tab" data-filter="prop" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Props</button>
-                <button class="sub-tab" data-filter="3-ball" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">3-Ball</button>
-                <button class="sub-tab" data-filter="other" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">DFS/Pool</button>
-            </div>
+            <h3>RBC Heritage <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | APR 16-19</span></h3>
+            <p class="card-subtitle">Harbour Town Golf Links | 4 bets | $20 staked | DK outrights</p>
             <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-masters"></tbody></table>
+            <tbody id="ab-rbc"></tbody></table>
         </div>
 
         <!-- Previously Settled -->
@@ -626,7 +617,11 @@
             <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
             <h3>Previous Tournaments <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);font-weight:400">Season History</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
 
-            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:0.75rem 0 0.25rem;font-family:var(--font-mono)">Valero Texas Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Spaun -17 | 1W-16L | -$83.05</span></h4>
+            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:0.75rem 0 0.25rem;font-family:var(--font-mono)">The Masters <span style="color:var(--green-400);font-weight:400">SETTLED | Rory -12 | 8W-19L | +$552.64</span></h4>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
+            <tbody id="ab-masters"></tbody></table>
+
+            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:1rem 0 0.25rem;font-family:var(--font-mono)">Valero Texas Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Spaun -17 | 1W-16L | -$83.05</span></h4>
             <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-valero"></tbody></table>
 
@@ -662,9 +657,9 @@
                 <div style="font-size:0.7rem;color:var(--cream-500)">-96.9% ROI | Learning curve</div>
             </div>
             <div class="card" style="flex:1;min-width:200px;border-left:3px solid var(--green-400);padding:0.75rem 1rem">
-                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 2 (Genesis - Present)</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--green-400)">13W | +$206.20</div>
-                <div style="font-size:0.7rem;color:var(--cream-500)">+18.5% ROI | Process works</div>
+                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 2 (Genesis - Masters)</div>
+                <div style="font-size:1.1rem;font-weight:700;color:var(--green-400)">21W | +$758.84</div>
+                <div style="font-size:0.7rem;color:var(--cream-500)">+46.6% ROI | Masters +$552.64 best week</div>
             </div>
         </div>
 
@@ -684,11 +679,10 @@
                     <tr><td>The Players Championship</td><td>17</td><td>0</td><td>15</td><td>0</td><td>$125.00</td><td>$15.00</td><td class="neg">-$110.00</td></tr>
                     <tr><td>Valspar Championship</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$85.00</td><td>$0.00</td><td class="neg">-$85.00</td></tr>
                     <tr><td>Houston Open</td><td>11</td><td>1</td><td>10</td><td>0</td><td>$130.00</td><td>$72.00</td><td class="neg">-$58.00</td></tr>
-                    <tr><td>Valero Texas Open</td><td>17</td><td>-</td><td>-</td><td>17</td><td>$126.25</td><td>-</td><td>Upcoming</td></tr>
                     <tr><td>Valero Texas Open</td><td>17</td><td>1</td><td>16</td><td>0</td><td>$126.25</td><td>$43.20</td><td class="neg">-$83.05</td></tr>
-                    <tr><td>The Masters</td><td>26</td><td>-</td><td>-</td><td>26</td><td>$499.00</td><td>-</td><td>R1 Thu</td></tr>
-                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>191</td><td>13</td><td>151</td><td>26</td><td>$1,931.75</td><td>$1,362.65</td><td>TBD</td></tr>
-                    <tr style="font-weight:700"><td>Settled Only</td><td>164</td><td>13</td><td>151</td><td>-</td><td>$1,432.75</td><td>$1,319.45</td><td class="neg">-$113.30</td></tr>
+                    <tr><td>The Masters</td><td>27</td><td>8</td><td>19</td><td>0</td><td>$519.40</td><td>$1,072.04</td><td class="pos">+$552.64</td></tr>
+                    <tr><td>RBC Heritage</td><td>4</td><td>-</td><td>-</td><td>4</td><td>$20.00</td><td>-</td><td>Upcoming</td></tr>
+                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>196</td><td>21</td><td>170</td><td>4</td><td>$1,972.15</td><td>$2,391.49</td><td class="pos">+$439.34</td></tr>
                 </tbody>
             </table>
         </div>
@@ -745,7 +739,11 @@
     <!-- ═══ DFS ═══ -->
     <section id="dfs" class="panel">
         <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Daily Fantasy</h2>
-        <p class="card-subtitle" style="margin-bottom:1.5rem">The Masters 2026 | Augusta National | Betsperts model + DK salary | Augusta-weighted scoring (APP 35%, T2G 25%, ARG 20%, PUTT 10%, TOT 10%)</p>
+        <p class="card-subtitle" style="margin-bottom:1.5rem">RBC Heritage 2026 | Harbour Town Golf Links | DFS data populates when DG/Betsperts models available</p>
+        <div class="card" style="margin-bottom:1rem;border-left:3px solid var(--green-500)">
+            <h3>Masters DFS Result</h3>
+            <p class="card-subtitle">$109 entry | $750 returned | <span class="pos">+$641 profit</span> | Best DFS week of season</p>
+        </div>
 
         <div class="grid-2">
             <div class="card">
@@ -851,17 +849,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=40"></script>
-    <script src="data.js?v=40"></script>
-    <script src="tournament-data.js?v=40"></script>
-    <script src="settled-data.js?v=40"></script>
-    <script src="masters-odds.js?v=40"></script>
-    <script src="valero-odds.js?v=40"></script>
-    <script src="tools-data.js?v=40"></script>
-    <script src="news-feed.js?v=40"></script>
-    <script src="source-attribution.js?v=40"></script>
-    <script src="app.js?v=40"></script>
-    <script src="masters-pool.js?v=40"></script>
-    <script src="tools.js?v=40"></script>
+    <script src="auth.js?v=41"></script>
+    <script src="data.js?v=41"></script>
+    <script src="tournament-data.js?v=41"></script>
+    <script src="settled-data.js?v=41"></script>
+    <script src="masters-odds.js?v=41"></script>
+    <script src="valero-odds.js?v=41"></script>
+    <script src="tools-data.js?v=41"></script>
+    <script src="news-feed.js?v=41"></script>
+    <script src="source-attribution.js?v=41"></script>
+    <script src="app.js?v=41"></script>
+    <script src="masters-pool.js?v=41"></script>
+    <script src="tools.js?v=41"></script>
 </body>
 </html>

@@ -1837,7 +1837,7 @@ function renderLiveOdds(key) {
 }
 
 document.getElementById('odds-tourney').addEventListener('change', function(e) { renderLiveOdds(e.target.value); });
-renderLiveOdds('masters');
+renderLiveOdds('rbcheritage');
 
 renderPlayers(PLAYERS.active,'active-players');
 renderPlayers(PLAYERS.onNotice,'soft-players');
@@ -1876,12 +1876,18 @@ function renderBetCard(data, tbodyId, book) {
 renderBetCard(HOUSTON_CARD, 'ab-houston', 'bet365');
 renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
 renderBetCard(MASTERS_CARD, 'ab-masters', 'bet365');
+if (typeof RBC_CARD !== 'undefined') renderBetCard(RBC_CARD, 'ab-rbc', 'DraftKings');
 
-// Portfolio Exposure Stats
+// Portfolio Exposure Stats — aggregates ALL open bets across all cards
 (function() {
     var el = document.getElementById('exposure-stats');
     if (!el) return;
-    var openBets = MASTERS_CARD.filter(function(b) { return b.status === 'Open'; });
+    var allCards = [MASTERS_CARD, VALERO_CARD, HOUSTON_CARD];
+    if (typeof RBC_CARD !== 'undefined') allCards.push(RBC_CARD);
+    var openBets = [];
+    allCards.forEach(function(card) {
+        card.forEach(function(b) { if (b.status === 'Open') openBets.push(b); });
+    });
     var openStake = openBets.reduce(function(s, b) { return s + (b.stake || 0); }, 0);
     var avgStake = openBets.length ? (openStake / openBets.length) : 0;
     var markets = {};
@@ -1922,7 +1928,7 @@ function renderBettingOdds(key) {
     }
 }
 document.getElementById('betting-tourney-select').addEventListener('change', e => renderBettingOdds(e.target.value));
-renderBettingOdds('masters');
+renderBettingOdds('rbcheritage');
 
 // ═══ PLAYER BOARD FILTER ═══
 document.addEventListener('click', function(e) {
