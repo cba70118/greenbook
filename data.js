@@ -97,7 +97,7 @@ const MASTERS_CARD = [
     { num: 21, player: "Corey Conners", market: "3-Ball R1", terms: "Win", odds: "+130", book: "b365", stake: 20, placed: "Apr 7", t10s: 4, comp: "#40", status: "Lost (Brennan won)" },
     { num: 22, player: "Jacob Bridgeman", market: "3-Ball R1", terms: "Win", odds: "+120", book: "b365", stake: 20, placed: "Apr 7", t10s: 0, comp: "#39", status: "Tied (DH +$2)" },
     { num: 23, player: "Conners/Bridgeman", market: "3-Ball Parlay", terms: "R1 Double", odds: "+406", book: "b365", stake: 10, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost (Conners leg)" },
-    { num: 24, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 109, placed: "Apr 7", t10s: 0, comp: "-", status: "Live" },
+    { num: 24, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 109, placed: "Apr 7", t10s: 0, comp: "-", status: "WON +$641" },
     { num: 25, player: "Masters Pools", market: "Pool", terms: "3 entries", odds: "-", book: "Pool", stake: 50, placed: "Apr 7", t10s: 0, comp: "-", status: "Live" },
     { num: 26, player: "Conners/Aberg/N.Hojgaard", market: "Parlay", terms: "R1 Top Nationality", odds: "+573", book: "b365", stake: 10, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost (Taylor won CAN)" },
     { num: 27, player: "McNealy/Henley", market: "Matchup Parlay", terms: "R3 2-Ball", odds: "+164", book: "b365", stake: 20, placed: "Apr 11", t10s: 0, comp: "-", status: "WON +$32.89" },
