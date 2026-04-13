@@ -1,16 +1,16 @@
 // Season data
 const SEASON = {
-    totalBets: 196,
-    settled: 191,
+    totalBets: 197,
+    settled: 192,
     open: 4,
     voided: 1,
-    staked: 1972.15,
-    settledStaked: 1952.15,
+    staked: 1977.15,
+    settledStaked: 1957.15,
     openStaked: 20.00,
-    returned: 2391.49,
-    pl: 439.34,
-    roi: 22.5,
-    winners: 21
+    returned: 2411.49,
+    pl: 454.34,
+    roi: 23.2,
+    winners: 22
 };
 
 const TOURNAMENTS = [
@@ -25,7 +25,7 @@ const TOURNAMENTS = [
     { name: "Valspar", bets: 11, staked: 85, returned: 0, pl: -85, phase: 2 },
     { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
     { name: "Valero", bets: 17, staked: 126.25, returned: 43.20, pl: -83.05, phase: 2, status: "settled" },
-    { name: "Masters", bets: 27, staked: 519.40, returned: 1072.04, pl: 552.64, phase: 2, status: "settled" },
+    { name: "Masters", bets: 28, staked: 524.40, returned: 1092.04, pl: 567.64, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -49,6 +49,7 @@ const WINNERS = [
     { tournament: "Masters", player: "Russell Henley", market: "E/W Placed T3", odds: "+3500 1/5", stake: 10, ret: 40, pl: 30 },
     { tournament: "Masters", player: "DFS Lineup", market: "GPP", odds: "-", stake: 109, ret: 750, pl: 641 },
     { tournament: "Masters", player: "McNealy/Henley", market: "R3 Matchup Parlay", odds: "+164", stake: 20, ret: 52.89, pl: 32.89 },
+    { tournament: "Masters", player: "Sam Stevens", market: "Top Debutant DH", odds: "-", stake: 5, ret: 20, pl: 15 },
 ];
 
 const MARKETS = [
@@ -111,6 +112,7 @@ const MASTERS_CARD = [
     { num: 25, player: "Masters Pools", market: "Pool", terms: "3 entries", odds: "-", book: "Pool", stake: 50, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost" },
     { num: 26, player: "Conners/Aberg/N.Hojgaard", market: "Parlay", terms: "R1 Top Nationality", odds: "+573", book: "b365", stake: 10, placed: "Apr 7", t10s: 0, comp: "-", status: "Lost (Taylor won CAN)" },
     { num: 27, player: "McNealy/Henley", market: "Matchup Parlay", terms: "R3 2-Ball", odds: "+164", book: "b365", stake: 20, placed: "Apr 11", t10s: 0, comp: "-", status: "WON +$32.89" },
+    { num: 28, player: "Sam Stevens", market: "Prop", terms: "Top Debutant", odds: "+1100", book: "DK", stake: 5, placed: "Apr 9", t10s: 0, comp: "-", status: "DH Won +$15" },
 ];
 
 const RBC_CARD = [
