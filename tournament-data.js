@@ -27,7 +27,7 @@ const TOURNAMENT_DATA = {
             { player:"Jordan Spieth", wave:"TBD", odds:"+4000 b365", windAdv:"TBD", form:"TAILWIND", history:"Led R1 2015 (won, 64). DG fair +5560. 1.75x TAILWIND." },
         ],
         narrative: {
-            description: "MacKenzie/Jones masterpiece (1933). Alister MacKenzie and Bobby Jones designed the course on a single broad downslope ending at Rae's Creek. The most predictive course on Tour — course history matters more here than anywhere else. Wide fairways with no real rough (1-3/8in second cut), but severely contoured elevated greens (1/8in, 13.5 stimp) with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hole 10 is the hardest in Masters history (4.31 avg). Hurricane Helene (2024) destroyed Hole 16 and removed many trees, opening sightlines and changing wind patterns. Rebuilt to original spec.",
+            description: "MacKenzie/Jones design (1933). Alister MacKenzie and Bobby Jones designed the course on a single broad downslope ending at Rae's Creek. The most predictive course on Tour — course history matters more here than anywhere else. Wide fairways with no real rough (1-3/8in second cut), but severely contoured elevated greens (1/8in, 13.5 stimp) with SubAir system create the most demanding approach and short-game test in golf. 73% of scoring from par 5s since 2010. Amen Corner (11-13) decides tournaments. Hole 10 is the hardest in Masters history (4.31 avg). Hurricane Helene (2024) destroyed Hole 16 and removed many trees, opening sightlines and changing wind patterns. Rebuilt to original spec.",
             correlated: "Quail Hollow, Muirfield Village, Torrey Pines (South), Pinehurst No. 2, Riviera, Bay Hill, Southern Hills, Memorial Park. Common thread: demanding second-shot courses with difficult ARG, elevation changes, and a premium on distance + iron play.",
             tags: ["Bentgrass Fast", "Par 5 Scoring", "Course History King", "Short-Grass ARG", "Elevated Greens", "No Rough Penalty", "Amen Corner", "Major"],
             keyHoles: [
@@ -617,7 +617,7 @@ const TOURNAMENT_DATA = {
         meta: "7,245 yds | Par 72 | Bermuda/Poa greens | Scoring: Hard",
         archetype: "Second-shot + Penalty course",
         narrative: {
-            description: "Pete Dye's masterpiece and the PGA Tour's flagship event. Island green at 17 is the most famous hole in golf. TPC Sawgrass is the hardest course to gain strokes on approach on Tour — the small, firm, elevated greens surrounded by water and waste areas demand absolute precision. Course history is moderately predictive. The 5th major in everything but name.",
+            description: "Pete Dye's design and the PGA Tour's flagship event. Island green at 17 is the most famous hole in golf. TPC Sawgrass is the hardest course to gain strokes on approach on Tour — the small, firm, elevated greens surrounded by water and waste areas demand absolute precision. Course history is moderately predictive. The 5th major in everything but name.",
             correlated: "Harbour Town (Pete Dye, small greens, accuracy), TPC River Highlands (Dye design, water, precision), PGA National (water + penalty, demanding approach). Common thread: Pete Dye precision courses where approach miss = water/waste = bogey+.",
             tags: ["Signature Event", "Island Green", "Penalty Course", "Water Everywhere", "Small Greens", "Pete Dye", "5th Major"],
             keyHoles: [
@@ -1285,7 +1285,7 @@ const TOURNAMENT_DATA = {
         location: "Hilton Head Island, South Carolina",
         frl: [],
         narrative: {
-            description: "Pete Dye masterpiece (1969) co-designed with Jack Nicklaus. The anti-Augusta: narrow, tree-lined fairways demanding precision over power. Small greens avg ~3,800 sq ft reward elite iron play and distance control. Iconic par-3 17th and lighthouse finish at 18. One of the shortest courses on Tour. Traditionally a 'cool-down' event after the Masters — many top players skip or arrive fatigued. Signature Event status since 2024 ensures a strong field. Wind off Calibogue Sound affects multiple holes, especially the closing stretch.",
+            description: "Pete Dye design (1969) co-designed with Jack Nicklaus. The anti-Augusta: narrow, tree-lined fairways demanding precision over power. Small greens avg ~3,800 sq ft reward elite iron play and distance control. Iconic par-3 17th and lighthouse finish at 18. One of the shortest courses on Tour. Traditionally a 'cool-down' event after the Masters — many top players skip or arrive fatigued. Signature Event status since 2024 ensures a strong field. Wind off Calibogue Sound affects multiple holes, especially the closing stretch.",
             correlated: "TPC River Highlands, Waialae CC, Sea Island (Seaside), TPC Sawgrass, Innisbrook (Copperhead), Sedgefield CC, Pebble Beach, Colonial CC",
             tags: ["Accuracy Premium", "Small Greens (3,700 sqft)", "Pete Dye Design", "Poa Trivialis Greens", "Short Course", "Coastal Wind", "Post-Masters", "Signature Event", "Less Than Driver OTT"],
             keyHoles: [
@@ -1329,7 +1329,7 @@ const TOURNAMENT_DATA = {
         location: "Doral, Florida",
         frl: [],
         narrative: {
-            description: "Dick Wilson masterpiece (1962), renovated by Gil Hanse (2014). The Blue Monster is the longest course on the Signature Event rotation at 7,590 yards. Water is the dominant defense — comes into play on nearly every hole. Deep bunkers, elevated green pads for drainage, and Bermuda greens with grain. The 2014 Hanse restoration added dramatic new features on holes 15-16. Formerly hosted WGC-Cadillac Championship (2011-2016). Flat south Florida layout demands target golf with distance. Signature Event ($20M purse) ensures top-50 field.",
+            description: "Dick Wilson design (1962), renovated by Gil Hanse (2014). The Blue Monster is the longest course on the Signature Event rotation at 7,590 yards. Water is the dominant defense — comes into play on nearly every hole. Deep bunkers, elevated green pads for drainage, and Bermuda greens with grain. The 2014 Hanse restoration added dramatic new features on holes 15-16. Formerly hosted WGC-Cadillac Championship (2011-2016). Flat south Florida layout demands target golf with distance. Signature Event ($20M purse) ensures top-50 field.",
             correlated: "PGA National (Champion), TPC Sawgrass, Bay Hill, Innisbrook (Copperhead), Waialae CC",
             tags: ["Long Course", "Bermuda Greens", "Water Hazards", "Flat Florida", "Signature Event", "Distance Matters", "Deep Bunkers", "Elevated Greens"],
             recentWinners: [
@@ -1365,7 +1365,7 @@ const TOURNAMENT_DATA = {
         location: "Newtown Square, Pennsylvania",
         frl: [],
         narrative: {
-            description: "Donald Ross masterpiece (1928), restored by Gil Hanse. Hosted 1962 PGA (Gary Player), 2018 BMW Championship (Keegan Bradley), and 2020 KPMG Women's PGA. Classic parkland with bentgrass greens featuring Ross's signature crowned, convex putting surfaces that shed approaches to collection areas. Shorter than most modern major venues — accuracy and iron play dominate over distance. Hanse restoration returned greens to original Ross contours, removing decades of softening. Tree removal has opened sightlines and increased wind exposure.",
+            description: "Donald Ross design (1928), restored by Gil Hanse. Hosted 1962 PGA (Gary Player), 2018 BMW Championship (Keegan Bradley), and 2020 KPMG Women's PGA. Classic parkland with bentgrass greens featuring Ross's signature crowned, convex putting surfaces that shed approaches to collection areas. Shorter than most modern major venues — accuracy and iron play dominate over distance. Hanse restoration returned greens to original Ross contours, removing decades of softening. Tree removal has opened sightlines and increased wind exposure.",
             correlated: "Pinehurst No. 2 (Ross design, crowned greens, ARG test), East Lake, Sedgefield, Detroit GC. Common thread: Ross designs reward iron precision + short game creativity around crowned greens.",
             tags: ["Donald Ross", "Bentgrass", "Crowned Greens", "Gil Hanse Restoration", "Iron Play", "Short Game", "Classic Parkland", "Major"],
             keyHoles: [],
