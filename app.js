@@ -1468,7 +1468,7 @@ function getCurrentTournament() {
     for (const btn of timeline) {
         if (btn.classList.contains('upcoming')) return btn.dataset.t;
     }
-    return 'masters';
+    return 'rbcheritage';
 }
 const currentKey = getCurrentTournament();
 loadTournament(currentKey);
