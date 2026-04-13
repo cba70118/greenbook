@@ -132,6 +132,7 @@ const RBC_CARD = [
     { num: 2, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+6800", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
     { num: 3, player: "Rickie Fowler", market: "Outright", terms: "Win", odds: "+5600", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
     { num: 4, player: "Harris English", market: "Outright", terms: "Win", odds: "+5000", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
+    { num: 5, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
 ];
 
 const VALERO_CARD = [
