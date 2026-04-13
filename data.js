@@ -115,10 +115,13 @@ const MASTERS_CARD = [
     { num: 28, player: "Sam Stevens", market: "Prop", terms: "Top Debutant", odds: "+1100", book: "DK", stake: 5, placed: "Apr 9", t10s: 0, comp: "-", status: "DH Won +$15" },
 ];
 
-// 2027 Masters Futures
+// Futures + Major Championship Early Locks
 const FUTURES = [
     { player: "Xander Schauffele", market: "Outright", terms: "Win", odds: "+2250", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
     { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
+    { player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
+    { player: "Matt Fitzpatrick", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
+    { player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/5 10pl", odds: "+1800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
 ];
 
 const RBC_CARD = [
