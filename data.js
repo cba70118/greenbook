@@ -115,6 +115,12 @@ const MASTERS_CARD = [
     { num: 28, player: "Sam Stevens", market: "Prop", terms: "Top Debutant", odds: "+1100", book: "DK", stake: 5, placed: "Apr 9", t10s: 0, comp: "-", status: "DH Won +$15" },
 ];
 
+// 2027 Masters Futures
+const FUTURES = [
+    { player: "Xander Schauffele", market: "Outright", terms: "Win", odds: "+2250", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
+    { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
+];
+
 const RBC_CARD = [
     { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
     { num: 2, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+6800", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
