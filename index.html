@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=41">
+    <link rel="stylesheet" href="style.css?v=42">
 
 </head>
 <body>
@@ -151,8 +151,9 @@
         <!-- Tournament Nav -->
         <div class="timeline-strip">
             <div class="timeline-btn settled recent" data-t="valero"><span class="tl-name">Valero</span><span class="tl-settled-result">Spaun -17</span></div>
-            <div class="timeline-btn upcoming live" data-t="masters"><span class="tl-name">Masters</span><span class="tl-date">Apr 10</span></div>
-            <div class="timeline-btn upcoming" data-t="rbcheritage"><span class="tl-name">RBC Heritage</span><span class="tl-date">Apr 17</span></div>
+            <div class="timeline-btn settled recent" data-t="masters"><span class="tl-name">Masters</span><span class="tl-settled-result">Rory -12</span></div>
+            <div class="timeline-btn upcoming live" data-t="rbcheritage"><span class="tl-name">RBC Heritage</span><span class="tl-date">Apr 16</span></div>
+            <div class="timeline-btn upcoming" data-t="miamichampionship"><span class="tl-name">Miami Champ</span><span class="tl-date">Apr 30</span></div>
             <div class="tl-divider"></div>
             <div class="timeline-btn settled recent" data-t="houston"><span class="tl-name">Houston</span><span class="tl-settled-result">Woodland -21</span></div>
             <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-settled-result">Fitzpatrick -11</span></div>
@@ -478,8 +479,9 @@
             <div style="margin-bottom:1rem">
                 <select id="odds-tourney" class="calc-input" style="max-width:280px">
                     <option value="rbcheritage" selected>RBC Heritage</option>
-                    <option value="masters">The Masters</option>
-                    <option value="valero">Valero Texas Open</option>
+                    <option value="miamichampionship">Miami Championship</option>
+                    <option value="pgachampionship">PGA Championship</option>
+                    <option value="masters">The Masters (Settled)</option>
                 </select>
             </div>
             <table class="data-table" id="live-odds-table">
@@ -519,7 +521,7 @@
     <!-- ═══ TOOLS ═══ -->
     <section id="tools" class="panel">
         <div class="card"><h3>Historical Leaderboard Overlay</h3>
-            <div class="grid-2"><div><select id="history-venue-select"><option value="masters">Augusta National (2010-2025)</option><option value="valero">TPC San Antonio (2016-2025)</option></select></div>
+            <div class="grid-2"><div><select id="history-venue-select"><option value="rbcheritage">Harbour Town (2019-2025)</option><option value="masters">Augusta National (2010-2025)</option><option value="valero">TPC San Antonio (2016-2025)</option></select></div>
             <div class="field-filters"><label><input type="checkbox" id="hist-top10" checked> Top 10 only</label><label><input type="checkbox" id="hist-in-field"> In 2026 field only</label></div></div>
             <canvas id="history-scatter" height="400"></canvas>
             <div class="card" style="margin-top:1rem;background:var(--green-900)"><h4 style="font-size:0.85rem">Repeat Performers</h4>
@@ -636,9 +638,10 @@
             <h3>Odds Board</h3>
             <p class="card-subtitle">Composite-implied fair odds vs book price.</p>
             <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
-                <option value="masters">Masters</option>
-                <option value="rbcheritage">RBC Heritage</option>
-                <option value="valero">Valero Texas Open</option>
+                <option value="rbcheritage" selected>RBC Heritage</option>
+                <option value="miamichampionship">Miami Championship</option>
+                <option value="pgachampionship">PGA Championship</option>
+                <option value="masters">The Masters (Settled)</option>
             </select>
             <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
             <tbody id="odds-body"></tbody></table>
@@ -849,17 +852,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=41"></script>
-    <script src="data.js?v=41"></script>
-    <script src="tournament-data.js?v=41"></script>
-    <script src="settled-data.js?v=41"></script>
-    <script src="masters-odds.js?v=41"></script>
-    <script src="valero-odds.js?v=41"></script>
-    <script src="tools-data.js?v=41"></script>
-    <script src="news-feed.js?v=41"></script>
-    <script src="source-attribution.js?v=41"></script>
-    <script src="app.js?v=41"></script>
-    <script src="masters-pool.js?v=41"></script>
-    <script src="tools.js?v=41"></script>
+    <script src="auth.js?v=42"></script>
+    <script src="data.js?v=42"></script>
+    <script src="tournament-data.js?v=42"></script>
+    <script src="settled-data.js?v=42"></script>
+    <script src="masters-odds.js?v=42"></script>
+    <script src="valero-odds.js?v=42"></script>
+    <script src="tools-data.js?v=42"></script>
+    <script src="news-feed.js?v=42"></script>
+    <script src="source-attribution.js?v=42"></script>
+    <script src="app.js?v=42"></script>
+    <script src="masters-pool.js?v=42"></script>
+    <script src="tools.js?v=42"></script>
 </body>
 </html>
