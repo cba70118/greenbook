@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 197,
+    totalBets: 205,
     settled: 192,
-    open: 4,
+    open: 12,
     voided: 1,
-    staked: 1977.15,
+    staked: 2097.15,
     settledStaked: 1957.15,
-    openStaked: 20.00,
+    openStaked: 140.00,
     returned: 2411.49,
     pl: 454.34,
     roi: 23.2,
@@ -128,12 +128,10 @@ const FUTURES = [
 ];
 
 const RBC_CARD = [
-    { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
-    { num: 2, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+6800", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
-    { num: 3, player: "Rickie Fowler", market: "Outright", terms: "Win", odds: "+5600", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
-    { num: 4, player: "Harris English", market: "Outright", terms: "Win", odds: "+5000", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
-    { num: 5, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "-", status: "Open" },
-    { num: 6, player: "Daniel Berger", market: "Outright", terms: "E/W 1/5 8pl", odds: "+6000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "-", status: "Open" },
+    { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "M avg #11.7", status: "Open" },
+    { num: 2, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "T3 2025. M7 #9", status: "Open" },
+    { num: 3, player: "Daniel Berger", market: "Outright", terms: "E/W 1/5 8pl", odds: "+6000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "T3 2025. Noonan pick", status: "Open" },
+    { num: 4, player: "Sungjae Im", market: "Outright", terms: "E/W 1/5 8pl", odds: "+10000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan E/W pick. T11 2025", status: "Open" },
 ];
 
 const VALERO_CARD = [
