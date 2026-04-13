@@ -134,6 +134,7 @@ const RBC_CARD = [
     { num: 4, player: "Sungjae Im", market: "Outright", terms: "E/W 1/5 8pl", odds: "+10000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan E/W pick. T11 2025", status: "Open" },
     { num: 5, player: "Ryo Hisatsune", market: "Prop", terms: "Top 10", odds: "+500", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "M avg #11.7. T18 2025", status: "Open" },
     { num: 6, player: "Brian Harman", market: "Prop", terms: "Top 10", odds: "+530", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "T3 2025. M7 #9", status: "Open" },
+    { num: 7, player: "Sungjae Im", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan pick. T11 2025", status: "Open" },
 ];
 
 const VALERO_CARD = [
