@@ -1310,6 +1310,11 @@ const TOURNAMENT_DATA = {
             { stat: "SG: Off the Tee", weight: 0.10, note: "Distance less important — accuracy > power" },
             { stat: "Bogey Avoidance", weight: 0.07, note: "Pete Dye courses punish mistakes" },
         ],
+        masked: ["Driving distance (shortest Signature Event, 280yd avg vs 292 Tour avg)", "Rough penalty (1.5in rye = minimal punishment for misses)", "Seasonal putting rank (bad putters survive, spike putting rounds separate)"],
+        amplified: ["Approach precision 100-175 yards (3x more impactful than OTT)", "Around-the-green recovery (58% GIR = you WILL miss greens)", "Course management and positional golf (where you miss matters more than if you miss)", "Course history (one of the most predictive courses on Tour)"],
+        winnerDNA: "SG:APP is the separator — 3x more impactful than OTT over 6 years among top 5 finishers. ARG matters more than OTT (rare for any course). GIR only 58% so you need to scramble. Par 3s are survival holes (all 4 bogey > birdie). Par 5 go-for-it only 50%. Winners are positional golfers, not bombers. Playoff 3 of 4 years — nobody runs away. Post-Masters fatigue favours fresh legs and MC players. Winners at 20/1+ historically (except Scheffler 2024).",
+        winnerProfile: [90, 85, 82, 70, 60, 85],
+        radarAxes: ["APP", "ARG", "Driving Acc", "Putting", "Distance", "Course History"],
         oddsBoard: [
             // Early DK odds + 3-model avg rank. DG/PIN/b365 E/W pending.
             { rank:1, name:"Scottie Scheffler", fair:"-", best:"+345", b365:"-", b365_8:"-", edge:"-", form:"warm", verdict:"B2B Heritage winner. Chalk. Post-Masters fatigue?", note:"B2B champ. +345 chalk." },
@@ -1370,6 +1375,11 @@ const TOURNAMENT_DATA = {
             { stat: "Driving Distance", weight: 0.10, note: "Longest Signature Event. 300+ carry helps." },
             { stat: "Bogey Avoidance", weight: 0.08, note: "Water kills. Patient play wins." },
         ],
+        masked: ["Driving accuracy (fairways are wide enough that offline drives find grass, not trees)", "Seasonal ARG rank (deep bunkers are rated 'easy' — highest sand save % on Tour outside TPC Southwind)"],
+        amplified: ["Bermuda putting (grain reading is a real skill that separates here)", "Driving distance (7,590 yds — you can't compete short here like you can at Harbour Town)", "Water management / bogey avoidance (water on nearly every hole, one bad swing = double)", "Approach trajectory into elevated greens (high ball flight with spin control)"],
+        winnerDNA: "Controlled distance + elite irons + Bermuda putter. Tiger won here 4 times — that tells you the profile: long enough to reach par 5s, precise enough to avoid water, good enough on Bermuda to convert. DJ, Adam Scott, Patrick Reed all fit the same mold. Short hitters are penalized at 7,590 yds — this is NOT an accuracy-specialist course like Harbour Town. Bermuda putting separates more than at any other Signature Event. Water is the great equaliser: one bad swing ruins a round.",
+        winnerProfile: [85, 88, 82, 78, 85, 60],
+        radarAxes: ["APP", "OTT/Distance", "Bermuda Putting", "ARG", "Distance", "Course History"],
         oddsBoard: [],
         composite: [], rhModels: [], formSignals: [], weaknessMasked: [], narratives: [], courseHistory: [],
         notes: [
