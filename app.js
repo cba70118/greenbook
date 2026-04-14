@@ -1532,6 +1532,31 @@ function buildDataCenter() {
     }
 
     function calcArchFit(p, type) {
+        if (type==='thisweek') {
+            // Dynamic: pull fingerprint weights from current tournament
+            var key = getCurrentTournament();
+            var t = TOURNAMENT_DATA[key];
+            if (t && t.fingerprint && t.fingerprint.length) {
+                var score = 25; // base
+                t.fingerprint.forEach(function(f) {
+                    var w = f.weight || 0;
+                    var stat = f.stat.toLowerCase();
+                    if (stat.indexOf('approach') >= 0 || stat.indexOf('app') >= 0) score += (p.app / 0.9) * w * 100;
+                    else if (stat.indexOf('around') >= 0 || stat.indexOf('arg') >= 0) score += (p.arg / 0.4) * w * 100;
+                    else if (stat.indexOf('off the tee') >= 0 || stat.indexOf('ott') >= 0) score += (p.ott / 0.9) * w * 80;
+                    else if (stat.indexOf('putting') >= 0 || stat.indexOf('putt') >= 0) {
+                        var ps = stat.indexOf('bermuda') >= 0 ? p.putt_bermuda : stat.indexOf('poa') >= 0 ? p.putt_poa : p.putt_bent;
+                        score += ((ps || p.putt) / 0.6) * w * 100;
+                    }
+                    else if (stat.indexOf('accuracy') >= 0 || stat.indexOf('driving acc') >= 0) score += Math.max(0, (1 - Math.abs(p.dd) / 20)) * w * 100;
+                    else if (stat.indexOf('distance') >= 0 || stat.indexOf('driving dist') >= 0) score += (p.dd / 20) * w * 80;
+                    else if (stat.indexOf('bogey') >= 0) score += ((p.app + p.arg) / 1.0) * w * 60;
+                });
+                return Math.min(100, Math.max(0, score));
+            }
+            // Fallback to secondshot if no fingerprint
+            return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
+        }
         if (type==='secondshot') return Math.min(100,(p.app/0.9)*50+(p.arg/0.4)*25+25);
         if (type==='bomber') return Math.min(100,(p.dd/20)*40+(p.ott/0.9)*35+25);
         if (type==='bermuda') return Math.min(100,(p.putt/0.6)*45+(p.arg/0.4)*30+25);
@@ -1561,7 +1586,7 @@ function buildDataCenter() {
         });
     });
 
-    renderArchetypeFit('secondshot');
+    renderArchetypeFit('thisweek');
     document.querySelectorAll('#dc-archetype-tabs .quick-tag').forEach(function(btn) {
         btn.addEventListener('click', function() {
             document.querySelectorAll('#dc-archetype-tabs .quick-tag').forEach(function(b){b.classList.remove('active')});
