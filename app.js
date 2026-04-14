@@ -1904,12 +1904,22 @@ renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
 renderBetCard(MASTERS_CARD, 'ab-masters', 'bet365');
 if (typeof RBC_CARD !== 'undefined') renderBetCard(RBC_CARD, 'ab-rbc', 'DraftKings');
 
+// Futures table
+(function() {
+    var tb = document.getElementById('ab-futures');
+    if (!tb || typeof FUTURES === 'undefined') return;
+    FUTURES.forEach(function(b) {
+        tb.innerHTML += '<tr><td><strong>' + b.player + '</strong></td><td>' + (b.event || '') + '</td><td style="font-family:var(--font-mono)">' + b.odds + '</td><td>' + (b.terms || '') + '</td><td>' + b.book + '</td><td style="font-family:var(--font-mono)">$' + b.stake + '</td></tr>';
+    });
+})();
+
 // Portfolio Exposure Stats — aggregates ALL open bets across all cards
 (function() {
     var el = document.getElementById('exposure-stats');
     if (!el) return;
     var allCards = [MASTERS_CARD, VALERO_CARD, HOUSTON_CARD];
     if (typeof RBC_CARD !== 'undefined') allCards.push(RBC_CARD);
+    if (typeof FUTURES !== 'undefined') allCards.push(FUTURES);
     var openBets = [];
     allCards.forEach(function(card) {
         card.forEach(function(b) { if (b.status === 'Open') openBets.push(b); });
