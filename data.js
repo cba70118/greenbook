@@ -125,6 +125,7 @@ const FUTURES = [
     { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
     { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
     { player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
+    { player: "Tony Finau", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 13, 2026", event: "2026 PGA Championship", status: "Open" },
 ];
 
 const RBC_CARD = [
