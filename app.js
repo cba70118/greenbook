@@ -121,9 +121,10 @@ function buildTheCut() {
     if (otw && t) {
         var html = '';
 
-        // On Card chips — pull from actual card data, not notes
-        var cardData = typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
-        var openBets = cardData.filter(function(b){return b.status === 'Open'});
+        // On Card chips — pull from current week's card
+        var cardData = typeof RBC_CARD !== 'undefined' ? RBC_CARD :
+                       typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
+        var openBets = cardData.filter(function(b){return b.status === 'Open' || b.status.indexOf('Open') >= 0});
         if (openBets.length) {
             html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + openBets.length + ')</div>';
             html += '<div style="margin-bottom:0.5rem">' + openBets.map(function(b){
