@@ -19,10 +19,28 @@ const NEWS_FEED = [
     "source": "Greenbook"
   },
   {
-    "title": "RBC HERITAGE NEXT: Harbour Town Golf Links. Accuracy + iron play course (anti-Augusta). 4 early DK darts: Hisatsune +10500, N.Hojgaard +6800, Fowler +5600, English +5000. DG data expected Monday.",
+    "title": "RBC HERITAGE CARD: 12 bets, $120. Henley $40 anchor (TAILWIND 1.87x, DG #3, 7-model #3.6). Berger/Sungjae/Harman E/W. Bridgeman/McCarthy FRL (Poa Triv putter plays). Glover/Hoge deep darts. Weather benign all 4 rounds.",
     "link": "",
-    "date": "Sun, 12 Apr 2026 16:00:00 +0000",
+    "date": "Mon, 13 Apr 2026 22:00:00 +0000",
     "source": "Greenbook"
+  },
+  {
+    "title": "DG LIVE FOR RBC: Form ratios in. Harman/Poston 2.04x TAILWIND (highest). Henley 1.87x. Si Woo 1.61x. Sungjae 1.51x. Berger 1.45x. HEADWIND: Cam Young 0.78, Hojgaard 0.50. Short hitters rewarded, bombers penalized per decomposition.",
+    "link": "",
+    "date": "Mon, 13 Apr 2026 21:00:00 +0000",
+    "source": "DataGolf"
+  },
+  {
+    "title": "NARRATIVE CONVERGENCE: Henley picked by 7 models + Mayo + Noonan + Klos + Titanic + us. Berger picked by Noonan ('love getting him at 125/1 E/W') + Molitor #9 + Titanic. Harman picked by Titanic at 120/1 + M7 #9.",
+    "link": "",
+    "date": "Mon, 13 Apr 2026 20:00:00 +0000",
+    "source": "Greenbook"
+  },
+  {
+    "title": "POA TRIV DATA: 3-year surface analysis loaded. Bridgeman #1 putter. McCarthy #1 scrambler. Poston SG:TOT #7 over 80 rounds (course horse validated). Berger APP #5. Day ARG #5 + PUTT #6 combo.",
+    "link": "",
+    "date": "Mon, 13 Apr 2026 19:00:00 +0000",
+    "source": "Betsperts / Greenbook"
   },
   {
     "title": "2026 Masters Saturday channel: TV schedule for Round 3 at Augusta National",
