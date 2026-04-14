@@ -19,7 +19,19 @@ const NEWS_FEED = [
     "source": "Greenbook"
   },
   {
-    "title": "RBC HERITAGE CARD: 12 bets, $120. Henley $40 anchor (TAILWIND 1.87x, DG #3, 7-model #3.6). Berger/Sungjae/Harman E/W. Bridgeman/McCarthy FRL (Poa Triv putter plays). Glover/Hoge deep darts. Weather benign all 4 rounds.",
+    "title": "R1 TEE TIMES POSTED: All 3 of our FRL bets in AM wave. McCarthy 7:25 AM (Poa Triv #1 scrambler), Sungjae 8:50 AM, Bridgeman 10:15 AM. Henley/Fitz/Fleetwood/Si Woo all PM wave. AM = cooler/firmer greens. No major wave advantage (calm 4 rounds).",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 14:30:00 +0000",
+    "source": "PGA Tour / Greenbook"
+  },
+  {
+    "title": "FIELD UPDATE: Justin Rose WD'd. Michael Thorbjornsen replaces (1st alternate). Brooks Koepka and Keith Mitchell next alternates per Bamford. Field at 82.",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 12:00:00 +0000",
+    "source": "Field Update"
+  },
+  {
+    "title": "RBC HERITAGE CARD: 12 bets, $120. Henley $40 anchor (TAILWIND 1.97x, DG #3, 7-model #3.6). Berger/Sungjae/Harman E/W. Bridgeman/McCarthy FRL (Poa Triv putter plays). Glover/Hoge deep darts.",
     "link": "",
     "date": "Mon, 13 Apr 2026 22:00:00 +0000",
     "source": "Greenbook"
