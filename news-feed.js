@@ -19,6 +19,30 @@ const NEWS_FEED = [
     "source": "Greenbook"
   },
   {
+    "title": "GBS COURSE HISTORY SG: TAILWIND plays validated. Harman #8 (1.17), Berger #5 (1.80), Poston #7 (1.62), Sungjae #15 (0.98), Henley #12 (1.14) all top-15 SG:TOT 2016-2025. Cantlay #4 (2.11) validates sharp love. Negative flags: Putnam -1.06 (#58), Bridgeman -1.13 (countered by DG CH #13), Min Woo -0.81.",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 20:30:00 +0000",
+    "source": "Golf Betting System"
+  },
+  {
+    "title": "GBS FRL HISTORY: Cam Young is sharpest FRL signal in field — 67.75 R1 avg (best), 1 FRL + T5, Pin +2304 outright (biggest sharp move), Betway FRL +2500 (+5.6% EV). Lowry strongest profile (3 T5 FRLs, 68.63 R1 avg). Min Woo R1 avg 71.5 (poor) but DG FRL model +EV holds.",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 20:35:00 +0000",
+    "source": "Golf Betting System"
+  },
+  {
+    "title": "PINNACLE LIVE: Sharps LOVE Cantlay (+2304 vs DG +3710), Spieth (+3252 vs DG +6545 — Mayo 50/1 validated), Hovland (+3149), Straka (+4353), Bhatia (+4738). SOFT/+EV: McCarty FD +15000 (+6.7%), Pin +17374 (+23.5%) — our FRL +EV outright. Morikawa Pin +2965 (+8.9%). Stevens +5.8%. Harman largest -EV divergence on our card (all books -58% to -68%).",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 20:00:00 +0000",
+    "source": "DataGolf / Pinnacle"
+  },
+  {
+    "title": "DG CH MODEL LIVE: Pre-tournament predictions finally populated. Henley #5 win (+1911), T10 +189 — anchor validated. Bridgeman #13 win (+5497) — FRL play gets big DG pop (our composite had #33). Young #4 despite HEADWIND 0.78. Harman #42 — DG cold on our TAILWIND play, sample-size divergence. Berger #40/Sungjae #41/Hisatsune #29 all in DG dart zone.",
+    "link": "",
+    "date": "Tue, 14 Apr 2026 19:00:00 +0000",
+    "source": "DataGolf"
+  },
+  {
     "title": "R1 TEE TIMES POSTED: All 3 of our FRL bets in AM wave. McCarthy 7:25 AM (Poa Triv #1 scrambler), Sungjae 8:50 AM, Bridgeman 10:15 AM. Henley/Fitz/Fleetwood/Si Woo all PM wave. AM = cooler/firmer greens. No major wave advantage (calm 4 rounds).",
     "link": "",
     "date": "Tue, 14 Apr 2026 14:30:00 +0000",

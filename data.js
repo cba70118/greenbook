@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 213,
+    totalBets: 215,
     settled: 192,
-    open: 20,
+    open: 22,
     voided: 1,
-    staked: 2187.15,
+    staked: 2207.15,
     settledStaked: 1957.15,
-    openStaked: 230.00,
+    openStaked: 250.00,
     returned: 2411.49,
     pl: 454.34,
     roi: 23.2,
@@ -141,6 +141,8 @@ const RBC_CARD = [
     { num: 5, player: "Ryo Hisatsune", market: "Prop", terms: "Top 10", odds: "+500", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "M avg #11.7. T18 2025", status: "Open" },
     { num: 6, player: "Brian Harman", market: "Prop", terms: "Top 10", odds: "+530", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "T3 2025. M7 #9", status: "Open" },
     { num: 7, player: "Sungjae Im", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan pick. T11 2025", status: "Open" },
+    { num: 13, player: "Min Woo Lee", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5850", book: "b365", stake: 10, placed: "Apr 14", t10s: 0, comp: "30% boost (+4500 base). DG FRL +EV 13.9%. Mayo 110/1", status: "Open" },
+    { num: 14, player: "Chris Gotterup", market: "Outright", terms: "E/W 1/5 3pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 15", t10s: 0, comp: "T10 2025 Harbour Town. Composite #28", status: "Open" },
 ];
 
 const VALERO_CARD = [
