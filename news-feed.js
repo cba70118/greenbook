@@ -1,5 +1,23 @@
-// News feed -- updated 2026-04-12 post-Masters settlement
+// News feed -- updated 2026-04-17 mid-R2 RBC Heritage
 const NEWS_FEED = [
+  {
+    "title": "R2 COMPLETE LEADERBOARD: Fitzpatrick -14 leads. Hovland -13. English -10. Aberg/Cantlay/Straka -9. Si Woo -8 (T7, huge for our T10 + E/W). Henley -6 (T19, alive). Glover -6 (T19, 10pl E/W VERY alive). Harman -5, Sungjae -4, Stevens -3, Berger/Min Woo/McCarty -2.",
+    "link": "",
+    "date": "Fri, 17 Apr 2026 20:00:00 +0000",
+    "source": "Greenbook R2"
+  },
+  {
+    "title": "R1 FRL RESULT: Aberg wins with 63. Top 5: Aberg 63, Hovland/English 64, 6-way tie at 65. ALL 4 OUR FRL BETS LOST: Bridgeman 75 (T76, disaster), Denny McCarthy 74 (T69), Sungjae 66 (T13, closest), Min Woo 70 (T50). Total FRL loss: -$40. Outrights + T10s all still live.",
+    "link": "",
+    "date": "Thu, 16 Apr 2026 22:30:00 +0000",
+    "source": "Greenbook R1"
+  },
+  {
+    "title": "LIVE EQUITY R2: Si Woo T10 now negative vig (-103 implied). Henley T10 +184, Glover T10 +1052 (still very alive at T19 -6). Harman T10 +727. Best weekend equity sits with Si Woo E/W + Henley anchor + Glover dart. Hisatsune T69 +2 on cut line.",
+    "link": "",
+    "date": "Fri, 17 Apr 2026 20:15:00 +0000",
+    "source": "DataGolf Live"
+  },
   {
     "title": "MASTERS FINAL: Rory McIlroy wins back-to-back (-12). 67-65-73-71. Our card: 8 cashes on 27 bets. +$552.64 profit (106% ROI). Season flipped from -$113 to +$439. DFS was the hero ($641 profit).",
     "link": "",
