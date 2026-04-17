@@ -1,7 +1,7 @@
 // News feed -- updated 2026-04-17 mid-R2 RBC Heritage
 const NEWS_FEED = [
   {
-    "title": "R2 COMPLETE LEADERBOARD: Fitzpatrick -14 leads. Hovland -13. English -10. Aberg/Cantlay/Straka -9. Si Woo -8 (T7, huge for our T10 + E/W). Henley -6 (T19, alive). Glover -6 (T19, 10pl E/W VERY alive). Harman -5, Sungjae -4, Stevens -3, Berger/Min Woo/McCarty -2.",
+    "title": "R2 COMPLETE LEADERBOARD (signature event — no cut, all 82 play weekend, all 10 open bets technically live): Fitzpatrick -14 leads. Hovland -13. English -10. Aberg/Cantlay/Straka -9. Our positions: Henley T19 -6 (anchor alive), Glover T19 -6 (10pl E/W real shot), Harman T28 -5, Sungjae T35 -4, Berger T46 -2, Hoge T53 -1, Gotterup T61 E, Hisatsune T69 +2.",
     "link": "",
     "date": "Fri, 17 Apr 2026 20:00:00 +0000",
     "source": "Greenbook R2"
@@ -13,7 +13,7 @@ const NEWS_FEED = [
     "source": "Greenbook R1"
   },
   {
-    "title": "LIVE EQUITY R2: Si Woo T10 now negative vig (-103 implied). Henley T10 +184, Glover T10 +1052 (still very alive at T19 -6). Harman T10 +727. Best weekend equity sits with Si Woo E/W + Henley anchor + Glover dart. Hisatsune T69 +2 on cut line.",
+    "title": "LIVE EQUITY R2 (our bets only): Henley T10 +184 (anchor alive), Glover T10 +1052 (10pl dart very alive), Harman T10 +727, Berger T20 +1088, Sungjae T20 +304. Best weekend equity: Henley anchor + Glover dart. Long-shots (Gotterup, Hisatsune, Hoge) need big Saturday moves.",
     "link": "",
     "date": "Fri, 17 Apr 2026 20:15:00 +0000",
     "source": "DataGolf Live"
