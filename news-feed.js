@@ -1,5 +1,11 @@
-// News feed -- updated 2026-04-17 mid-R2 RBC Heritage
+// News feed -- updated 2026-04-20 RBC settled, Zurich prep
 const NEWS_FEED = [
+  {
+    "title": "RBC HERITAGE SETTLED: 15 bets, 1W (DFS only +$33.50), -$106.50 total. Henley anchor T25 -8 missed 8pl. Harman/Gotterup T25, Berger/Sungjae/Glover T42 -6, Hisatsune T60, Hoge T71. Nothing placed on outright/E/W/T10 board. Season: 216 bets, 23W, +$347.84 (16.5% ROI). Next: Zurich Classic team event.",
+    "link": "",
+    "date": "Mon, 20 Apr 2026 12:00:00 +0000",
+    "source": "Greenbook"
+  },
   {
     "title": "R2 COMPLETE LEADERBOARD (signature event — no cut, all 82 play weekend, all 10 open bets technically live): Fitzpatrick -14 leads. Hovland -13. English -10. Aberg/Cantlay/Straka -9. Our positions: Henley T19 -6 (anchor alive), Glover T19 -6 (10pl E/W real shot), Harman T28 -5, Sungjae T35 -4, Berger T46 -2, Hoge T53 -1, Gotterup T61 E, Hisatsune T69 +2.",
     "link": "",

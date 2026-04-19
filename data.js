@@ -1,16 +1,16 @@
 // Season data
 const SEASON = {
-    totalBets: 215,
-    settled: 196,
-    open: 18,
+    totalBets: 216,
+    settled: 207,
+    open: 8,
     voided: 1,
-    staked: 2207.15,
-    settledStaked: 1997.15,
-    openStaked: 210.00,
-    returned: 2411.49,
-    pl: 414.34,
-    roi: 20.7,
-    winners: 22
+    staked: 2217.15,
+    settledStaked: 2107.15,
+    openStaked: 110.00,
+    returned: 2454.99,
+    pl: 347.84,
+    roi: 16.5,
+    winners: 23
 };
 
 const TOURNAMENTS = [
@@ -26,6 +26,7 @@ const TOURNAMENTS = [
     { name: "Houston", bets: 11, staked: 130, returned: 72, pl: -58, phase: 2, status: "settled" },
     { name: "Valero", bets: 17, staked: 126.25, returned: 43.20, pl: -83.05, phase: 2, status: "settled" },
     { name: "Masters", bets: 28, staked: 524.40, returned: 1092.04, pl: 567.64, phase: 2, status: "settled" },
+    { name: "RBC Heritage", bets: 15, staked: 150, returned: 43.50, pl: -106.50, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -50,6 +51,7 @@ const WINNERS = [
     { tournament: "Masters", player: "DFS Lineup", market: "GPP", odds: "-", stake: 109, ret: 750, pl: 641 },
     { tournament: "Masters", player: "McNealy/Henley", market: "R3 Matchup Parlay", odds: "+164", stake: 20, ret: 52.89, pl: 32.89 },
     { tournament: "Masters", player: "Sam Stevens", market: "Top Debutant DH", odds: "-", stake: 5, ret: 20, pl: 15 },
+    { tournament: "RBC Heritage", player: "DFS Lineup", market: "GPP", odds: "-", stake: 10, ret: 43.50, pl: 33.50 },
 ];
 
 const MARKETS = [
@@ -129,20 +131,21 @@ const FUTURES = [
 ];
 
 const RBC_CARD = [
-    { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "M avg #11.7", status: "Open" },
-    { num: 2, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "T3 2025. M7 #9", status: "Open" },
-    { num: 3, player: "Daniel Berger", market: "Outright", terms: "E/W 1/5 8pl", odds: "+6000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "T3 2025. Noonan pick", status: "Open" },
-    { num: 4, player: "Sungjae Im", market: "Outright", terms: "E/W 1/5 8pl", odds: "+10000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan E/W pick. T11 2025", status: "Open" },
-    { num: 8, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 8pl", odds: "+1600", book: "b365", stake: 40, placed: "Apr 13", t10s: 0, comp: "DG #4. TAILWIND 1.87x. T8 2025. 7-model #3.6", status: "Open" },
-    { num: 9, player: "Lucas Glover", market: "Outright", terms: "E/W 1/5 10pl", odds: "+22500", book: "b365", stake: 5, placed: "Apr 13", t10s: 0, comp: "APP #8 comp 5yr. TAILWIND 2.15", status: "Open" },
-    { num: 10, player: "Tom Hoge", market: "Outright", terms: "E/W 1/5 10pl", odds: "+35000", book: "b365", stake: 5, placed: "Apr 13", t10s: 0, comp: "APP #5 comp 5yr. TAILWIND 1.29", status: "Open" },
+    { num: 1, player: "Ryo Hisatsune", market: "Outright", terms: "Win", odds: "+10500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "M avg #11.7", status: "Lost (T60 -3)", result: "Lost" },
+    { num: 2, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12500", book: "DK", stake: 5, placed: "Apr 12", t10s: 0, comp: "T3 2025. M7 #9", status: "Lost (T25 -8)", result: "Lost" },
+    { num: 3, player: "Daniel Berger", market: "Outright", terms: "E/W 1/5 8pl", odds: "+6000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "T3 2025. Noonan pick", status: "Lost (T42 -6)", result: "Lost" },
+    { num: 4, player: "Sungjae Im", market: "Outright", terms: "E/W 1/5 8pl", odds: "+10000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan E/W pick. T11 2025", status: "Lost (T42 -6)", result: "Lost" },
+    { num: 8, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 8pl", odds: "+1600", book: "b365", stake: 40, placed: "Apr 13", t10s: 0, comp: "DG #4. TAILWIND 1.87x. T8 2025. 7-model #3.6", status: "Lost (T25 -8)", result: "Lost" },
+    { num: 9, player: "Lucas Glover", market: "Outright", terms: "E/W 1/5 10pl", odds: "+22500", book: "b365", stake: 5, placed: "Apr 13", t10s: 0, comp: "APP #8 comp 5yr. TAILWIND 2.15", status: "Lost (T42 -6)", result: "Lost" },
+    { num: 10, player: "Tom Hoge", market: "Outright", terms: "E/W 1/5 10pl", odds: "+35000", book: "b365", stake: 5, placed: "Apr 13", t10s: 0, comp: "APP #5 comp 5yr. TAILWIND 1.29", status: "Lost (T71 E)", result: "Lost" },
     { num: 11, player: "Jacob Bridgeman", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Poa Triv PUTT #1. Bent +0.72", status: "Lost (R1 75)", result: "Lost" },
     { num: 12, player: "Denny McCarthy", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Poa Triv SG:SG #1. PUTT #3", status: "Lost (R1 74)", result: "Lost" },
-    { num: 5, player: "Ryo Hisatsune", market: "Prop", terms: "Top 10", odds: "+500", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "M avg #11.7. T18 2025", status: "Open" },
-    { num: 6, player: "Brian Harman", market: "Prop", terms: "Top 10", odds: "+530", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "T3 2025. M7 #9", status: "Open" },
+    { num: 5, player: "Ryo Hisatsune", market: "Prop", terms: "Top 10", odds: "+500", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "M avg #11.7. T18 2025", status: "Lost (T60 -3)", result: "Lost" },
+    { num: 6, player: "Brian Harman", market: "Prop", terms: "Top 10", odds: "+530", book: "DK", stake: 5, placed: "Apr 13", t10s: 0, comp: "T3 2025. M7 #9", status: "Lost (T25 -8)", result: "Lost" },
     { num: 7, player: "Sungjae Im", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "Apr 13", t10s: 0, comp: "Noonan pick. T11 2025", status: "Lost (R1 66 T13)", result: "Lost" },
     { num: 13, player: "Min Woo Lee", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5850", book: "b365", stake: 10, placed: "Apr 14", t10s: 0, comp: "30% boost (+4500 base). DG FRL +EV 13.9%. Mayo 110/1", status: "Lost (R1 70 T50)", result: "Lost" },
-    { num: 14, player: "Chris Gotterup", market: "Outright", terms: "E/W 1/5 3pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 15", t10s: 0, comp: "T10 2025 Harbour Town. Composite #28", status: "Open" },
+    { num: 14, player: "Chris Gotterup", market: "Outright", terms: "E/W 1/5 3pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 15", t10s: 0, comp: "T10 2025 Harbour Town. Composite #28", status: "Lost (T25 -8)", result: "Lost" },
+    { num: 15, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 10, placed: "Apr 16", t10s: 0, comp: "Cashed $43.50 on $10 buy-in (+$33.50)", status: "Won +$33.50", result: "Won" },
 ];
 
 const VALERO_CARD = [
