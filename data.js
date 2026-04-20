@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 216,
+    totalBets: 220,
     settled: 207,
-    open: 8,
+    open: 12,
     voided: 2,
-    staked: 2207.15,
+    staked: 2242.15,
     settledStaked: 2107.15,
-    openStaked: 100.00,
+    openStaked: 135.00,
     returned: 2454.99,
     pl: 347.84,
     roi: 16.5,
@@ -146,6 +146,13 @@ const RBC_CARD = [
     { num: 13, player: "Min Woo Lee", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5850", book: "b365", stake: 10, placed: "Apr 14", t10s: 0, comp: "30% boost (+4500 base). DG FRL +EV 13.9%. Mayo 110/1", status: "Lost (R1 70 T50)", result: "Lost" },
     { num: 14, player: "Chris Gotterup", market: "Outright", terms: "E/W 1/5 3pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 15", t10s: 0, comp: "T10 2025 Harbour Town. Composite #28", status: "Lost (T25 -8)", result: "Lost" },
     { num: 15, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 10, placed: "Apr 16", t10s: 0, comp: "Cashed $43.50 on $10 buy-in (+$33.50)", status: "Won +$33.50", result: "Won" },
+];
+
+const ZURICH_CARD = [
+    { num: 1, player: "Smalley / Springer", market: "Team Outright", terms: "Win", odds: "+2800", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #1 composite. Balanced 5/12. Haslbauer value flag.", status: "Open" },
+    { num: 2, player: "Smotherman / Putnam", market: "Team Outright", terms: "Win", odds: "+4400", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #4. Balanced 17/23. Putnam 3.25x surger.", status: "Open" },
+    { num: 3, player: "McCarty / Meissner", market: "Team Outright", terms: "Win", odds: "+2450", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #5. Haslbauer target. Top 10 BoB.", status: "Open" },
+    { num: 4, player: "Silverman / Champ", market: "Team Outright", terms: "Win", odds: "+8200", book: "DK", stake: 5, placed: "Apr 20", t10s: 0, comp: "Model #2. Balanced 9/18. Biggest price-vs-model gap on board.", status: "Open" },
 ];
 
 const VALERO_CARD = [
