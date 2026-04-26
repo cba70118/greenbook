@@ -1904,6 +1904,7 @@ renderBetCard(VALERO_CARD, 'ab-valero', 'DraftKings');
 renderBetCard(MASTERS_CARD, 'ab-masters', 'bet365');
 if (typeof RBC_CARD !== 'undefined') renderBetCard(RBC_CARD, 'ab-rbc', 'DraftKings');
 if (typeof ZURICH_CARD !== 'undefined') renderBetCard(ZURICH_CARD, 'ab-zurich', 'DraftKings');
+if (typeof MIAMI_CARD !== 'undefined') renderBetCard(MIAMI_CARD, 'ab-miami', 'DraftKings');
 
 // Futures table
 (function() {
@@ -1921,6 +1922,7 @@ if (typeof ZURICH_CARD !== 'undefined') renderBetCard(ZURICH_CARD, 'ab-zurich', 
     var allCards = [MASTERS_CARD, VALERO_CARD, HOUSTON_CARD];
     if (typeof RBC_CARD !== 'undefined') allCards.push(RBC_CARD);
     if (typeof ZURICH_CARD !== 'undefined') allCards.push(ZURICH_CARD);
+    if (typeof MIAMI_CARD !== 'undefined') allCards.push(MIAMI_CARD);
     if (typeof FUTURES !== 'undefined') allCards.push(FUTURES);
     var openBets = [];
     allCards.forEach(function(card) {

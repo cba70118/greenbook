@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 220,
+    totalBets: 226,
     settled: 207,
-    open: 12,
+    open: 18,
     voided: 2,
-    staked: 2242.15,
+    staked: 2269.65,
     settledStaked: 2107.15,
-    openStaked: 135.00,
+    openStaked: 162.50,
     returned: 2454.99,
     pl: 347.84,
     roi: 16.5,
@@ -153,6 +153,15 @@ const ZURICH_CARD = [
     { num: 2, player: "Smotherman / Putnam", market: "Team Outright", terms: "Win", odds: "+4400", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #4. Balanced 17/23. Putnam 3.25x surger.", status: "Open" },
     { num: 3, player: "McCarty / Meissner", market: "Team Outright", terms: "Win", odds: "+2450", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #5. Haslbauer target. Top 10 BoB.", status: "Open" },
     { num: 4, player: "Silverman / Champ", market: "Team Outright", terms: "Win", odds: "+8200", book: "DK", stake: 5, placed: "Apr 20", t10s: 0, comp: "Model #2. Balanced 9/18. Biggest price-vs-model gap on board.", status: "Open" },
+];
+
+const MIAMI_CARD = [
+    { num: 1, player: "Sungjae Im", market: "Outright", terms: "Win", odds: "+10000", book: "DK", stake: 5, placed: "Apr 24", t10s: 0, comp: "RH model #40. Bermuda + irons baseline.", status: "Open" },
+    { num: 2, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 AM", t10s: 0, comp: "RH #3 + Mayo top tier + Titanic pick. Triple-confirm.", status: "Open" },
+    { num: 3, player: "Jake Knapp", market: "Outright", terms: "Win", odds: "+3700", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo + Titanic narrative. Distance + iron play. RH model #38.", status: "Open" },
+    { num: 4, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 PM", t10s: 0, comp: "Second ticket — total $10 exposure on Gotterup at +3500.", status: "Open" },
+    { num: 5, player: "Sepp Straka", market: "Outright", terms: "Win", odds: "+5500", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo deep dart + Titanic pick. Florida + iron + putter risk (Leishman comp).", status: "Open" },
+    { num: 6, player: "Aldrich Potgieter", market: "Outright", terms: "Win", odds: "+17500", book: "DK", stake: 2.50, placed: "Apr 26", t10s: 0, comp: "Titanic dart. Pure bombing thesis. RH #62, DG 0.26x extreme fader — variance lottery.", status: "Open" },
 ];
 
 const VALERO_CARD = [
