@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 234,
+    totalBets: 235,
     settled: 216,
-    open: 17,
+    open: 18,
     voided: 2,
-    staked: 2344.65,
+    staked: 2354.65,
     settledStaked: 2187.15,
-    openStaked: 157.50,
+    openStaked: 167.50,
     returned: 2537.99,
     pl: 350.84,
     roi: 16.0,
@@ -173,6 +173,7 @@ const MIAMI_CARD = [
     { num: 7, player: "Hideki Matsuyama", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Mayo bet of week. RH avg #16.3 narrow spread. Long-iron specialist + ARG tight lies. Sharps Pin +3825.", status: "Open" },
     { num: 8, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Long-iron + bombing fit. Calm R1 forecast favors aggressive bombers.", status: "Open" },
     { num: 9, player: "Keith Mitchell", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Florida resident, Bermuda native. Cognizant T3 2026. R1 four-ball-style scoring fit.", status: "Open" },
+    { num: 10, player: "Viktor Hovland", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+5500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Pin +3762 vs DG +6131 — biggest sharp respect on board (gap 2369). 6-model #19. Sharps tightening overnight.", status: "Open" },
 ];
 
 const VALERO_CARD = [
