@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 239,
+    totalBets: 241,
     settled: 216,
-    open: 22,
+    open: 24,
     voided: 2,
-    staked: 2399.65,
+    staked: 2419.65,
     settledStaked: 2187.15,
-    openStaked: 212.50,
+    openStaked: 232.50,
     returned: 2537.99,
     pl: 350.84,
     roi: 16.0,
@@ -178,6 +178,8 @@ const MIAMI_CARD = [
     { num: 12, player: "Nicolai Hojgaard", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Doral-fit model #5. #1 in field on 225+ yd approaches per Mayo. Quiet narrative.", status: "Open" },
     { num: 13, player: "Akshay Bhatia", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Surger arc (multi-year iron ascent). Sharps shorter than DG (Pin +6135 vs DG +9060).", status: "Open" },
     { num: 14, player: "Alex Smalley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Apr 29", t10s: 0, comp: "Pure model love + 6-mo comp #22. Deep dart, low-narrative-noise.", status: "Open" },
+    { num: 15, player: "J.J. Spaun", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:05 + Valero winner momentum + model #18.5 avg + surger arc.", status: "Open" },
+    { num: 16, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:35 + multi-year iron surger + Pin shorter than DG outright (sharp money).", status: "Open" },
 ];
 
 const VALERO_CARD = [
