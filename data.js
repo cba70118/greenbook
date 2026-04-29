@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 235,
+    totalBets: 239,
     settled: 216,
-    open: 18,
+    open: 22,
     voided: 2,
-    staked: 2354.65,
+    staked: 2399.65,
     settledStaked: 2187.15,
-    openStaked: 167.50,
+    openStaked: 212.50,
     returned: 2537.99,
     pl: 350.84,
     roi: 16.0,
@@ -174,6 +174,10 @@ const MIAMI_CARD = [
     { num: 8, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Long-iron + bombing fit. Calm R1 forecast favors aggressive bombers.", status: "Open" },
     { num: 9, player: "Keith Mitchell", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Florida resident, Bermuda native. Cognizant T3 2026. R1 four-ball-style scoring fit.", status: "Open" },
     { num: 10, player: "Viktor Hovland", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+5500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Pin +3762 vs DG +6131 — biggest sharp respect on board (gap 2369). 6-model #19. Sharps tightening overnight.", status: "Open" },
+    { num: 11, player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Apr 29", t10s: 0, comp: "Course-profile-perfect: FL native, long-iron specialist, bermuda comfort. 5-yr comp #6, 6-mo comp #2. Anchor.", status: "Open" },
+    { num: 12, player: "Nicolai Hojgaard", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Doral-fit model #5. #1 in field on 225+ yd approaches per Mayo. Quiet narrative.", status: "Open" },
+    { num: 13, player: "Akshay Bhatia", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Surger arc (multi-year iron ascent). Sharps shorter than DG (Pin +6135 vs DG +9060).", status: "Open" },
+    { num: 14, player: "Alex Smalley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Apr 29", t10s: 0, comp: "Pure model love + 6-mo comp #22. Deep dart, low-narrative-noise.", status: "Open" },
 ];
 
 const VALERO_CARD = [
