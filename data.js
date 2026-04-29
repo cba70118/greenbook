@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 231,
+    totalBets: 234,
     settled: 216,
-    open: 14,
+    open: 17,
     voided: 2,
-    staked: 2314.65,
+    staked: 2344.65,
     settledStaked: 2187.15,
-    openStaked: 127.50,
+    openStaked: 157.50,
     returned: 2537.99,
     pl: 350.84,
     roi: 16.0,
@@ -170,6 +170,9 @@ const MIAMI_CARD = [
     { num: 4, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 PM", t10s: 0, comp: "Second ticket — total $10 exposure on Gotterup at +3500.", status: "Open" },
     { num: 5, player: "Sepp Straka", market: "Outright", terms: "Win", odds: "+5500", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo deep dart + Titanic pick. Florida + iron + putter risk (Leishman comp).", status: "Open" },
     { num: 6, player: "Aldrich Potgieter", market: "Outright", terms: "Win", odds: "+17500", book: "DK", stake: 2.50, placed: "Apr 26", t10s: 0, comp: "Titanic dart. Pure bombing thesis. RH #62, DG 0.26x extreme fader — variance lottery.", status: "Open" },
+    { num: 7, player: "Hideki Matsuyama", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Mayo bet of week. RH avg #16.3 narrow spread. Long-iron specialist + ARG tight lies. Sharps Pin +3825.", status: "Open" },
+    { num: 8, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Long-iron + bombing fit. Calm R1 forecast favors aggressive bombers.", status: "Open" },
+    { num: 9, player: "Keith Mitchell", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Florida resident, Bermuda native. Cognizant T3 2026. R1 four-ball-style scoring fit.", status: "Open" },
 ];
 
 const VALERO_CARD = [
