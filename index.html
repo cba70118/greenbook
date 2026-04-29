@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=61">
+    <link rel="stylesheet" href="style.css?v=62">
 
 </head>
 <body>
@@ -44,7 +44,8 @@
 
     <!-- ═══ NOTES ═══ -->
     <div class="notes-bar" id="notes-bar">
-        <div class="notes-entry notes-latest"><span class="notes-date">Apr 26</span>MIAMI CARD OPENED. 6 outright bets @ $27.50 on DK for Cadillac Championship (Doral, Apr 30-May 3): Gotterup x2 +3500 (triple-confirm), Knapp +3700 (Mayo+Titanic), Straka +5500 (Mayo+Titanic), Sungjae +10000, Potgieter +17500 dart (Titanic). Field weak — Rory/Fitz/Xander all skipping signature.</div>
+        <div class="notes-entry notes-latest"><span class="notes-date">Apr 28</span>ZURICH SETTLED. 9 bets, $80 staked, 2W (Springer/Smalley placed +$32.50 + DFS +$35.50), -$30 on 3 FRL bets, all other team outrights lost. Net +$3.00. Season +$347.84 → +$350.84 (16.0% ROI, 25W). Cadillac up next Thu Apr 30.</div>
+        <div class="notes-entry"><span class="notes-date">Apr 26</span>MIAMI CARD OPENED. 6 outright bets @ $27.50 on DK for Cadillac Championship (Doral, Apr 30-May 3): Gotterup x2 +3500 (triple-confirm), Knapp +3700 (Mayo+Titanic), Straka +5500 (Mayo+Titanic), Sungjae +10000, Potgieter +17500 dart (Titanic). Field weak — Rory/Fitz/Xander all skipping signature.</div>
         <div class="notes-entry"><span class="notes-date">Apr 20 PM</span>ZURICH CARD OPENED. 4 team bets @ $35 on DK: Smalley/Springer 0.5u +2800 (#1 model), Smotherman/Putnam 0.5u +4400 (Putnam surger), McCarty/Meissner 0.5u +2450 (Haslbauer target), Silverman/Champ 0.25u +8200 (biggest price-vs-model gap). Fleetwood PGA Champ cashed at $20 (push).</div>
         <div class="notes-entry"><span class="notes-date">Apr 20 AM</span>RBC SETTLED. 15 bets, 1W, -$106.50 (DFS +$33.50 was lone cash on $10 buy-in). Henley anchor T25 -8 (missed 8pl), Harman/Gotterup T25 -8, Berger/Sungjae/Glover T42 -6, Hisatsune T60, Hoge T71. Nothing placed. Season +$414.34 → +$347.84 (16.5% ROI, 23W). Onto Zurich Classic — team event.</div>
         <div class="notes-entry"><span class="notes-date">Apr 17 PM</span>R2 COMPLETE (signature event, no cut). Fitz -14 leads, Hovland -13, English -10. 4 FRL BETS LOST R1 (-$40). Henley T19 -6, Glover T19 -6, Harman T28 -5, Sungjae T35 -4, Berger T46 -2, Hoge T53 -1, Gotterup T61 E, Hisatsune T69 +2.</div>
@@ -620,12 +621,14 @@
             <tbody id="ab-miami"></tbody></table>
         </div>
 
-        <!-- Zurich Classic (Active) -->
-        <div class="card" style="border-left:3px solid var(--green-500)">
-            <h3>Zurich Classic of New Orleans <span class="badge" style="background:var(--green-700);color:var(--green-300)">IN PROGRESS | APR 23-26</span></h3>
-            <p class="card-subtitle">TPC Louisiana (team event, 4-ball/foursomes) | 4 bets | $35 staked | Model-driven value targets</p>
+        <!-- Zurich Classic (Settled) -->
+        <div class="card" style="border-left:3px solid var(--brass-500);opacity:0.85">
+            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
+            <h3>Zurich Classic of New Orleans <span class="badge" style="background:var(--brass-900);color:var(--brass-400)">SETTLED | +$3.00</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+            <p class="card-subtitle">TPC Louisiana | 9 bets | $80 staked | Springer/Smalley placed +$32.50 + DFS +$35.50 | -$30 on FRLs</p>
             <table class="data-table"><thead><tr><th>Team</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
             <tbody id="ab-zurich"></tbody></table>
+            </div>
         </div>
 
         <!-- RBC Heritage (Settled) -->
@@ -857,17 +860,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=61"></script>
-    <script src="data.js?v=61"></script>
-    <script src="tournament-data.js?v=61"></script>
-    <script src="settled-data.js?v=61"></script>
-    <script src="masters-odds.js?v=61"></script>
-    <script src="valero-odds.js?v=61"></script>
-    <script src="tools-data.js?v=61"></script>
-    <script src="news-feed.js?v=61"></script>
-    <script src="source-attribution.js?v=61"></script>
-    <script src="app.js?v=61"></script>
-    <script src="masters-pool.js?v=61"></script>
-    <script src="tools.js?v=61"></script>
+    <script src="auth.js?v=62"></script>
+    <script src="data.js?v=62"></script>
+    <script src="tournament-data.js?v=62"></script>
+    <script src="settled-data.js?v=62"></script>
+    <script src="masters-odds.js?v=62"></script>
+    <script src="valero-odds.js?v=62"></script>
+    <script src="tools-data.js?v=62"></script>
+    <script src="news-feed.js?v=62"></script>
+    <script src="source-attribution.js?v=62"></script>
+    <script src="app.js?v=62"></script>
+    <script src="masters-pool.js?v=62"></script>
+    <script src="tools.js?v=62"></script>
 </body>
 </html>

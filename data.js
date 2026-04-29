@@ -1,16 +1,16 @@
 // Season data
 const SEASON = {
-    totalBets: 226,
-    settled: 207,
-    open: 18,
+    totalBets: 231,
+    settled: 216,
+    open: 14,
     voided: 2,
-    staked: 2269.65,
-    settledStaked: 2107.15,
-    openStaked: 162.50,
-    returned: 2454.99,
-    pl: 347.84,
-    roi: 16.5,
-    winners: 23
+    staked: 2314.65,
+    settledStaked: 2187.15,
+    openStaked: 127.50,
+    returned: 2537.99,
+    pl: 350.84,
+    roi: 16.0,
+    winners: 25
 };
 
 const TOURNAMENTS = [
@@ -27,6 +27,7 @@ const TOURNAMENTS = [
     { name: "Valero", bets: 17, staked: 126.25, returned: 43.20, pl: -83.05, phase: 2, status: "settled" },
     { name: "Masters", bets: 28, staked: 524.40, returned: 1092.04, pl: 567.64, phase: 2, status: "settled" },
     { name: "RBC Heritage", bets: 15, staked: 150, returned: 43.50, pl: -106.50, phase: 2, status: "settled" },
+    { name: "Zurich Classic", bets: 9, staked: 80, returned: 83, pl: 3, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -52,6 +53,8 @@ const WINNERS = [
     { tournament: "Masters", player: "McNealy/Henley", market: "R3 Matchup Parlay", odds: "+164", stake: 20, ret: 52.89, pl: 32.89 },
     { tournament: "Masters", player: "Sam Stevens", market: "Top Debutant DH", odds: "-", stake: 5, ret: 20, pl: 15 },
     { tournament: "RBC Heritage", player: "DFS Lineup", market: "GPP", odds: "-", stake: 10, ret: 43.50, pl: 33.50 },
+    { tournament: "Zurich Classic", player: "Springer/Smalley", market: "E/W 1/4 5pl Placed", odds: "+3000", stake: 10, ret: 42.50, pl: 32.50 },
+    { tournament: "Zurich Classic", player: "DFS Lineup", market: "GPP", odds: "-", stake: 5, ret: 40.50, pl: 35.50 },
 ];
 
 const MARKETS = [
@@ -149,10 +152,15 @@ const RBC_CARD = [
 ];
 
 const ZURICH_CARD = [
-    { num: 1, player: "Smalley / Springer", market: "Team Outright", terms: "Win", odds: "+2800", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #1 composite. Balanced 5/12. Haslbauer value flag.", status: "Open" },
-    { num: 2, player: "Smotherman / Putnam", market: "Team Outright", terms: "Win", odds: "+4400", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #4. Balanced 17/23. Putnam 3.25x surger.", status: "Open" },
-    { num: 3, player: "McCarty / Meissner", market: "Team Outright", terms: "Win", odds: "+2450", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #5. Haslbauer target. Top 10 BoB.", status: "Open" },
-    { num: 4, player: "Silverman / Champ", market: "Team Outright", terms: "Win", odds: "+8200", book: "DK", stake: 5, placed: "Apr 20", t10s: 0, comp: "Model #2. Balanced 9/18. Biggest price-vs-model gap on board.", status: "Open" },
+    { num: 1, player: "Springer / Smalley", market: "Team Outright", terms: "E/W 1/4 5pl", odds: "+3000", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #1 composite. Placed T5 — place leg paid +$32.50.", status: "Placed +$32.50", result: "Won" },
+    { num: 2, player: "Smotherman / Putnam", market: "Team Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #4. Putnam 3.25x surger.", status: "Lost", result: "Lost" },
+    { num: 3, player: "McCarty / Meissner", market: "Team Outright", terms: "E/W 1/4 5pl", odds: "+2800", book: "DK", stake: 10, placed: "Apr 20", t10s: 0, comp: "Model #5. Haslbauer target. Top 10 BoB.", status: "Lost", result: "Lost" },
+    { num: 4, player: "Champ / Silverman", market: "Team Outright", terms: "E/W 1/4 5pl", odds: "+9000", book: "DK", stake: 5, placed: "Apr 20", t10s: 0, comp: "Model #2 composite. Biggest price-vs-model gap on board.", status: "Lost", result: "Lost" },
+    { num: 5, player: "Thorbjornsen / Vilips", market: "Team Outright", terms: "Each Way Extra 1/5 3pl", odds: "+3000", book: "b365", stake: 10, placed: "Apr 22", t10s: 0, comp: "Stanford chemistry play. T4 in 2025 debut.", status: "Lost", result: "Lost" },
+    { num: 6, player: "Hossler / Ryder", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "DK", stake: 10, placed: "Apr 23", t10s: 0, comp: "Spencer model #8. R1 four-ball BoB play.", status: "Lost", result: "Lost" },
+    { num: 7, player: "Champ / Silverman", market: "FRL", terms: "E/W 1/4 5pl", odds: "+6000", book: "DK", stake: 10, placed: "Apr 23", t10s: 0, comp: "BoB top 10 + composite #2. R1 four-ball amplifier.", status: "Lost", result: "Lost" },
+    { num: 8, player: "Olesen / Neergaard-Petersen", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "DK", stake: 10, placed: "Apr 23", t10s: 0, comp: "Danish duo. R1 four-ball deep dart.", status: "Lost", result: "Lost" },
+    { num: 9, player: "DFS Lineup", market: "DFS", terms: "GPP", odds: "-", book: "DK", stake: 5, placed: "Apr 24", t10s: 0, comp: "Cashed $40.50 on $5 entry (+$35.50)", status: "Won +$35.50", result: "Won" },
 ];
 
 const MIAMI_CARD = [
