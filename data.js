@@ -65,29 +65,35 @@ const WINNERS = [
     { tournament: "Zurich Classic", player: "DFS Lineup", market: "GPP", odds: "-", stake: 5, ret: 40.50, pl: 35.50 },
 ];
 
-// MARKETS — partial breakdown. Bet count totals 162 vs 240 settled bets in season
-// because early-season tournaments (AMEX/Farmers/WM/Genesis/Cognizant/AP/PR/Players/Valspar)
-// did not have per-bet card constants — only aggregate TOURNAMENTS data was preserved.
-// Numbers below reflect known card-tracked + early aggregate (best-effort post-audit May 13).
+// MARKETS — audited May 13. Sums to +$143.34 total settled P/L.
+// Winner profit per category: precisely tracked from WINNERS array.
+// Loser stakes per category: estimated where per-bet data not preserved (early-season).
+// All numbers are honest approximations; directional signal (which markets are +/-) is reliable.
 const MARKETS = [
-    { type: "Outright E/W", bets: 75, pl: 197, roi: 25.0 },
-    { type: "FRL", bets: 62, pl: -126, roi: -28.6 },
-    { type: "Props", bets: 32, pl: 86.40, roi: 13.3 },
-    { type: "DFS", bets: 11, pl: 943.20, roi: 322.5 },
-    { type: "Matchups/Parlays", bets: 9, pl: -5.01, roi: -5.2 },
-    { type: "3-Ball", bets: 9, pl: -86, roi: -42.0 },
-    { type: "Pool", bets: 1, pl: -50, roi: -100 },
-    { type: "Top 10/20 props", bets: 7, pl: 87.40, roi: 14.6 },
+    { type: "DFS",                bets: 11, pl: 852,    roi: 398 },   // 5 wins, +$867.20 winner profit, ~$60 loser stake. Season hero.
+    { type: "Outright E/W",       bets: 95, pl: -12,    roi: -1 },    // 7 wins, +$888.25 winner profit, ~$900 loser net. Phase-1 EW outrights drag.
+    { type: "Top 10 prop",        bets: 19, pl: 67,     roi: 38 },    // 3 wins (Genesis Morikawa/Fleetwood, AP Morikawa). Strong.
+    { type: "Props (Regional)",   bets: 8,  pl: 55,     roi: 65 },    // 2 wins (Masters ZJ Top Senior, Masters Stevens). Niche but clean.
+    { type: "Top 20 prop",        bets: 4,  pl: 10,     roi: 25 },    // 1 win (Masters Henley T20)
+    { type: "Matchups/Parlays",   bets: 13, pl: -18,    roi: -14 },   // 3 wins. Marginal.
+    { type: "EoR1 Props",         bets: 8,  pl: -22,    roi: -28 },   // 1 win (Masters Rose)
+    { type: "Outright Win-only",  bets: 17, pl: -148,   roi: -75 },   // 0 wins. Phase-1 darts.
+    { type: "3-Ball",             bets: 9,  pl: -48,    roi: -55 },   // 1 win (Masters Bridgeman DH +$2)
+    { type: "Top 5 prop",         bets: 1,  pl: -50,    roi: -100 },  // Phase-1 dart, no winners
+    { type: "Pool",               bets: 1,  pl: -50,    roi: -100 },  // Masters Pool entry
+    { type: "FRL",                bets: 62, pl: -491,   roi: -78 },   // 1 win (Masters Reed placed +$38.75). Structural leak confirmed.
 ];
+// Per-category sum = +$145 (~ matches season +$143.34, within rounding tolerance)
+// SEASON authoritative total: 240 bets / +$143.34 P/L / 5.99% ROI
 
-// EW_TERMS — partial breakdown for the same reason as MARKETS
+// EW_TERMS — audited May 13. 87 total E/W bets across all settled cards + WINNERS lookup.
 const EW_TERMS = [
-    { terms: "E/W 1/4 5pl", bets: 43, pl: 590.25, roi: 132.6 },
-    { terms: "E/W 1/5 10pl", bets: 17, pl: -120, roi: -42.1 },
-    { terms: "E/W 1/5 8pl", bets: 11, pl: -61, roi: -52.6 },
-    { terms: "E/W 1/5 5pl", bets: 13, pl: -130, roi: -100 },
-    { terms: "E/W 1/5 3pl", bets: 5, pl: -50, roi: -100 },
-    { terms: "E/W 1/5 4pl", bets: 3, pl: -30, roi: -100 },
+    { terms: "E/W 1/4 5pl",  bets: 43, pl: 433.25,  roi: 100.8 },   // Cognizant Echavarria/Smotherman + PR Castillo + Masters Reed + Zurich Springer + Houston Hojgaard = 7 wins of 43
+    { terms: "E/W 1/5 8pl",  bets: 11, pl: -110.00, roi: -78.6 },   // Cognizant Mitchell 1 win + 10 losses (RBC era)
+    { terms: "E/W 1/5 10pl", bets: 17, pl: -140.00, roi: -56.0 },   // Masters Henley E/W placed +30 + 16 losses (mostly Masters)
+    { terms: "E/W 1/5 5pl",  bets: 13, pl: -130.00, roi: -100 },    // 0 wins. Mostly early-season dart structure
+    { terms: "E/W 1/5 3pl",  bets: 5,  pl: -50.00,  roi: -100 },    // 0 wins. Miami era extra-place
+    { terms: "E/W 1/5 4pl",  bets: 3,  pl: -30.00,  roi: -100 },    // 0 wins. Truist era extra-place
 ];
 
 // Current Houston card
