@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 260,
+    totalBets: 264,
     settled: 240,
-    open: 18,
+    open: 22,
     voided: 2,
-    staked: 2744.65,
+    staked: 2769.65,
     settledStaked: 2394.65,
-    openStaked: 350.00,
+    openStaked: 375.00,
     returned: 2537.99,
     pl: 143.34,
     roi: 6.0,
@@ -213,6 +213,11 @@ const PGA_CARD = [
     { num: 13, player: "DFS Lineup B (Card Correlation)", market: "DFS", terms: "DK $50 GPP — Fitz/Fleetwood/Cantlay/Henley/N.Hojgaard/Smalley", odds: "-", book: "DK", stake: 50, placed: "May 13", t10s: 0, comp: "Salary $49,900. Projection 471.9 pts. 4/4 card overlap with b365 outrights. Aronimink fit composite 155.0. Punt fills both clear top-20 fit.", status: "Open" },
     { num: 14, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Putt #2 + ARG #2 elite short-game ceiling (birdie-volume FRL angle). PM 11:37 wave (wind risk). APP #23 weakness softens case for firm Aronimink but FRL is birdie-driven. Form NEUTRAL. Pure dart/ceiling — DG fair +14534 = -52% EV vs book.", status: "Open" },
     { num: 15, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+9000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Bomber/birdie-volume FRL profile + b365 T10 sharp move overnight (+1600 -> +1100, biggest longshot shortener). Form NEUTRAL. PM 12:27 wave. DG fair +16520 = -45% EV. Cross-market sharp signal didn't carry to FRL pricing.", status: "Open" },
+    // PAR-5 WINNER PROPS (DK, placed May 13 PM)
+    { num: 16, player: "Scottie Scheffler", market: "Prop", terms: "Par 5 Winner", odds: "+3000", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Chalk anchor on the par-5 prop board. Field-best SG:TOT. Aronimink has only 2 par 5s (8 attempts over 4 rounds) — bomber edge.", status: "Open" },
+    { num: 17, player: "Ludvig Aberg", market: "Prop", terms: "Par 5 Winner", odds: "+4000", book: "DK", stake: 5, placed: "May 13", t10s: 0, comp: "Elite bomber (DD +12.9). DG #6 final pred. Long par-5s favor distance + iron precision profile.", status: "Open" },
+    { num: 18, player: "Nicolai Hojgaard", market: "Prop", terms: "Par 5 Winner", odds: "+7200", book: "DK", stake: 5, placed: "May 13", t10s: 0, comp: "Field-leader DD +17.0. Most reachable par-5 profile in field by distance. Form WARM.", status: "Open" },
+    { num: 19, player: "Alex Fitzpatrick", market: "Prop", terms: "Par 5 Winner", odds: "+10000", book: "DK", stake: 5, placed: "May 13", t10s: 0, comp: "Longshot dart. Small sample (8 rds) but APP #13 / T2G #13 profile transfers to par-5 attack. Pure price-driven dart.", status: "Open" },
 ];
 
 const VALERO_CARD = [
