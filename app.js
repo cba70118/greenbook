@@ -121,9 +121,22 @@ function buildTheCut() {
     if (otw && t) {
         var html = '';
 
-        // On Card chips — pull from current week's card
-        var cardData = typeof RBC_CARD !== 'undefined' ? RBC_CARD :
-                       typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
+        // On Card chips — pull from current week's card (tournament-aware)
+        var cutCardLookup = {
+            masters: typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [],
+            valero: typeof VALERO_CARD !== 'undefined' ? VALERO_CARD : [],
+            houston: typeof HOUSTON_CARD !== 'undefined' ? HOUSTON_CARD : [],
+            rbcheritage: typeof RBC_CARD !== 'undefined' ? RBC_CARD : [],
+            zurich: typeof ZURICH_CARD !== 'undefined' ? ZURICH_CARD : [],
+            miamichampionship: typeof MIAMI_CARD !== 'undefined' ? MIAMI_CARD : [],
+            truist: typeof TRUIST_CARD !== 'undefined' ? TRUIST_CARD : [],
+            myrtlebeach: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
+            pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
+        };
+        var cardData = cutCardLookup[currentKey] || [];
+        if (currentKey === 'pgachampionship' && typeof FUTURES !== 'undefined') {
+            cardData = cardData.concat(FUTURES.filter(function(b) { return (b.event||'').indexOf('PGA Championship') >= 0 && b.status === 'Open'; }));
+        }
         var openBets = cardData.filter(function(b){return b.status === 'Open' || b.status.indexOf('Open') >= 0});
         if (openBets.length) {
             html += '<div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem">On Card (' + openBets.length + ')</div>';
