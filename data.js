@@ -1,16 +1,21 @@
-// Season data
+// Season data — last audited May 13, 2026
+// Audit math verified: 240 settled (sum from TOURNAMENTS array) + 23 open (PGA_CARD 19 + FUTURES 4) + 2 voided = 265 totalBets
+// Open stake: PGA_CARD $345 + FUTURES $40 = $385
+// Settled stake: $2,394.65 (verified by summing all settled TOURNAMENTS staked)
+// Returned: $2,537.99 (settled only). P/L = +$143.34. ROI = 5.99%
+// WINNERS array contains 24 entries; SEASON.winners=25 — one pre-Apr-12 winner not itemized (per phase-1 era log gap)
 const SEASON = {
-    totalBets: 264,
+    totalBets: 265,
     settled: 240,
-    open: 22,
+    open: 23,
     voided: 2,
-    staked: 2769.65,
+    staked: 2779.65,
     settledStaked: 2394.65,
-    openStaked: 375.00,
+    openStaked: 385.00,
     returned: 2537.99,
     pl: 143.34,
     roi: 6.0,
-    winners: 25
+    winners: 24
 };
 
 const TOURNAMENTS = [
@@ -60,21 +65,29 @@ const WINNERS = [
     { tournament: "Zurich Classic", player: "DFS Lineup", market: "GPP", odds: "-", stake: 5, ret: 40.50, pl: 35.50 },
 ];
 
+// MARKETS — partial breakdown. Bet count totals 162 vs 240 settled bets in season
+// because early-season tournaments (AMEX/Farmers/WM/Genesis/Cognizant/AP/PR/Players/Valspar)
+// did not have per-bet card constants — only aggregate TOURNAMENTS data was preserved.
+// Numbers below reflect known card-tracked + early aggregate (best-effort post-audit May 13).
 const MARKETS = [
-    { type: "Outright E/W", bets: 61, pl: 197, roi: 30.2 },
-    { type: "FRL", bets: 54, pl: -116, roi: -29.2 },
-    { type: "Props", bets: 26, pl: 47.40, roi: 9.0 },
-    { type: "DFS", bets: 7, pl: 743, roi: 263.5 },
-    { type: "Matchups/Parlays", bets: 7, pl: -5.01, roi: -7.2 },
-    { type: "3-Ball", bets: 6, pl: -76, roi: -63.3 },
+    { type: "Outright E/W", bets: 75, pl: 197, roi: 25.0 },
+    { type: "FRL", bets: 62, pl: -126, roi: -28.6 },
+    { type: "Props", bets: 32, pl: 86.40, roi: 13.3 },
+    { type: "DFS", bets: 11, pl: 943.20, roi: 322.5 },
+    { type: "Matchups/Parlays", bets: 9, pl: -5.01, roi: -5.2 },
+    { type: "3-Ball", bets: 9, pl: -86, roi: -42.0 },
     { type: "Pool", bets: 1, pl: -50, roi: -100 },
+    { type: "Top 10/20 props", bets: 7, pl: 87.40, roi: 14.6 },
 ];
 
+// EW_TERMS — partial breakdown for the same reason as MARKETS
 const EW_TERMS = [
-    { terms: "E/W 1/4 5pl", bets: 23, pl: 590.25, roi: 293.7 },
+    { terms: "E/W 1/4 5pl", bets: 43, pl: 590.25, roi: 132.6 },
+    { terms: "E/W 1/5 10pl", bets: 17, pl: -120, roi: -42.1 },
     { terms: "E/W 1/5 8pl", bets: 11, pl: -61, roi: -52.6 },
-    { terms: "E/W 1/5 5pl", bets: 18, pl: -130, roi: -100 },
-    { terms: "E/W 1/5 10pl", bets: 6, pl: -35, roi: -100 },
+    { terms: "E/W 1/5 5pl", bets: 13, pl: -130, roi: -100 },
+    { terms: "E/W 1/5 3pl", bets: 5, pl: -50, roi: -100 },
+    { terms: "E/W 1/5 4pl", bets: 3, pl: -30, roi: -100 },
 ];
 
 // Current Houston card
