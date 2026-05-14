@@ -503,8 +503,27 @@ function loadTournament(key) {
 
         if (boardEl) {
             if (boardCard) boardCard.style.display = '';
-            // First: render actual card bets from MASTERS_CARD
-            var actualCard = typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [];
+            // First: render actual card bets from the tournament-specific card constant
+            var cardLookup = {
+                masters: typeof MASTERS_CARD !== 'undefined' ? MASTERS_CARD : [],
+                valero: typeof VALERO_CARD !== 'undefined' ? VALERO_CARD : [],
+                houston: typeof HOUSTON_CARD !== 'undefined' ? HOUSTON_CARD : [],
+                rbc: typeof RBC_CARD !== 'undefined' ? RBC_CARD : [],
+                zurich: typeof ZURICH_CARD !== 'undefined' ? ZURICH_CARD : [],
+                miami: typeof MIAMI_CARD !== 'undefined' ? MIAMI_CARD : [],
+                truist: typeof TRUIST_CARD !== 'undefined' ? TRUIST_CARD : [],
+                mb: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
+                myrtle: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
+                myrtlebeach: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
+                pga: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
+                pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
+            };
+            // Also include PGA futures (Fleetwood/Fitz/Henley/Cantlay/Finau pre-week) when on PGA tab
+            var actualCard = cardLookup[key] || [];
+            if ((key === 'pga' || key === 'pgachampionship') && typeof FUTURES !== 'undefined') {
+                var pgaFutures = FUTURES.filter(function(b) { return (b.event || '').indexOf('PGA Championship') >= 0 && b.status === 'Open'; });
+                actualCard = actualCard.concat(pgaFutures);
+            }
             var openBets = actualCard.filter(function(b){return b.status === 'Open'});
             openBets.forEach(function(b) {
                 var market = (b.market || '').toLowerCase();
