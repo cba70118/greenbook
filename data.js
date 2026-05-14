@@ -1,15 +1,15 @@
 // Season data
 const SEASON = {
-    totalBets: 249,
-    settled: 216,
-    open: 32,
+    totalBets: 258,
+    settled: 240,
+    open: 16,
     voided: 2,
-    staked: 2494.65,
-    settledStaked: 2187.15,
-    openStaked: 307.50,
+    staked: 2684.65,
+    settledStaked: 2394.65,
+    openStaked: 290.00,
     returned: 2537.99,
-    pl: 350.84,
-    roi: 16.0,
+    pl: 143.34,
+    roi: 6.0,
     winners: 25
 };
 
@@ -28,9 +28,9 @@ const TOURNAMENTS = [
     { name: "Masters", bets: 28, staked: 524.40, returned: 1092.04, pl: 567.64, phase: 2, status: "settled" },
     { name: "RBC Heritage", bets: 15, staked: 150, returned: 43.50, pl: -106.50, phase: 2, status: "settled" },
     { name: "Zurich Classic", bets: 9, staked: 80, returned: 83, pl: 3, phase: 2, status: "settled" },
-    { name: "Cadillac", bets: 16, staked: 132.50, returned: 0, pl: 0, phase: 2, status: "open" },
-    { name: "Truist", bets: 7, staked: 65, returned: 0, pl: 0, phase: 2, status: "open" },
-    { name: "Myrtle Beach", bets: 1, staked: 10, returned: 0, pl: 0, phase: 2, status: "open" },
+    { name: "Cadillac", bets: 16, staked: 132.50, returned: 0, pl: -132.50, phase: 2, status: "settled" },
+    { name: "Truist", bets: 7, staked: 65, returned: 0, pl: -65, phase: 2, status: "settled" },
+    { name: "Myrtle Beach", bets: 1, staked: 10, returned: 0, pl: -10, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -168,36 +168,36 @@ const ZURICH_CARD = [
 ];
 
 const MIAMI_CARD = [
-    { num: 1, player: "Sungjae Im", market: "Outright", terms: "Win", odds: "+10000", book: "DK", stake: 5, placed: "Apr 24", t10s: 0, comp: "RH model #40. Bermuda + irons baseline.", status: "Open" },
-    { num: 2, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 AM", t10s: 0, comp: "RH #3 + Mayo top tier + Titanic pick. Triple-confirm.", status: "Open" },
-    { num: 3, player: "Jake Knapp", market: "Outright", terms: "Win", odds: "+3700", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo + Titanic narrative. Distance + iron play. RH model #38.", status: "Open" },
-    { num: 4, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 PM", t10s: 0, comp: "Second ticket — total $10 exposure on Gotterup at +3500.", status: "Open" },
-    { num: 5, player: "Sepp Straka", market: "Outright", terms: "Win", odds: "+5500", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo deep dart + Titanic pick. Florida + iron + putter risk (Leishman comp).", status: "Open" },
-    { num: 6, player: "Aldrich Potgieter", market: "Outright", terms: "Win", odds: "+17500", book: "DK", stake: 2.50, placed: "Apr 26", t10s: 0, comp: "Titanic dart. Pure bombing thesis. RH #62, DG 0.26x extreme fader — variance lottery.", status: "Open" },
-    { num: 7, player: "Hideki Matsuyama", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Mayo bet of week. RH avg #16.3 narrow spread. Long-iron specialist + ARG tight lies. Sharps Pin +3825.", status: "Open" },
-    { num: 8, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Long-iron + bombing fit. Calm R1 forecast favors aggressive bombers.", status: "Open" },
-    { num: 9, player: "Keith Mitchell", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Florida resident, Bermuda native. Cognizant T3 2026. R1 four-ball-style scoring fit.", status: "Open" },
-    { num: 10, player: "Viktor Hovland", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+5500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Pin +3762 vs DG +6131 — biggest sharp respect on board (gap 2369). 6-model #19. Sharps tightening overnight.", status: "Open" },
-    { num: 11, player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Apr 29", t10s: 0, comp: "Course-profile-perfect: FL native, long-iron specialist, bermuda comfort. 5-yr comp #6, 6-mo comp #2. Anchor.", status: "Open" },
-    { num: 12, player: "Nicolai Hojgaard", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Doral-fit model #5. #1 in field on 225+ yd approaches per Mayo. Quiet narrative.", status: "Open" },
-    { num: 13, player: "Akshay Bhatia", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Surger arc (multi-year iron ascent). Sharps shorter than DG (Pin +6135 vs DG +9060).", status: "Open" },
-    { num: 14, player: "Alex Smalley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Apr 29", t10s: 0, comp: "Pure model love + 6-mo comp #22. Deep dart, low-narrative-noise.", status: "Open" },
-    { num: 15, player: "J.J. Spaun", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:05 + Valero winner momentum + model #18.5 avg + surger arc.", status: "Open" },
-    { num: 16, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:35 + multi-year iron surger + Pin shorter than DG outright (sharp money).", status: "Open" },
+    { num: 1, player: "Sungjae Im", market: "Outright", terms: "Win", odds: "+10000", book: "DK", stake: 5, placed: "Apr 24", t10s: 0, comp: "RH model #40. Bermuda + irons baseline.", status: "Lost" },
+    { num: 2, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 AM", t10s: 0, comp: "RH #3 + Mayo top tier + Titanic pick. Triple-confirm.", status: "Lost" },
+    { num: 3, player: "Jake Knapp", market: "Outright", terms: "Win", odds: "+3700", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo + Titanic narrative. Distance + iron play. RH model #38.", status: "Lost" },
+    { num: 4, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 5, placed: "Apr 26 PM", t10s: 0, comp: "Second ticket — total $10 exposure on Gotterup at +3500.", status: "Lost" },
+    { num: 5, player: "Sepp Straka", market: "Outright", terms: "Win", odds: "+5500", book: "DK", stake: 5, placed: "Apr 26", t10s: 0, comp: "Mayo deep dart + Titanic pick. Florida + iron + putter risk (Leishman comp).", status: "Lost" },
+    { num: 6, player: "Aldrich Potgieter", market: "Outright", terms: "Win", odds: "+17500", book: "DK", stake: 2.50, placed: "Apr 26", t10s: 0, comp: "Titanic dart. Pure bombing thesis. RH #62, DG 0.26x extreme fader — variance lottery.", status: "Lost" },
+    { num: 7, player: "Hideki Matsuyama", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Mayo bet of week. RH avg #16.3 narrow spread. Long-iron specialist + ARG tight lies. Sharps Pin +3825.", status: "Lost" },
+    { num: 8, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Long-iron + bombing fit. Calm R1 forecast favors aggressive bombers.", status: "Lost" },
+    { num: 9, player: "Keith Mitchell", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 28", t10s: 0, comp: "Florida resident, Bermuda native. Cognizant T3 2026. R1 four-ball-style scoring fit.", status: "Lost" },
+    { num: 10, player: "Viktor Hovland", market: "Outright", terms: "Each Way Extra 1/5 3pl", odds: "+5500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Pin +3762 vs DG +6131 — biggest sharp respect on board (gap 2369). 6-model #19. Sharps tightening overnight.", status: "Lost" },
+    { num: 11, player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Apr 29", t10s: 0, comp: "Course-profile-perfect: FL native, long-iron specialist, bermuda comfort. 5-yr comp #6, 6-mo comp #2. Anchor.", status: "Lost" },
+    { num: 12, player: "Nicolai Hojgaard", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Doral-fit model #5. #1 in field on 225+ yd approaches per Mayo. Quiet narrative.", status: "Lost" },
+    { num: 13, player: "Akshay Bhatia", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "Surger arc (multi-year iron ascent). Sharps shorter than DG (Pin +6135 vs DG +9060).", status: "Lost" },
+    { num: 14, player: "Alex Smalley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Apr 29", t10s: 0, comp: "Pure model love + 6-mo comp #22. Deep dart, low-narrative-noise.", status: "Lost" },
+    { num: 15, player: "J.J. Spaun", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:05 + Valero winner momentum + model #18.5 avg + surger arc.", status: "Lost" },
+    { num: 16, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:35 + multi-year iron surger + Pin shorter than DG outright (sharp money).", status: "Lost" },
 ];
 
 const TRUIST_CARD = [
-    { num: 1, player: "Ricky Castillo", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "May 5", t10s: 0, comp: "House long-shot pattern + only Truist +EV play (b365 EW). 2026 Puerto Rico winner. Composite #53.", status: "Open" },
-    { num: 2, player: "Alex Smalley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+4500", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Composite #11 + 6m comp P #9 + Nan flag 'playing really good golf' + Quail course history positive.", status: "Open" },
-    { num: 3, player: "Akshay Bhatia", market: "Outright", terms: "E/W Extra 1/5 3pl", odds: "+9000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Mayo's #1 spike-putter at Quail + comp 6m P #3. Spike-putter angle for Poa Triv greens.", status: "Open" },
-    { num: 4, player: "Akshay Bhatia", market: "Top 10", terms: "Top 10 incl ties", odds: "+335", book: "DK", stake: 10, placed: "May 5", t10s: 0, comp: "Spike-putter Quail edge + composite #16 + comp P #3. Top-10 cleaner structure than win.", status: "Open" },
-    { num: 5, player: "Alex Smalley", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 8:35 tee + Bamford SG:TOT #2 at Quail + 5-source convergence + local (Duke/Greensboro). Closest-to-fair AM-draw FRL.", status: "Open" },
-    { num: 6, player: "Gary Woodland", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 9:40 tee + Mayo named pick + comp 6m P #2 + 4 of 5 Quail putting starts gained + Bamford OTT #6.", status: "Open" },
-    { num: 7, player: "Taylor Pendrith", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+6000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Earliest tee 7:45 AM + Bamford SG:OTT #2 at Quail (+0.98/rd) + Mayo course-history (T5 PGA '25, T10 '24).", status: "Open" },
+    { num: 1, player: "Ricky Castillo", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "May 5", t10s: 0, comp: "House long-shot pattern + only Truist +EV play (b365 EW). 2026 Puerto Rico winner. Composite #53.", status: "Lost" },
+    { num: 2, player: "Alex Smalley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+4500", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Composite #11 + 6m comp P #9 + Nan flag 'playing really good golf' + Quail course history positive.", status: "Lost" },
+    { num: 3, player: "Akshay Bhatia", market: "Outright", terms: "E/W Extra 1/5 3pl", odds: "+9000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Mayo's #1 spike-putter at Quail + comp 6m P #3. Spike-putter angle for Poa Triv greens.", status: "Lost" },
+    { num: 4, player: "Akshay Bhatia", market: "Top 10", terms: "Top 10 incl ties", odds: "+335", book: "DK", stake: 10, placed: "May 5", t10s: 0, comp: "Spike-putter Quail edge + composite #16 + comp P #3. Top-10 cleaner structure than win.", status: "Lost" },
+    { num: 5, player: "Alex Smalley", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 8:35 tee + Bamford SG:TOT #2 at Quail + 5-source convergence + local (Duke/Greensboro). Closest-to-fair AM-draw FRL.", status: "Lost" },
+    { num: 6, player: "Gary Woodland", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 9:40 tee + Mayo named pick + comp 6m P #2 + 4 of 5 Quail putting starts gained + Bamford OTT #6.", status: "Lost" },
+    { num: 7, player: "Taylor Pendrith", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+6000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Earliest tee 7:45 AM + Bamford SG:OTT #2 at Quail (+0.98/rd) + Mayo course-history (T5 PGA '25, T10 '24).", status: "Lost" },
 ];
 
 const MB_CARD = [
-    { num: 1, player: "Christo Lamprecht", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Multi-structure stack on +0.427 EV outright play. PM Thursday wave (better R1 weather). DP World ball striker, wind-tested.", status: "Open" },
+    { num: 1, player: "Christo Lamprecht", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Multi-structure stack on +0.427 EV outright play. PM Thursday wave (better R1 weather). DP World ball striker, wind-tested.", status: "Lost" },
 ];
 
 const PGA_CARD = [
