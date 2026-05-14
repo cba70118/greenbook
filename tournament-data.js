@@ -1468,8 +1468,10 @@ const TOURNAMENT_DATA = {
         archetype: "Anti-bomber Donald Ross parkland. Mid-to-long iron approach test. Best comp: Oak Hill '23 PGA (Brooks). Key stats per Klos: SG:APP > Prox 125-200 > Par-4 scoring > DFEF > Long/Par-70 > SG:Putt > ARG.",
         location: "Newtown Square, Pennsylvania",
         frl: [
-            { player: "Xander Schauffele", odds: "+3000", book: "FD", stake: 10, edge: "5/5 filter pass — only complete pass in season. 7:29 AM late-AM sweet spot (post-rain, calm). #8 fit, NEUTRAL form, largest major adj (+0.25) in field." },
-            { player: "Thomas Detry", odds: "+8000", book: "b365", stake: 10, edge: "4/5 filter pass. DG fair +9174 = +14.7% EV. WARM form (+0.13). AM-sweet 7:24 wave." },
+            { player: "Xander Schauffele", odds: "+3000", book: "FD", stake: 10, edge: "5/5 filter pass — only complete pass in season. 7:29 AM late-AM sweet spot (post-rain, calm). #8 fit, NEUTRAL form, largest major adj (+0.25) in field. Filled flat-EV at +3000 vs DG fair +2993." },
+            { player: "Thomas Detry", odds: "+8000", book: "b365", stake: 10, edge: "Sweet-spot 7:24 AM wave. WARM form (+0.13). Held as dart on thesis — at b365 +8000, EV is roughly -12% vs DG fair +9174 (math correction from earlier +14.7% claim)." },
+            { player: "Akshay Bhatia", odds: "+7000", book: "b365", stake: 10, edge: "Putt #2 + ARG #2 elite short-game ceiling. Pure birdie-volume FRL angle. PM 11:37 wave (wind risk). Pure dart — DG fair +14534 = -52% EV." },
+            { player: "Pierceson Coody", odds: "+9000", book: "b365", stake: 10, edge: "Bomber profile + b365 T10 sharp move overnight (+1600 -> +1100). PM 12:27 wave. Dart on bomber-birdie thesis — DG fair +16520 = -45% EV." },
         ],
         narrative: {
             description: "Donald Ross, 1928. Gil Hanse brought it back to its bones with a faithful restoration. Hosted the 1962 PGA (Gary Player), 2018 BMW (Keegan Bradley at -20), and 2020 KPMG Women's PGA. Classic parkland with 174 bunkers and Ross's crowned greens that reject anything less than a precise approach. Shorter than most major venues at 7,280 yards — this is a thinking man's course where iron play and scrambling matter more than distance. Hanse stripped away decades of softening and returned the greens to their original convex contours.",

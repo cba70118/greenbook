@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 259,
+    totalBets: 261,
     settled: 240,
-    open: 17,
+    open: 19,
     voided: 2,
-    staked: 2734.65,
+    staked: 2754.65,
     settledStaked: 2394.65,
-    openStaked: 340.00,
+    openStaked: 360.00,
     returned: 2537.99,
     pl: 143.34,
     roi: 6.0,
@@ -210,6 +210,8 @@ const PGA_CARD = [
     { num: 7, player: "Cink + N.Hojgaard + Matsuyama", market: "Regional 3-pick", terms: "Top Senior + Top Danish + Top Japanese", odds: "+400", book: "DK", stake: 20, placed: "May 13", t10s: 0, comp: "Regional finisher 3-pick. Cink Senior favored, N.Hojgaard Danish favored, Matsuyama Japanese favored. Triple-correlated 11.25x payout.", status: "Open" },
     { num: 8, player: "Haotong Li", market: "3-Ball R1", terms: "Win only (vs Dufner/Walker)", odds: "-140", book: "FD", stake: 100, placed: "May 13", t10s: 0, comp: "R1 in-play 3-ball. Sharp matchup edge per DG. -140 = 58.3% implied. 5-unit heavy stake.", status: "Open" },
     { num: 9, player: "DFS Lineup B (Card Correlation)", market: "DFS", terms: "DK $50 GPP — Fitz/Fleetwood/Cantlay/Henley/N.Hojgaard/Smalley", odds: "-", book: "DK", stake: 50, placed: "May 13", t10s: 0, comp: "Salary $49,900. Projection 471.9 pts. 4/4 card overlap with b365 outrights. Aronimink fit composite 155.0. Punt fills both clear top-20 fit.", status: "Open" },
+    { num: 10, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Putt #2 + ARG #2 elite short-game ceiling (birdie-volume FRL angle). PM 11:37 wave (wind risk). APP #23 weakness softens case for firm Aronimink but FRL is birdie-driven. Form NEUTRAL. Pure dart/ceiling — DG fair +14534 = -52% EV vs book.", status: "Open" },
+    { num: 11, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+9000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Bomber/birdie-volume FRL profile + b365 T10 sharp move overnight (+1600 -> +1100, biggest longshot shortener). Form NEUTRAL. PM 12:27 wave. DG fair +16520 = -45% EV. Cross-market sharp signal didn't carry to FRL pricing.", status: "Open" },
 ];
 
 const VALERO_CARD = [
