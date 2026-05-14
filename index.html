@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=67">
+    <link rel="stylesheet" href="style.css?v=70">
 
 </head>
 <body>
@@ -617,6 +617,30 @@
         <!-- Portfolio Exposure -->
         <div class="stats-row" style="margin-bottom:1.5rem" id="exposure-stats"></div>
 
+        <!-- PGA Championship (Active) -->
+        <div class="card" style="border-left:3px solid var(--green-500)">
+            <h3>PGA Championship <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | MAY 14-17</span></h3>
+            <p class="card-subtitle">Aronimink GC (Donald Ross, Hanse restoration, bentgrass) | 8 week-of bets | $180 staked | McNealy outright + Detry/Schauffele FRLs + Straka stack + 2 DK regional picks + Haotong Li 3-Ball ($100 directional). Pre-week futures (Fleetwood/Fitz/Henley/Cantlay $70) in Futures section.</p>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
+            <tbody id="ab-pga"></tbody></table>
+        </div>
+
+        <!-- Truist Championship (Active) -->
+        <div class="card" style="border-left:3px solid var(--green-500)">
+            <h3>Truist Championship <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | MAY 7-10</span></h3>
+            <p class="card-subtitle">Quail Hollow (signature, no cut, 72 players) | 7 bets | $65.00 staked | Outrights (Bhatia 2x + Smalley + Castillo) + 3 FRL on AM-Thursday tees (Smalley, Woodland, Pendrith)</p>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
+            <tbody id="ab-truist"></tbody></table>
+        </div>
+
+        <!-- Myrtle Beach Classic (Active) -->
+        <div class="card" style="border-left:3px solid var(--green-500)">
+            <h3>Myrtle Beach Classic <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | MAY 7-10</span></h3>
+            <p class="card-subtitle">Dunes G&BC (opp-field, 132 players, cut) | 1 bet | $10.00 staked | Lamprecht FRL — closest-to-fair MB FRL play + +0.427 EV outright player</p>
+            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
+            <tbody id="ab-mb"></tbody></table>
+        </div>
+
         <!-- Cadillac Championship (Active) -->
         <div class="card" style="border-left:3px solid var(--green-500)">
             <h3>Cadillac Championship <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | APR 30-MAY 3</span></h3>
@@ -648,7 +672,7 @@
         <!-- Futures / Major Championship Bets -->
         <div class="card" style="border-left:3px solid var(--brass-500)">
             <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Futures <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);font-weight:400">PGA Champ + US Open + 2027 Masters | 8 bets | $100 exposure</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
+            <h3>Futures <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);font-weight:400">PGA Champ + US Open + 2027 Masters | 9 bets | Matsuyama PGA bought out</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
             <table class="data-table"><thead><tr><th>Player</th><th>Event</th><th>Odds</th><th>Terms</th><th>Book</th><th>Stake</th></tr></thead>
             <tbody id="ab-futures"></tbody></table>
         </div></div>
@@ -864,17 +888,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=67"></script>
-    <script src="data.js?v=67"></script>
-    <script src="tournament-data.js?v=67"></script>
-    <script src="settled-data.js?v=67"></script>
-    <script src="masters-odds.js?v=67"></script>
-    <script src="valero-odds.js?v=67"></script>
-    <script src="tools-data.js?v=67"></script>
-    <script src="news-feed.js?v=67"></script>
-    <script src="source-attribution.js?v=67"></script>
-    <script src="app.js?v=67"></script>
-    <script src="masters-pool.js?v=67"></script>
-    <script src="tools.js?v=67"></script>
+    <script src="auth.js?v=70"></script>
+    <script src="data.js?v=70"></script>
+    <script src="tournament-data.js?v=70"></script>
+    <script src="settled-data.js?v=70"></script>
+    <script src="masters-odds.js?v=70"></script>
+    <script src="valero-odds.js?v=70"></script>
+    <script src="tools-data.js?v=70"></script>
+    <script src="news-feed.js?v=70"></script>
+    <script src="source-attribution.js?v=70"></script>
+    <script src="app.js?v=70"></script>
+    <script src="masters-pool.js?v=70"></script>
+    <script src="tools.js?v=70"></script>
 </body>
 </html>

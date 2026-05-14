@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 241,
+    totalBets: 249,
     settled: 216,
-    open: 24,
+    open: 32,
     voided: 2,
-    staked: 2419.65,
+    staked: 2494.65,
     settledStaked: 2187.15,
-    openStaked: 232.50,
+    openStaked: 307.50,
     returned: 2537.99,
     pl: 350.84,
     roi: 16.0,
@@ -28,6 +28,9 @@ const TOURNAMENTS = [
     { name: "Masters", bets: 28, staked: 524.40, returned: 1092.04, pl: 567.64, phase: 2, status: "settled" },
     { name: "RBC Heritage", bets: 15, staked: 150, returned: 43.50, pl: -106.50, phase: 2, status: "settled" },
     { name: "Zurich Classic", bets: 9, staked: 80, returned: 83, pl: 3, phase: 2, status: "settled" },
+    { name: "Cadillac", bets: 16, staked: 132.50, returned: 0, pl: 0, phase: 2, status: "open" },
+    { name: "Truist", bets: 7, staked: 65, returned: 0, pl: 0, phase: 2, status: "open" },
+    { name: "Myrtle Beach", bets: 1, staked: 10, returned: 0, pl: 0, phase: 2, status: "open" },
 ];
 
 const WINNERS = [
@@ -126,8 +129,9 @@ const FUTURES = [
     { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
     { player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
     { player: "Matt Fitzpatrick", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
-    { player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/5 10pl", odds: "+1800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Cashed $20 (void/push)" },
-    { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
+    { player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/5 10pl", odds: "+1800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
+    { player: "Patrick Cantlay", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "May 12, 2026", event: "2026 PGA Championship", status: "Open" },
+    { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Bought out — off card" },
     { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
     { player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
     { player: "Tony Finau", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 13, 2026", event: "2026 PGA Championship", status: "Open" },
@@ -180,6 +184,31 @@ const MIAMI_CARD = [
     { num: 14, player: "Alex Smalley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 5, placed: "Apr 29", t10s: 0, comp: "Pure model love + 6-mo comp #22. Deep dart, low-narrative-noise.", status: "Open" },
     { num: 15, player: "J.J. Spaun", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:05 + Valero winner momentum + model #18.5 avg + surger arc.", status: "Open" },
     { num: 16, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 29", t10s: 0, comp: "AM wave 10:35 + multi-year iron surger + Pin shorter than DG outright (sharp money).", status: "Open" },
+];
+
+const TRUIST_CARD = [
+    { num: 1, player: "Ricky Castillo", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "May 5", t10s: 0, comp: "House long-shot pattern + only Truist +EV play (b365 EW). 2026 Puerto Rico winner. Composite #53.", status: "Open" },
+    { num: 2, player: "Alex Smalley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+4500", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Composite #11 + 6m comp P #9 + Nan flag 'playing really good golf' + Quail course history positive.", status: "Open" },
+    { num: 3, player: "Akshay Bhatia", market: "Outright", terms: "E/W Extra 1/5 3pl", odds: "+9000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Mayo's #1 spike-putter at Quail + comp 6m P #3. Spike-putter angle for Poa Triv greens.", status: "Open" },
+    { num: 4, player: "Akshay Bhatia", market: "Top 10", terms: "Top 10 incl ties", odds: "+335", book: "DK", stake: 10, placed: "May 5", t10s: 0, comp: "Spike-putter Quail edge + composite #16 + comp P #3. Top-10 cleaner structure than win.", status: "Open" },
+    { num: 5, player: "Alex Smalley", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 8:35 tee + Bamford SG:TOT #2 at Quail + 5-source convergence + local (Duke/Greensboro). Closest-to-fair AM-draw FRL.", status: "Open" },
+    { num: 6, player: "Gary Woodland", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+5000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "AM 9:40 tee + Mayo named pick + comp 6m P #2 + 4 of 5 Quail putting starts gained + Bamford OTT #6.", status: "Open" },
+    { num: 7, player: "Taylor Pendrith", market: "FRL", terms: "E/W Extra 1/5 4pl", odds: "+6000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Earliest tee 7:45 AM + Bamford SG:OTT #2 at Quail (+0.98/rd) + Mayo course-history (T5 PGA '25, T10 '24).", status: "Open" },
+];
+
+const MB_CARD = [
+    { num: 1, player: "Christo Lamprecht", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 5", t10s: 0, comp: "Multi-structure stack on +0.427 EV outright play. PM Thursday wave (better R1 weather). DP World ball striker, wind-tested.", status: "Open" },
+];
+
+const PGA_CARD = [
+    { num: 1, player: "Maverick McNealy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Cross-market overlay champion (+34.5% DG Win EV / +25.2% T5 EV). Putt-driven profile (SG:PUTT +0.502 field-elite).", status: "Open" },
+    { num: 2, player: "Thomas Detry", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "FRL screen 4/5 pass. AM-sweet 7:24 wave (post-rain, calm). WARM form (+0.13 timing). DG fair +9174 = +14.7% EV at b365 +8000.", status: "Open" },
+    { num: 3, player: "Xander Schauffele", market: "FRL", terms: "Win only", odds: "+3000", book: "FD", stake: 10, placed: "May 13", t10s: 0, comp: "Season's first 5/5 FRL filter pass. 7:29 AM late-AM sweet spot (post-rain). DG #4 final pred / fit #8 / NEUTRAL form. Largest major adj (+0.25) in field.", status: "Open" },
+    { num: 4, player: "Sepp Straka", market: "Outright", terms: "Win only", odds: "+8400", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Pin shortened overnight despite Truist T63. LIV-fade longshot. Iron + APP angle.", status: "Open" },
+    { num: 5, player: "Sepp Straka", market: "Top 10", terms: "Incl ties", odds: "+495", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Stack on Straka thesis at place-market structure. T10 cleaner than outright.", status: "Open" },
+    { num: 6, player: "Niemann + Potgieter", market: "Regional 2-pick", terms: "Top S.American + Top S.African", odds: "+850", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Regional finisher 2-pick. Both DG-flagged: Niemann WARM form / Potgieter sleeper.", status: "Open" },
+    { num: 7, player: "Cink + N.Hojgaard + Matsuyama", market: "Regional 3-pick", terms: "Top Senior + Top Danish + Top Japanese", odds: "+400", book: "DK", stake: 20, placed: "May 13", t10s: 0, comp: "Regional finisher 3-pick. Cink Senior favored, N.Hojgaard Danish favored, Matsuyama Japanese favored. Triple-correlated 11.25x payout.", status: "Open" },
+    { num: 8, player: "Haotong Li", market: "3-Ball R1", terms: "Win only (vs Dufner/Walker)", odds: "-140", book: "FD", stake: 100, placed: "May 13", t10s: 0, comp: "R1 in-play 3-ball. Sharp matchup edge per DG. -140 = 58.3% implied. 5-unit heavy stake.", status: "Open" },
 ];
 
 const VALERO_CARD = [
