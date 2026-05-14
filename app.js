@@ -1939,31 +1939,7 @@ if (typeof ZURICH_CARD !== 'undefined') renderBetCard(ZURICH_CARD, 'ab-zurich', 
 if (typeof MIAMI_CARD !== 'undefined') renderBetCard(MIAMI_CARD, 'ab-miami', 'DraftKings');
 if (typeof TRUIST_CARD !== 'undefined') renderBetCard(TRUIST_CARD, 'ab-truist', 'bet365');
 if (typeof MB_CARD !== 'undefined') renderBetCard(MB_CARD, 'ab-mb', 'bet365');
-if (typeof PGA_CARD !== 'undefined') {
-    // Combine PGA_CARD with pre-week PGA Championship futures so they all appear in the Active Bets PGA section
-    var pgaCombined = PGA_CARD.slice();
-    if (typeof FUTURES !== 'undefined') {
-        var pgaFuturesEntries = FUTURES.filter(function(b) {
-            return (b.event || '').indexOf('PGA Championship') >= 0 && b.status === 'Open';
-        });
-        // Map FUTURES format to PGA_CARD format (add num + placed/status if needed)
-        pgaFuturesEntries.forEach(function(b, i) {
-            pgaCombined.unshift({
-                num: 'F' + (i+1),
-                player: b.player + ' (Futures)',
-                market: 'Outright',
-                terms: b.terms,
-                odds: b.odds,
-                book: b.book,
-                stake: b.stake,
-                placed: b.placed,
-                status: b.status,
-                comp: 'Pre-week PGA Champ futures locked at thinner-market prices.'
-            });
-        });
-    }
-    renderBetCard(pgaCombined, 'ab-pga', 'Mixed (b365 / DK / FD)');
-}
+if (typeof PGA_CARD !== 'undefined') renderBetCard(PGA_CARD, 'ab-pga', 'Mixed (b365 / DK / FD)');
 
 // Futures table
 (function() {

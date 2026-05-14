@@ -1,12 +1,12 @@
 // Season data
 const SEASON = {
-    totalBets: 261,
+    totalBets: 260,
     settled: 240,
-    open: 19,
+    open: 18,
     voided: 2,
-    staked: 2754.65,
+    staked: 2744.65,
     settledStaked: 2394.65,
-    openStaked: 360.00,
+    openStaked: 350.00,
     returned: 2537.99,
     pl: 143.34,
     roi: 6.0,
@@ -123,18 +123,13 @@ const MASTERS_CARD = [
     { num: 28, player: "Sam Stevens", market: "Prop", terms: "Top Debutant", odds: "+1100", book: "DK", stake: 5, placed: "Apr 9", t10s: 0, comp: "-", status: "DH Won +$15" },
 ];
 
-// Futures + Major Championship Early Locks
+// FUTURES = long-dated outrights NOT for the current week's tournament
+// PGA Championship pre-week futures (Fleetwood/Fitz/Henley/Cantlay/Finau) now live in PGA_CARD for unified Active Bets display
 const FUTURES = [
     { player: "Xander Schauffele", market: "Outright", terms: "Win", odds: "+2250", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
     { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
-    { player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
-    { player: "Matt Fitzpatrick", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
-    { player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/5 10pl", odds: "+1800", book: "b365", stake: 20, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Open" },
-    { player: "Patrick Cantlay", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "May 12, 2026", event: "2026 PGA Championship", status: "Open" },
-    { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 PGA Championship", status: "Bought out — off card" },
     { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
     { player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Open" },
-    { player: "Tony Finau", market: "Outright", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "Apr 13, 2026", event: "2026 PGA Championship", status: "Open" },
 ];
 
 const RBC_CARD = [
@@ -201,17 +196,23 @@ const MB_CARD = [
 ];
 
 const PGA_CARD = [
-    { num: 1, player: "Maverick McNealy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Cross-market overlay champion (+34.5% DG Win EV / +25.2% T5 EV). Putt-driven profile (SG:PUTT +0.502 field-elite).", status: "Open" },
-    { num: 2, player: "Thomas Detry", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "FRL screen 4/5 pass. AM-sweet 7:24 wave (post-rain, calm). WARM form (+0.13 timing). DG fair +9174 = +14.7% EV at b365 +8000.", status: "Open" },
-    { num: 3, player: "Xander Schauffele", market: "FRL", terms: "Win only", odds: "+3000", book: "FD", stake: 10, placed: "May 13", t10s: 0, comp: "Season's first 5/5 FRL filter pass. 7:29 AM late-AM sweet spot (post-rain). DG #4 final pred / fit #8 / NEUTRAL form. Largest major adj (+0.25) in field.", status: "Open" },
-    { num: 4, player: "Sepp Straka", market: "Outright", terms: "Win only", odds: "+8400", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Pin shortened overnight despite Truist T63. LIV-fade longshot. Iron + APP angle.", status: "Open" },
-    { num: 5, player: "Sepp Straka", market: "Top 10", terms: "Incl ties", odds: "+495", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Stack on Straka thesis at place-market structure. T10 cleaner than outright.", status: "Open" },
-    { num: 6, player: "Niemann + Potgieter", market: "Regional 2-pick", terms: "Top S.American + Top S.African", odds: "+850", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Regional finisher 2-pick. Both DG-flagged: Niemann WARM form / Potgieter sleeper.", status: "Open" },
-    { num: 7, player: "Cink + N.Hojgaard + Matsuyama", market: "Regional 3-pick", terms: "Top Senior + Top Danish + Top Japanese", odds: "+400", book: "DK", stake: 20, placed: "May 13", t10s: 0, comp: "Regional finisher 3-pick. Cink Senior favored, N.Hojgaard Danish favored, Matsuyama Japanese favored. Triple-correlated 11.25x payout.", status: "Open" },
-    { num: 8, player: "Haotong Li", market: "3-Ball R1", terms: "Win only (vs Dufner/Walker)", odds: "-140", book: "FD", stake: 100, placed: "May 13", t10s: 0, comp: "R1 in-play 3-ball. Sharp matchup edge per DG. -140 = 58.3% implied. 5-unit heavy stake.", status: "Open" },
-    { num: 9, player: "DFS Lineup B (Card Correlation)", market: "DFS", terms: "DK $50 GPP — Fitz/Fleetwood/Cantlay/Henley/N.Hojgaard/Smalley", odds: "-", book: "DK", stake: 50, placed: "May 13", t10s: 0, comp: "Salary $49,900. Projection 471.9 pts. 4/4 card overlap with b365 outrights. Aronimink fit composite 155.0. Punt fills both clear top-20 fit.", status: "Open" },
-    { num: 10, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Putt #2 + ARG #2 elite short-game ceiling (birdie-volume FRL angle). PM 11:37 wave (wind risk). APP #23 weakness softens case for firm Aronimink but FRL is birdie-driven. Form NEUTRAL. Pure dart/ceiling — DG fair +14534 = -52% EV vs book.", status: "Open" },
-    { num: 11, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+9000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Bomber/birdie-volume FRL profile + b365 T10 sharp move overnight (+1600 -> +1100, biggest longshot shortener). Form NEUTRAL. PM 12:27 wave. DG fair +16520 = -45% EV. Cross-market sharp signal didn't carry to FRL pricing.", status: "Open" },
+    // PRE-WEEK FUTURES (placed Apr-May before tournament week)
+    { num: 1, player: "Tommy Fleetwood", market: "Outright", terms: "E/W 1/5 10pl", odds: "+1800", book: "b365", stake: 20, placed: "Apr 12", t10s: 0, comp: "Course-fit + Major-history. Pre-week futures. T8 at Aronimink 2018 (62-62 R2-R3).", status: "Open" },
+    { num: 2, player: "Matt Fitzpatrick", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2200", book: "b365", stake: 20, placed: "Apr 12", t10s: 0, comp: "Course-fit + Form-surge. Pre-week futures. Mayo Tier 2 alone, Noonan PGA #4. Highest SG:TOT of futures stack.", status: "Open" },
+    { num: 3, player: "Russell Henley", market: "Outright", terms: "E/W 1/5 10pl", odds: "+2800", book: "b365", stake: 20, placed: "Apr 12", t10s: 0, comp: "Weakness-masked + Course-fit. Pre-week futures. Anti-Quail flip thesis. Masters T3 validates 'fits every fingerprint'.", status: "Open" },
+    { num: 4, player: "Patrick Cantlay", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4500", book: "b365", stake: 10, placed: "May 12", t10s: 0, comp: "Course-fit + Veteran-bent-putter. Week-of futures add. Klos-flagged strong fit. ARG #3. Form WARM (+0.12).", status: "Open" },
+    // WEEK-OF ADDS (placed May 13)
+    { num: 5, player: "Maverick McNealy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Cross-market overlay champion (+34.5% DG Win EV / +25.2% T5 EV). Putt-driven profile (SG:PUTT +0.502 field-elite).", status: "Open" },
+    { num: 6, player: "Thomas Detry", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "FRL screen 4/5 pass. AM-sweet 7:24 wave (post-rain, calm). WARM form (+0.13 timing). DG fair +9174 = +14.7% EV at b365 +8000.", status: "Open" },
+    { num: 7, player: "Xander Schauffele", market: "FRL", terms: "Win only", odds: "+3000", book: "FD", stake: 10, placed: "May 13", t10s: 0, comp: "Season's first 5/5 FRL filter pass. 7:29 AM late-AM sweet spot (post-rain). DG #4 final pred / fit #8 / NEUTRAL form. Largest major adj (+0.25) in field.", status: "Open" },
+    { num: 8, player: "Sepp Straka", market: "Outright", terms: "Win only", odds: "+8400", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Pin shortened overnight despite Truist T63. LIV-fade longshot. Iron + APP angle.", status: "Open" },
+    { num: 9, player: "Sepp Straka", market: "Top 10", terms: "Incl ties", odds: "+495", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Stack on Straka thesis at place-market structure. T10 cleaner than outright.", status: "Open" },
+    { num: 10, player: "Niemann + Potgieter", market: "Regional 2-pick", terms: "Top S.American + Top S.African", odds: "+850", book: "DK", stake: 10, placed: "May 13", t10s: 0, comp: "Regional finisher 2-pick. Both DG-flagged: Niemann WARM form / Potgieter sleeper.", status: "Open" },
+    { num: 11, player: "Cink + N.Hojgaard + Matsuyama", market: "Regional 3-pick", terms: "Top Senior + Top Danish + Top Japanese", odds: "+400", book: "DK", stake: 20, placed: "May 13", t10s: 0, comp: "Regional finisher 3-pick. Cink Senior favored, N.Hojgaard Danish favored, Matsuyama Japanese favored. Triple-correlated 11.25x payout.", status: "Open" },
+    { num: 12, player: "Haotong Li", market: "3-Ball R1", terms: "Win only (vs Dufner/Walker)", odds: "-140", book: "FD", stake: 100, placed: "May 13", t10s: 0, comp: "R1 in-play 3-ball. Sharp matchup edge per DG. -140 = 58.3% implied. 5-unit heavy stake.", status: "Open" },
+    { num: 13, player: "DFS Lineup B (Card Correlation)", market: "DFS", terms: "DK $50 GPP — Fitz/Fleetwood/Cantlay/Henley/N.Hojgaard/Smalley", odds: "-", book: "DK", stake: 50, placed: "May 13", t10s: 0, comp: "Salary $49,900. Projection 471.9 pts. 4/4 card overlap with b365 outrights. Aronimink fit composite 155.0. Punt fills both clear top-20 fit.", status: "Open" },
+    { num: 14, player: "Akshay Bhatia", market: "FRL", terms: "E/W 1/4 5pl", odds: "+7000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Putt #2 + ARG #2 elite short-game ceiling (birdie-volume FRL angle). PM 11:37 wave (wind risk). APP #23 weakness softens case for firm Aronimink but FRL is birdie-driven. Form NEUTRAL. Pure dart/ceiling — DG fair +14534 = -52% EV vs book.", status: "Open" },
+    { num: 15, player: "Pierceson Coody", market: "FRL", terms: "E/W 1/4 5pl", odds: "+9000", book: "b365", stake: 10, placed: "May 13", t10s: 0, comp: "Bomber/birdie-volume FRL profile + b365 T10 sharp move overnight (+1600 -> +1100, biggest longshot shortener). Form NEUTRAL. PM 12:27 wave. DG fair +16520 = -45% EV. Cross-market sharp signal didn't carry to FRL pricing.", status: "Open" },
 ];
 
 const VALERO_CARD = [
