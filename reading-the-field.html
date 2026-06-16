@@ -166,6 +166,10 @@ tbody td:first-child{color:var(--navy)}
 .simstat b{color:var(--red);font-size:17px;font-variant-numeric:tabular-nums}
 .simbtn{font-family:var(--disp);text-transform:uppercase;letter-spacing:.05em;font-size:12px;font-weight:500;color:var(--navy);background:#fff;border:1px solid var(--navy);border-radius:4px;padding:6px 14px;cursor:pointer;transition:.15s}
 .simbtn:hover{background:var(--navy);color:#fff}
+.simbtn.primary{background:var(--red);color:#fff;border-color:var(--red)}
+.simbtn.primary:hover{background:#8a1230}
+.simbtn:disabled{opacity:.45;cursor:default}
+.simdone{font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-size:12px;color:var(--blue);margin-left:8px}
 footer{margin-top:42px;color:var(--mut);font-size:12.5px;border-top:2px solid var(--navy);padding-top:16px}
 </style></head><body>
 <div class="flagbar"></div>
@@ -233,11 +237,11 @@ footer{margin-top:42px;color:var(--mut);font-size:12.5px;border-top:2px solid va
 <!-- SIM LEADERBOARD -->
 <div class="panel-view" data-v="board">
 <h2>Live Simulation</h2>
-<p class="cap">The model plays the championship over and over, right here in your browser, tallying how often each player wins or finishes top 5/10/20. Watch the percentages settle as the count climbs: that convergence is the Monte Carlo at work, and it is exactly how the win odds are built.</p>
+<p class="cap">The model plays the championship over and over, right here in your browser, tallying how often each player wins or finishes top 5/10/20. Watch the percentages settle as the count climbs: that convergence is the Monte Carlo at work, and it is exactly how the win odds are built. It runs to 25,000 tournaments and then locks; hit Re-run to build it again from zero.</p>
 <div class="simctl">
-<span class="simstat">Tournaments simulated: <b id="simcount">0</b></span>
+<span class="simstat">Tournaments simulated: <b id="simcount">0</b><span id="simstatus" class="simdone"></span></span>
 <button id="simpause" class="simbtn">Pause</button>
-<button id="simreset" class="simbtn">Reset</button>
+<button id="simrerun" class="simbtn primary">Re-run</button>
 </div>
 <div class="tablewrap" style="max-height:620px"><table class="lb">
 <thead><tr><th>Pos</th><th>Player</th><th class="r">Win %</th><th class="r">Top 5</th><th class="r">Top 10</th><th class="r">Top 20</th></tr></thead>
@@ -422,8 +426,9 @@ document.querySelectorAll('table.sortable').forEach(tb=>{
  const F=SIMFIELD, n=F.length; if(!n)return;
  const body=document.getElementById('livebody'), cnt=document.getElementById('simcount');
  const panel=document.querySelector('[data-v="board"]');
- const pause=document.getElementById('simpause'), reset=document.getElementById('simreset');
- const BASE=2.3;
+ const pause=document.getElementById('simpause'), rerun=document.getElementById('simrerun');
+ const status=document.getElementById('simstatus');
+ const BASE=2.3, CAP=25000;
  let win,t5,t10,t20,N,running=true;
  const tot=new Float64Array(n), idx=new Int32Array(n);
  function zero(){win=new Float64Array(n);t5=new Float64Array(n);t10=new Float64Array(n);t20=new Float64Array(n);N=0;}
@@ -454,9 +459,17 @@ document.querySelectorAll('table.sortable').forEach(tb=>{
       `<td class="r">${(t20[i]/N*100).toFixed(1)}</td></tr>`;}
   body.innerHTML=h; cnt.textContent=N.toLocaleString();
  }
- setInterval(()=>{ if(running && panel.classList.contains('on')){ batch(200); render(); } }, 60);
- pause.onclick=()=>{running=!running;pause.textContent=running?'Pause':'Resume';};
- reset.onclick=()=>{zero();body.innerHTML='<tr><td colspan="6" class="simwait">Reset &#183; simulating&#8230;</td></tr>';cnt.textContent='0';};
+ function done(){running=false;pause.disabled=true;pause.textContent='Pause';if(status)status.textContent='· complete';}
+ setInterval(()=>{
+  if(running && panel.classList.contains('on') && N<CAP){
+   batch(Math.min(200, CAP-N)); render();
+   if(N>=CAP) done();
+  }
+ }, 60);
+ pause.onclick=()=>{ if(N>=CAP)return; running=!running; pause.textContent=running?'Pause':'Resume'; };
+ rerun.onclick=()=>{ zero(); running=true; pause.disabled=false; pause.textContent='Pause';
+  if(status)status.textContent=''; cnt.textContent='0';
+  body.innerHTML='<tr><td colspan="6" class="simwait">simulating&#8230;</td></tr>'; };
 })();
 </script>
 </body></html>
