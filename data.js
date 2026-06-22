@@ -154,8 +154,7 @@ const MASTERS_CARD = [
 const FUTURES = [
     { player: "Xander Schauffele", market: "Outright", terms: "Win", odds: "+2250", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
     { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
-    { player: "Hideki Matsuyama", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Lost (T65)", result: "Lost" },
-    { player: "Russell Henley", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12, 2026", event: "2026 US Open", status: "Lost (T65)", result: "Lost" },
+    // US Open futures (Matsuyama/Henley) settled Lost — moved to US_OPEN_CARD so FUTURES stays open-only.
 ];
 
 const RBC_CARD = [
@@ -266,6 +265,8 @@ const US_OPEN_CARD = [
     { num: 5, player: "Alex Noren", market: "Outright", terms: "E/W 1/4 5pl", odds: "+10000", book: "b365", stake: 5, placed: "Jun 15", t10s: 0, comp: "50/1+ complete fit (elite putt, wind grinder), narrative-silent. Fit dart.", status: "MC (Lost)", result: "Lost" },
     { num: 6, player: "Brian Harman", market: "Outright", terms: "E/W 1/4 5pl", odds: "+17500", book: "b365", stake: 5, placed: "Jun 15", t10s: 0, comp: "Comp-course lottery (Open champ, links/wind, TAILWIND). Fit dart.", status: "T32 +6 (Lost)", result: "Lost" },
     { num: 7, player: "Patrick Reed", market: "Outright", terms: "E/W 1/5 8pl", odds: "+4000", book: "b365", stake: 15, placed: "Jun 15", t10s: 0, comp: "Elite short game (run-off fit) + 2018 T4 here.", status: "MC (Lost)", result: "Lost" },
+    { num: 8, player: "Hideki Matsuyama", market: "Outright (future)", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12", t10s: 0, comp: "Pre-week US Open future.", status: "T65 (Lost)", result: "Lost" },
+    { num: 9, player: "Russell Henley", market: "Outright (future)", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12", t10s: 0, comp: "Pre-week US Open future.", status: "T65 (Lost)", result: "Lost" },
 ];
 
 const VALERO_CARD = [
