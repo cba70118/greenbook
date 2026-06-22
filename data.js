@@ -1,17 +1,17 @@
-// Season data — last audited Jun 21, 2026 (reconciled through US Open: PGA Champ + Memorial + US Open settled)
-// Audit math: 274 settled + 2 open (2027 Masters futures) + 2 voided = 278 totalBets
-// Open stake: FUTURES (2027 Masters Schauffele+Koepka) $20 only
+// Season data — last audited Jun 21, 2026 (reconciled through US Open; NO open bets)
+// Audit math: 274 settled + 0 open + 2 voided = 276 totalBets
+// Open stake: $0 — no open positions (2027 Masters Schauffele/Koepka were never actually placed; removed)
 // Settled stake: $2,929.65. Returned: $3,529.24. P/L = +$599.59. ROI = 20.5%
 // Newly settled this pass: PGA Champ (19 bets, -$150), Memorial (6, +$81.25), US Open (9, +$525, incl 2 futures). RBC Canadian Open analyzed, 0 bets placed.
 // WINNERS array now 28 entries (+Niemann/Potgieter PGA, +Gerard & Spaun-FRL Memorial, +Clark US Open)
 const SEASON = {
-    totalBets: 278,
+    totalBets: 276,
     settled: 274,
-    open: 2,
+    open: 0,
     voided: 2,
-    staked: 2949.65,
+    staked: 2929.65,
     settledStaked: 2929.65,
-    openStaked: 20.00,
+    openStaked: 0.00,
     returned: 3529.24,
     pl: 599.59,
     roi: 20.5,
@@ -152,9 +152,9 @@ const MASTERS_CARD = [
 // FUTURES = long-dated outrights NOT for the current week's tournament
 // PGA Championship pre-week futures (Fleetwood/Fitz/Henley/Cantlay/Finau) now live in PGA_CARD for unified Active Bets display
 const FUTURES = [
-    { player: "Xander Schauffele", market: "Outright", terms: "Win", odds: "+2250", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
-    { player: "Brooks Koepka", market: "Outright", terms: "Win", odds: "+3500", book: "DK", stake: 10, placed: "Apr 12, 2026", event: "2027 Masters", status: "Open" },
-    // US Open futures (Matsuyama/Henley) settled Lost — moved to US_OPEN_CARD so FUTURES stays open-only.
+    // No open futures. The 2027 Masters Schauffele +2250 / Koepka +3500 entries were
+    // never actually placed (data error) — removed Jun 21, 2026.
+    // US Open futures (Matsuyama/Henley) settled Lost — now in US_OPEN_CARD.
 ];
 
 const RBC_CARD = [
