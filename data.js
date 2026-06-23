@@ -1,17 +1,17 @@
-// Season data — last audited Jun 21, 2026 (reconciled through US Open; NO open bets)
-// Audit math: 274 settled + 0 open + 2 voided = 276 totalBets
-// Open stake: $0 — no open positions (2027 Masters Schauffele/Koepka were never actually placed; removed)
-// Settled stake: $2,929.65. Returned: $3,529.24. P/L = +$599.59. ROI = 20.5%
-// Newly settled this pass: PGA Champ (19 bets, -$150), Memorial (6, +$81.25), US Open (9, +$525, incl 2 futures). RBC Canadian Open analyzed, 0 bets placed.
-// WINNERS array now 28 entries (+Niemann/Potgieter PGA, +Gerard & Spaun-FRL Memorial, +Clark US Open)
+// Season data — last audited Jun 23, 2026 (3 open Travelers bets placed)
+// Audit math: 274 settled + 3 open (Travelers) + 2 voided = 279 totalBets
+// Open stake: $40 — Travelers 2026 (Schauffele $20, Spaun $10, Rai $10), all b365 E/W top-3
+// Settled stake: $2,929.65. Returned: $3,529.24. P/L = +$599.59. ROI = 20.5% (settled only)
+// Newly settled prior pass: PGA Champ (19, -$150), Memorial (6, +$81.25), US Open (9, +$525). RBC Canadian Open analyzed, 0 bets.
+// WINNERS array 28 entries (+Niemann/Potgieter PGA, +Gerard & Spaun-FRL Memorial, +Clark US Open)
 const SEASON = {
-    totalBets: 276,
+    totalBets: 279,
     settled: 274,
-    open: 0,
+    open: 3,
     voided: 2,
-    staked: 2929.65,
+    staked: 2969.65,
     settledStaked: 2929.65,
-    openStaked: 0.00,
+    openStaked: 40.00,
     returned: 3529.24,
     pl: 599.59,
     roi: 20.5,
@@ -267,6 +267,14 @@ const US_OPEN_CARD = [
     { num: 7, player: "Patrick Reed", market: "Outright", terms: "E/W 1/5 8pl", odds: "+4000", book: "b365", stake: 15, placed: "Jun 15", t10s: 0, comp: "Elite short game (run-off fit) + 2018 T4 here.", status: "MC (Lost)", result: "Lost" },
     { num: 8, player: "Hideki Matsuyama", market: "Outright (future)", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12", t10s: 0, comp: "Pre-week US Open future.", status: "T65 (Lost)", result: "Lost" },
     { num: 9, player: "Russell Henley", market: "Outright (future)", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Apr 12", t10s: 0, comp: "Pre-week US Open future.", status: "T65 (Lost)", result: "Lost" },
+];
+
+// Travelers Championship 2026 — TPC River Highlands. Placed Jun 23 (data-first card; market entered last).
+// E/W "top-3 places" specials on bet365. Stake = total each-way ($5 E/W = $10 total per golfer).
+const TRAVELERS_CARD = [
+    { num: 1, player: "Xander Schauffele", market: "Outright", terms: "E/W top-3", odds: "+2500", book: "b365", stake: 20, placed: "Jun 23", t10s: 0, comp: "Model #2-3, 2022 Travelers champ. +2500 well longer than board (+1475 DK / +1891 fair) — elite-tier value. 1u.", status: "Open" },
+    { num: 2, player: "J.J. Spaun", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Elite APP / short-course; model-liked but putting-fragile on small greens — small 0.5u. +6600 longer than board.", status: "Open" },
+    { num: 3, player: "Aaron Rai", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Card's top convergent read (model + fit + narrative silence). Surger + positional fit. +6600 longer than board (+5500). 0.5u.", status: "Open" },
 ];
 
 const VALERO_CARD = [

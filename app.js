@@ -132,6 +132,7 @@ function buildTheCut() {
             truist: typeof TRUIST_CARD !== 'undefined' ? TRUIST_CARD : [],
             myrtlebeach: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
             pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
+            travelers: typeof TRAVELERS_CARD !== 'undefined' ? TRAVELERS_CARD : [],
         };
         var cardData = cutCardLookup[currentKey] || [];
         if (currentKey === 'pgachampionship' && typeof FUTURES !== 'undefined') {
@@ -530,6 +531,7 @@ function loadTournament(key) {
                 myrtlebeach: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
                 pga: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
                 pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
+                travelers: typeof TRAVELERS_CARD !== 'undefined' ? TRAVELERS_CARD : [],
             };
             // Also include PGA futures (Fleetwood/Fitz/Henley/Cantlay/Finau pre-week) when on PGA tab
             var actualCard = cardLookup[key] || [];
@@ -1940,6 +1942,7 @@ if (typeof MIAMI_CARD !== 'undefined') renderBetCard(MIAMI_CARD, 'ab-miami', 'Dr
 if (typeof TRUIST_CARD !== 'undefined') renderBetCard(TRUIST_CARD, 'ab-truist', 'bet365');
 if (typeof MB_CARD !== 'undefined') renderBetCard(MB_CARD, 'ab-mb', 'bet365');
 if (typeof PGA_CARD !== 'undefined') renderBetCard(PGA_CARD, 'ab-pga', 'Mixed (b365 / DK / FD)');
+if (typeof TRAVELERS_CARD !== 'undefined') renderBetCard(TRAVELERS_CARD, 'ab-travelers', 'bet365');
 
 // Futures table
 (function() {
@@ -1961,6 +1964,7 @@ if (typeof PGA_CARD !== 'undefined') renderBetCard(PGA_CARD, 'ab-pga', 'Mixed (b
     if (typeof TRUIST_CARD !== 'undefined') allCards.push(TRUIST_CARD);
     if (typeof MB_CARD !== 'undefined') allCards.push(MB_CARD);
     if (typeof PGA_CARD !== 'undefined') allCards.push(PGA_CARD);
+    if (typeof TRAVELERS_CARD !== 'undefined') allCards.push(TRAVELERS_CARD);
     if (typeof FUTURES !== 'undefined') allCards.push(FUTURES);
     var openBets = [];
     allCards.forEach(function(card) {
