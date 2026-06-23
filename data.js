@@ -1,6 +1,6 @@
 // Season data — last audited Jun 23, 2026 (6 open Travelers bets: 3 outrights + 3 FRL)
 // Audit math: 274 settled + 6 open (Travelers) + 2 voided = 282 totalBets
-// Open stake: $60 — outrights $40 (Schauffele $20, Spaun $10, Rai $10, b365 E/W top-3)
+// Open stake: $80 — outrights $60 (Schauffele $40, Spaun $10, Rai $10, b365 E/W top-3)
 //   + FRL $20 (Poston $10, Cantlay $5, Suber $5, b365 E/W 1/5; settle Thu night)
 // Settled stake: $2,929.65. Returned: $3,529.24. P/L = +$599.59. ROI = 20.5% (settled only)
 // WINNERS array 28 entries (+Niemann/Potgieter PGA, +Gerard & Spaun-FRL Memorial, +Clark US Open)
@@ -9,9 +9,9 @@ const SEASON = {
     settled: 274,
     open: 6,
     voided: 2,
-    staked: 2989.65,
+    staked: 3009.65,
     settledStaked: 2929.65,
-    openStaked: 60.00,
+    openStaked: 80.00,
     returned: 3529.24,
     pl: 599.59,
     roi: 20.5,
@@ -272,7 +272,7 @@ const US_OPEN_CARD = [
 // Travelers Championship 2026 — TPC River Highlands. Placed Jun 23 (data-first card; market entered last).
 // E/W "top-3 places" specials on bet365. Stake = total each-way ($5 E/W = $10 total per golfer).
 const TRAVELERS_CARD = [
-    { num: 1, player: "Xander Schauffele", market: "Outright", terms: "E/W top-3", odds: "+2500", book: "b365", stake: 20, placed: "Jun 23", t10s: 0, comp: "Model #2-3, 2022 Travelers champ. +2500 well longer than board (+1475 DK / +1891 fair) — elite-tier value. 1u.", status: "Open" },
+    { num: 1, player: "Xander Schauffele", market: "Outright", terms: "E/W top-3", odds: "+2500", book: "b365", stake: 40, placed: "Jun 23", t10s: 0, comp: "Model #2-3, 2022 Travelers champ. +2500 longer than board (+1475 DK / +1891 fair) — elite-tier value. 2u ($20 e/w), over per-player cap.", status: "Open" },
     { num: 2, player: "J.J. Spaun", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Elite APP / short-course; model-liked but putting-fragile on small greens — small 0.5u. +6600 longer than board.", status: "Open" },
     { num: 3, player: "Aaron Rai", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Card's top convergent read (model + fit + narrative silence). Surger + positional fit. +6600 longer than board (+5500). 0.5u.", status: "Open" },
     { num: 4, player: "Patrick Cantlay", market: "FRL", terms: "E/W 1/5", odds: "+3300", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Template FRL: model #7, TAILWIND, AM wave (9:25, good draw). Settles Thu night.", status: "Open" },
