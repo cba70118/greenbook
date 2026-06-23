@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENBOOK</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=87">
+    <link rel="stylesheet" href="style.css?v=88">
 
 </head>
 <body>
@@ -748,35 +748,20 @@
         <!-- Season Summary Table (like the Excel tracker) -->
         <div class="card">
             <h3>Season Summary</h3>
+            <p class="card-subtitle">Auto-rendered from the settled ledger (TOURNAMENTS) + open cards. Last reconciled through US Open; Travelers open.</p>
             <table class="data-table">
-                <thead><tr><th>Tournament</th><th>Bets</th><th>W</th><th>L</th><th>Open</th><th>Staked</th><th>Returned</th><th>P/L</th></tr></thead>
-                <tbody>
-                    <tr><td>The American Express</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$100.00</td><td>$10.00</td><td class="neg">-$90.00</td></tr>
-                    <tr><td>Farmers Insurance Open</td><td>20</td><td>0</td><td>20</td><td>0</td><td>$142.00</td><td>$0.00</td><td class="neg">-$142.00</td></tr>
-                    <tr><td>WM Phoenix Open</td><td>13</td><td>0</td><td>13</td><td>0</td><td>$87.50</td><td>$0.00</td><td class="neg">-$87.50</td></tr>
-                    <tr><td>The Genesis Invitational</td><td>16</td><td>2</td><td>14</td><td>0</td><td>$160.00</td><td>$114.40</td><td class="neg">-$45.60</td></tr>
-                    <tr><td>Cognizant Classic</td><td>17</td><td>3</td><td>14</td><td>0</td><td>$184.50</td><td>$526.25</td><td class="pos">+$341.75</td></tr>
-                    <tr><td>Arnold Palmer Invitational</td><td>22</td><td>4</td><td>15</td><td>0</td><td>$192.50</td><td>$243.60</td><td class="pos">+$51.10</td></tr>
-                    <tr><td>Puerto Rico Open</td><td>9</td><td>1</td><td>8</td><td>0</td><td>$100.00</td><td>$295.00</td><td class="pos">+$195.00</td></tr>
-                    <tr><td>The Players Championship</td><td>17</td><td>0</td><td>15</td><td>0</td><td>$125.00</td><td>$15.00</td><td class="neg">-$110.00</td></tr>
-                    <tr><td>Valspar Championship</td><td>11</td><td>0</td><td>11</td><td>0</td><td>$85.00</td><td>$0.00</td><td class="neg">-$85.00</td></tr>
-                    <tr><td>Houston Open</td><td>11</td><td>1</td><td>10</td><td>0</td><td>$130.00</td><td>$72.00</td><td class="neg">-$58.00</td></tr>
-                    <tr><td>Valero Texas Open</td><td>17</td><td>1</td><td>16</td><td>0</td><td>$126.25</td><td>$43.20</td><td class="neg">-$83.05</td></tr>
-                    <tr><td>The Masters</td><td>28</td><td>9</td><td>19</td><td>0</td><td>$524.40</td><td>$1,092.04</td><td class="pos">+$567.64</td></tr>
-                    <tr><td>RBC Heritage</td><td>12</td><td>-</td><td>-</td><td>12</td><td>$120.00</td><td>-</td><td>Upcoming</td></tr>
-                    <tr><td>Futures (PGA/USO/Masters)</td><td>8</td><td>-</td><td>-</td><td>8</td><td>$110.00</td><td>-</td><td>Open</td></tr>
-                    <tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td>213</td><td>22</td><td>170</td><td>20</td><td>$2,187.15</td><td>$2,411.49</td><td class="pos">+$454.34</td></tr>
-                </tbody>
+                <thead><tr><th>Tournament</th><th>Phase</th><th>Bets</th><th>Staked</th><th>Returned</th><th>P/L</th><th>Status</th></tr></thead>
+                <tbody id="season-tbody"></tbody>
             </table>
         </div>
 
         <!-- Key Numbers -->
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-value">213</div><div class="stat-label">Total Bets</div></div>
-            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)">+$454.34</div><div class="stat-label">Settled P/L</div></div>
-            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)">+23.2%</div><div class="stat-label">ROI (settled)</div></div>
-            <div class="stat-card"><div class="stat-value">22</div><div class="stat-label">Winners</div></div>
-            <div class="stat-card"><div class="stat-value">20</div><div class="stat-label">Open Bets</div></div>
+            <div class="stat-card"><div class="stat-value" id="kn-total">—</div><div class="stat-label">Total Bets</div></div>
+            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)" id="kn-pl">—</div><div class="stat-label">Settled P/L</div></div>
+            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)" id="kn-roi">—</div><div class="stat-label">ROI (settled)</div></div>
+            <div class="stat-card"><div class="stat-value" id="kn-win">—</div><div class="stat-label">Winners</div></div>
+            <div class="stat-card"><div class="stat-value" id="kn-open">—</div><div class="stat-label">Open Bets</div></div>
         </div>
         <div class="grid-2">
             <div class="card"><h3>Tournament P/L</h3><canvas id="tournament-pl-chart"></canvas></div>
@@ -904,17 +889,17 @@
         <div class="player-popup-content" id="player-popup-content"></div>
     </div>
 
-    <script src="auth.js?v=87"></script>
-    <script src="data.js?v=87"></script>
-    <script src="tournament-data.js?v=87"></script>
-    <script src="settled-data.js?v=87"></script>
-    <script src="masters-odds.js?v=87"></script>
-    <script src="valero-odds.js?v=87"></script>
-    <script src="tools-data.js?v=87"></script>
-    <script src="news-feed.js?v=87"></script>
-    <script src="source-attribution.js?v=87"></script>
-    <script src="app.js?v=87"></script>
-    <script src="masters-pool.js?v=87"></script>
-    <script src="tools.js?v=87"></script>
+    <script src="auth.js?v=88"></script>
+    <script src="data.js?v=88"></script>
+    <script src="tournament-data.js?v=88"></script>
+    <script src="settled-data.js?v=88"></script>
+    <script src="masters-odds.js?v=88"></script>
+    <script src="valero-odds.js?v=88"></script>
+    <script src="tools-data.js?v=88"></script>
+    <script src="news-feed.js?v=88"></script>
+    <script src="source-attribution.js?v=88"></script>
+    <script src="app.js?v=88"></script>
+    <script src="masters-pool.js?v=88"></script>
+    <script src="tools.js?v=88"></script>
 </body>
 </html>

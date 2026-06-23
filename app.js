@@ -1953,6 +1953,31 @@ if (typeof TRAVELERS_CARD !== 'undefined') renderBetCard(TRAVELERS_CARD, 'ab-tra
     });
 })();
 
+// Season Summary — rendered from TOURNAMENTS (settled) + open cards + SEASON. Never hand-edit; update data.js only.
+(function() {
+    var tb = document.getElementById('season-tbody');
+    if (!tb || typeof TOURNAMENTS === 'undefined' || typeof SEASON === 'undefined') return;
+    function dollars(v) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function money(v) { return (v < 0 ? '-' : '+') + '$' + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    var html = '';
+    TOURNAMENTS.forEach(function(t) {
+        var cls = t.pl > 0 ? 'pos' : t.pl < 0 ? 'neg' : '';
+        html += '<tr><td>' + t.name + '</td><td>' + (t.phase || '') + '</td><td>' + t.bets + '</td><td>' + dollars(t.staked) + '</td><td>' + dollars(t.returned) + '</td><td class="' + cls + '">' + money(t.pl) + '</td><td>settled</td></tr>';
+    });
+    if (typeof TRAVELERS_CARD !== 'undefined' && TRAVELERS_CARD.length) {
+        var tbets = TRAVELERS_CARD.length, tst = TRAVELERS_CARD.reduce(function(s, b) { return s + (b.stake || 0); }, 0);
+        html += '<tr><td>Travelers Championship</td><td>2</td><td>' + tbets + '</td><td>' + dollars(tst) + '</td><td>&mdash;</td><td style="color:var(--brass-400)">pending</td><td style="color:var(--brass-400)">OPEN</td></tr>';
+    }
+    html += '<tr style="font-weight:700;border-top:2px solid var(--brass-500)"><td>Season Total</td><td></td><td>' + SEASON.settled + ' settled / ' + SEASON.open + ' open</td><td>' + dollars(SEASON.staked) + '</td><td>' + dollars(SEASON.returned) + '</td><td class="' + (SEASON.pl >= 0 ? 'pos' : 'neg') + '">' + money(SEASON.pl) + '</td><td>' + SEASON.roi + '% ROI</td></tr>';
+    tb.innerHTML = html;
+    function set(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+    set('kn-total', SEASON.totalBets);
+    set('kn-pl', money(SEASON.pl));
+    set('kn-roi', (SEASON.roi >= 0 ? '+' : '') + SEASON.roi + '%');
+    set('kn-win', SEASON.winners);
+    set('kn-open', SEASON.open);
+})();
+
 // Portfolio Exposure Stats — aggregates ALL open bets across all cards
 (function() {
     var el = document.getElementById('exposure-stats');
