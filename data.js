@@ -1,20 +1,20 @@
-// Season data — last audited Jun 23, 2026 (6 open Travelers bets: 3 outrights + 3 FRL)
-// Audit math: 274 settled + 6 open (Travelers) + 2 voided = 282 totalBets
-// Open stake: $80 — outrights $60 (Schauffele $40, Spaun $10, Rai $10, b365 E/W top-3)
-//   + FRL $20 (Poston $10, Cantlay $5, Suber $5, b365 E/W 1/5; settle Thu night)
-// Settled stake: $2,929.65. Returned: $3,529.24. P/L = +$599.59. ROI = 20.5% (settled only)
-// WINNERS array 28 entries (+Niemann/Potgieter PGA, +Gerard & Spaun-FRL Memorial, +Clark US Open)
+// Season data — last audited Jun 29, 2026 (Travelers settled; NO open bets)
+// Audit math: 280 settled + 0 open + 2 voided = 282 totalBets
+// Travelers settled: 6 bets, $80 staked, $0 returned, -$80 (all lost; no top-3, no FRL hit).
+//   Hovland won -21. Best of ours: Spaun T7 (would have cashed on standard 1/5 8pl E/W; top-3 net too tight).
+// Settled stake: $3,009.65. Returned: $3,529.24. P/L = +$519.59. ROI = 17.3% (settled only)
+// WINNERS array 28 entries (Travelers added 0 winners)
 const SEASON = {
     totalBets: 282,
-    settled: 274,
-    open: 6,
+    settled: 280,
+    open: 0,
     voided: 2,
     staked: 3009.65,
-    settledStaked: 2929.65,
-    openStaked: 80.00,
+    settledStaked: 3009.65,
+    openStaked: 0.00,
     returned: 3529.24,
-    pl: 599.59,
-    roi: 20.5,
+    pl: 519.59,
+    roi: 17.3,
     winners: 28
 };
 
@@ -39,6 +39,7 @@ const TOURNAMENTS = [
     { name: "PGA Championship", bets: 19, staked: 345, returned: 195, pl: -150, phase: 2, status: "settled" },
     { name: "Memorial", bets: 6, staked: 80, returned: 161.25, pl: 81.25, phase: 2, status: "settled" },
     { name: "US Open", bets: 9, staked: 110, returned: 635, pl: 525, phase: 2, status: "settled" },
+    { name: "Travelers", bets: 6, staked: 80, returned: 0, pl: -80, phase: 2, status: "settled" },
 ];
 
 const WINNERS = [
@@ -272,12 +273,12 @@ const US_OPEN_CARD = [
 // Travelers Championship 2026 — TPC River Highlands. Placed Jun 23 (data-first card; market entered last).
 // E/W "top-3 places" specials on bet365. Stake = total each-way ($5 E/W = $10 total per golfer).
 const TRAVELERS_CARD = [
-    { num: 1, player: "Xander Schauffele", market: "Outright", terms: "E/W top-3", odds: "+2500", book: "b365", stake: 40, placed: "Jun 23", t10s: 0, comp: "Model #2-3, 2022 Travelers champ. +2500 longer than board (+1475 DK / +1891 fair) — elite-tier value. 2u ($20 e/w), over per-player cap.", status: "Open" },
-    { num: 2, player: "J.J. Spaun", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Elite APP / short-course; model-liked but putting-fragile on small greens — small 0.5u. +6600 longer than board.", status: "Open" },
-    { num: 3, player: "Aaron Rai", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Card's top convergent read (model + fit + narrative silence). Surger + positional fit. +6600 longer than board (+5500). 0.5u.", status: "Open" },
-    { num: 4, player: "Patrick Cantlay", market: "FRL", terms: "E/W 1/5", odds: "+3300", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Template FRL: model #7, TAILWIND, AM wave (9:25, good draw). Settles Thu night.", status: "Open" },
-    { num: 5, player: "J.T. Poston", market: "FRL", terms: "E/W 1/5", odds: "+5000", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Putter/birdie-maker FRL dart (zPUT +0.49); flat irons. Wave TBD. Settles Thu night.", status: "Open" },
-    { num: 6, player: "Jackson Suber", market: "FRL", terms: "E/W 1/5", odds: "+9000", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Pure FRL lottery — no model support (#64, cold). $2.5 dart. Settles Thu night.", status: "Open" },
+    { num: 1, player: "Xander Schauffele", market: "Outright", terms: "E/W top-3", odds: "+2500", book: "b365", stake: 40, placed: "Jun 23", t10s: 0, comp: "Model #2-3, 2022 champ. 2u over cap. Finished T51 -7 — busted. Biggest single loss.", status: "T51 -7 (Lost)", result: "Lost" },
+    { num: 2, player: "J.J. Spaun", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "T7 -17 — played well but missed the tight top-3 place net. Would have CASHED on standard 1/5 8pl E/W (~+$61). Structure cost us.", status: "T7 -17 (Lost)", result: "Lost" },
+    { num: 3, player: "Aaron Rai", market: "Outright", terms: "E/W top-3", odds: "+6600", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Top convergent read; finished T30 -11. Lost on any structure.", status: "T30 -11 (Lost)", result: "Lost" },
+    { num: 4, player: "Patrick Cantlay", market: "FRL", terms: "E/W 1/5", odds: "+3300", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Template FRL (AM wave, TAILWIND). R1 65 — no FRL hit.", status: "FRL miss (Lost)", result: "Lost" },
+    { num: 5, player: "J.T. Poston", market: "FRL", terms: "E/W 1/5", odds: "+5000", book: "b365", stake: 10, placed: "Jun 23", t10s: 0, comp: "Putter/birdie-maker FRL dart. R1 67 — no FRL hit. (Also bombed the week: +1 T69.)", status: "FRL miss (Lost)", result: "Lost" },
+    { num: 6, player: "Jackson Suber", market: "FRL", terms: "E/W 1/5", odds: "+9000", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Lottery FRL, no model support. R1 68 — no FRL hit.", status: "FRL miss (Lost)", result: "Lost" },
 ];
 
 const VALERO_CARD = [
