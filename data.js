@@ -281,6 +281,15 @@ const TRAVELERS_CARD = [
     { num: 6, player: "Jackson Suber", market: "FRL", terms: "E/W 1/5", odds: "+9000", book: "b365", stake: 5, placed: "Jun 23", t10s: 0, comp: "Lottery FRL, no model support. R1 68 — no FRL hit.", status: "FRL miss (Lost)", result: "Lost" },
 ];
 
+const JDC_CARD = [
+    { num: 1, player: "Keith Mitchell", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Jul 1", comp: "Model #3, elite APP (+0.41). Best-fit anchor — highest-probability contender on the card, not a value play.", status: "Open", result: "" },
+    { num: 2, player: "Max McGreevy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 1", comp: "Model #23, strong APP + warm form riser. Value carryover from the diagnostic card.", status: "Open", result: "" },
+    { num: 3, player: "Zac Blair", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "Jul 1", comp: "Model #38 but hottest form in field (1.58 TAILWIND) + accurate irons. Form-driven longshot dart.", status: "Open", result: "" },
+    { num: 4, player: "Andrew Putnam", market: "Outright", terms: "E/W Extra", odds: "+9000", book: "b365", stake: 10, placed: "Jul 1", comp: "TAILWIND (1.21) + hot putter; ARG-led profile a partial birdie-fest misfit. bet365 Each-Way Extra.", status: "Open", result: "" },
+    { num: 5, player: "Emiliano Grillo", market: "FRL", terms: "E/W 1/4 5pl", odds: "+6000", book: "b365", stake: 10, placed: "Jul 1", comp: "First-round-leader dart; steady veteran ball-striker. R1 variance play.", status: "Open", result: "" },
+    { num: 6, player: "Doug Ghim", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Jul 1", comp: "2025 Deere FRL (shot 62) + warm form. Cold-putt outright fade, but FRL is a different R1 angle.", status: "Open", result: "" },
+];
+
 const VALERO_CARD = [
     { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", book: "DK", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "T30 (-7)", result: "Lost" },
     { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", book: "DK", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "MC (-1)", result: "Lost" },

@@ -1943,6 +1943,7 @@ if (typeof TRUIST_CARD !== 'undefined') renderBetCard(TRUIST_CARD, 'ab-truist', 
 if (typeof MB_CARD !== 'undefined') renderBetCard(MB_CARD, 'ab-mb', 'bet365');
 if (typeof PGA_CARD !== 'undefined') renderBetCard(PGA_CARD, 'ab-pga', 'Mixed (b365 / DK / FD)');
 if (typeof TRAVELERS_CARD !== 'undefined') renderBetCard(TRAVELERS_CARD, 'ab-travelers', 'bet365');
+if (typeof JDC_CARD !== 'undefined') renderBetCard(JDC_CARD, 'ab-jdc', 'bet365');
 
 // Futures table
 (function() {
@@ -1990,6 +1991,7 @@ if (typeof TRAVELERS_CARD !== 'undefined') renderBetCard(TRAVELERS_CARD, 'ab-tra
     if (typeof MB_CARD !== 'undefined') allCards.push(MB_CARD);
     if (typeof PGA_CARD !== 'undefined') allCards.push(PGA_CARD);
     if (typeof TRAVELERS_CARD !== 'undefined') allCards.push(TRAVELERS_CARD);
+    if (typeof JDC_CARD !== 'undefined') allCards.push(JDC_CARD);
     if (typeof FUTURES !== 'undefined') allCards.push(FUTURES);
     var openBets = [];
     allCards.forEach(function(card) {
