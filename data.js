@@ -5,13 +5,13 @@
 // Settled stake: $3,009.65. Returned: $3,529.24. P/L = +$519.59. ROI = 17.3% (settled only)
 // WINNERS array 28 entries (Travelers added 0 winners)
 const SEASON = {
-    totalBets: 298,
+    totalBets: 299,
     settled: 286,              // +6 John Deere (settled)
-    open: 10,                  // ISCO (4, $40) + Scottish Open (6, $30)
+    open: 11,                  // ISCO (4, $40) + Scottish Open (7, $40)
     voided: 2,
-    staked: 3144.65,
+    staked: 3154.65,
     settledStaked: 3074.65,    // +$65 John Deere
-    openStaked: 70.00,         // ISCO $40 + Scottish $30
+    openStaked: 80.00,         // ISCO $40 + Scottish $40
     returned: 3572.58,         // +$43.34 John Deere (Blair)
     pl: 497.93,                // 519.59 - 21.66 (John Deere); settled only
     roi: 16.2,                 // 497.93 / 3074.65
@@ -42,7 +42,7 @@ const TOURNAMENTS = [
     { name: "Travelers", bets: 6, staked: 80, returned: 0, pl: -80, phase: 2, status: "settled" },
     { name: "John Deere", bets: 6, staked: 65, returned: 43.34, pl: -21.66, phase: 2, status: "settled" }, // Blair E/W placed (+38.34); all else lost
     { name: "ISCO", bets: 4, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" },         // opposite-field, settles Jul 12
-    { name: "Scottish Open", bets: 6, staked: 30, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
+    { name: "Scottish Open", bets: 7, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
 ];
 
 const WINNERS = [
@@ -312,6 +312,7 @@ const SCOTTISH_CARD = [
     { num: 4, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12000", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "2023 Open champ links pedigree; drifted-out lottery ticket.", status: "Open", result: "" },
     { num: 5, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "Open", result: "" },
     { num: 6, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. $5 to pay $270.", status: "Open", result: "" },
+    { num: 7, player: "Tyrrell Hatton", market: "Outright", terms: "Win", odds: "+3400", book: "DraftKings", stake: 10, placed: "Jul 8", comp: "Best overlay on the board — +3400 vs Pinnacle +2537 (33% over sharp), DG fair even longer; proven links/wind ball-striker. Links-DNA value the model + market underrated.", status: "Open", result: "" },
 ];
 
 const VALERO_CARD = [
