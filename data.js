@@ -290,6 +290,16 @@ const JDC_CARD = [
     { num: 6, player: "Doug Ghim", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Jul 1", comp: "2025 Deere FRL (shot 62) + warm form. Cold-putt outright fade, but FRL is a different R1 angle.", status: "Open", result: "" },
 ];
 
+// ISCO Championship 2026 — Hurstbourne CC, Louisville KY (opposite-field). Placed Jul 8 (data-first card; market entered last).
+// b365 E/W 1/4 5 places. Stake = total each-way ($5 E/W = $10 total per golfer), $40 total (2u).
+// NOTE: card planned 1/5 8pl on a wide field; b365 only offered 1/4 5pl, and prices came in shorter than the value scan.
+const ISCO_CARD = [
+    { num: 1, player: "Rico Hoey", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3000", book: "b365", stake: 10, placed: "Jul 8", comp: "Anchor. Cleanest convergence — Molitor 35/1 lead + DG +EV + course-fit (elite APP, weak putter masked by tiny greens) + T2 here '24. Booked +3000 (value price +3500).", status: "Open", result: "" },
+    { num: 2, player: "Steven Fisk", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3300", book: "b365", stake: 10, placed: "Jul 8", comp: "DG-only surface (narratives silent) riding the field's strongest form tailwind (1.13). Booked +3300 (value +4000).", status: "Open", result: "" },
+    { num: 3, player: "Lanto Griffin", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Veteran APP deep value, pure DG read. Booked +6600 (value +8000).", status: "Open", result: "" },
+    { num: 4, player: "Pontus Nyholm", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Mayo 80/1 + DG best-EV deep flier. Booked +6600 (value +9000).", status: "Open", result: "" },
+];
+
 const VALERO_CARD = [
     { num: 1, player: "A.J. Ewart", market: "Outright", terms: "Win", odds: "+34000", book: "DK", stake: 1.25, placed: "Mar 28", edge: "Comp #2. Dark horse.", status: "T30 (-7)", result: "Lost" },
     { num: 2, player: "Will Zalatoris", market: "Outright", terms: "Win", odds: "+7800", book: "DK", stake: 5, placed: "Mar 28", edge: "Comp #4. APP elite.", status: "MC (-1)", result: "Lost" },
