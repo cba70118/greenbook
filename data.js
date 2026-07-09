@@ -5,15 +5,15 @@
 // Settled stake: $3,009.65. Returned: $3,529.24. P/L = +$519.59. ROI = 17.3% (settled only)
 // WINNERS array 28 entries (Travelers added 0 winners)
 const SEASON = {
-    totalBets: 282,
+    totalBets: 294,
     settled: 280,
-    open: 0,
+    open: 12,                  // John Deere (6, $65, pending settlement) + ISCO (4, $40) + Scottish Open (2, $10)
     voided: 2,
-    staked: 3009.65,
+    staked: 3124.65,
     settledStaked: 3009.65,
-    openStaked: 0.00,
+    openStaked: 115.00,
     returned: 3529.24,
-    pl: 519.59,
+    pl: 519.59,                // settled P/L only — open bets not yet resolved
     roi: 17.3,
     winners: 28
 };
@@ -40,6 +40,9 @@ const TOURNAMENTS = [
     { name: "Memorial", bets: 6, staked: 80, returned: 161.25, pl: 81.25, phase: 2, status: "settled" },
     { name: "US Open", bets: 9, staked: 110, returned: 635, pl: 525, phase: 2, status: "settled" },
     { name: "Travelers", bets: 6, staked: 80, returned: 0, pl: -80, phase: 2, status: "settled" },
+    { name: "John Deere", bets: 6, staked: 65, returned: 0, pl: 0, phase: 2, status: "open" },   // finished Jul 5 — awaiting settlement (results not yet entered)
+    { name: "ISCO", bets: 4, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" },         // opposite-field, settles Jul 12
+    { name: "Scottish Open", bets: 2, staked: 10, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
 ];
 
 const WINNERS = [
@@ -298,6 +301,12 @@ const ISCO_CARD = [
     { num: 2, player: "Steven Fisk", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3300", book: "b365", stake: 10, placed: "Jul 8", comp: "DG-only surface (narratives silent) riding the field's strongest form tailwind (1.13). Booked +3300 (value +4000).", status: "Open", result: "" },
     { num: 3, player: "Lanto Griffin", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Veteran APP deep value, pure DG read. Booked +6600 (value +8000).", status: "Open", result: "" },
     { num: 4, player: "Pontus Nyholm", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Mayo 80/1 + DG best-EV deep flier. Booked +6600 (value +9000).", status: "Open", result: "" },
+];
+
+// Genesis Scottish Open 2026 — The Renaissance Club. Straight WIN outrights (not E/W). Settles Jul 12.
+const SCOTTISH_CARD = [
+    { num: 1, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "Open", result: "" },
+    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. $5 to pay $270.", status: "Open", result: "" },
 ];
 
 const VALERO_CARD = [
