@@ -5,17 +5,17 @@
 // Settled stake: $3,009.65. Returned: $3,529.24. P/L = +$519.59. ROI = 17.3% (settled only)
 // WINNERS array 28 entries (Travelers added 0 winners)
 const SEASON = {
-    totalBets: 294,
-    settled: 280,
-    open: 12,                  // John Deere (6, $65, pending settlement) + ISCO (4, $40) + Scottish Open (2, $10)
+    totalBets: 298,
+    settled: 286,              // +6 John Deere (settled)
+    open: 10,                  // ISCO (4, $40) + Scottish Open (6, $30)
     voided: 2,
-    staked: 3124.65,
-    settledStaked: 3009.65,
-    openStaked: 115.00,
-    returned: 3529.24,
-    pl: 519.59,                // settled P/L only — open bets not yet resolved
-    roi: 17.3,
-    winners: 28
+    staked: 3144.65,
+    settledStaked: 3074.65,    // +$65 John Deere
+    openStaked: 70.00,         // ISCO $40 + Scottish $30
+    returned: 3572.58,         // +$43.34 John Deere (Blair)
+    pl: 497.93,                // 519.59 - 21.66 (John Deere); settled only
+    roi: 16.2,                 // 497.93 / 3074.65
+    winners: 29                // +Blair (E/W place)
 };
 
 const TOURNAMENTS = [
@@ -40,9 +40,9 @@ const TOURNAMENTS = [
     { name: "Memorial", bets: 6, staked: 80, returned: 161.25, pl: 81.25, phase: 2, status: "settled" },
     { name: "US Open", bets: 9, staked: 110, returned: 635, pl: 525, phase: 2, status: "settled" },
     { name: "Travelers", bets: 6, staked: 80, returned: 0, pl: -80, phase: 2, status: "settled" },
-    { name: "John Deere", bets: 6, staked: 65, returned: 0, pl: 0, phase: 2, status: "open" },   // finished Jul 5 — awaiting settlement (results not yet entered)
+    { name: "John Deere", bets: 6, staked: 65, returned: 43.34, pl: -21.66, phase: 2, status: "settled" }, // Blair E/W placed (+38.34); all else lost
     { name: "ISCO", bets: 4, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" },         // opposite-field, settles Jul 12
-    { name: "Scottish Open", bets: 2, staked: 10, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
+    { name: "Scottish Open", bets: 6, staked: 30, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
 ];
 
 const WINNERS = [
@@ -74,6 +74,7 @@ const WINNERS = [
     { tournament: "Memorial", player: "Ryan Gerard", market: "E/W 1/5 8pl Placed (P2)", odds: "+7500", stake: 10, ret: 80, pl: 70 },
     { tournament: "Memorial", player: "J.J. Spaun", market: "FRL E/W 1/4 5pl (R1 DH win+place)", odds: "+3000", stake: 10, ret: 81.25, pl: 71.25 },
     { tournament: "US Open", player: "Wyndham Clark", market: "E/W 1/4 5pl WIN", odds: "+10000", stake: 10, ret: 635, pl: 625 },
+    { tournament: "John Deere", player: "Zac Blair", market: "E/W 1/5 10pl Placed", odds: "+11000", stake: 5, ret: 43.34, pl: 38.34 },
 ];
 
 // MARKETS — audited May 13. Sums to +$143.34 total settled P/L.
@@ -285,12 +286,12 @@ const TRAVELERS_CARD = [
 ];
 
 const JDC_CARD = [
-    { num: 1, player: "Keith Mitchell", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Jul 1", comp: "Model #3, elite APP (+0.41). Best-fit anchor — highest-probability contender on the card, not a value play.", status: "Open", result: "" },
-    { num: 2, player: "Max McGreevy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 1", comp: "Model #23, strong APP + warm form riser. Value carryover from the diagnostic card.", status: "Open", result: "" },
-    { num: 3, player: "Zac Blair", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "Jul 1", comp: "Model #38 but hottest form in field (1.58 TAILWIND) + accurate irons. Form-driven longshot dart.", status: "Open", result: "" },
-    { num: 4, player: "Andrew Putnam", market: "Outright", terms: "E/W Extra", odds: "+9000", book: "b365", stake: 10, placed: "Jul 1", comp: "TAILWIND (1.21) + hot putter; ARG-led profile a partial birdie-fest misfit. bet365 Each-Way Extra.", status: "Open", result: "" },
-    { num: 5, player: "Emiliano Grillo", market: "FRL", terms: "E/W 1/4 5pl", odds: "+6000", book: "b365", stake: 10, placed: "Jul 1", comp: "First-round-leader dart; steady veteran ball-striker. R1 variance play.", status: "Open", result: "" },
-    { num: 6, player: "Doug Ghim", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Jul 1", comp: "2025 Deere FRL (shot 62) + warm form. Cold-putt outright fade, but FRL is a different R1 angle.", status: "Open", result: "" },
+    { num: 1, player: "Keith Mitchell", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2500", book: "b365", stake: 20, placed: "Jul 1", comp: "Model #3, elite APP (+0.41). Best-fit anchor — highest-probability contender on the card, not a value play.", status: "Lost", result: "Lost" },
+    { num: 2, player: "Max McGreevy", market: "Outright", terms: "E/W 1/5 10pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 1", comp: "Model #23, strong APP + warm form riser. Value carryover from the diagnostic card.", status: "Lost", result: "Lost" },
+    { num: 3, player: "Zac Blair", market: "Outright", terms: "E/W 1/5 10pl", odds: "+11000", book: "b365", stake: 5, placed: "Jul 1", comp: "Model #38 but hottest form in field (1.58 TAILWIND) + accurate irons. PLACED (E/W place leg hit) — +$38.34.", status: "Placed (+$38.34)", result: "Won" },
+    { num: 4, player: "Andrew Putnam", market: "Outright", terms: "E/W Extra", odds: "+9000", book: "b365", stake: 10, placed: "Jul 1", comp: "TAILWIND (1.21) + hot putter; ARG-led profile a partial birdie-fest misfit. bet365 Each-Way Extra.", status: "Lost", result: "Lost" },
+    { num: 5, player: "Emiliano Grillo", market: "FRL", terms: "E/W 1/4 5pl", odds: "+6000", book: "b365", stake: 10, placed: "Jul 1", comp: "First-round-leader dart; steady veteran ball-striker. R1 variance play.", status: "Lost", result: "Lost" },
+    { num: 6, player: "Doug Ghim", market: "FRL", terms: "E/W 1/4 5pl", odds: "+5000", book: "b365", stake: 10, placed: "Jul 1", comp: "2025 Deere FRL (shot 62) + warm form. Cold-putt outright fade, but FRL is a different R1 angle.", status: "Lost", result: "Lost" },
 ];
 
 // ISCO Championship 2026 — Hurstbourne CC, Louisville KY (opposite-field). Placed Jul 8 (data-first card; market entered last).
@@ -303,10 +304,14 @@ const ISCO_CARD = [
     { num: 4, player: "Pontus Nyholm", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Mayo 80/1 + DG best-EV deep flier. Booked +6600 (value +9000).", status: "Open", result: "" },
 ];
 
-// Genesis Scottish Open 2026 — The Renaissance Club. Straight WIN outrights (not E/W). Settles Jul 12.
+// Genesis Scottish Open 2026 — The Renaissance Club. Straight WIN outrights, $5 each. Settles Jul 12.
 const SCOTTISH_CARD = [
-    { num: 1, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "Open", result: "" },
-    { num: 2, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. $5 to pay $270.", status: "Open", result: "" },
+    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+5900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Anchor — independent #18, DG form 1.65 (field-best), sharp (Mayo 60/1). Locked at +5900.", status: "Open", result: "" },
+    { num: 2, player: "Min Woo Lee", market: "Outright", terms: "Win", odds: "+4900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Won Renaissance 2021 — proven course horse; bomber + comp-course fit.", status: "Open", result: "" },
+    { num: 3, player: "Kristoffer Reitan", market: "Outright", terms: "Win", odds: "+6300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "DP form + course history (T13 '25).", status: "Open", result: "" },
+    { num: 4, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12000", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "2023 Open champ links pedigree; drifted-out lottery ticket.", status: "Open", result: "" },
+    { num: 5, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "Open", result: "" },
+    { num: 6, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. $5 to pay $270.", status: "Open", result: "" },
 ];
 
 const VALERO_CARD = [
