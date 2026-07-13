@@ -1,10 +1,73 @@
 # GREENBOOK — Build Handoff & Spec
-**Written:** 2026-07-12 (before context clear) | **Read this first, then continue with "PENDING: Piece 3".**
+**Rewritten 2026-07-12 (late).** Read THIS section first. Everything below the "SUPERSEDED" line is
+prior-architecture history, kept for reference only.
 
-The greenbook was rebuilt this session into a **growing, outward-facing golf-intelligence product**
-(public) + a **gated internal war room** (the original full app). This file is the source of truth for
-where things stand and what's left to build. Preview quirk: **`file://` ignores the `?v=` cache-bust** —
-to see changes locally, hard-refresh (Ctrl+Shift+R) or open an Incognito window; GitHub Pages honors `?v=`.
+## CURRENT ARCHITECTURE — a multi-page Golf Intelligence Center (cache `?v=200`)
+
+Operator feedback that drove this pivot (all same night): "pages need to be broken up more, there's just
+links to shit — not usable"; "think about why DataGolf is usable" (focused pages, verdict-first, depth on
+demand — not one long scroll with an anchor-link wall); "I don't get the war room concept — rethink or
+repackage"; "this is a persistent space where we keep learning." And a packaged skill: **golf-intel-center**
+(installed at `../.claude/skills/golf-intel-center/` — SKILL.md + references/glossary.md). READ THAT SKILL
+before touching any view; it is the design contract (progressive disclosure: headline → reasons → depth;
+plain-language label first, technical term second; honest rounding; consistent color meaning; course DNA
+before narrative; anti-anchoring).
+
+**The war-room / public-vs-private split is DEAD.** No auth gate, no dark twin. One light design language,
+depth layered inline (expand/detail pages), not hidden behind a password. `war-room.html` + `app.js` +
+`style.css` remain on disk but are UNLINKED from nav — retired, not deleted. Their unique tools (matchup,
+DFS, Kelly) are future candidates to fold into these pages as depth.
+
+### The pages (each answers ONE question; nav = Board · Players · Events · The Record)
+- **`index.html` = The Board** — this week (The Open @ Royal Birkdale). Course DNA banner first
+  (anti-anchoring), then the whole tracked field ranked by course fit (the independent read), each row =
+  verdict chip + 2–3 plain reasons + fit/100, expand (`<details>`) → SG breakdown (labeled bars +
+  percentiles + glossary info-dots). Backed plays badged with price; a "Where We See Value / On The Card"
+  strip shows the 4 OPEN_CARD plays with implied %.
+- **`players.html` = Players** — In-Form leaderboard (SG:Total, field-percentile mini-bars) + searchable
+  tier-filtered directory + stat-leader boards. Every name links to a player page. The knowledge-base front door.
+- **`player.html?p=<name>` = Player page** — the persistent learning hub. One-line plain read (generated from
+  the SG profile) → big SG:Total + field rank → diverging z-score skill bars (plain labels) → surface putting
+  → Chart.js percentile radar → player-kb learnings (the learning engine) → best course fits across the
+  schedule → scouting notes. Reads the `?p=` query param.
+- **`events.html?ev=<key>` = Events** — course DNA first → fingerprint (weighted) → fit radar (Chart.js) →
+  the field ranked by fit (verdict + reasons) → key holes → recent winners → venue history overlay
+  (VENUE_HISTORY, masters/valero). Event selector; `?ev=` param.
+- **`record.html` = The Record** — the proof, its own page: P/L hero, cumulative SVG chart, phase cards,
+  bet-structure + market + source bars, ledger, bet history (all `*_CARD`), winners.
+
+### Shared foundation (DRY — every page loads these)
+- **`greenbook.css`** — the design system: tokens (green/brass/cream, Cormorant/Lora/DM Mono), masthead +
+  `.pagenav`, verdict/state `.chip`s (words+color), plain-label `.lab` + glossary `.info` tooltip, `.mbar`
+  (magnitude) + `.dbar` (diverging), `.pctpill`, `.prob`, `table.gt`, `details.disc` (progressive disclosure).
+  Single-theme LIGHT by deliberate choice.
+- **`greenbook-core.js`** — global `GB`: number/odds house rules (`pctW`,`sg`,`units`,`impliedPct`), the
+  `GLOSSARY` + `LABELS` maps and `GB.info()`/`GB.label()` (wire the glossary into tooltips), the `FIELD`
+  percentile engine, the **course-fit model** (`fitByFingerprint`/`eventFitField` — scores any player against
+  any event's fingerprint weights, with a bomber-misfit penalty and a links-pedigree bonus from player-kb),
+  `verdict()` tiers, plain-language `reasons()`, and `mountChrome()` (renders masthead+nav+footer into
+  `#gb-head`/`#gb-foot`). **Load order matters:** data.js → tournament-data.js → settled-data.js →
+  tools-data.js → player-kb.js → greenbook-core.js → (Chart.js) → page inline script.
+
+### Verified this build
+All 5 pages `node --check` clean AND executed headlessly against real data via a DOM shim (no runtime errors);
+the Open fit board is defensible (Scheffler/Rahm/McIlroy/Schauffele/Fleetwood/Fitz/Aberg… links horses surface
+via the pedigree bonus). SEASON headline untouched (+$634.18 / 20.1% / 30 winners).
+
+### Known gaps / next candidates
+- "Form" is currently proxied by current SG level (honest but not week-over-week momentum). `_sg_trajectory.csv`
+  exists — join it (by dg_id/name) for true form sparklines + "Hot/Cooling" states. The skill wants real form.
+- No full-field live odds → the Board's verdict is course FIT, not market EDGE, for the whole field; only the
+  4 backed plays show a real price. When a full odds board exists, add per-row edge (model% vs implied%).
+- Fold the retired war-room tools (matchup H2H, DFS, Kelly) into player/event pages as depth.
+- Wire more glossary info-dots per the skill (every jargon term one hover from plain English).
+- Grow VENUE_HISTORY beyond masters/valero.
+
+---
+## ⬇⬇⬇ SUPERSEDED — prior single-page "public product + war room" architecture (history only) ⬇⬇⬇
+
+Preview quirk (still true): **`file://` ignores the `?v=` cache-bust** — hard-refresh or Incognito locally;
+GitHub Pages honors `?v=`.
 
 ---
 

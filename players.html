@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — Players</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=200">
+<style>
+  .search { font-family:var(--font-body); font-size:14px; padding:10px 14px; border:1px solid var(--cream-300); border-radius:5px; width:280px; background:#fff; color:var(--green-800); }
+  .search:focus { outline:none; border-color:var(--brass-500); }
+  .gchips { display:flex; gap:6px; flex-wrap:wrap; }
+  .gchip { font-family:var(--font-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; padding:5px 11px; border:1px solid var(--cream-300); border-radius:20px; background:#fff; color:var(--cream-700); cursor:pointer; }
+  .gchip.on { background:var(--green-700); color:var(--cream-100); border-color:var(--green-700); }
+  .ggrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
+  .gc { display:block; background:#fff; border:1px solid var(--cream-300); border-top:3px solid var(--tc,var(--cream-500)); border-radius:6px; padding:15px 17px; text-decoration:none; color:inherit; transition:box-shadow .14s,transform .14s; }
+  .gc:hover { box-shadow:0 4px 16px -8px rgba(13,31,22,.4); transform:translateY(-1px); }
+  .gc .top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .gc .nm { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--green-800); }
+  .gc .ti { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); }
+  .gc .sub { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); margin:3px 0 11px; }
+  .lead-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
+  .lead-card { background:#fff; border:1px solid var(--cream-300); border-top:3px solid var(--brass-500); border-radius:5px; padding:13px 15px; }
+  .lead-card h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--brass-600); margin:0 0 9px; }
+  .lead-row { display:flex; justify-content:space-between; padding:4px 0; font-size:13px; border-bottom:1px solid var(--cream-100); }
+  .lead-row a { color:var(--green-800); text-decoration:none; } .lead-row a:hover{ color:var(--brass-600); }
+  .lead-row b { font-family:var(--font-mono); font-size:10px; color:var(--brass-600); margin-right:6px; }
+  .lead-row .v { font-family:var(--font-mono); font-size:12px; }
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+
+  <section class="sec">
+    <div class="sec-label">Right Now</div>
+    <div class="sec-title">In Form</div>
+    <div class="sec-sub">The field by <span class="lab">overall level <span class="tech">SG: Total</span> <i class="info" data-def="How many shots better or worse than an average tour pro, per round, all parts of the game combined.">i</i></span> — who's playing the best golf on Tour this moment. Click any name for the full breakdown.</div>
+    <div id="inform"></div>
+    <div style="text-align:center;margin-top:12px"><button id="ifMore" class="gchip">Show more ▾</button></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-label">The Database</div>
+    <div class="sec-title">Every Golfer We Track</div>
+    <div class="sec-sub">An ever-growing knowledge base — strokes-gained profile, surface putting, ball flight, and the read on each game. It deepens with every event.</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px">
+      <input class="search" id="q" placeholder="Search a golfer…" autocomplete="off">
+      <div class="gchips" id="tiers"></div>
+      <span id="gcount" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin-left:auto"></span>
+    </div>
+    <div class="ggrid" id="grid"></div>
+  </section>
+
+  <section class="sec">
+    <details class="disc" open>
+      <summary style="font-size:11px">Stat leaders — who's best in each part of the game</summary>
+      <div class="lead-grid" id="leaders" style="margin-top:14px"></div>
+    </details>
+  </section>
+
+</main>
+<div id="gb-foot"></div>
+
+<script src="data.js?v=200"></script>
+<script src="tournament-data.js?v=200"></script>
+<script src="settled-data.js?v=200"></script>
+<script src="tools-data.js?v=200"></script>
+<script src="player-kb.js?v=200"></script>
+<script src="greenbook-core.js?v=200"></script>
+<script>
+GB.mountChrome('players');
+(function(){
+  if(typeof SCOUTING==='undefined'){ return; }
+  const F=GB.FIELD, link=n=>`player.html?p=${encodeURIComponent(n)}`;
+  const tierColor={ Elite:'var(--brass-500)', Contender:'var(--green-500)', Veteran:'var(--birdie)', 'Past Champ':'var(--brass-600)', 'Mid-field':'var(--cream-500)', Bubble:'var(--cream-500)', Amateur:'var(--birdie)' };
+
+  /* In Form */
+  const byTot=SCOUTING.filter(p=>p.sg_tot!=null).sort((a,b)=>b.sg_tot-a.sg_tot);
+  const mini=(k,v)=>{ const p=F.pct(k,v); return GB.mbar(`<span style="font-size:9px">${GB.LABELS[k].plain}</span>`, p, `${GB.sg(v)}`); };
+  const ifRow=(p,i)=>`<a class="gc" href="${link(p.name)}" style="--tc:${tierColor[p.tier]||'var(--cream-500)'};display:grid;grid-template-columns:30px 150px 1fr 70px;gap:14px;align-items:center;padding:11px 16px;margin-bottom:7px">
+    <div style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--brass-500);text-align:right">${i+1}</div>
+    <div><div class="nm" style="font-size:17px">${GB.scrub(p.name)}</div><div class="ti" style="color:${tierColor[p.tier]||'var(--cream-500)'}">${p.tier||''}</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 14px">${['app','ott','arg','putt'].map(k=>mini(k,p[k])).join('')}</div>
+    <div style="text-align:right"><div style="font-family:var(--font-display);font-size:22px;font-weight:600;color:${p.sg_tot>=0?'var(--green-600)':'var(--scarlet)'}">${GB.sg(p.sg_tot)}</div><div style="font-family:var(--font-mono);font-size:8px;text-transform:uppercase;color:var(--cream-700)">SG Total</div></div></a>`;
+  let ifN=12;
+  const renderIf=()=>{ document.getElementById('inform').innerHTML=byTot.slice(0,ifN).map(ifRow).join('');
+    document.getElementById('ifMore').textContent = ifN>=byTot.length?'':'Show more ▾'; document.getElementById('ifMore').style.display=ifN>=byTot.length?'none':''; };
+  document.getElementById('ifMore').addEventListener('click',()=>{ ifN=Math.min(ifN+20,byTot.length); renderIf(); });
+  renderIf();
+
+  /* Directory */
+  const rk=t=>({Elite:0,Contender:1,Veteran:2,'Past Champ':2,Bubble:3,'Mid-field':3,Amateur:4}[t]??3);
+  const data=SCOUTING.slice().sort((a,b)=>rk(a.tier)-rk(b.tier)||(b.sg_tot||-9)-(a.sg_tot||-9));
+  const tiers=['All',...Array.from(new Set(data.map(p=>p.tier).filter(Boolean)))];
+  const sgb=(k,v)=>{ const p=F.pct(k,v); return GB.mbar(`<span style="font-size:9px">${GB.LABELS[k].plain}</span>`, p, `${GB.sg(v)} ${GB.pctPill(p)}`); };
+  const card=p=>`<a class="gc" href="${link(p.name)}" style="--tc:${tierColor[p.tier]||'var(--cream-500)'}">
+    <div class="top"><div class="nm">${GB.scrub(p.name)}</div><div class="ti" style="color:${tierColor[p.tier]||'var(--cream-500)'}">${p.tier||''}</div></div>
+    <div class="sub">SG Total <b style="color:${p.sg_tot>=0?'var(--green-600)':'var(--scarlet)'}">${GB.sg(p.sg_tot)}</b>${p.shape?` · ${p.shape}`:''}${p.surface?` · ${p.surface}`:''}</div>
+    ${['app','ott','arg','putt'].map(k=>sgb(k,p[k])).join('')}
+    <div style="font-size:12px;line-height:1.45;margin-top:9px;color:var(--cream-900)">${GB.scrub((p.strengths||'').split('.')[0])}</div></a>`;
+  let tier='All', q='';
+  const render=()=>{ const rows=data.filter(p=>(tier==='All'||p.tier===tier)&&(!q||p.name.toLowerCase().includes(q)));
+    document.getElementById('grid').innerHTML=rows.map(card).join('')||'<div class="muted">No golfers match.</div>';
+    document.getElementById('gcount').textContent=`${rows.length} of ${data.length} golfers`; };
+  document.getElementById('tiers').innerHTML=tiers.map((t,i)=>`<div class="gchip ${i===0?'on':''}" data-t="${t}">${t}</div>`).join('');
+  document.getElementById('tiers').addEventListener('click',e=>{ const c=e.target.closest('.gchip'); if(!c)return;
+    document.querySelectorAll('#tiers .gchip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); tier=c.dataset.t; render(); });
+  document.getElementById('q').addEventListener('input',e=>{ q=e.target.value.toLowerCase().trim(); render(); });
+  render();
+
+  /* Stat leaders */
+  const board=(title,key,n=7)=>{ const rows=SCOUTING.filter(p=>p[key]!=null).sort((a,b)=>b[key]-a[key]).slice(0,n);
+    return `<div class="lead-card"><h4>${title}</h4>`+rows.map((p,i)=>`<div class="lead-row"><a href="${link(p.name)}"><b>${i+1}</b>${GB.scrub(p.name)}</a><span class="v" style="color:${p[key]>=0?'var(--green-600)':'var(--scarlet)'}">${GB.sg(p[key])}</span></div>`).join('')+`</div>`; };
+  document.getElementById('leaders').innerHTML=[
+    board('Overall (SG: Total)','sg_tot'),board('Approach (SG: APP)','app'),board('Off the tee (SG: OTT)','ott'),
+    board('Short game (SG: ARG)','arg'),board('Putting (SG: PUTT)','putt'),board('Driving distance','dd'),
+    board('Bermuda putting','putt_bermuda'),board('Bentgrass putting','putt_bent'),board('Poa putting','putt_poa')
+  ].join('');
+})();
+</script>
+</body>
+</html>

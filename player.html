@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=200">
+<style>
+  .phero { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:26px 30px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
+  .phero .ptier { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--brass-400); }
+  .phero h1 { font-family:var(--font-display); font-weight:400; font-size:40px; line-height:1; margin:6px 0; color:var(--cream-50); }
+  .phero .read1 { font-size:15px; line-height:1.55; color:var(--cream-100); max-width:60ch; }
+  .phero .chips { display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+  .phero .tot { text-align:center; background:rgba(255,255,255,.05); border:1px solid var(--green-600); border-radius:8px; padding:16px 22px; }
+  .phero .tot .tv { font-family:var(--font-display); font-size:44px; font-weight:600; line-height:1; }
+  .phero .tot .tl { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--green-300); margin-top:4px; }
+  .phero .tot .tr { font-family:var(--font-mono); font-size:11px; color:var(--brass-300); margin-top:6px; }
+  @media (max-width:640px){ .phero{ grid-template-columns:1fr; } }
+  .radar-wrap { max-width:320px; margin:0 auto; }
+  .fit-row { display:grid; grid-template-columns:26px 1fr 52px; gap:12px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--cream-200); }
+  .fit-row .fr { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
+  .fit-row .fn { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
+  .fit-row .fe { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
+  .fit-row .fs { font-family:var(--font-mono); font-size:13px; text-align:right; }
+  .surf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .surf-cell { border:1px solid var(--cream-300); border-radius:5px; padding:11px; text-align:center; }
+  .surf-cell.best { border-color:var(--brass-400); background:var(--brass-100); }
+  .surf-cell .l { font-family:var(--font-mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); }
+  .surf-cell .v { font-family:var(--font-mono); font-size:16px; margin-top:4px; }
+  .learn { display:flex; gap:9px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--cream-100); font-size:13px; line-height:1.5; }
+  .learn .cf { font-family:var(--font-mono); font-size:9px; border:1px solid; border-radius:2px; padding:1px 5px; white-space:nowrap; height:fit-content; }
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+  <div style="font-family:var(--font-mono);font-size:11px;margin-bottom:16px"><a href="players.html" style="color:var(--brass-600);text-decoration:none">◂ All players</a></div>
+  <div id="phero"></div>
+  <div class="grid2" style="margin-top:22px">
+    <div class="card">
+      <div class="card-head"><h3>Skill Breakdown</h3><span class="note">vs the tracked field</span></div>
+      <div id="skills"></div>
+      <div id="surfWrap" style="margin-top:16px"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Shape of the Game</h3><span class="note">field percentile · outer = tour best</span></div>
+      <div class="radar-wrap"><canvas id="radar" height="250"></canvas></div>
+      <div id="learnWrap" style="margin-top:14px"></div>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card">
+      <div class="card-head"><h3>Where This Game Travels</h3><span class="note">best course fits on the schedule</span></div>
+      <div id="fits"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>The Read</h3><span class="note">scouting notes</span></div>
+      <div id="notes"></div>
+    </div>
+  </div>
+</main>
+<div id="gb-foot"></div>
+
+<script src="data.js?v=200"></script>
+<script src="tournament-data.js?v=200"></script>
+<script src="settled-data.js?v=200"></script>
+<script src="tools-data.js?v=200"></script>
+<script src="player-kb.js?v=200"></script>
+<script src="greenbook-core.js?v=200"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+GB.mountChrome('players');
+(function(){
+  const q = new URLSearchParams(location.search);
+  const name = q.get('p') || '';
+  const g = GB.findPlayer(name) || (typeof SCOUTING!=='undefined'?SCOUTING[0]:null);
+  if(!g){ document.getElementById('phero').innerHTML='<div class="card">Player not found. <a href="players.html">Back to all players ▸</a></div>'; return; }
+  document.title = 'Greenbook — '+g.name;
+  const F=GB.FIELD;
+
+  /* one-line read from the SG profile */
+  const skillList=[['app','approach'],['ott','off-the-tee'],['arg','short game'],['putt','putting']];
+  const withP = skillList.map(([k,n])=>({k,n,p:F?F.pct(k,g[k]):null,v:g[k]})).filter(s=>s.p!=null).sort((a,b)=>b.p-a.p);
+  const best=withP.slice(0,2).filter(s=>s.p>=60), weak=withP.slice(-1).filter(s=>s.p<=40);
+  const totP=F?F.pct('sg_tot',g.sg_tot):null, totR=F?F.rank('sg_tot',g.sg_tot):null;
+  const level = totP>=90?'One of the best players on Tour right now':totP>=70?'A strong, in-form player':totP>=45?'A solid tour pro':'Fighting his game at the moment';
+  let read = level + '. ';
+  if(best.length) read += 'Makes his money with '+best.map(s=>s.n).join(' and ')+(weak.length?`; ${weak[0].n} is the soft spot.`:'.');
+  else read += 'A balanced profile without a standout category.';
+
+  /* variance chip from player-kb */
+  const kb = (typeof PLAYER_KB!=='undefined')?PLAYER_KB[g.name]:null;
+  const volLearn = kb&&kb.learnings?kb.learnings.find(l=>/volatil|variance|boom|streaky|inconsist/i.test(l.claim||'')):null;
+
+  document.getElementById('phero').innerHTML = `<div class="phero">
+    <div>
+      <div class="ptier">${g.tier||''}${g.surface?` · ${g.surface} surfaces`:''}${g.shape?` · ${g.shape}`:''}</div>
+      <h1>${GB.scrub(g.name)}</h1>
+      <div class="read1">${GB.scrub(read)}</div>
+      <div class="chips">
+        ${GB.chip(totP>=70?'In good touch':totP>=45?'Around the mark':'Out of form', totP>=70?'hot':totP>=45?'neutral':'cooling')}
+        ${volLearn?GB.chip('High variance','boom'):''}
+      </div>
+    </div>
+    <div class="tot"><div class="tv ${g.sg_tot>=0?'':''}" style="color:${g.sg_tot>=0?'var(--green-300)':'var(--scarlet-light)'}">${GB.sg(g.sg_tot)}</div><div class="tl">Overall level · SG Total</div><div class="tr">${totR?`#${totR} of ${F.n} on Tour`:''}</div></div>
+  </div>`;
+
+  /* skill breakdown (diverging z-bars, plain labels) */
+  const zline=(key)=>{ const z=F?F.z(key,g[key]):null, p=F?F.pct(key,g[key]):null;
+    return GB.mbar(GB.label(key), null, `${GB.sg(g[key])} ${GB.pctPill(p)}`, {diverging:true, z}); };
+  document.getElementById('skills').innerHTML = ['app','ott','arg','putt','dd'].map(zline).join('') +
+    `<div style="font-family:var(--font-mono);font-size:9.5px;color:var(--cream-500);margin-top:8px;text-align:center">bar left of centre = below the field average · right = above</div>`;
+
+  /* surface putting */
+  const surfs=[['Bermuda','putt_bermuda'],['Bent','putt_bent'],['Poa','putt_poa']].map(([l,k])=>({l,k,v:g[k]})).filter(s=>s.v!=null);
+  if(surfs.length){ const best=surfs.slice().sort((a,b)=>b.v-a.v)[0];
+    document.getElementById('surfWrap').innerHTML = `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Putting by green surface</div><div class="surf-grid">`+
+      surfs.map(s=>`<div class="surf-cell ${s.k===best.k?'best':''}"><div class="l">${s.l}${s.k===best.k?' ★':''}</div><div class="v" style="color:${s.v>=0?'var(--green-600)':'var(--scarlet)'}">${GB.sg(s.v)}</div></div>`).join('')+`</div>`; }
+
+  /* radar */
+  if(typeof Chart!=='undefined' && F){
+    const axes=[['Approach','app'],['Off tee','ott'],['Short game','arg'],['Putting','putt'],['Distance','dd']];
+    new Chart(document.getElementById('radar'),{ type:'radar',
+      data:{ labels:axes.map(a=>a[0]), datasets:[
+        {label:'field', data:axes.map(()=>50), backgroundColor:'rgba(107,95,74,0.05)', borderColor:'rgba(107,95,74,0.35)', borderWidth:1, borderDash:[4,3], pointRadius:0},
+        {label:g.name, data:axes.map(([l,k])=>F.pct(k,g[k])??0), backgroundColor:'rgba(30,92,56,0.14)', borderColor:'#1E5C38', borderWidth:2.4, pointRadius:3.5, pointBackgroundColor:'#C9A046'} ]},
+      options:{responsive:true, plugins:{legend:{display:false}}, scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(107,95,74,0.15)'},angleLines:{color:'rgba(107,95,74,0.15)'},pointLabels:{font:{size:10,weight:'600'},color:'#152E1F'}}}} });
+  } else { document.querySelector('.radar-wrap').innerHTML='<div class="muted" style="text-align:center;font-family:var(--font-mono);font-size:11px;padding:30px">Chart needs a connection.</div>'; }
+
+  /* learnings */
+  if(kb&&kb.learnings&&kb.learnings.length){
+    document.getElementById('learnWrap').innerHTML = `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-600);margin-bottom:6px">What we've learned${kb.updated?` · ${kb.updated}`:''}</div>`+
+      kb.learnings.map(l=>{ const c=Math.round((l.conf||0)*100); const cc=c>=70?'var(--green-600)':c>=50?'var(--brass-600)':'var(--cream-700)';
+        return `<div class="learn"><span class="cf" style="color:${cc};border-color:${cc}">${c}%${l.pending?'·prov':''}</span><span>${GB.scrub(l.claim)}</span></div>`; }).join('');
+  } else document.getElementById('learnWrap').innerHTML='<div class="muted" style="font-family:var(--font-mono);font-size:11px">No durable learnings recorded yet — they accumulate as this player is bet and settled.</div>';
+
+  /* best course fits across the schedule */
+  const evs = (typeof TOURNAMENT_DATA!=='undefined')?Object.keys(TOURNAMENT_DATA).filter(k=>TOURNAMENT_DATA[k].fingerprint):[];
+  const myFits = evs.map(k=>{ const field=GB.eventFitField(k); const me=field.find(e=>e.g.name===g.name); return me?{k, name:TOURNAMENT_DATA[k].name.replace(' 2026',''), course:TOURNAMENT_DATA[k].course, pct:me.fitPct}:null; })
+    .filter(Boolean).sort((a,b)=>b.pct-a.pct);
+  const sc=p=>p>=85?'var(--green-600)':p>=65?'var(--brass-600)':'var(--cream-700)';
+  document.getElementById('fits').innerHTML = myFits.slice(0,8).map((f,i)=>`<div class="fit-row"><span class="fr">${i+1}</span><span><span class="fn">${GB.scrub(f.course)}</span> <span class="fe">${GB.scrub(f.name)}</span></span><span class="fs" style="color:${sc(f.pct)}">${f.pct}<span style="color:var(--cream-500);font-size:10px">/100</span></span></div>`).join('')
+    || '<div class="muted" style="font-family:var(--font-mono);font-size:11px">No event fingerprints to score against.</div>';
+
+  /* notes */
+  document.getElementById('notes').innerHTML = `<div style="font-size:12.5px;line-height:1.6;color:var(--cream-900)">
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--green-600);letter-spacing:.08em">STRENGTHS</div>${GB.scrub(g.strengths||'—')}
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet);letter-spacing:.08em;margin-top:10px">WEAKNESSES</div>${GB.scrub(g.weaknesses||'—')}
+    ${g.notes?`<div style="font-family:var(--font-mono);font-size:9px;color:var(--brass-600);letter-spacing:.08em;margin-top:10px">OBSERVATIONS</div><div style="font-style:italic;color:var(--cream-700)">${GB.scrub(g.notes)}</div>`:''}</div>`;
+})();
+</script>
+</body>
+</html>

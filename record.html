@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — The Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=200">
+<style>
+  .hero-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--cream-300); border:1px solid var(--cream-300); border-radius:6px; overflow:hidden; margin-bottom:20px; }
+  .stat { background:var(--cream-50); padding:20px 22px; }
+  .stat.feature { background:var(--green-800); color:var(--cream-100); }
+  .stat .k { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--cream-700); margin-bottom:9px; }
+  .stat.feature .k { color:var(--green-300); }
+  .stat .v { font-family:var(--font-display); font-size:38px; font-weight:600; line-height:1; }
+  .stat .v.pos { color:var(--green-500); } .stat.feature .v.pos { color:var(--green-300); } .stat .v.neg { color:var(--scarlet); }
+  .stat .sub { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-top:8px; }
+  .stat.feature .sub { color:var(--green-200); }
+  .chart-host { position:relative; width:100%; }
+  .chart-host svg { width:100%; height:auto; display:block; }
+  .tt { position:absolute; pointer-events:none; background:var(--green-900); color:var(--cream-100); border:1px solid var(--brass-600); border-radius:3px; padding:7px 10px; font-family:var(--font-mono); font-size:11px; opacity:0; transition:opacity .1s; white-space:nowrap; transform:translate(-50%,-115%); }
+  .tt b { color:var(--brass-300); }
+  .bars { display:flex; flex-direction:column; gap:8px; }
+  .bar-row { display:grid; grid-template-columns:150px 1fr 88px; align-items:center; gap:12px; }
+  .bar-row .lbl { font-family:var(--font-mono); font-size:11px; color:var(--green-800); text-align:right; }
+  .bar-row .meta { font-family:var(--font-mono); font-size:9.5px; color:var(--cream-700); }
+  .bar-track { position:relative; height:20px; }
+  .bar-mid { position:absolute; left:50%; top:-2px; bottom:-2px; width:1px; background:var(--cream-300); }
+  .bar-fill { position:absolute; top:0; height:20px; border-radius:3px; }
+  .bar-fill.pos { background:var(--green-400); } .bar-fill.neg { background:var(--scarlet); }
+  .bar-row .amt { font-family:var(--font-mono); font-size:12px; text-align:right; }
+  .amt.pos { color:var(--green-600); } .amt.neg { color:var(--scarlet); }
+  .pill { display:inline-block; font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
+  .pill.win{ background:var(--green-100); color:var(--green-600); } .pill.loss{ background:var(--scarlet-light); color:var(--scarlet); } .pill.open{ background:var(--brass-100); color:var(--brass-700); } .pill.p1{ background:var(--cream-200); color:var(--cream-700); }
+  .histchips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+  .hchip { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; padding:5px 11px; border:1px solid var(--cream-300); border-radius:20px; background:#fff; color:var(--cream-700); cursor:pointer; }
+  .hchip.on { background:var(--green-700); color:var(--cream-100); border-color:var(--green-700); }
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+
+  <section class="sec">
+    <div class="sec-label">The Proof</div>
+    <div class="sec-title">The Betting Record</div>
+    <div class="sec-sub">The intelligence is the product; this is the receipt. Everything in <span class="lab">units <i class="info" data-def="A standard bet size. 1 unit = $20 here. Talking in units keeps staking consistent regardless of bankroll.">i</i></span>. Settled bets only unless noted.</div>
+    <div class="brass-rule"></div>
+    <div class="hero-grid" id="heroGrid"></div>
+    <div class="card">
+      <div class="card-head"><h3>Cumulative P/L</h3><span class="note" id="chartNote"></span></div>
+      <div class="chart-host" id="chartHost"></div>
+    </div>
+    <div class="grid2" style="margin-top:18px">
+      <div class="card" id="p1card"></div>
+      <div class="card" id="p2card"></div>
+    </div>
+  </section>
+
+  <section class="sec grid2">
+    <div class="card"><div class="card-head"><h3>Bet Structures</h3><span class="note">each-way is the confirmed edge</span></div><div class="bars" id="edgeBars"></div></div>
+    <div class="card"><div class="card-head"><h3>By Market</h3><span class="note">where the money is made</span></div><div class="bars" id="marketBars"></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-label">The Read, Held to Account</div>
+    <div class="sec-title" style="font-size:26px">Source Calibration</div>
+    <div class="sec-sub">Which reads actually make money — P/L by attributed source.</div>
+    <div class="card"><div class="bars" id="sourceBars"></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-label">Every Event</div>
+    <div class="sec-title" style="font-size:26px">Tournament Ledger</div>
+    <div class="brass-rule"></div>
+    <div class="card tablewrap"><table class="gt" id="ledger"></table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-label">Every Ticket</div>
+    <div class="sec-title" style="font-size:26px">Bet History</div>
+    <div class="sec-sub">Every bet placed, by event.</div>
+    <div class="histchips" id="histChips"></div>
+    <div class="card tablewrap"><table class="gt" id="histTable"></table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-label">The Wins</div>
+    <div class="sec-title" style="font-size:26px">Winners Log</div>
+    <div class="sec-sub">Every settled winning ticket, biggest first.</div>
+    <div class="card tablewrap"><table class="gt" id="winners"></table></div>
+  </section>
+
+</main>
+<div id="gb-foot"></div>
+
+<script src="data.js?v=200"></script>
+<script src="greenbook-core.js?v=200"></script>
+<script>
+GB.mountChrome('record');
+(function(){
+  const money=GB.units, money0=GB.units0, ustk=GB.ustk, U=GB.U;
+  const cls=n=>n>0?'pos':(n<0?'neg':'muted');
+  const settled=TOURNAMENTS.filter(t=>t.status!=='open'), openEv=TOURNAMENTS.filter(t=>t.status==='open');
+  const p1=settled.filter(t=>t.phase===1), p2=settled.filter(t=>t.phase===2);
+  const sum=(a,k)=>a.reduce((s,t)=>s+(t[k]||0),0);
+
+  const hero=[
+    {k:'Net P/L (settled)',v:money(SEASON.pl),c:cls(SEASON.pl),sub:`on ${money0(SEASON.settledStaked)} staked`,f:true},
+    {k:'Return on Investment',v:SEASON.roi+'%',c:cls(SEASON.roi),sub:'settled bets only'},
+    {k:'Record',v:`${SEASON.winners}W`,c:'pos',sub:`${SEASON.settled} settled bets`},
+    {k:'Total Returned',v:money0(SEASON.returned),c:'',sub:`from ${money0(SEASON.settledStaked)} risked`},
+    {k:'Open Exposure',v:money0(sum(openEv,'staked')),c:'',sub:openEv.map(e=>e.name).join(', ')||'none'},
+  ];
+  document.getElementById('heroGrid').innerHTML=hero.map(h=>`<div class="stat ${h.f?'feature':''}"><div class="k">${h.k}</div><div class="v ${h.c}">${h.v}</div><div class="sub">${h.sub}</div></div>`).join('');
+
+  const phaseCard=(title,bets,pl,st,note)=>`<div class="card-head"><h3>${title}</h3><span class="note">${note}</span></div>
+    <div style="display:flex;gap:28px;align-items:baseline;margin-top:4px">
+      <div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-700);margin-bottom:5px">Net P/L</div><div style="font-family:var(--font-display);font-size:32px;color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${money(pl)}</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-700);margin-bottom:5px">ROI</div><div style="font-family:var(--font-display);font-size:32px;color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${st?((pl/st)*100).toFixed(1):'0'}%</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-700);margin-bottom:5px">Bets</div><div style="font-family:var(--font-display);font-size:32px;color:var(--green-800)">${bets}</div></div>
+    </div>`;
+  document.getElementById('p1card').innerHTML=phaseCard('Phase 1',sum(p1,'bets'),sum(p1,'pl'),sum(p1,'staked'),'Pre-Genesis · no course-fit');
+  document.getElementById('p2card').innerHTML=phaseCard('Phase 2',sum(p2,'bets'),sum(p2,'pl'),sum(p2,'staked'),'Genesis onward · full process');
+
+  /* cumulative SVG */
+  (function(){ const W=1000,H=320,mL=54,mR=64,mT=20,mB=48; let cum=0;
+    const pts=settled.map(t=>({name:t.name,pl:t.pl,cum:(cum+=t.pl)})); if(!pts.length)return;
+    const ys=pts.map(p=>p.cum).concat([0]); let lo=Math.min(...ys),hi=Math.max(...ys); const pad=(hi-lo)*0.12||10; lo-=pad; hi+=pad;
+    const x=i=>mL+i*(W-mL-mR)/(pts.length-1), y=v=>mT+(hi-v)*(H-mT-mB)/(hi-lo); const zeroY=y(0);
+    const niceU=x=>{const p=Math.pow(10,Math.floor(Math.log10(x)));const f=x/p;return (f<1.5?1:f<3?2:f<7?5:10)*p;};
+    const step=niceU(Math.max(1,(hi-lo)/5/U))*U; const ticks=[]; for(let v=Math.ceil(lo/step)*step;v<hi;v+=step)ticks.push(v);
+    const line=pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ');
+    const area=`M${x(0).toFixed(1)},${zeroY.toFixed(1)} `+pts.map((p,i)=>`L${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ')+` L${x(pts.length-1).toFixed(1)},${zeroY.toFixed(1)} Z`;
+    const last=pts[pts.length-1];
+    const svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Cumulative season P/L">
+      <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A7A4B" stop-opacity="0.22"/><stop offset="1" stop-color="#2A7A4B" stop-opacity="0.02"/></linearGradient></defs>
+      ${ticks.map(v=>`<line x1="${mL}" x2="${W-mR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#EDE5D4"/><text x="${mL-10}" y="${(y(v)+3).toFixed(1)}" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#A89880">${v<0?'−':''}${Math.abs(v/U).toFixed(0)}u</text>`).join('')}
+      <line x1="${mL}" x2="${W-mR}" y1="${zeroY.toFixed(1)}" y2="${zeroY.toFixed(1)}" stroke="#C0392B" stroke-dasharray="4 4" opacity="0.5"/>
+      <path d="${area}" fill="url(#fill)"/><path d="${line}" fill="none" stroke="#1E5C38" stroke-width="2.4" stroke-linejoin="round"/>
+      ${pts.map((p,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="3" fill="#fff" stroke="#1E5C38" stroke-width="1.5"/>`).join('')}
+      <circle cx="${x(pts.length-1).toFixed(1)}" cy="${y(last.cum).toFixed(1)}" r="5" fill="#C9A046" stroke="#fff" stroke-width="1.5"/>
+      <text x="${(x(pts.length-1)+8).toFixed(1)}" y="${(y(last.cum)+4).toFixed(1)}" font-family="Cormorant Garamond,serif" font-size="19" font-weight="600" fill="#1E5C38">${money(last.cum)}</text></svg>`;
+    const host=document.getElementById('chartHost'); host.innerHTML=svg+'<div class="tt" id="tt"></div>';
+    document.getElementById('chartNote').textContent=`${pts.length} settled events · trough ${money(Math.min(...pts.map(p=>p.cum)))} → ${money(last.cum)}`;
+    const tt=document.getElementById('tt'), svgEl=host.querySelector('svg');
+    svgEl.addEventListener('mousemove',e=>{ const r=svgEl.getBoundingClientRect(); const sx=(e.clientX-r.left)/r.width*W;
+      let i=Math.round((sx-mL)/((W-mL-mR)/(pts.length-1))); i=Math.max(0,Math.min(pts.length-1,i));
+      tt.style.opacity=1; tt.style.left=(x(i)/W*100)+'%'; tt.style.top=(y(pts[i].cum)/H*100)+'%';
+      tt.innerHTML=`<b>${pts[i].name}</b><br>Cumulative ${money(pts[i].cum)}`; });
+    svgEl.addEventListener('mouseleave',()=>tt.style.opacity=0);
+  })();
+
+  function drawBars(id,rows){ const mx=Math.max(...rows.map(r=>Math.abs(r.pl)),1);
+    document.getElementById(id).innerHTML=rows.map(r=>{ const w=Math.abs(r.pl)/mx*50, pos=r.pl>=0;
+      return `<div class="bar-row"><div class="lbl">${r.label}<div class="meta">${r.meta||''}</div></div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill ${pos?'pos':'neg'}" style="${pos?`left:50%;width:${w}%`:`right:50%;width:${w}%`}"></div></div><div class="amt ${pos?'pos':'neg'}">${money(r.pl)}</div></div>`; }).join(''); }
+  drawBars('edgeBars',EW_TERMS.slice().sort((a,b)=>b.pl-a.pl).map(t=>({label:t.terms,pl:t.pl,meta:`${t.bets} bets · ${t.roi>0?'+':''}${t.roi}% ROI`})));
+  drawBars('marketBars',MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({label:m.type,pl:m.pl,meta:`${m.bets} bets · ${m.roi>0?'+':''}${m.roi}% ROI`})));
+  if(typeof SOURCE_PERFORMANCE!=='undefined') drawBars('sourceBars',SOURCE_PERFORMANCE.slice().sort((a,b)=>b.pl-a.pl).map(s=>({label:s.source,pl:s.pl,meta:`${s.tagged} tagged · ${s.wins}W ${s.places}P`})));
+
+  /* ledger */
+  (function(){ let h=`<thead><tr><th>Tournament</th><th>Phase</th><th>Bets</th><th>Staked</th><th>Returned</th><th>P/L</th><th>ROI</th></tr></thead><tbody>`;
+    TOURNAMENTS.slice().reverse().forEach(t=>{ const open=t.status==='open', roi=t.staked?(t.pl/t.staked*100).toFixed(0)+'%':'—';
+      h+=`<tr><td class="name">${t.name}</td><td><span class="pill ${t.phase===1?'p1':'win'}">P${t.phase}</span></td><td>${t.bets}</td><td>${money0(t.staked)}</td><td>${open?'—':money0(t.returned)}</td><td class="${open?'muted':cls(t.pl)}">${open?'—':money(t.pl)}</td><td class="${open?'muted':cls(t.pl)}">${open?'—':roi}</td></tr>`; });
+    document.getElementById('ledger').innerHTML=h+'</tbody>'; })();
+
+  /* winners */
+  (function(){ let h=`<thead><tr><th>Player / Bet</th><th>Tournament</th><th>Market</th><th>Odds</th><th>Stake</th><th>Profit</th></tr></thead><tbody>`;
+    WINNERS.slice().sort((a,b)=>b.pl-a.pl).forEach(w=>{ h+=`<tr><td class="name">${w.player}</td><td>${w.tournament}</td><td style="text-align:left;font-size:11px;color:var(--cream-700)">${w.market}</td><td>${w.odds}</td><td>${ustk(w.stake)}</td><td class="pos">${money(w.pl)}</td></tr>`; });
+    document.getElementById('winners').innerHTML=h+'</tbody>'; })();
+
+  /* bet history */
+  (function(){ const cards=[['The Open','OPEN_CARD'],['Scottish','SCOTTISH_CARD'],['ISCO','ISCO_CARD'],['John Deere','JDC_CARD'],['Travelers','TRAVELERS_CARD'],['US Open','US_OPEN_CARD'],['Memorial','MEMORIAL_CARD'],['PGA Champ','PGA_CARD'],['Myrtle Beach','MB_CARD'],['Truist','TRUIST_CARD'],['Miami','MIAMI_CARD'],['Zurich','ZURICH_CARD'],['RBC','RBC_CARD'],['Masters','MASTERS_CARD'],['Valero','VALERO_CARD'],['Houston','HOUSTON_CARD']];
+    let all=[]; const avail=[];
+    cards.forEach(([ev,nm])=>{ let arr; try{ arr=window[nm]; }catch(e){ arr=null; } if(Array.isArray(arr)){ avail.push(ev); arr.forEach(b=>all.push({ev,...b})); } });
+    const events=['All',...avail];
+    document.getElementById('histChips').innerHTML=events.map((e,i)=>`<div class="hchip ${i===0?'on':''}" data-ev="${e}">${e}</div>`).join('');
+    function render(ev){ const rows=ev==='All'?all:all.filter(b=>b.ev===ev);
+      let h=`<thead><tr><th>Event</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Result</th></tr></thead><tbody>`;
+      rows.forEach(b=>{ const r=(b.result||b.status||'').toLowerCase();
+        const pill=r.includes('won')?'<span class="pill win">Won</span>':r.includes('push')?'<span class="pill p1">Push</span>':(b.status==='Open'||r==='')?'<span class="pill open">Open</span>':'<span class="pill loss">Lost</span>';
+        h+=`<tr><td class="name" style="font-size:11px;color:var(--cream-700)">${b.ev}</td><td class="name">${b.player}</td><td style="text-align:left;font-size:11px">${b.market}</td><td style="text-align:left;font-size:11px;color:var(--cream-700)">${b.terms||''}</td><td>${b.odds||'—'}</td><td>${ustk(b.stake)}</td><td style="text-align:left;font-size:11px">${pill} <span style="color:var(--cream-700)">${(b.status&&b.status!=='Open')?b.status:''}</span></td></tr>`; });
+      document.getElementById('histTable').innerHTML=h+'</tbody>'; }
+    document.getElementById('histChips').addEventListener('click',e=>{ const c=e.target.closest('.hchip'); if(!c)return; document.querySelectorAll('#histChips .hchip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); render(c.dataset.ev); });
+    render('All');
+  })();
+})();
+</script>
+</body>
+</html>

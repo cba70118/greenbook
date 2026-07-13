@@ -1,1247 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GREENBOOK — 2026 Season</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — The Board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=200">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --green-900:#071209; --green-800:#0D1F16; --green-700:#152E1F; --green-600:#1E5C38;
-    --green-500:#2A7A4B; --green-400:#3D9E64; --green-300:#6DC48E; --green-200:#A8DDB9;
-    --green-100:#D8F0E2; --green-50:#EEF8F3;
-    --brass-900:#2B1E06; --brass-700:#7A540F; --brass-600:#A87218; --brass-500:#C9A046;
-    --brass-400:#DDB96A; --brass-300:#EDD090; --brass-100:#F9EFD5;
-    --cream-900:#2B2720; --cream-700:#6B5F4A; --cream-500:#A89880; --cream-300:#D9CDB8;
-    --cream-200:#EDE5D4; --cream-100:#F5EDD9; --cream-50:#FAF7F1;
-    --scarlet:#C0392B; --scarlet-light:#F4C6C2; --birdie:#2E7DD1; --birdie-light:#C4DCF5;
-    --font-display:'Cormorant Garamond',Georgia,serif;
-    --font-body:'Lora',Georgia,serif;
-    --font-mono:'DM Mono','Courier New',monospace;
-    --pos:var(--green-500); --neg:var(--scarlet);
-  }
-  body { font-family:var(--font-body); background:var(--cream-50); color:var(--green-800); line-height:1.6; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
+  /* Board-specific */
+  .dna { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:26px 30px; margin-bottom:10px; }
+  .dna .ev-when { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--brass-400); }
+  .dna h1 { font-family:var(--font-display); font-weight:400; font-size:38px; line-height:1.05; margin:6px 0 2px; color:var(--cream-50); text-wrap:balance; }
+  .dna .ev-course { font-family:var(--font-display); font-size:20px; color:var(--green-200); font-style:italic; }
+  .dna .read1 { font-size:15px; line-height:1.6; color:var(--cream-100); max-width:70ch; margin:16px 0 4px; border-left:2px solid var(--brass-500); padding-left:16px; }
+  .dna .rewards { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
+  .dna .rw { background:rgba(255,255,255,.06); border:1px solid var(--green-600); border-radius:20px; padding:5px 13px; font-family:var(--font-mono); font-size:10.5px; color:var(--green-200); }
+  .dna .rw b { color:var(--brass-300); font-weight:500; }
 
-  /* MASTHEAD */
-  .masthead { background:var(--green-800); color:var(--cream-100); position:relative; overflow:hidden; border-bottom:2px solid var(--brass-500); }
-  .masthead::before { content:''; position:absolute; inset:0; pointer-events:none;
-    background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px); }
-  .masthead .wrap { position:relative; display:flex; justify-content:space-between; align-items:flex-end; padding-top:34px; padding-bottom:26px; flex-wrap:wrap; gap:16px; }
-  .wordmark { font-family:var(--font-display); font-weight:300; font-size:52px; line-height:1; letter-spacing:.1em; color:var(--cream-100); }
-  .wordmark strong { font-weight:700; color:var(--brass-400); letter-spacing:.05em; }
-  .tagline { font-family:var(--font-mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--green-300); margin-top:12px; }
-  .mast-right { text-align:right; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; color:var(--green-300); }
-  .mast-right .badge { display:inline-block; border:1px solid var(--brass-600); color:var(--brass-300); padding:4px 12px; border-radius:2px; letter-spacing:.18em; text-transform:uppercase; margin-bottom:8px; }
-  .warroom-link { display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--green-900); background:var(--brass-400); padding:7px 14px; border-radius:2px; text-decoration:none; transition:.15s; }
-  .warroom-link:hover { background:var(--brass-300); }
-  .gcard:hover { box-shadow:0 4px 14px -6px rgba(0,0,0,.25); transform:translateY(-2px); }
-  .course:hover { box-shadow:0 4px 14px -6px rgba(0,0,0,.3); }
+  .cardstrip { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:14px; }
+  .play { background:#fff; border:1px solid var(--cream-300); border-top:3px solid var(--brass-500); border-radius:6px; padding:15px 17px; }
+  .play .pn { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--green-800); }
+  .play .pmk { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.06em; margin:2px 0 9px; }
+  .play .prow { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .play .odds { font-family:var(--font-mono); font-size:20px; color:var(--green-600); }
+  .play .imp { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); text-align:right; }
+  .play .th { font-size:12px; line-height:1.5; color:var(--cream-900); }
 
-  /* CROSS-LINK MODAL */
-  .modal-bg { position:fixed; inset:0; background:rgba(7,18,9,.62); z-index:100; display:none; align-items:flex-start; justify-content:center; padding:5vh 20px; overflow-y:auto; }
-  .modal-bg.open { display:flex; }
-  .modal { background:var(--cream-50); max-width:660px; width:100%; border-radius:8px; border-top:4px solid var(--brass-500); box-shadow:0 24px 70px -20px rgba(0,0,0,.7); overflow:hidden; }
-  .modal-head { background:var(--green-800); color:var(--cream-100); padding:20px 24px; display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
-  .modal-head .mt { font-family:var(--font-display); font-size:26px; font-weight:600; line-height:1.1; }
-  .modal-head .ms { font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--brass-400); margin-top:5px; }
-  .modal-close { background:none; border:none; color:var(--green-300); font-size:26px; cursor:pointer; line-height:1; }
-  .modal-body { padding:22px 24px; }
-  .fit-row { display:grid; grid-template-columns:26px 1fr 56px; gap:12px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--cream-200); }
-  .fit-row .fr-rank { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
-  .fit-row .fr-name { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
-  .fit-row .fr-parts { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
-  .fit-row .fr-score { font-family:var(--font-mono); font-size:13px; text-align:right; }
+  .filters { display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  .fbtn { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:6px 14px; border:1px solid var(--cream-300); border-radius:20px; background:#fff; color:var(--cream-700); cursor:pointer; }
+  .fbtn.on { background:var(--green-700); color:var(--cream-100); border-color:var(--green-700); }
+  .fcount { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-left:auto; }
 
-  /* NAV — grouped, scalable */
-  nav { position:sticky; top:0; z-index:40; background:var(--green-900); border-bottom:1px solid var(--green-700); }
-  nav .wrap { display:flex; gap:2px; padding:0 28px; align-items:stretch; }
-  .navgroup { position:relative; }
-  .navitem { display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--green-300); text-decoration:none; padding:15px 16px; white-space:nowrap; border-bottom:2px solid transparent; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; transition:.15s; }
-  .navitem:hover, .navitem:focus-visible { color:var(--cream-100); border-bottom-color:var(--brass-500); outline:none; }
-  .navitem.active { color:var(--brass-300); border-bottom-color:var(--brass-500); }
-  .navitem .caret { font-size:8px; opacity:.7; transition:transform .15s; }
-  .navgroup.open .navitem .caret { transform:rotate(180deg); }
-  .navmenu { position:absolute; top:100%; left:0; min-width:190px; background:var(--green-800); border:1px solid var(--green-700); border-top:2px solid var(--brass-500); border-radius:0 0 5px 5px; box-shadow:0 18px 40px -14px rgba(0,0,0,.7); padding:6px; display:none; flex-direction:column; z-index:41; }
-  .navgroup.open .navmenu, .navgroup:hover .navmenu, .navgroup:focus-within .navmenu { display:flex; }
-  .navmenu a { font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; color:var(--green-200); text-decoration:none; padding:9px 12px; border-radius:3px; white-space:nowrap; transition:.12s; display:flex; justify-content:space-between; gap:16px; align-items:center; }
-  .navmenu a:hover, .navmenu a:focus-visible { background:var(--green-700); color:var(--cream-100); outline:none; }
-  .navmenu a .nm-tag { font-size:8.5px; color:var(--brass-400); letter-spacing:.08em; text-transform:uppercase; }
-  .navspacer { margin-left:auto; }
-  .navwar { display:flex; align-items:center; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--green-900); background:var(--brass-400); padding:0 16px; margin:8px 0 8px 8px; border-radius:3px; text-decoration:none; transition:.15s; }
-  .navwar:hover { background:var(--brass-300); }
-  @media (max-width:820px){ nav .wrap{ overflow-x:auto; } .navmenu{ position:static; box-shadow:none; border:none; border-top:none; padding:2px 0 6px 14px; } }
-
-  /* SECTION SHELL */
-  section { padding:56px 0 12px; }
-  .sec-label { font-family:var(--font-mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass-600); margin-bottom:6px; }
-  .sec-title { font-family:var(--font-display); font-weight:300; font-size:34px; line-height:1.1; color:var(--green-800); margin-bottom:4px; }
-  .sec-sub { font-size:14px; color:var(--cream-700); margin-bottom:26px; max-width:64ch; }
-  .brass-rule { width:54px; height:2px; background:var(--brass-500); margin:14px 0 24px; }
-
-  /* HERO STATS */
-  .hero-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--cream-300); border:1px solid var(--cream-300); border-radius:4px; overflow:hidden; }
-  .stat { background:var(--cream-50); padding:22px 22px 20px; }
-  .stat.feature { background:var(--green-800); color:var(--cream-100); }
-  .stat .k { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream-700); margin-bottom:10px; }
-  .stat.feature .k { color:var(--green-300); }
-  .stat .v { font-family:var(--font-display); font-weight:400; font-size:40px; line-height:1; letter-spacing:.01em; }
-  .stat .v.pos { color:var(--green-500); } .stat.feature .v.pos { color:var(--green-300); }
-  .stat .v.neg { color:var(--scarlet); }
-  .stat .sub { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-top:9px; letter-spacing:.03em; }
-  .stat.feature .sub { color:var(--green-200); }
-
-  /* CHART CARD */
-  .card { background:#fff; border:1px solid var(--cream-300); border-radius:4px; padding:24px 26px; box-shadow:0 1px 0 var(--cream-200); }
-  .card-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; flex-wrap:wrap; gap:8px; }
-  .card-head h3 { font-family:var(--font-display); font-weight:600; font-size:20px; color:var(--green-700); }
-  .card-head .note { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); letter-spacing:.04em; }
-  .chart-host { position:relative; width:100%; }
-  svg { display:block; width:100%; height:auto; }
-  .tt { position:absolute; pointer-events:none; background:var(--green-900); color:var(--cream-100); border:1px solid var(--brass-600); border-radius:3px; padding:8px 11px; font-family:var(--font-mono); font-size:11px; letter-spacing:.02em; opacity:0; transition:opacity .1s; white-space:nowrap; z-index:5; transform:translate(-50%,-115%); }
-  .tt b { color:var(--brass-300); font-weight:500; }
-  .tt .d { color:var(--green-300); }
-
-  /* DIVERGING BARS */
-  .bars { display:flex; flex-direction:column; gap:9px; margin-top:6px; }
-  .bar-row { display:grid; grid-template-columns:150px 1fr 92px; align-items:center; gap:12px; }
-  .bar-row .lbl { font-family:var(--font-mono); font-size:11.5px; color:var(--green-800); letter-spacing:.02em; text-align:right; }
-  .bar-track { position:relative; height:22px; background:linear-gradient(90deg,transparent 0); }
-  .bar-mid { position:absolute; top:-3px; bottom:-3px; width:1px; background:var(--cream-300); }
-  .bar-fill { position:absolute; top:0; height:22px; border-radius:3px; }
-  .bar-fill.pos { background:var(--green-400); }
-  .bar-fill.neg { background:var(--scarlet); }
-  .bar-row .amt { font-family:var(--font-mono); font-size:12px; text-align:right; letter-spacing:.02em; }
-  .amt.pos { color:var(--green-600); } .amt.neg { color:var(--scarlet); }
-  .bar-meta { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
-
-  /* ACTIVE CARD */
-  .active-wrap { border:1px solid var(--green-600); border-radius:4px; overflow:hidden; }
-  .active-head { background:var(--green-700); color:var(--cream-100); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
-  .active-head .t { font-family:var(--font-display); font-size:22px; font-weight:600; }
-  .active-head .t small { font-family:var(--font-mono); font-size:10px; letter-spacing:.2em; color:var(--brass-400); display:block; text-transform:uppercase; margin-bottom:2px; font-weight:400; }
-  .active-head .exposure { font-family:var(--font-mono); font-size:11px; color:var(--green-200); text-align:right; }
-  .active-head .exposure b { color:var(--brass-300); }
-  .live-dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green-300); box-shadow:0 0 0 0 rgba(109,196,142,.6); animation:pulse 2s infinite; margin-right:7px; }
-  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(109,196,142,.5)} 70%{box-shadow:0 0 0 7px rgba(109,196,142,0)} 100%{box-shadow:0 0 0 0 rgba(109,196,142,0)} }
-  .abet { display:grid; grid-template-columns:1.4fr .9fr .8fr auto; gap:14px; padding:16px 22px; border-top:1px solid var(--cream-200); background:#fff; align-items:start; }
-  .abet:nth-child(even){ background:var(--cream-50); }
-  .abet .p { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--green-800); }
-  .abet .mk { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-top:2px; letter-spacing:.02em; }
-  .abet .th { font-size:12.5px; color:var(--cream-900); grid-column:1/-1; border-top:1px dashed var(--cream-300); padding-top:9px; margin-top:2px; line-height:1.5; }
-  .abet .odds { font-family:var(--font-mono); font-size:17px; color:var(--green-600); }
-  .abet .book { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
-  .abet .ret { text-align:right; font-family:var(--font-mono); }
-  .abet .ret .stk { font-size:10px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
-  .abet .ret .rv { font-size:16px; color:var(--brass-600); }
-
-  /* TABLES */
-  table { width:100%; border-collapse:collapse; font-size:13px; }
-  thead th { font-family:var(--font-mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cream-700); text-align:right; padding:10px 12px; border-bottom:2px solid var(--cream-300); }
-  thead th:first-child, tbody td:first-child { text-align:left; }
-  tbody td { padding:10px 12px; border-bottom:1px solid var(--cream-200); font-family:var(--font-mono); font-size:12px; text-align:right; letter-spacing:.01em; }
-  tbody td.name { font-family:var(--font-body); font-size:13.5px; color:var(--green-800); }
-  tbody tr:hover td { background:var(--cream-50); }
-  td.pos { color:var(--green-600); } td.neg { color:var(--scarlet); } td.zero { color:var(--cream-700); }
-  .pill { display:inline-block; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
-  .pill.win { background:var(--green-100); color:var(--green-600); }
-  .pill.loss { background:var(--scarlet-light); color:var(--scarlet); }
-  .pill.open { background:var(--brass-100); color:var(--brass-700); }
-  .pill.p1 { background:var(--cream-200); color:var(--cream-700); }
-
-  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-  @media (max-width:820px){ .two-col{ grid-template-columns:1fr; } .bar-row{ grid-template-columns:118px 1fr 78px; } .abet{ grid-template-columns:1fr 1fr; } .wordmark{ font-size:40px; } }
-
-  footer { background:var(--green-900); color:var(--green-300); font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; padding:26px 0; margin-top:56px; text-align:center; }
-  footer b { color:var(--brass-400); }
-  .mb { margin-bottom:22px; }
-
-  /* FILTER CHIPS */
-  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
-  .chip { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:5px 12px; border:1px solid var(--cream-300); border-radius:20px; background:#fff; color:var(--cream-700); cursor:pointer; transition:.12s; }
-  .chip:hover { border-color:var(--brass-500); color:var(--green-700); }
-  .chip.on { background:var(--green-700); color:var(--cream-100); border-color:var(--green-700); }
-  .search { font-family:var(--font-mono); font-size:12px; padding:8px 12px; border:1px solid var(--cream-300); border-radius:3px; background:#fff; color:var(--green-800); width:240px; max-width:100%; margin-bottom:14px; }
-  .search:focus { outline:none; border-color:var(--brass-500); }
-
-  /* ROTATION COLUMNS */
-  .rot-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  @media (max-width:820px){ .rot-grid{ grid-template-columns:1fr; } }
-  .rot-col h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid; }
-  .rot-col.active h4 { color:var(--green-600); border-color:var(--green-200); }
-  .rot-col.notice h4 { color:var(--brass-700); border-color:var(--brass-300); }
-  .rot-col.bench h4 { color:var(--scarlet); border-color:var(--scarlet-light); }
-  .rot-item { padding:10px 0; border-bottom:1px solid var(--cream-200); }
-  .rot-item .rn { font-family:var(--font-body); font-size:14.5px; color:var(--green-800); font-weight:600; display:flex; justify-content:space-between; align-items:baseline; }
-  .rot-item .rn .rp { font-family:var(--font-mono); font-size:12px; }
-  .rot-item .rr { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); margin-top:3px; letter-spacing:.02em; }
-
-  /* SCORE PILL for SG */
-  .sg { font-family:var(--font-mono); font-size:11.5px; }
-  .sg.p { color:var(--green-600); } .sg.n { color:var(--scarlet); }
-  .tier { font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
-  .tier.Elite { background:var(--brass-100); color:var(--brass-700); }
-  .tier.Contender { background:var(--green-100); color:var(--green-600); }
-  .tier.Bubble { background:var(--cream-200); color:var(--cream-700); }
-  .tier.Fringe { background:var(--cream-200); color:var(--cream-700); }
-
-  /* STATUS ALERTS */
-  .alert { display:flex; gap:12px; padding:12px 16px; border-left:3px solid; border-radius:0 3px 3px 0; background:#fff; margin-bottom:8px; }
-  .alert.caution { border-color:var(--brass-500); background:var(--brass-100); }
-  .alert.info { border-color:var(--birdie); background:var(--birdie-light); }
-  .alert.serious { border-color:var(--scarlet); background:var(--scarlet-light); }
-  .alert .ap { font-family:var(--font-display); font-weight:600; font-size:16px; color:var(--green-800); min-width:150px; }
-  .alert .as { font-size:12.5px; color:var(--cream-900); line-height:1.5; }
-  .alert .atype { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); }
-
-  /* COURSE CARDS */
-  .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
-  .course { background:#fff; border:1px solid var(--cream-300); border-radius:4px; padding:18px 20px; border-top:3px solid var(--green-500); }
-  .course.live { border-top-color:var(--brass-500); }
-  .course .cn { font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--green-800); }
-  .course .ce { font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); margin-bottom:10px; }
-  .course .cmeta { display:flex; gap:14px; font-family:var(--font-mono); font-size:11px; color:var(--green-700); margin-bottom:10px; flex-wrap:wrap; }
-  .course .arch { font-size:13px; color:var(--green-600); font-style:italic; margin-bottom:10px; }
-  .course .stats { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
-  .course .stat-tag { font-family:var(--font-mono); font-size:9.5px; background:var(--green-50); color:var(--green-600); padding:2px 7px; border-radius:2px; }
-  .course .fa { font-size:11.5px; line-height:1.5; color:var(--cream-900); }
-  .course .fa b { color:var(--green-600); font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
-  .course .cpl { font-family:var(--font-mono); font-size:11px; margin-top:10px; padding-top:8px; border-top:1px solid var(--cream-200); }
-
-  /* ---- Tournament Intelligence (Piece 3) ---- */
-  .gb-sel { font-family:var(--font-mono); font-size:12px; letter-spacing:.02em; color:var(--green-800); background:#fff; border:1px solid var(--cream-300); border-radius:3px; padding:7px 10px; cursor:pointer; transition:.12s; }
-  .gb-sel:hover, .gb-sel:focus { border-color:var(--brass-500); outline:none; }
-  .ev-meta { font-family:var(--font-mono); font-size:11.5px; color:var(--cream-700); line-height:1.6; letter-spacing:.01em; }
-  .ev-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
-  .ev-tag { font-family:var(--font-mono); font-size:9.5px; background:var(--green-50); color:var(--green-600); padding:2px 8px; border-radius:2px; letter-spacing:.04em; }
-  .fp-row { display:grid; grid-template-columns:150px 1fr 42px; align-items:center; gap:12px; padding:7px 0; border-bottom:1px solid var(--cream-100); }
-  .fp-row .fp-lbl { font-family:var(--font-mono); font-size:12px; color:var(--green-800); }
-  .fp-row .fp-note { font-family:var(--font-mono); font-size:9.5px; color:var(--cream-700); margin-top:2px; line-height:1.4; }
-  .fp-track { position:relative; height:8px; background:var(--cream-200); border-radius:4px; overflow:hidden; }
-  .fp-bar { position:absolute; left:0; top:0; height:8px; background:linear-gradient(90deg,var(--brass-500),var(--green-400)); border-radius:4px; }
-  .fp-w { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
-  .radar-wrap { max-width:440px; margin:0 auto; }
-  .radar-selects { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
-  .radar-selects .gb-sel { flex:1; min-width:120px; }
-  .radar-legend { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
-  .rl-item { display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12px; color:var(--green-800); }
-  .rl-dot { width:10px; height:10px; border-radius:50%; flex:none; }
-  .rl-fit { margin-left:auto; font-size:11px; }
-  .sig { font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:1px 6px; border-radius:2px; }
-  .sig.TAILWIND { background:var(--green-100); color:var(--green-600); }
-  .sig.warm { background:var(--brass-100); color:var(--brass-700); }
-  .sig.neutral { background:var(--cream-200); color:var(--cream-700); }
-  .sig.cool, .sig.HEADWIND, .sig.caution { background:var(--scarlet-light); color:var(--scarlet); }
-  .khole { display:grid; grid-template-columns:auto 1fr; gap:14px; padding:10px 0; border-bottom:1px solid var(--cream-100); }
-  .khole .kh-num { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-600); line-height:1; }
-  .khole .kh-par { font-family:var(--font-mono); font-size:9px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
-  .khole .kh-note { font-size:12.5px; color:var(--cream-900); line-height:1.5; }
-  .rwin { display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--cream-100); align-items:baseline; }
-  .rwin .rw-yr { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); width:38px; flex:none; }
-  .rwin .rw-name { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
-  .rwin .rw-meta { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); }
-  .hgrid { overflow-x:auto; }
-  .htable { border-collapse:collapse; font-family:var(--font-mono); }
-  .htable th, .htable td { padding:5px 7px; text-align:center; font-size:11px; border-bottom:1px solid var(--cream-200); }
-  .htable th { color:var(--cream-700); font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
-  .htable td.hp { text-align:left; font-family:var(--font-body); font-size:13px; color:var(--green-800); white-space:nowrap; }
-  .htable td.hp.infield::after { content:"● in field"; font-family:var(--font-mono); font-size:8.5px; color:var(--green-500); margin-left:8px; letter-spacing:.06em; }
-  .hcell { display:inline-block; min-width:22px; padding:2px 4px; border-radius:3px; }
-  .hcell.w { background:var(--brass-500); color:#fff; font-weight:700; }
-  .hcell.t5 { background:var(--green-200); color:var(--green-700); }
-  .hcell.t20 { background:var(--green-50); color:var(--green-600); }
-  .hcell.o { color:var(--cream-500); }
-  .lead-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
-  .lead-card { background:#fff; border:1px solid var(--cream-300); border-radius:4px; border-top:3px solid var(--brass-500); padding:14px 16px; }
-  .lead-card h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass-600); margin-bottom:10px; }
-  .lead-row { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; font-size:13px; border-bottom:1px solid var(--cream-100); }
-  .lead-row .ln { color:var(--green-800); } .lead-row .ln b { font-family:var(--font-mono); font-size:10px; color:var(--brass-600); margin-right:6px; }
-  .lead-row .lv { font-family:var(--font-mono); font-size:12px; }
-
-  /* ---- IA reorder (forward-looking first, record secondary) ---- */
-  #content { display:flex; flex-direction:column; }
-  #content > section, .record-band { scroll-margin-top:66px; }
-  #thisweek  { order:1; }
-  #active    { order:2; }
-  #inform    { order:3; }
-  #tournament{ order:4; }
-  #golfers   { order:5; }
-  #courses   { order:6; }
-  #venuehist { order:7; }
-  #datacenter{ order:8; }
-  #record-divider { order:9; }
-  #overview  { order:10; }
-  #edge      { order:11; }
-  #markets   { order:12; }
-  #sources   { order:13; }
-  #ledger    { order:14; }
-  #history   { order:15; }
-  #winners   { order:16; }
-  .record-band { order:9; margin-top:22px; padding:34px 0 4px; border-top:1px solid var(--cream-300); }
-  .record-band .sec-label { color:var(--cream-500); }
-
-  /* ---- In-Form board ---- */
-  .if-row { display:grid; grid-template-columns:30px 168px 1fr auto; gap:16px; align-items:center; background:#fff; border:1px solid var(--cream-300); border-radius:5px; padding:11px 16px; margin-bottom:7px; cursor:pointer; transition:box-shadow .14s, transform .14s, border-color .14s; }
-  .if-row:hover { box-shadow:0 3px 14px -6px rgba(13,31,22,.35); border-color:var(--brass-400); transform:translateX(2px); }
-  .if-rank { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-500); text-align:right; font-variant-numeric:tabular-nums; }
-  .if-name { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--green-800); line-height:1.1; }
-  .if-tier { font-family:var(--font-mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); margin-top:2px; }
-  .if-mini { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-  .if-cell .mk { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); margin-bottom:3px; }
-  .if-cell .mtrack { height:5px; background:var(--cream-200); border-radius:3px; overflow:hidden; }
-  .if-cell .mbar { height:100%; border-radius:3px; }
-  .if-cell .mv { font-family:var(--font-mono); font-size:10px; margin-top:2px; font-variant-numeric:tabular-nums; }
-  .if-tot { text-align:right; }
-  .if-tot .tv { font-family:var(--font-display); font-size:24px; font-weight:600; font-variant-numeric:tabular-nums; }
-  .if-tot .tl { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--cream-700); }
-  @media (max-width:820px){ .if-row{ grid-template-columns:26px 1fr; row-gap:10px; } .if-mini{ grid-column:1/-1; } .if-tot{ grid-column:1/-1; text-align:left; } }
-
-  /* ---- DG-style player breakdown (modal) ---- */
-  .modal.wide { max-width:880px; }
-  .pb-grid { display:grid; grid-template-columns:1.25fr 1fr; gap:26px; }
-  @media (max-width:760px){ .pb-grid{ grid-template-columns:1fr; gap:20px; } }
-  .pb-hero { display:flex; gap:20px; align-items:baseline; margin-bottom:6px; }
-  .pb-tot { font-family:var(--font-display); font-size:44px; font-weight:600; line-height:1; font-variant-numeric:tabular-nums; }
-  .pb-tot .u { font-size:14px; font-family:var(--font-mono); color:var(--cream-700); margin-left:4px; }
-  .pb-tot-lab { font-family:var(--font-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); }
-  .pb-tot-rank { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); margin-top:3px; }
-  .pb-sub-label { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass-600); margin:18px 0 10px; }
-  .sk-row { display:grid; grid-template-columns:74px 1fr 118px; gap:12px; align-items:center; padding:7px 0; border-bottom:1px solid var(--cream-100); }
-  .sk-lbl { font-family:var(--font-mono); font-size:11px; color:var(--green-800); letter-spacing:.02em; }
-  .sk-track { position:relative; height:16px; }
-  .sk-mid { position:absolute; left:50%; top:-1px; bottom:-1px; width:1px; background:var(--cream-300); }
-  .sk-bar { position:absolute; top:2px; height:12px; border-radius:2px; }
-  .sk-bar.pos { background:var(--green-400); } .sk-bar.neg { background:var(--scarlet); }
-  .sk-meta { font-family:var(--font-mono); font-size:11px; text-align:right; font-variant-numeric:tabular-nums; display:flex; gap:8px; justify-content:flex-end; align-items:baseline; }
-  .sk-val { font-weight:600; } .sk-pct { color:var(--cream-700); font-size:10px; }
-  .pctpill { font-family:var(--font-mono); font-size:8.5px; padding:1px 5px; border-radius:2px; letter-spacing:.04em; }
-  .pctpill.hi { background:var(--green-100); color:var(--green-600); }
-  .pctpill.mid { background:var(--brass-100); color:var(--brass-700); }
-  .pctpill.lo { background:var(--scarlet-light); color:var(--scarlet); }
-  .surf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:6px; }
-  .surf-cell { border:1px solid var(--cream-300); border-radius:4px; padding:9px 10px; text-align:center; }
-  .surf-cell.best { border-color:var(--brass-400); background:var(--brass-100); }
-  .surf-cell .sc-l { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); }
-  .surf-cell .sc-v { font-family:var(--font-mono); font-size:14px; margin-top:3px; font-variant-numeric:tabular-nums; }
-  .pb-radar-wrap { max-width:300px; margin:0 auto 4px; }
+  .brow { background:#fff; border:1px solid var(--cream-300); border-radius:6px; margin-bottom:8px; overflow:hidden; transition:box-shadow .14s,border-color .14s; }
+  .brow:hover { box-shadow:0 3px 16px -8px rgba(13,31,22,.4); border-color:var(--brass-400); }
+  .brow.backed { border-left:3px solid var(--brass-500); }
+  .btop { display:grid; grid-template-columns:34px 200px 122px 1fr 128px; gap:16px; align-items:center; padding:13px 18px; }
+  .brank { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-500); text-align:right; font-variant-numeric:tabular-nums; }
+  .bname a { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--green-800); text-decoration:none; line-height:1.05; }
+  .bname a:hover { color:var(--brass-600); }
+  .btier { font-family:var(--font-mono); font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--cream-700); margin-top:2px; }
+  .bchips { display:flex; flex-direction:column; gap:4px; align-items:flex-start; }
+  .breas { display:flex; flex-direction:column; gap:3px; }
+  .breas .r { font-size:12.5px; line-height:1.4; display:flex; gap:7px; align-items:baseline; }
+  .breas .r::before { content:""; width:5px; height:5px; border-radius:50%; flex:none; margin-top:6px; }
+  .breas .r.good::before { background:var(--good); } .breas .r.bad::before { background:var(--bad); } .breas .r.neutral::before { background:var(--cream-500); }
+  .bfit { text-align:right; }
+  .bfit .fitv { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--green-700); }
+  .bfit .fitv small { font-size:11px; color:var(--cream-700); }
+  .bfit .fitbar { width:110px; height:6px; background:var(--cream-200); border-radius:4px; overflow:hidden; margin:5px 0 0 auto; }
+  .bfit .fitbar > div { height:100%; background:linear-gradient(90deg,var(--brass-500),var(--green-500)); }
+  .bexp { padding:0 18px; }
+  .bexp .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px 26px; padding:6px 0 16px; }
+  @media (max-width:760px){ .btop{ grid-template-columns:28px 1fr; row-gap:10px; } .bchips{ flex-direction:row; } .breas,.bfit{ grid-column:1/-1; text-align:left; } .bfit .fitbar{ margin-left:0; } .bexp .grid{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
+<div id="gb-head"></div>
 
-<div class="masthead">
-  <div class="wrap">
-    <div>
-      <div class="wordmark">GREEN<strong>BOOK</strong></div>
-      <div class="tagline">PGA Tour Betting Intelligence · 2026 Season</div>
-    </div>
-    <div class="mast-right">
-      <div class="badge">Phase 2 Active</div>
-      <div id="mastMeta"></div>
-      <a href="war-room.html" class="warroom-link">War Room ▸</a>
-    </div>
-  </div>
-</div>
+<main class="wrap">
 
-<nav><div class="wrap">
-  <div class="navgroup" data-spy="thisweek,active">
-    <button class="navitem" data-href="#thisweek">This Week <span class="caret">▼</span></button>
-    <div class="navmenu">
-      <a href="#thisweek">The Read <span class="nm-tag">course + leans</span></a>
-      <a href="#active">Active Bets <span class="nm-tag">open card</span></a>
-    </div>
-  </div>
-  <div class="navgroup" data-spy="inform">
-    <a class="navitem" href="#inform">In Form</a>
-  </div>
-  <div class="navgroup" data-spy="golfers">
-    <a class="navitem" href="#golfers">Golfers</a>
-  </div>
-  <div class="navgroup" data-spy="tournament,courses,venuehist,datacenter">
-    <button class="navitem" data-href="#tournament">Intelligence <span class="caret">▼</span></button>
-    <div class="navmenu">
-      <a href="#tournament">Tournament <span class="nm-tag">deep dive</span></a>
-      <a href="#courses">Courses <span class="nm-tag">venue DNA</span></a>
-      <a href="#venuehist">History <span class="nm-tag">multi-year</span></a>
-      <a href="#datacenter">Data Center <span class="nm-tag">SG leaders</span></a>
-    </div>
-  </div>
-  <div class="navgroup" data-spy="overview,edge,markets,sources,ledger,history,winners">
-    <button class="navitem" data-href="#overview">The Record <span class="caret">▼</span></button>
-    <div class="navmenu">
-      <a href="#overview">Season P/L <span class="nm-tag">the proof</span></a>
-      <a href="#ledger">Ledger <span class="nm-tag">every event</span></a>
-      <a href="#history">Bet History <span class="nm-tag">every ticket</span></a>
-      <a href="#markets">Markets <span class="nm-tag">by type</span></a>
-      <a href="#edge">Edge <span class="nm-tag">structures</span></a>
-      <a href="#sources">Sources <span class="nm-tag">calibration</span></a>
-      <a href="#winners">Winners <span class="nm-tag">the wins</span></a>
-    </div>
-  </div>
-  <span class="navspacer"></span>
-  <a href="war-room.html" class="navwar">War Room ▸</a>
-</div></nav>
-
-<div class="wrap" id="content">
-
-  <!-- ===== THE RECORD (secondary — the proof the intelligence works) ===== -->
-  <div class="record-band" id="record-divider">
-    <div class="sec-label">The Proof</div>
-    <div class="sec-title" style="font-size:28px">The Betting Record</div>
-    <div class="sec-sub" style="margin-bottom:0">The intelligence above is the product; the record below is the receipt. Every settled bet, every event, held to account.</div>
-  </div>
-
-  <!-- OVERVIEW -->
-  <section id="overview">
-    <div class="sec-label">The Season</div>
-    <div class="sec-title">2026 Performance</div>
-    <div class="brass-rule"></div>
-    <div class="hero-grid mb" id="heroGrid"></div>
-    <div class="card">
-      <div class="card-head">
-        <h3>Cumulative P/L</h3>
-        <span class="note" id="chartNote"></span>
-      </div>
-      <div class="chart-host" id="chartHost"></div>
-    </div>
-    <div class="two-col" style="margin-top:22px">
-      <div class="card" id="phase1card"></div>
-      <div class="card" id="phase2card"></div>
-    </div>
+  <!-- COURSE DNA — course first, names second (anti-anchoring) -->
+  <section class="sec">
+    <div id="dnaHost"></div>
   </section>
 
-  <!-- GOLFER INTELLIGENCE -->
-  <section id="golfers">
-    <div class="sec-label">The Database</div>
-    <div class="sec-title">Golfer Intelligence</div>
-    <div class="sec-sub">Every golfer we track — strokes-gained profile, surface putting, ball flight, and the read on their game. An ever-growing knowledge base; it deepens with every event.</div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
-      <input class="search" id="gSearch" placeholder="Search a golfer…" autocomplete="off" style="width:280px">
-      <div class="chips" id="gTiers" style="margin:0"></div>
-      <span id="gCount" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin-left:auto"></span>
+  <!-- OUR CARD — where market data exists, show the real edge -->
+  <section class="sec">
+    <div class="sec-label">Where We See Value</div>
+    <div class="sec-title" style="font-size:26px">On The Card</div>
+    <div class="sec-sub">The plays we've actually backed this week — the only places we have a market price to measure an <span class="lab">edge <span class="tech">EV</span></span> against. Everything below is the independent read; this is where the read met a number.</div>
+    <div class="cardstrip" id="cardHost"></div>
+  </section>
+
+  <!-- THE BOARD — field ranked by course fit -->
+  <section class="sec">
+    <div class="sec-label">The Independent Read</div>
+    <div class="sec-title">Who Fits Royal Birkdale</div>
+    <div class="sec-sub">The whole tracked field, ranked by how well each player's game matches what this course rewards — established <em>before</em> any market price or story. Each row leads with the verdict and why; open it for the full strokes-gained breakdown.</div>
+    <div class="filters">
+      <button class="fbtn on" data-f="top">Top Fits</button>
+      <button class="fbtn" data-f="all">Full Field</button>
+      <button class="fbtn" data-f="backed">Backed</button>
+      <span class="fcount" id="boardCount"></span>
     </div>
-    <div id="gGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
+    <div id="boardHost"></div>
   </section>
 
-  <!-- THIS WEEK -->
-  <section id="thisweek">
-    <div class="sec-label">The Read</div>
-    <div class="sec-title" id="tw-title">This Week</div>
-    <div class="sec-sub" id="tw-sub"></div>
-    <div class="two-col">
-      <div class="card">
-        <div class="card-head"><h3>Course DNA</h3><span class="note" id="tw-surface"></span></div>
-        <p id="tw-fingerprint" style="font-size:13.5px;line-height:1.65;color:var(--cream-900)"></p>
-        <div class="card-head" style="margin-top:20px"><h3>Independent Top 10</h3><span class="note">skill-only · pre-market</span></div>
-        <div id="tw-indep"></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>Value Leans</h3><span class="note">independent &gt; market</span></div>
-        <div id="tw-leans"></div>
-        <div class="card-head" style="margin-top:18px"><h3>Fades</h3><span class="note">market too short</span></div>
-        <div id="tw-fades"></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:18px;border-left:3px solid var(--brass-500)">
-      <div class="card-head"><h3>The Open Question</h3><span class="note">independent vs market conflict</span></div>
-      <p id="tw-reconcile" style="font-size:13px;color:var(--cream-900);line-height:1.6"></p>
-    </div>
-  </section>
+</main>
+<div id="gb-foot"></div>
 
-  <!-- IN FORM -->
-  <section id="inform">
-    <div class="sec-label">Right Now</div>
-    <div class="sec-title">Golfers In Form</div>
-    <div class="sec-sub">The field ranked by current strokes-gained — who is playing the best golf on Tour this moment. Percentile bars are relative to the tracked field. Click any name for the full breakdown.</div>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
-      <div class="chips" id="ifTiers" style="margin:0"></div>
-      <span id="ifCount" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin-left:auto"></span>
-    </div>
-    <div id="informGrid"></div>
-  </section>
-
-  <!-- TOURNAMENT INTELLIGENCE -->
-  <section id="tournament">
-    <div class="sec-label">The Deep Dive</div>
-    <div class="sec-title">Tournament Intelligence</div>
-    <div class="sec-sub">The full per-event read the war room runs — stat fingerprint, player-vs-course radar fit, the field scored on the course's exact weighting, and the holes that decide it. Pick any event on the schedule.</div>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
-      <select id="evSel" class="gb-sel" style="min-width:260px"></select>
-      <span id="evArch" style="font-family:var(--font-body);font-style:italic;font-size:14px;color:var(--green-600)"></span>
-    </div>
-
-    <div class="two-col">
-      <div class="card">
-        <div class="card-head"><h3>Stat Fingerprint</h3><span class="note" id="fpNote">course-weighted priorities</span></div>
-        <div id="fpBody"></div>
-        <div class="ev-tags" id="evTags"></div>
-        <div class="ev-meta" id="evMeta" style="margin-top:14px"></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>Player · Course Fit Radar</h3><span class="note">vs avg winner profile</span></div>
-        <div id="radarHost">
-          <div class="radar-selects" id="radarSelects"></div>
-          <div class="radar-wrap"><canvas id="radarCanvas" height="300"></canvas></div>
-          <div class="radar-legend" id="radarLegend"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:18px">
-      <div class="card-head"><h3>Skill-Fit Composite</h3><span class="note" id="compNote">field scored on this course's stat weighting</span></div>
-      <div style="overflow-x:auto"><table id="compTable"></table></div>
-    </div>
-
-    <div class="two-col" style="margin-top:18px">
-      <div class="card">
-        <div class="card-head"><h3>Key Holes</h3><span class="note">where it's won and lost</span></div>
-        <div id="kholeBody"></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>Recent Winners</h3><span class="note">the profile that travels here</span></div>
-        <div id="rwinBody"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VENUE HISTORY -->
-  <section id="venuehist">
-    <div class="sec-label">The Record</div>
-    <div class="sec-title">Historical Overlay</div>
-    <div class="sec-sub">Multi-year finishing history at a venue — who shows up year after year. Repeat performers are highlighted; players in the 2026 field are flagged. Course history is a real, tradeable edge at the venues that reward it.</div>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
-      <select id="vhSel" class="gb-sel" style="min-width:280px"></select>
-      <span id="vhSpan" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700)"></span>
-    </div>
-    <div class="card"><div class="hgrid" id="vhBody"></div></div>
-  </section>
-
-  <!-- DATA CENTER -->
-  <section id="datacenter">
-    <div class="sec-label">The Leaders</div>
-    <div class="sec-title">Data Center</div>
-    <div class="sec-sub">Strokes-gained leaderboards across the tracked database — who's best in each phase of the game, and who owns each putting surface. Drawn live from the golfer intelligence base.</div>
-    <div class="lead-grid" id="leadGrid"></div>
-  </section>
-
-  <!-- ACTIVE -->
-  <section id="active">
-    <div class="sec-label">This Week</div>
-    <div class="sec-title">Active Bets</div>
-    <div class="brass-rule"></div>
-    <div class="active-wrap" id="activeWrap"></div>
-  </section>
-
-  <!-- EDGE STRUCTURES -->
-  <section id="edge">
-    <div class="sec-label">The Edge</div>
-    <div class="sec-title">Bet Structures</div>
-    <div class="sec-sub">Each-way 1/4 to 5 places is the operation's confirmed structural edge. Everything else is a drag — the season's clearest lesson, priced in dollars.</div>
-    <div class="card"><div class="bars" id="edgeBars"></div></div>
-  </section>
-
-  <!-- MARKETS -->
-  <section id="markets">
-    <div class="sec-label">By Market</div>
-    <div class="sec-title">Where the Money Is Made</div>
-    <div class="sec-sub">Settled P/L by market type. DFS is the season hero; FRL and win-only outrights are the confirmed leaks.</div>
-    <div class="card"><div class="bars" id="marketBars"></div></div>
-  </section>
-
-  <!-- SOURCES -->
-  <section id="sources">
-    <div class="sec-label">The Read</div>
-    <div class="sec-title">Source Calibration</div>
-    <div class="sec-sub">Which reads actually make money. P/L by attributed source — the analytical edge, held to account.</div>
-    <div class="two-col">
-      <div class="card"><div class="card-head"><h3>P/L by Source</h3><span class="note">by attribution tag</span></div><div class="bars" id="sourceBars"></div></div>
-      <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="sourceTable"></table></div></div>
-    </div>
-  </section>
-
-  <!-- LEDGER -->
-  <section id="ledger">
-    <div class="sec-label">Every Event</div>
-    <div class="sec-title">Tournament Ledger</div>
-    <div class="brass-rule"></div>
-    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="ledgerTable"></table></div></div>
-  </section>
-
-  <!-- BET HISTORY -->
-  <section id="history">
-    <div class="sec-label">Every Ticket</div>
-    <div class="sec-title">Bet History</div>
-    <div class="sec-sub">Every bet placed, by event. The full card record — filter to any week.</div>
-    <div class="chips" id="histChips"></div>
-    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="histTable"></table></div></div>
-  </section>
-
-  <!-- COURSES -->
-  <section id="courses">
-    <div class="sec-label">The Venues</div>
-    <div class="sec-title">Course Library</div>
-    <div class="sec-sub">Course DNA — archetype, what each setup forgives and amplifies, and our record there.</div>
-    <div class="course-grid" id="courseGrid"></div>
-  </section>
-
-  <!-- WINNERS -->
-  <section id="winners">
-    <div class="sec-label">The Wins</div>
-    <div class="sec-title">Winners Log</div>
-    <div class="sec-sub">Every settled winning ticket, biggest first. 30 winners, all Phase 2.</div>
-    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="winnersTable"></table></div></div>
-  </section>
-
-</div>
-
-<div class="modal-bg" id="modalBg"><div class="modal"><div class="modal-head"><div><div class="mt" id="modalTitle"></div><div class="ms" id="modalSub"></div></div><button class="modal-close" id="modalClose">&times;</button></div><div class="modal-body" id="modalBody"></div></div></div>
-
-<footer><div class="wrap">
-  GREENBOOK · Data-first golf betting · Settled P/L <b id="footPL"></b> · <b id="footROI"></b> ROI · Last audited Jul 12 2026
-</div></footer>
-
-<script src="data.js?v=103"></script>
-<script src="tools-data.js?v=103"></script>
-<script src="player-kb.js?v=103"></script>
-<script src="tournament-data.js?v=103"></script>
-<script src="settled-data.js?v=103"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="data.js?v=200"></script>
+<script src="tournament-data.js?v=200"></script>
+<script src="settled-data.js?v=200"></script>
+<script src="tools-data.js?v=200"></script>
+<script src="player-kb.js?v=200"></script>
+<script src="greenbook-core.js?v=200"></script>
 <script>
-const $ = s => document.querySelector(s);
-const U = 20; // $ per unit
-const money  = n => (n<0?'−':'+') + (Math.abs(n)/U).toFixed(1) + 'u';   // signed units (P/L)
-const money0 = n => (Math.abs(n)/U).toFixed(1) + 'u';                    // unsigned units (staked/returned)
-const ustk   = n => (+(n/U).toFixed(2)) + 'u';                          // stake/return in units, trimmed
-const cls = n => n>0?'pos':(n<0?'neg':'zero');
-const clean = s => (s||'').replace(/�/g,'—').replace(/�/g,'—');
-
-/* ---------- field statistics engine (DG-style percentiles vs the tracked field) ---------- */
-const FIELD = (function(){
-  if (typeof SCOUTING === 'undefined') return null;
-  const keys = ['sg_tot','app','ott','arg','putt','dd','putt_bermuda','putt_bent','putt_poa'];
-  const S = {};
-  keys.forEach(k=>{
-    const vals = SCOUTING.map(p=>p[k]).filter(v=>v!=null).sort((a,b)=>a-b);
-    if(!vals.length){ S[k]=null; return; }
-    const n=vals.length, mean=vals.reduce((s,v)=>s+v,0)/n;
-    const sd=Math.sqrt(vals.reduce((s,v)=>s+(v-mean)*(v-mean),0)/n)||1;
-    S[k]={vals,n,mean,sd,min:vals[0],max:vals[n-1]};
-  });
-  const pct = (k,v)=>{ if(v==null||!S[k]) return null; const a=S[k].vals; let lo=0; for(const x of a) if(x<v) lo++; return Math.round(lo/a.length*100); };
-  const rank = (k,v)=>{ if(v==null||!S[k]) return null; let better=1; for(const x of S[k].vals) if(x>v) better++; return better; };
-  const z = (k,v)=>{ if(v==null||!S[k]) return null; return (v-S[k].mean)/S[k].sd; };
-  return { S, pct, rank, z, n:(SCOUTING||[]).length };
-})();
-const pctPill = p => { const c = p==null?'':p>=70?'hi':p>=40?'mid':'lo'; return `<span class="pctpill ${c}">${p==null?'—':p+'th pct'}</span>`; };
-
-/* ---------- derive ---------- */
-const settled = TOURNAMENTS.filter(t => t.status !== 'open');
-const openEv  = TOURNAMENTS.filter(t => t.status === 'open');
-const p1 = settled.filter(t=>t.phase===1), p2 = settled.filter(t=>t.phase===2);
-const sum = (a,k)=>a.reduce((s,t)=>s+(t[k]||0),0);
-const p1pl=sum(p1,'pl'), p2pl=sum(p2,'pl'), p1st=sum(p1,'staked'), p2st=sum(p2,'staked');
-const openStake = sum(openEv,'staked');
-
-/* ---------- masthead + hero ---------- */
-$('#mastMeta').innerHTML = `Net ${money(SEASON.pl)} · ${SEASON.roi}% ROI · ${SEASON.winners} winners`;
-$('#footPL').textContent = money(SEASON.pl); $('#footROI').textContent = SEASON.roi+'%';
-
-const hero = [
-  {k:'Net P/L (settled)', v:money(SEASON.pl), c:cls(SEASON.pl), sub:`on ${money0(SEASON.settledStaked)} staked`, feature:true},
-  {k:'Return on Investment', v:SEASON.roi+'%', c:cls(SEASON.roi), sub:'settled bets only'},
-  {k:'Record', v:`${SEASON.winners}W`, c:'pos', sub:`${SEASON.settled} settled bets`},
-  {k:'Total Returned', v:money0(SEASON.returned), c:'', sub:`from ${money0(SEASON.settledStaked)} risked`},
-  {k:'Open Exposure', v:money0(openStake), c:'', sub:openEv.map(e=>e.name).join(', ')||'none'},
-];
-$('#heroGrid').innerHTML = hero.map(h=>`<div class="stat ${h.feature?'feature':''}">
-  <div class="k">${h.k}</div><div class="v ${h.c}">${h.v}</div><div class="sub">${h.sub}</div></div>`).join('');
-
-/* phase cards */
-const phaseCard = (title,bets,pl,st,note)=>`<div class="card-head"><h3>${title}</h3><span class="note">${note}</span></div>
-  <div style="display:flex;gap:28px;align-items:baseline;margin-top:4px">
-    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">Net P/L</div>
-      <div style="font-family:var(--font-display);font-size:34px" class="${cls(pl)==='pos'?'':''}"><span style="color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${money(pl)}</span></div></div>
-    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">ROI</div>
-      <div style="font-family:var(--font-display);font-size:34px;color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${st?((pl/st)*100).toFixed(1):'0'}%</div></div>
-    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">Bets</div>
-      <div style="font-family:var(--font-display);font-size:34px;color:var(--green-800)">${bets}</div></div>
-  </div>`;
-$('#phase1card').innerHTML = phaseCard('Phase 1', sum(p1,'bets'), p1pl, p1st, 'Pre-Genesis · no course-fit');
-$('#phase2card').innerHTML = phaseCard('Phase 2', sum(p2,'bets'), p2pl, p2st, 'Genesis onward · full process');
-
-/* ---------- cumulative chart (SVG) ---------- */
+GB.mountChrome('board');
 (function(){
-  const W=1000,H=340,mL=54,mR=64,mT=22,mB=54;
-  let cum=0; const pts = settled.map(t=>({name:t.name,pl:t.pl,cum:(cum+=t.pl)}));
-  const ys = pts.map(p=>p.cum).concat([0]);
-  let lo=Math.min(...ys), hi=Math.max(...ys); const pad=(hi-lo)*0.12||10; lo-=pad; hi+=pad;
-  const x=i=> mL + i*(W-mL-mR)/(pts.length-1);
-  const y=v=> mT + (hi-v)*(H-mT-mB)/(hi-lo);
-  const zeroY=y(0);
-  // gridlines
-  const niceU = x=>{const p=Math.pow(10,Math.floor(Math.log10(x)));const f=x/p;return (f<1.5?1:f<3?2:f<7?5:10)*p;};
-  const step = niceU(Math.max(1,(hi-lo)/5/U))*U;
-  const ticks=[]; for(let v=Math.ceil(lo/step)*step; v<hi; v+=step) ticks.push(v);
-  const line = pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ');
-  const area = `M${x(0).toFixed(1)},${zeroY.toFixed(1)} ` + pts.map((p,i)=>`L${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ') + ` L${x(pts.length-1).toFixed(1)},${zeroY.toFixed(1)} Z`;
-  const p1end = pts.findIndex(p=>settled[pts.indexOf(p)]?.phase===2); // first p2 index
-  const phaseX = p1end>0? x(p1end-0.5): null;
-  const last = pts[pts.length-1];
-  const svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Cumulative season profit and loss">
-    <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2A7A4B" stop-opacity="0.22"/><stop offset="1" stop-color="#2A7A4B" stop-opacity="0.02"/></linearGradient></defs>
-    ${ticks.map(v=>`<line x1="${mL}" x2="${W-mR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#EDE5D4" stroke-width="1"/>
-      <text x="${mL-10}" y="${(y(v)+3).toFixed(1)}" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#A89880">${v<0?'−':''}${Math.abs(v/U).toFixed(0)}u</text>`).join('')}
-    <line x1="${mL}" x2="${W-mR}" y1="${zeroY.toFixed(1)}" y2="${zeroY.toFixed(1)}" stroke="#C0392B" stroke-width="1" stroke-dasharray="4 4" opacity="0.55"/>
-    ${phaseX?`<line x1="${phaseX.toFixed(1)}" x2="${phaseX.toFixed(1)}" y1="${mT}" y2="${H-mB}" stroke="#C9A046" stroke-width="1" stroke-dasharray="2 4" opacity="0.7"/>
-      <text x="${(phaseX+6).toFixed(1)}" y="${mT+12}" font-family="DM Mono,monospace" font-size="9.5" fill="#A87218" letter-spacing="0.1em">PHASE 2 →</text>`:''}
-    <path d="${area}" fill="url(#fill)"/>
-    <path d="${line}" fill="none" stroke="#1E5C38" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-    ${pts.map((p,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="3" fill="#fff" stroke="#1E5C38" stroke-width="1.6"/>`).join('')}
-    <circle cx="${x(pts.length-1).toFixed(1)}" cy="${y(last.cum).toFixed(1)}" r="5" fill="#C9A046" stroke="#fff" stroke-width="1.6"/>
-    <text x="${(x(pts.length-1)+8).toFixed(1)}" y="${(y(last.cum)+4).toFixed(1)}" font-family="Cormorant Garamond,serif" font-size="19" font-weight="600" fill="#1E5C38">${money(last.cum)}</text>
-  </svg>`;
-  const host=$('#chartHost'); host.innerHTML = svg + '<div class="tt" id="tt"></div>';
-  $('#chartNote').textContent = `${pts.length} settled events · trough ${money(Math.min(...pts.map(p=>p.cum)))} → ${money(last.cum)}`;
-  // hover
-  const tt=$('#tt'); const svgEl=host.querySelector('svg');
-  const hit=document.createElementNS('http://www.w3.org/2000/svg','rect');
-  hit.setAttribute('x',0);hit.setAttribute('y',0);hit.setAttribute('width',W);hit.setAttribute('height',H);hit.setAttribute('fill','transparent');svgEl.appendChild(hit);
-  const cross=document.createElementNS('http://www.w3.org/2000/svg','line');
-  cross.setAttribute('stroke','#1E5C38');cross.setAttribute('stroke-width','1');cross.setAttribute('opacity','0');cross.setAttribute('y1',mT);cross.setAttribute('y2',H-mB);svgEl.appendChild(cross);
-  svgEl.addEventListener('mousemove',e=>{
-    const r=svgEl.getBoundingClientRect(); const sx=(e.clientX-r.left)/r.width*W;
-    let i=Math.round((sx-mL)/((W-mL-mR)/(pts.length-1))); i=Math.max(0,Math.min(pts.length-1,i));
-    const px=x(i), py=y(pts[i].cum);
-    cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.setAttribute('opacity','0.35');
-    tt.style.opacity=1; tt.style.left=(px/W*100)+'%'; tt.style.top=(py/H*100)+'%';
-    tt.innerHTML=`<b>${pts[i].name}</b><br>Cumulative ${money(pts[i].cum)}<br><span class="d">Event ${pts[i].pl>=0?'+':'−'}$${Math.abs(pts[i].pl).toFixed(2)}</span>`;
-  });
-  svgEl.addEventListener('mouseleave',()=>{tt.style.opacity=0;cross.setAttribute('opacity','0');});
-})();
+  const EV='openchampionship';
+  const t = (typeof TOURNAMENT_DATA!=='undefined') ? TOURNAMENT_DATA[EV] : null;
+  const CI = (typeof CURRENT_INTEL!=='undefined') ? CURRENT_INTEL : null;
+  if(!t){ document.getElementById('dnaHost').innerHTML='<div class="card">No event data.</div>'; return; }
 
-/* ---------- diverging bars helper ---------- */
-function drawBars(hostId, rows){
-  const maxAbs = Math.max(...rows.map(r=>Math.abs(r.pl)));
-  const host=$(hostId);
-  host.innerHTML = rows.map(r=>{
-    const w = Math.abs(r.pl)/maxAbs*50; // % of half-track
-    const pos = r.pl>=0;
-    const fill = `<div class="bar-fill ${pos?'pos':'neg'}" style="${pos?`left:50%;width:${w}%`:`right:50%;width:${w}%`}"></div>`;
-    return `<div class="bar-row">
-      <div class="lbl">${r.label}<div class="bar-meta">${r.meta||''}</div></div>
-      <div class="bar-track"><div class="bar-mid" style="left:50%"></div>${fill}</div>
-      <div class="amt ${pos?'pos':'neg'}">${money(r.pl)}</div></div>`;
-  }).join('');
-}
+  /* ---- course DNA ---- */
+  const fp = t.fingerprint||[];
+  const topDemands = fp.slice().sort((a,b)=>(b.weight||0)-(a.weight||0)).slice(0,4);
+  const read1 = CI ? CI.fingerprint : ((t.narrative&&t.narrative.description||'').split('. ').slice(0,2).join('. '));
+  document.getElementById('dnaHost').innerHTML = `<div class="dna">
+    <div class="ev-when">This Week · ${CI?CI.dates:''}</div>
+    <h1>${GB.scrub(t.name.replace(' 2026',''))}</h1>
+    <div class="ev-course">${GB.scrub(t.course)} · ${GB.scrub((CI&&CI.surface)||t.archetype)}</div>
+    <div class="read1">${GB.scrub(read1)}</div>
+    <div class="rewards">${topDemands.map(d=>`<span class="rw"><b>${Math.round((d.weight||0)*100)}%</b> ${GB.scrub(d.stat)}</span>`).join('')}</div>
+  </div>
+  <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--cream-700);margin-top:10px;padding-left:4px">What this course rewards, weighted — the fingerprint every player below is scored against. <a href="events.html?ev=${EV}" style="color:var(--brass-600);text-decoration:none">Full event breakdown ▸</a></div>`;
 
-/* edge structures (EW_TERMS) sorted by pl desc */
-drawBars('#edgeBars', EW_TERMS.slice().sort((a,b)=>b.pl-a.pl).map(t=>({
-  label:t.terms, pl:t.pl, meta:`${t.bets} bets · ${t.roi>0?'+':''}${t.roi}% ROI`
-})));
+  /* ---- our card ---- */
+  const card = (typeof OPEN_CARD!=='undefined') ? OPEN_CARD : [];
+  document.getElementById('cardHost').innerHTML = card.map(b=>{
+    const imp = GB.impliedPct(b.odds);
+    const g = GB.findPlayer(b.player);
+    const link = g ? `player.html?p=${encodeURIComponent(g.name)}` : null;
+    return `<div class="play">
+      <div class="pn">${link?`<a href="${link}" style="text-decoration:none;color:inherit">${GB.scrub(b.player)}</a>`:GB.scrub(b.player)}</div>
+      <div class="pmk">${GB.scrub(b.market)} · ${GB.scrub(b.terms)} · ${b.book}</div>
+      <div class="prow"><div class="odds">${b.odds}</div><div class="imp">book says ${imp}%<br>stake ${GB.ustk(b.stake)}</div></div>
+      <div class="th">${GB.scrub(b.comp)}</div></div>`;
+  }).join('') || '<div class="muted" style="font-family:var(--font-mono);font-size:12px">No open plays.</div>';
 
-/* markets (MARKETS) sorted by pl desc */
-drawBars('#marketBars', MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({
-  label:m.type, pl:m.pl, meta:`${m.bets} bets · ${m.roi>0?'+':''}${m.roi}% ROI`
-})));
+  /* ---- the board ---- */
+  const ranked = GB.eventFitField(EV);
+  const backedNames = new Set(card.map(b=>{ const g=GB.findPlayer(b.player); return g?g.name:b.player; }));
+  const cardOdds = {}; card.forEach(b=>{ const g=GB.findPlayer(b.player); const n=g?g.name:b.player; if(!cardOdds[n]&&b.market==='Outright') cardOdds[n]=b.odds; });
 
-/* ---------- active bets (OPEN_CARD) ---------- */
-(function(){
-  const stake=OPEN_CARD.reduce((s,b)=>s+b.stake,0);
-  const maxRet=OPEN_CARD.reduce((s,b)=>s+(b.toReturn||0),0);
-  $('#activeWrap').innerHTML = `<div class="active-head">
-      <div class="t"><small><span class="live-dot"></span>Open · Royal Birkdale</small>The Open Championship</div>
-      <div class="exposure">Exposure <b>${money0(stake)}</b> · Max return <b>${money0(maxRet)}</b><br>Tees Thu Jul 16</div></div>` +
-    OPEN_CARD.map(b=>`<div class="abet">
-      <div><div class="p">${b.player}</div><div class="mk">${b.market} · ${b.terms}</div></div>
-      <div><div class="odds">${b.odds}</div><div class="book">${b.book}</div></div>
-      <div class="book" style="align-self:center">${b.placed}</div>
-      <div class="ret"><div class="stk">${ustk(b.stake)} → </div><div class="rv">${ustk(b.toReturn)}</div></div>
-      <div class="th">${b.comp}</div></div>`).join('');
-})();
+  const sgLine = (key,g)=>{ const p=GB.FIELD?GB.FIELD.pct(key,g[key]):null;
+    return GB.mbar(GB.label(key), p, `${GB.sg(g[key])} ${GB.pctPill(p)}`); };
 
-/* ---------- tournament ledger ---------- */
-(function(){
-  const rows = TOURNAMENTS.slice().reverse();
-  let html = `<thead><tr><th>Tournament</th><th>Phase</th><th>Bets</th><th>Staked</th><th>Returned</th><th>P/L</th><th>ROI</th><th>Status</th></tr></thead><tbody>`;
-  rows.forEach(t=>{
-    const open = t.status==='open';
-    const roi = t.staked? (t.pl/t.staked*100).toFixed(0)+'%' : '—';
-    html += `<tr>
-      <td class="name">${t.name}</td>
-      <td><span class="pill ${t.phase===1?'p1':'win'}" style="${t.phase===2?'background:var(--green-100);color:var(--green-600)':''}">P${t.phase}</span></td>
-      <td>${t.bets}</td>
-      <td>${money0(t.staked)}</td>
-      <td>${open?'—':money0(t.returned)}</td>
-      <td class="${open?'zero':cls(t.pl)}">${open?'—':money(t.pl)}</td>
-      <td class="${open?'zero':cls(t.pl)}">${open?'—':roi}</td>
-      <td>${open?'<span class="pill open">Open</span>':(t.pl>0?'<span class="pill win">Profit</span>':'<span class="pill loss">Loss</span>')}</td>
-    </tr>`;
-  });
-  $('#ledgerTable').innerHTML = html+'</tbody>';
-})();
-
-/* ---------- golfer intelligence (the outward-facing database) ---------- */
-(function(){
-  if (typeof SCOUTING === 'undefined') return;
-  const rk = t => ({Elite:0,Contender:1,Bubble:2,Fringe:3,Veteran:2}[t] ?? 2);
-  const data = SCOUTING.slice().sort((a,b)=> rk(a.tier)-rk(b.tier) || (b.sg_tot||-9)-(a.sg_tot||-9));
-  const tiers = ['All', ...Array.from(new Set(data.map(p=>p.tier).filter(Boolean)))];
-  const tierColor = { Elite:'var(--brass-500)', Contender:'var(--green-500)', Bubble:'var(--cream-500)', Fringe:'var(--cream-500)', Veteran:'var(--birdie)' };
-  const scrub = s => (s||'').replace(/�/g,'—');
-  const fmt = v => v===undefined?'—':(v>=0?'+':'')+v.toFixed(2);
-  const sgBar = (label,key,v)=>{ const val=v==null?null:v; const p = FIELD?FIELD.pct(key,val):null;
-    const width = p==null? Math.max(4,Math.min(96,(val||0)*30+50)) : Math.max(3,p);
-    const col = p==null?(val>0?'var(--green-300)':'var(--scarlet)'):(p>=70?'var(--green-500)':p>=40?'var(--green-300)':'var(--scarlet)');
-    return `<div style="display:grid;grid-template-columns:34px 1fr 78px;gap:8px;align-items:center;margin-bottom:4px"><span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700)">${label}</span><div style="height:5px;background:var(--cream-200);border-radius:3px;overflow:hidden" title="${p!=null?p+'th percentile in field':''}"><div style="height:100%;width:${width}%;background:${col}"></div></div><span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:${(val||0)>=0?'var(--green-600)':'var(--scarlet)'};font-variant-numeric:tabular-nums">${fmt(val)}${p!=null?` <span style="color:var(--cream-500);font-size:9px">${p}</span>`:''}</span></div>`; };
-  const card = p => { const tc=tierColor[p.tier]||'var(--cream-500)'; const hasSurf=p.putt_bermuda!==undefined&&(p.putt_bermuda||p.putt_bent||p.putt_poa);
-    return `<div class="gcard" data-golfer="${p.name.replace(/"/g,'&quot;')}" style="background:#fff;border:1px solid var(--cream-300);border-top:3px solid ${tc};border-radius:6px;padding:16px 18px;box-shadow:0 1px 0 var(--cream-200);cursor:pointer;transition:box-shadow .15s,transform .15s">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--green-800)">${p.name}</div><span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:var(--cream-100);color:${tc}">${p.tier||''}</span></div>
-      <div style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin:3px 0 12px">SG:TOT <b style="color:${(p.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(p.sg_tot)}</b> · ${p.shape||'—'} · ${p.surface||'—'}${p.dd?` · ${p.dd>0?'+':''}${p.dd} dd`:''}</div>
-      ${sgBar('APP','app',p.app)}${sgBar('OTT','ott',p.ott)}${sgBar('ARG','arg',p.arg)}${sgBar('PUTT','putt',p.putt)}
-      ${hasSurf?`<div style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap"><span>Berm ${fmt(p.putt_bermuda)}</span><span>Bent ${fmt(p.putt_bent)}</span><span>Poa ${fmt(p.putt_poa)}</span></div>`:''}
-      <div style="font-size:12px;line-height:1.5;margin-top:11px;color:var(--cream-900)"><b style="color:var(--green-600)">+</b> ${scrub(p.strengths)}</div>
-      <div style="font-size:12px;line-height:1.5;margin-top:4px;color:var(--cream-900)"><b style="color:var(--scarlet)">−</b> ${scrub(p.weaknesses)}</div>
-      ${p.notes?`<div style="font-size:11.5px;font-style:italic;color:var(--cream-700);margin-top:9px;line-height:1.5">${scrub(p.notes)}</div>`:''}
-      ${kbBlock(p.name)}</div>`; };
-  const kbBlock = name => { const kb=(typeof PLAYER_KB!=='undefined')?PLAYER_KB[name]:null; if(!kb||!kb.learnings||!kb.learnings.length) return '';
-    return `<div style="margin-top:11px;padding-top:10px;border-top:1px dashed var(--brass-300)"><div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:7px">What we've learned${kb.updated?` · ${kb.updated}`:''}</div>`+
-      kb.learnings.map(l=>{ const c=Math.round((l.conf||0)*100); const cc=c>=70?'var(--green-600)':c>=50?'var(--brass-600)':'var(--cream-700)';
-        return `<div style="font-size:11.5px;line-height:1.5;color:var(--cream-900);margin-bottom:6px;display:flex;gap:7px"><span style="font-family:var(--font-mono);font-size:8.5px;color:${cc};border:1px solid ${cc};border-radius:2px;padding:1px 4px;height:fit-content;white-space:nowrap" title="confidence · ${l.support||0} support / ${l.contra||0} contra">${c}%${l.pending?'·prov':''}</span><span>${scrub(l.claim)}</span></div>`;}).join('')+`</div>`; };
-  let activeTier='All', q='';
-  const render=()=>{ const rows=data.filter(p=>(activeTier==='All'||p.tier===activeTier)&&(!q||p.name.toLowerCase().includes(q)));
-    $('#gGrid').innerHTML = rows.map(card).join('')||'<div style="color:var(--cream-700);font-family:var(--font-mono);font-size:12px">No golfers match.</div>';
-    $('#gCount').textContent = `${rows.length} of ${data.length} golfers`; };
-  $('#gTiers').innerHTML = tiers.map((t,i)=>`<div class="chip ${i===0?'on':''}" data-t="${t}">${t}</div>`).join('');
-  $('#gTiers').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$('#gTiers').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');activeTier=c.dataset.t;render();});
-  $('#gSearch').addEventListener('input',e=>{q=e.target.value.toLowerCase().trim();render();});
-  render();
-})();
-
-/* ---------- this week (current-event intelligence) ---------- */
-(function(){
-  if (typeof CURRENT_INTEL === 'undefined') return;
-  const c = CURRENT_INTEL;
-  $('#tw-title').textContent = c.event;
-  $('#tw-sub').textContent = `${c.course} · ${c.dates} — the data-first read behind this week's card`;
-  $('#tw-surface').textContent = c.surface;
-  $('#tw-fingerprint').textContent = c.fingerprint;
-  $('#tw-indep').innerHTML = c.independentTop.map(p=>`<div style="display:flex;gap:12px;padding:5px 0;font-family:var(--font-mono);font-size:12.5px;border-bottom:1px solid var(--cream-100)"><span style="color:var(--brass-600);width:20px;text-align:right">${p.rank}</span><span style="color:var(--green-800)">${p.name}</span></div>`).join('');
-  $('#tw-leans').innerHTML = c.leans.map(l=>`<div style="padding:9px 0;border-bottom:1px solid var(--cream-200)"><div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--green-800)">${l.name} ${l.bet?'<span class="pill win" style="font-size:8px;vertical-align:middle">ON CARD</span>':''}</div><div style="font-size:12px;color:var(--cream-700);margin-top:3px;line-height:1.5">${l.note}</div></div>`).join('');
-  $('#tw-fades').innerHTML = c.fades.map(f=>`<div style="padding:9px 0;border-bottom:1px solid var(--cream-200)"><div style="font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--scarlet)">${f.name}</div><div style="font-size:12px;color:var(--cream-700);margin-top:3px;line-height:1.5">${f.note}</div></div>`).join('');
-  $('#tw-reconcile').textContent = c.reconcile;
-})();
-
-/* ---------- sources ---------- */
-(function(){
-  if (typeof SOURCE_PERFORMANCE === 'undefined') return;
-  const src = SOURCE_PERFORMANCE.slice().sort((a,b)=>b.pl-a.pl);
-  drawBars('#sourceBars', src.map(s=>({ label:s.source, pl:s.pl, meta:`${s.tagged} tagged · ${s.wins}W ${s.places}P` })));
-  let html = `<thead><tr><th>Source</th><th>Tagged</th><th>W/P</th><th>Staked</th><th>P/L</th><th>ROI</th></tr></thead><tbody>`;
-  src.forEach(s=>{ const roi = s.staked?(s.pl/s.staked*100).toFixed(0)+'%':'—';
-    html += `<tr><td class="name">${s.source}<div style="font-size:10px;color:var(--cream-700);font-family:var(--font-mono)">${s.bestHit}</div></td>
-      <td>${s.tagged}</td><td>${s.wins}/${s.places}</td><td>${money0(s.staked)}</td>
-      <td class="${cls(s.pl)}">${money(s.pl)}</td><td class="${cls(s.pl)}">${roi}</td></tr>`; });
-  $('#sourceTable').innerHTML = html+'</tbody>';
-})();
-
-/* ---------- bet history (all cards) ---------- */
-(function(){
-  const G = (v)=> (typeof window[v]!=='undefined') ? window[v] : (typeof eval('typeof '+v)!=='undefined'?eval(v):null);
-  const cards = [
-    ['The Open','OPEN_CARD'],['Scottish','SCOTTISH_CARD'],['ISCO','ISCO_CARD'],['John Deere','JDC_CARD'],
-    ['Travelers','TRAVELERS_CARD'],['US Open','US_OPEN_CARD'],['Memorial','MEMORIAL_CARD'],['PGA Champ','PGA_CARD'],
-    ['Myrtle Beach','MB_CARD'],['Truist','TRUIST_CARD'],['Miami','MIAMI_CARD'],['Zurich','ZURICH_CARD'],
-    ['RBC','RBC_CARD'],['Masters','MASTERS_CARD'],['Valero','VALERO_CARD'],['Houston','HOUSTON_CARD'],
-  ];
-  let all=[];
-  cards.forEach(([ev,name])=>{ let arr; try{ arr=eval(name); }catch(e){ arr=null; }
-    if(Array.isArray(arr)) arr.forEach(b=> all.push({ev,...b})); });
-  const events = ['All',...cards.filter(([ev,n])=>{try{return Array.isArray(eval(n))}catch(e){return false}}).map(c=>c[0])];
-  const chips=$('#histChips'); chips.innerHTML = events.map((e,i)=>`<div class="chip ${i===0?'on':''}" data-ev="${e}">${e}</div>`).join('');
-  function render(ev){
-    const rows = ev==='All'? all : all.filter(b=>b.ev===ev);
-    let html = `<thead><tr><th>Event</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Result</th></tr></thead><tbody>`;
-    rows.forEach(b=>{ const r=(b.result||b.status||'').toLowerCase();
-      const pill = r.includes('won')?'<span class="pill win">Won</span>': r.includes('push')?'<span class="pill p1">Push</span>': (b.status==='Open'||r==='')?'<span class="pill open">Open</span>':'<span class="pill loss">Lost</span>';
-      html += `<tr><td class="name" style="font-size:11px;color:var(--cream-700)">${b.ev}</td>
-        <td class="name">${b.player}</td><td style="text-align:left;font-size:11px">${b.market}</td>
-        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${b.terms||''}</td>
-        <td>${b.odds||'—'}</td><td>${ustk(b.stake)}</td>
-        <td style="text-align:left;font-size:11px">${pill} <span style="color:var(--cream-700)">${(b.status&&b.status!=='Open')?b.status:''}</span></td></tr>`; });
-    $('#histTable').innerHTML = html+'</tbody>';
-  }
-  chips.addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(!c)return;
-    chips.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); render(c.dataset.ev); });
-  render('All');
-})();
-
-/* ---------- players: rotation + status + scouting (internal-only; skipped on public page) ---------- */
-(function(){
-  if (!document.querySelector('#rotActive')) return; // section lives in the War Room, not the public face
-  if (typeof PLAYERS !== 'undefined'){
-    const item = p=>`<div class="rot-item"><div class="rn">${p.name}<span class="rp ${cls(p.pl)}">${money(p.pl)}</span></div>
-      <div class="rr">${p.wins}W / ${p.bets} bets${p.roi!==undefined?` · ${p.roi>0?'+':''}${p.roi}% ROI`:''}${p.consec?` · ${p.consec} consec L`:''}${p.note||p.reason?` — ${p.note||p.reason}`:''}</div></div>`;
-    $('#rotActive').innerHTML=(PLAYERS.active||[]).map(item).join('');
-    $('#rotNotice').innerHTML=(PLAYERS.onNotice||[]).map(item).join('');
-    $('#rotBench').innerHTML=(PLAYERS.benched||[]).map(item).join('');
-  }
-  if (typeof PLAYER_STATUS !== 'undefined'){
-    $('#statusWrap').innerHTML = `<div class="card" style="padding:18px 20px"><div class="card-head" style="margin-bottom:14px"><h3>Status Flags</h3><span class="note">intel · injuries · form</span></div>`+
-      PLAYER_STATUS.map(s=>`<div class="alert ${s.severity==='caution'?'caution':s.severity==='serious'?'serious':'info'}">
-        <div class="ap">${s.player}<div class="atype">${s.type} · ${s.updated}</div></div>
-        <div class="as">${clean(s.status)}</div></div>`).join('')+`</div>`;
-  }
-  if (typeof SCOUTING !== 'undefined'){
-    const rank = t=>({Elite:0,Contender:1,Bubble:2,Fringe:3}[t]??2);
-    const data = SCOUTING.slice().sort((a,b)=> rank(a.tier)-rank(b.tier) || (b.sg_tot||-9)-(a.sg_tot||-9));
-    $('#scoutCount').textContent = `${data.length} players`;
-    const sgc = v=> v===undefined?'':`<span class="sg ${v>=0?'p':'n'}">${v>=0?'+':''}${v.toFixed(2)}</span>`;
-    function render(q){
-      const rows = q? data.filter(p=>p.name.toLowerCase().includes(q)) : data;
-      let html=`<thead><tr><th>Player</th><th>Tier</th><th>SG:TOT</th><th>APP</th><th>OTT</th><th>ARG</th><th>PUTT</th><th>DD</th><th>Shape</th><th>Surface</th></tr></thead><tbody>`;
-      rows.forEach(p=>{ html+=`<tr title="${clean((p.strengths||'')+' | '+(p.weaknesses||''))}">
-        <td class="name">${p.name}</td><td><span class="tier ${p.tier}">${p.tier}</span></td>
-        <td>${sgc(p.sg_tot)}</td><td>${sgc(p.app)}</td><td>${sgc(p.ott)}</td><td>${sgc(p.arg)}</td><td>${sgc(p.putt)}</td>
-        <td style="color:var(--cream-700)">${p.dd?(p.dd>0?'+':'')+p.dd:'—'}</td>
-        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${p.shape||''}</td>
-        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${p.surface||''}</td></tr>`; });
-      $('#scoutTable').innerHTML=html+'</tbody>';
-    }
-    render(''); $('#scoutSearch').addEventListener('input',e=>render(e.target.value.toLowerCase().trim()));
-  }
-})();
-
-/* ---------- courses ---------- */
-(function(){
-  if (typeof COURSES === 'undefined') return;
-  $('#courseGrid').innerHTML = COURSES.map(c=>`<div class="course ${c.status==='live'?'live':''}" data-course="${(c.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
-    <div class="cn">${c.name}</div><div class="ce">${c.event}</div>
-    <div class="cmeta"><span>${c.surface}</span><span>${c.length}</span><span>${c.scoring}</span></div>
-    <div class="arch">${c.archetype}</div>
-    <div class="stats">${(c.topStats||[]).map(s=>`<span class="stat-tag">${s}</span>`).join('')}</div>
-    <div class="fa"><b>Forgives</b> ${c.masked||'—'}<br><b>Amplifies</b> ${c.amplified||'—'}</div>
-    <div class="cpl">Record: ${c.bets} bets · <span class="${c.status==='live'?'':cls(c.pl)}">${c.status==='live'?'live':money(c.pl)}</span></div>
-  </div>`).join('');
-})();
-
-/* ---------- CROSS-LINK: golfer <-> course fit ---------- */
-(function(){
-  if (typeof SCOUTING==='undefined' || typeof COURSES==='undefined') return;
-  const bg=$('#modalBg'), body=$('#modalBody'), title=$('#modalTitle'), sub=$('#modalSub');
-  const scrub=s=>(s||'').replace(/�/g,'—'); const fmt=v=>(v==null)?'—':(v>=0?'+':'')+(+v).toFixed(2);
-  const factors=c=>{ const t=((c.archetype||'')+' '+(c.topStats||[]).join(' ')+' '+(c.amplified||'')).toLowerCase();
-    return { app:/app|approach|iron|second-shot/.test(t), ott:/ott|distance|bomber|driving|off the tee|carry|par 5/.test(t), arg:/arg|scrambl|short game|around the green|chip/.test(t), putt:/putt/.test(t), acc:/accuracy|precision|positional|tight|penal|fairway/.test(t), surface:(c.surface||'').toLowerCase() }; };
-  function fit(g,c){ const f=factors(c); let s=(g.sg_tot||0)*0.3, parts=[];
-    const add=(on,v,lab)=>{ if(on){ s+=(v||0); if(Math.abs(v||0)>=0.12) parts.push(lab+' '+fmt(v)); } };
-    add(f.app,g.app,'APP'); add(f.ott,g.ott,'OTT'); add(f.arg,g.arg,'ARG');
-    if(f.putt){ let pv=g.putt; if(/bermuda/.test(f.surface)&&g.putt_bermuda!=null)pv=g.putt_bermuda; else if(/bent/.test(f.surface)&&g.putt_bent!=null)pv=g.putt_bent; else if(/poa/.test(f.surface)&&g.putt_poa!=null)pv=g.putt_poa; s+=(pv||0); if(Math.abs(pv||0)>=0.12)parts.push('PUTT '+fmt(pv)); }
-    if(f.acc){ s+=(g.app||0)*0.5; if((g.dd||0)>8&&(g.app||0)<0.3){ s-=0.4; parts.push('bomber-misfit'); } }
-    return {score:s, parts}; }
-  const sc=v=> v>=1.2?'var(--green-600)':v>=0.5?'var(--brass-600)':'var(--cream-700)';
-  const modalEl = document.querySelector('.modal');
-  let gRadar = null;
-
-  // DG-style diverging skill row: bar centered on field average, sized by z, meta = value + percentile
-  const zbar=(label,key,val,disp)=>{ const z=FIELD?FIELD.z(key,val):null, p=FIELD?FIELD.pct(key,val):null, r=FIELD?FIELD.rank(key,val):null;
-    const mag = z==null?0:Math.min(Math.abs(z)/2.5,1)*50; const right = (z||0)>=0;
-    const side = right?`left:50%;width:${mag.toFixed(1)}%`:`right:50%;width:${mag.toFixed(1)}%`;
-    return `<div class="sk-row"><span class="sk-lbl">${label}</span>
-      <div class="sk-track" title="${r?`#${r} of ${FIELD.n}`:''}"><div class="sk-mid"></div><div class="sk-bar ${right?'pos':'neg'}" style="${side}"></div></div>
-      <span class="sk-meta"><span class="sk-val" style="color:${(val||0)>=0?'var(--green-600)':'var(--scarlet)'}">${disp!=null?disp:fmt(val)}</span>${pctPill(p)}</span></div>`; };
-
-  function openGolfer(name){ const g=SCOUTING.find(x=>x.name===name); if(!g) return;
-    const fits=COURSES.map(c=>({c,...fit(g,c)})).sort((a,b)=>b.score-a.score);
-    const totR=FIELD?FIELD.rank('sg_tot',g.sg_tot):null, totP=FIELD?FIELD.pct('sg_tot',g.sg_tot):null;
-    // surface putting best
-    const surfs=[['Bermuda','putt_bermuda'],['Bent','putt_bent'],['Poa','putt_poa']].map(([l,k])=>({l,k,v:g[k]}));
-    const bestSurf = surfs.filter(s=>s.v!=null).sort((a,b)=>b.v-a.v)[0];
-    const kb=(typeof PLAYER_KB!=='undefined')?PLAYER_KB[g.name]:null;
-    modalEl.classList.add('wide');
-    title.textContent=g.name;
-    sub.textContent=`${g.tier||''} · ${g.shape||'—'}${g.dd?` · ${g.dd>0?'+':''}${g.dd} dist`:''} · ${FIELD?`#${totR} of ${FIELD.n} on Tour`:''}`;
-    body.innerHTML = `<div class="pb-grid">
-      <div>
-        <div class="pb-hero">
-          <div><div class="pb-tot-lab">SG: Total</div><div class="pb-tot" style="color:${(g.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(g.sg_tot)}</div><div class="pb-tot-rank">${totR?`#${totR} of ${FIELD.n} · ${totP}th pct`:''}</div></div>
+  function rowHtml(e){
+    const g=e.g, v=GB.verdict(e.fitPct), rs=GB.reasons(e);
+    const backed = backedNames.has(g.name);
+    return `<div class="brow ${backed?'backed':''}">
+      <div class="btop">
+        <div class="brank">${e.rank}</div>
+        <div class="bname"><a href="player.html?p=${encodeURIComponent(g.name)}">${GB.scrub(g.name)}</a><div class="btier">${g.tier||''}${g.shape?` · ${g.shape}`:''}</div></div>
+        <div class="bchips">${GB.chip(v.label, v.cls)}${backed?GB.chip('Backed '+(cardOdds[g.name]||''),'backed'):''}</div>
+        <div class="breas">${rs.map(r=>`<div class="r ${r.t}">${r.s}</div>`).join('')||'<div class="r neutral">Middle of the field for this setup</div>'}</div>
+        <div class="bfit"><div style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700)">course fit</div><div class="fitv">${e.fitPct}<small>/100</small></div><div class="fitbar"><div style="width:${e.fitPct}%"></div></div></div>
+      </div>
+      <div class="bexp"><details class="disc"><summary>Strokes-gained breakdown</summary>
+        <div class="grid">
+          <div>${sgLine('app',g)}${sgLine('ott',g)}${sgLine('arg',g)}${sgLine('putt',g)}</div>
+          <div style="font-size:12.5px;color:var(--cream-900);line-height:1.55">
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--green-600);letter-spacing:.08em">STRENGTHS</div>${GB.scrub(g.strengths||'—')}
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet);letter-spacing:.08em;margin-top:8px">WEAKNESSES</div>${GB.scrub(g.weaknesses||'—')}
+            <div style="margin-top:10px"><a href="player.html?p=${encodeURIComponent(g.name)}" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-600);text-decoration:none">Full player page ▸</a></div>
+          </div>
         </div>
-        <div class="pb-sub-label">Skill Breakdown <span style="color:var(--cream-500);text-transform:none;letter-spacing:0">· vs field average</span></div>
-        ${zbar('APP','app',g.app)}${zbar('OTT','ott',g.ott)}${zbar('ARG','arg',g.arg)}${zbar('PUTT','putt',g.putt)}${zbar('Distance','dd',g.dd,(g.dd>0?'+':'')+(g.dd==null?'—':g.dd))}
-        ${surfs.some(s=>s.v!=null)?`<div class="pb-sub-label">Putting by Surface</div>
-          <div class="surf-grid">${surfs.map(s=>`<div class="surf-cell ${bestSurf&&s.k===bestSurf.k?'best':''}"><div class="sc-l">${s.l}${bestSurf&&s.k===bestSurf.k?' ★':''}</div><div class="sc-v" style="color:${(s.v||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(s.v)}</div></div>`).join('')}</div>`:''}
-      </div>
-      <div>
-        ${typeof Chart!=='undefined'&&FIELD?`<div class="pb-radar-wrap"><canvas id="golferRadar" height="240"></canvas></div><div style="font-family:var(--font-mono);font-size:8.5px;text-align:center;color:var(--cream-500);letter-spacing:.06em;margin-bottom:14px">FIELD PERCENTILE · OUTER = TOUR BEST</div>`:''}
-        <div style="font-size:12.5px;color:var(--cream-900);line-height:1.55;margin-bottom:6px"><b style="color:var(--green-600);font-family:var(--font-mono);font-size:9px">STRENGTHS</b><br>${scrub(g.strengths)}</div>
-        <div style="font-size:12.5px;color:var(--cream-900);line-height:1.55"><b style="color:var(--scarlet);font-family:var(--font-mono);font-size:9px">WEAKNESSES</b><br>${scrub(g.weaknesses)}</div>
-        ${kb&&kb.learnings&&kb.learnings.length?`<div class="pb-sub-label">What We've Learned${kb.updated?` · ${kb.updated}`:''}</div>`+kb.learnings.map(l=>{const c=Math.round((l.conf||0)*100);const cc=c>=70?'var(--green-600)':c>=50?'var(--brass-600)':'var(--cream-700)';return `<div style="font-size:11.5px;line-height:1.5;color:var(--cream-900);margin-bottom:6px;display:flex;gap:7px"><span style="font-family:var(--font-mono);font-size:8.5px;color:${cc};border:1px solid ${cc};border-radius:2px;padding:1px 4px;height:fit-content;white-space:nowrap">${c}%${l.pending?'·prov':''}</span><span>${scrub(l.claim)}</span></div>`;}).join(''):''}
-      </div>
-    </div>
-    <div class="pb-sub-label" style="margin-top:20px">Course Fit — where this game travels</div>
-    ${fits.slice(0,6).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.c.name}</span> <span class="fr-parts">${r.c.event}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('')}`;
-    bg.classList.add('open');
-    // radar
-    if(typeof Chart!=='undefined' && FIELD && document.getElementById('golferRadar')){
-      const axes=[['APP','app'],['OTT','ott'],['ARG','arg'],['PUTT','putt'],['Dist','dd']];
-      const data=axes.map(([l,k])=>FIELD.pct(k,g[k])??0);
-      if(gRadar) gRadar.destroy();
-      gRadar=new Chart(document.getElementById('golferRadar'),{ type:'radar',
-        data:{ labels:axes.map(a=>a[0]), datasets:[
-          {label:'Field median', data:axes.map(()=>50), backgroundColor:'rgba(107,95,74,0.05)', borderColor:'rgba(107,95,74,0.35)', borderWidth:1, borderDash:[4,3], pointRadius:0},
-          {label:g.name, data, backgroundColor:'rgba(30,92,56,0.14)', borderColor:'#1E5C38', borderWidth:2.4, pointRadius:3.5, pointBackgroundColor:'#C9A046'} ]},
-        options:{responsive:true, plugins:{legend:{display:false}}, scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(107,95,74,0.15)'},angleLines:{color:'rgba(107,95,74,0.15)'},pointLabels:{font:{size:10,weight:'600'},color:'#152E1F'}}}} });
-    }
-  }
-  function openCourse(name){ const c=COURSES.find(x=>x.name===name); if(!c) return;
-    if(gRadar){ gRadar.destroy(); gRadar=null; }
-    modalEl.classList.remove('wide');
-    const ranked=SCOUTING.filter(g=>g.sg_tot!=null).map(g=>({g,...fit(g,c)})).sort((a,b)=>b.score-a.score);
-    title.textContent=c.name; sub.textContent=`${c.event} · ${c.surface} · field ranked by fit`;
-    body.innerHTML = `<div style="font-size:12.5px;color:var(--cream-900);margin-bottom:4px"><b>${c.archetype||''}</b></div><div style="font-size:12px;color:var(--cream-700);margin-bottom:16px;line-height:1.5">Forgives ${c.masked||'—'} · Amplifies ${c.amplified||'—'}</div>`+
-      `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Top Fits (from the database)</div>`+
-      ranked.slice(0,15).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.g.name}</span> <span class="fr-parts">${r.g.tier||''}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('');
-    bg.classList.add('open'); }
-  const hide=()=>{ bg.classList.remove('open'); if(gRadar){gRadar.destroy();gRadar=null;} };
-  $('#modalClose').addEventListener('click',hide);
-  bg.addEventListener('click',e=>{ if(e.target===bg) hide(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') hide(); });
-  const openG = name => openGolfer(name);
-  ['#gGrid','#informGrid'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('click',e=>{ const c=e.target.closest('[data-golfer]'); if(c) openG(c.dataset.golfer.replace(/&quot;/g,'"')); }); });
-  const cg=$('#courseGrid'); if(cg) cg.addEventListener('click',e=>{ const c=e.target.closest('[data-course]'); if(c) openCourse(c.dataset.course.replace(/&quot;/g,'"')); });
-})();
-
-/* ---------- winners log ---------- */
-(function(){
-  const rows = WINNERS.slice().sort((a,b)=>b.pl-a.pl);
-  let html = `<thead><tr><th>Player / Bet</th><th>Tournament</th><th>Market</th><th>Odds</th><th>Stake</th><th>Profit</th></tr></thead><tbody>`;
-  rows.forEach(w=>{
-    html += `<tr>
-      <td class="name">${w.player}</td>
-      <td>${w.tournament}</td>
-      <td style="text-align:left;font-size:11px;color:var(--cream-700)">${w.market}</td>
-      <td>${w.odds}</td>
-      <td>${ustk(w.stake)}</td>
-      <td class="pos">${money(w.pl)}</td>
-    </tr>`;
-  });
-  $('#winnersTable').innerHTML = html+'</tbody>';
-})();
-
-/* ================= PIECE 3 — Tournament Intelligence ================= */
-
-/* ---------- event deep-dive (fingerprint / radar / composite / holes / winners) ---------- */
-(function(){
-  if (typeof TOURNAMENT_DATA === 'undefined') return;
-  const scrub = s => (s||'').replace(/�/g,'—');
-  // schedule order (most recent last); default = current week
-  const order = ['cognizant','arnoldpalmer','puertorico','players','valspar','houston','valero',
-    'rbcheritage','masters','miamichampionship','pgachampionship','usopen','openchampionship'];
-  const keys = order.filter(k=>TOURNAMENT_DATA[k]).concat(
-    Object.keys(TOURNAMENT_DATA).filter(k=>!order.includes(k)));
-  const sel = $('#evSel');
-  sel.innerHTML = keys.map(k=>`<option value="${k}">${scrub(TOURNAMENT_DATA[k].name||k)}</option>`).join('');
-  const def = keys.includes('openchampionship') ? 'openchampionship' : keys[keys.length-1];
-  sel.value = def;
-
-  const radarColors = [
-    {border:'#1E5C38', bg:'rgba(30,92,56,0.12)'},
-    {border:'#C9A046', bg:'rgba(201,160,70,0.14)'},
-    {border:'#2E7DD1', bg:'rgba(46,125,209,0.12)'},
-  ];
-  let radarInst = null;
-
-  function renderRadar(t){
-    const host = $('#radarHost');
-    const names = t.radarPlayers ? Object.keys(t.radarPlayers) : [];
-    if (!t.radarAxes || !names.length || typeof Chart === 'undefined'){
-      $('#radarSelects').innerHTML=''; $('#radarLegend').innerHTML='';
-      const wrap=host.querySelector('.radar-wrap');
-      wrap.innerHTML = `<div style="padding:34px 10px;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--cream-700);line-height:1.6">${typeof Chart==='undefined'?'Radar needs a connection to load the chart library.':'No radar fit data for this event yet.'}</div>`;
-      return;
-    }
-    // ensure canvas exists
-    let wrap=host.querySelector('.radar-wrap');
-    if(!wrap.querySelector('canvas')) wrap.innerHTML='<canvas id="radarCanvas" height="300"></canvas>';
-    const def3 = names.slice(0,3);
-    $('#radarSelects').innerHTML = [0,1,2].map(i=>`<select class="gb-sel rp-sel" data-i="${i}">
-      <option value="">—</option>${names.map(n=>`<option value="${n}" ${n===def3[i]?'selected':''}>${scrub(n)}</option>`).join('')}</select>`).join('');
-    const draw=()=>{
-      const chosen = Array.from(document.querySelectorAll('.rp-sel')).map(s=>s.value).filter(Boolean);
-      const ds = [{ label:'Avg Winner', data:t.winnerProfile, backgroundColor:'rgba(192,57,43,0.05)', borderColor:'rgba(192,57,43,0.5)', borderWidth:2, borderDash:[6,3], pointRadius:2, pointBackgroundColor:'rgba(192,57,43,0.5)' }];
-      chosen.forEach((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return; const c=radarColors[i%3];
-        ds.push({ label:scrub(n), data:d, backgroundColor:c.bg, borderColor:c.border, borderWidth:2.4, pointRadius:4, pointBackgroundColor:c.border }); });
-      if(radarInst) radarInst.destroy();
-      radarInst = new Chart($('#radarCanvas'), {
-        type:'radar', data:{labels:t.radarAxes, datasets:ds},
-        options:{ responsive:true, plugins:{legend:{display:false}},
-          scales:{ r:{ min:0, max:100, ticks:{display:false}, grid:{color:'rgba(107,95,74,0.15)'}, angleLines:{color:'rgba(107,95,74,0.15)'}, pointLabels:{font:{size:10,weight:'600'},color:'#152E1F'} } } }
-      });
-      $('#radarLegend').innerHTML = chosen.map((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return'';
-        const fit=d.reduce((s,v,idx)=>s+Math.min(v/(t.winnerProfile[idx]||100),1.2),0)/d.length*100;
-        const cl=fit>=95?'pos':fit>=80?'amt pos':fit>=65?'':'neg'; const col=fit>=95?'var(--green-600)':fit>=80?'var(--brass-600)':fit>=65?'var(--cream-700)':'var(--scarlet)';
-        return `<div class="rl-item"><span class="rl-dot" style="background:${radarColors[i%3].border}"></span><strong style="font-family:var(--font-display);font-weight:600">${scrub(n)}</strong><span class="rl-fit" style="color:${col}">Fit ${fit.toFixed(0)}%</span></div>`; }).join('');
-    };
-    $('#radarSelects').querySelectorAll('.rp-sel').forEach(s=>s.addEventListener('change',draw));
-    draw();
+      </details></div>
+    </div>`;
   }
 
-  function render(k){
-    const t = TOURNAMENT_DATA[k]; if(!t) return;
-    $('#evArch').textContent = scrub(t.archetype||'');
-    // fingerprint
-    const fp = t.fingerprint||[];
-    const maxW = Math.max(...fp.map(f=>f.weight||0), 0.01);
-    $('#fpBody').innerHTML = fp.length ? fp.map(f=>`<div class="fp-row">
-      <div><div class="fp-lbl">${scrub(f.stat)}</div><div class="fp-note">${scrub(f.note||'')}</div></div>
-      <div class="fp-track"><div class="fp-bar" style="width:${(f.weight/maxW*100).toFixed(0)}%"></div></div>
-      <div class="fp-w">${Math.round((f.weight||0)*100)}%</div></div>`).join('')
-      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No fingerprint on file.</div>';
-    // tags + meta
-    const tags = (t.narrative&&t.narrative.tags)||[];
-    $('#evTags').innerHTML = tags.map(x=>`<span class="ev-tag">${scrub(x)}</span>`).join('');
-    $('#evMeta').innerHTML = `<div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--green-800);margin-bottom:2px">${scrub(t.course||'')}</div>${scrub(t.meta||'')}${t.location?`<br>${scrub(t.location)}`:''}`;
-    // radar
-    renderRadar(t);
-    // composite
-    const comp = t.composite||[];
-    const compReal = comp.filter(r=>r&&r.name&&r.comp!==undefined);
-    if(compReal.length){
-      let h=`<thead><tr><th style="text-align:left">#</th><th style="text-align:left">Player</th><th>Comp</th><th>Form</th><th>Signal</th><th>APP</th><th>OTT</th><th>DD</th><th>ARG</th><th>PUTT</th><th>T10%</th><th style="text-align:left">Flag</th></tr></thead><tbody>`;
-      const sgc=v=>v==null?'—':`<span style="color:${v>=0?'var(--green-600)':'var(--scarlet)'}">${v>=0?'+':''}${(+v).toFixed(2)}</span>`;
-      compReal.forEach(r=>{ const sig=(r.signal||'neutral');
-        const flagPill = r.flag ? `<span class="pill ${/WINNER/.test(r.flag)?'win':/CARD/.test(r.flag)?'open':'p1'}">${scrub(r.flag)}</span>` : '';
-        h+=`<tr><td class="name" style="text-align:left;color:var(--brass-600)">${r.rank||''}</td>
-          <td class="name" style="text-align:left">${scrub(r.name)}</td>
-          <td><b>${(+r.comp).toFixed(2)}</b></td>
-          <td style="color:var(--cream-700)">${r.form!=null?(+r.form).toFixed(2):'—'}</td>
-          <td><span class="sig ${sig}">${sig}</span></td>
-          <td>${sgc(r.app)}</td><td>${sgc(r.ott)}</td>
-          <td style="color:var(--cream-700)">${r.dd!=null?(r.dd>0?'+':'')+r.dd:'—'}</td>
-          <td>${sgc(r.arg)}</td><td>${sgc(r.putt)}</td>
-          <td style="color:var(--cream-700)">${r.t10!=null?(+r.t10).toFixed(1):'—'}</td>
-          <td style="text-align:left">${flagPill}</td></tr>`; });
-      $('#compTable').innerHTML=h+'</tbody>';
-      $('#compNote').textContent=`${compReal.length} ranked on ${scrub(t.course||'course')} weighting`;
-    } else {
-      $('#compTable').innerHTML=`<tbody><tr><td class="name" style="text-align:left;color:var(--cream-700);font-family:var(--font-mono);font-size:12px">Composite not yet scored for this event — built during tournament week.</td></tr></tbody>`;
-      $('#compNote').textContent='pending event week';
-    }
-    // key holes
-    const kh=(t.narrative&&t.narrative.keyHoles)||[];
-    $('#kholeBody').innerHTML = kh.length ? kh.map(k=>`<div class="khole"><div><div class="kh-num">${k.num}</div><div class="kh-par">Par ${k.par} · ${k.yds}y</div></div><div class="kh-note">${scrub(k.note)}</div></div>`).join('')
-      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No key-hole notes on file.</div>';
-    // recent winners
-    const rw=(t.narrative&&t.narrative.recentWinners)||[];
-    $('#rwinBody').innerHTML = rw.length ? rw.map(w=>`<div class="rwin"><span class="rw-yr">${w.yr}</span><span><span class="rw-name">${scrub(w.name)}</span> <span class="rw-meta">${w.score}${w.odds?` · ${w.odds}`:''}</span><div class="rw-meta" style="margin-top:2px">${scrub(w.note||'')}</div></span></div>`).join('')
-      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No recent-winner history on file.</div>';
+  let filter='top';
+  const host=document.getElementById('boardHost');
+  function render(){
+    let rows = ranked;
+    if(filter==='top') rows=ranked.slice(0,30);
+    else if(filter==='backed') rows=ranked.filter(e=>backedNames.has(e.g.name));
+    host.innerHTML = rows.map(rowHtml).join('');
+    document.getElementById('boardCount').textContent = `${rows.length} of ${ranked.length} · ranked by fit, not by name or price`;
   }
-  sel.addEventListener('change',e=>render(e.target.value));
-  render(def);
-})();
-
-/* ---------- historical overlay (VENUE_HISTORY) ---------- */
-(function(){
-  if (typeof VENUE_HISTORY === 'undefined') return;
-  const scrub = s => (s||'').replace(/�/g,'—');
-  const keys = Object.keys(VENUE_HISTORY);
-  const sel = $('#vhSel');
-  sel.innerHTML = keys.map(k=>`<option value="${k}">${scrub(VENUE_HISTORY[k].name||k)}</option>`).join('');
-  function cell(pos){ if(pos==null) return '<span class="hcell o">·</span>';
-    const c = pos===1?'w':pos<=5?'t5':pos<=20?'t20':'o'; return `<span class="hcell ${c}">${pos}</span>`; }
-  function render(k){
-    const v = VENUE_HISTORY[k]; if(!v) return;
-    const years = v.years||[];
-    const field = new Set((v.field2026||[]).map(n=>n.toLowerCase()));
-    // rank players by count of finishes then best finish
-    const rows = (v.results||[]).map(r=>{
-      const best = r.finishes.length ? Math.min(...r.finishes.map(f=>f.pos)) : 99;
-      const byYr = {}; r.finishes.forEach(f=>byYr[f.yr]=f.pos);
-      return {player:r.player, byYr, n:r.finishes.length, best};
-    }).sort((a,b)=> b.n-a.n || a.best-b.best);
-    $('#vhSpan').textContent = `${rows.length} players · ${years.length} years${field.size?` · ● = in 2026 field`:''}`;
-    let h=`<table class="htable"><thead><tr><th style="text-align:left">Player</th>${years.map(y=>`<th>${String(y).slice(2)}</th>`).join('')}<th>Best</th></tr></thead><tbody>`;
-    rows.forEach(r=>{ const inf = field.has(r.player.toLowerCase());
-      h+=`<tr><td class="hp${inf?' infield':''}">${scrub(r.player)}</td>${years.map(y=>`<td>${cell(r.byYr[y])}</td>`).join('')}<td>${cell(r.best<99?r.best:null)}</td></tr>`; });
-    $('#vhBody').innerHTML = h+'</tbody></table>';
-  }
-  sel.addEventListener('change',e=>render(e.target.value));
-  render(keys[0]);
-})();
-
-/* ---------- data center: SG leaderboards (SCOUTING) ---------- */
-(function(){
-  if (typeof SCOUTING === 'undefined') return;
-  const scrub = s => (s||'').replace(/�/g,'—');
-  const fmt = v => (v>=0?'+':'')+(+v).toFixed(2);
-  const col = v => v>=0?'var(--green-600)':'var(--scarlet)';
-  const board = (title, key, n=7) => {
-    const rows = SCOUTING.filter(p=>p[key]!=null).sort((a,b)=>b[key]-a[key]).slice(0,n);
-    if(!rows.length) return '';
-    return `<div class="lead-card"><h4>${title}</h4>`+rows.map((p,i)=>`<div class="lead-row"><span class="ln"><b>${i+1}</b>${scrub(p.name)}</span><span class="lv" style="color:${col(p[key])}">${fmt(p[key])}</span></div>`).join('')+`</div>`;
-  };
-  const boards = [
-    board('SG: Total','sg_tot'), board('SG: Approach','app'), board('SG: Off the Tee','ott'),
-    board('SG: Around Green','arg'), board('SG: Putting','putt'), board('Driving Distance','dd'),
-    board('Bermuda Putting','putt_bermuda'), board('Bentgrass Putting','putt_bent'), board('Poa Putting','putt_poa'),
-  ].filter(Boolean);
-  $('#leadGrid').innerHTML = boards.join('');
-})();
-
-/* ---------- IN FORM board (SG:Total leaders, field-relative) ---------- */
-(function(){
-  if (typeof SCOUTING==='undefined' || !FIELD) return;
-  const scrub=s=>(s||'').replace(/�/g,'—'); const fmt=v=>v==null?'—':(v>=0?'+':'')+(+v).toFixed(2);
-  const data=SCOUTING.filter(p=>p.sg_tot!=null).sort((a,b)=>b.sg_tot-a.sg_tot);
-  const tierColor={ Elite:'var(--brass-500)', Contender:'var(--green-500)', Veteran:'var(--birdie)', 'Past Champ':'var(--brass-600)' };
-  const mini=(lbl,key,v)=>{ const p=FIELD.pct(key,v); const col=p==null?'var(--cream-400)':p>=70?'var(--green-500)':p>=40?'var(--green-300)':'var(--scarlet)';
-    return `<div class="if-cell"><div class="mk">${lbl}</div><div class="mtrack"><div class="mbar" style="width:${Math.max(3,p||0)}%;background:${col}"></div></div><div class="mv" style="color:${(v||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(v)}</div></div>`; };
-  const row=(p,i)=>{ const tc=tierColor[p.tier]||'var(--cream-500)';
-    return `<div class="if-row" data-golfer="${p.name.replace(/"/g,'&quot;')}">
-      <div class="if-rank">${i+1}</div>
-      <div><div class="if-name">${scrub(p.name)}</div><div class="if-tier" style="color:${tc}">${p.tier||''} · ${p.shape||'—'}</div></div>
-      <div class="if-mini">${mini('APP','app',p.app)}${mini('OTT','ott',p.ott)}${mini('ARG','arg',p.arg)}${mini('PUTT','putt',p.putt)}</div>
-      <div class="if-tot"><div class="tv" style="color:${(p.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(p.sg_tot)}</div><div class="tl">SG:Total</div></div>
-    </div>`; };
-  const tiers=['Top 25','Elite','Contender','All'];
-  let active='Top 25';
-  const render=()=>{ let rows;
-    if(active==='Top 25') rows=data.slice(0,25);
-    else if(active==='All') rows=data;
-    else rows=data.filter(p=>p.tier===active);
-    $('#informGrid').innerHTML=rows.map(row).join('');
-    $('#ifCount').textContent=`${rows.length} golfers · ranked by current SG:Total`; };
-  $('#ifTiers').innerHTML=tiers.map((t,i)=>`<div class="chip ${i===0?'on':''}" data-t="${t}">${t}</div>`).join('');
-  $('#ifTiers').addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(!c)return;
-    $('#ifTiers').querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); active=c.dataset.t; render(); });
+  document.querySelector('.filters').addEventListener('click',e=>{ const b=e.target.closest('.fbtn'); if(!b)return;
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); filter=b.dataset.f; render(); });
   render();
-})();
-
-/* ---------- nav: grouped dropdowns + scrollspy ---------- */
-(function(){
-  const groups=Array.from(document.querySelectorAll('.navgroup'));
-  const closeAll=except=>groups.forEach(g=>{ if(g!==except) g.classList.remove('open'); });
-  groups.forEach(g=>{
-    const btn=g.querySelector('.navitem[data-href]');
-    if(btn){ btn.addEventListener('click',e=>{ e.preventDefault();
-      const wasOpen=g.classList.contains('open'); closeAll(g);
-      if(wasOpen){ // second click → jump to primary section
-        const sec=document.querySelector(btn.dataset.href); if(sec) sec.scrollIntoView({behavior:'smooth'}); g.classList.remove('open');
-      } else g.classList.add('open'); }); }
-  });
-  document.querySelectorAll('.navmenu a').forEach(a=>a.addEventListener('click',()=>closeAll()));
-  document.addEventListener('click',e=>{ if(!e.target.closest('.navgroup')) closeAll(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAll(); });
-  // scrollspy
-  const spy={}; groups.forEach(g=>{ (g.dataset.spy||'').split(',').filter(Boolean).forEach(id=>spy[id]=g); });
-  const items=new Map(groups.map(g=>[g, g.querySelector('.navitem')]));
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(en=>{ if(en.isIntersecting){ const g=spy[en.target.id]; if(!g)return;
-      groups.forEach(x=>{ const it=items.get(x); if(it) it.classList.remove('active'); });
-      const it=items.get(g); if(it) it.classList.add('active'); } });
-  },{rootMargin:'-45% 0px -50% 0px', threshold:0});
-  Object.keys(spy).forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
 })();
 </script>
 </body>

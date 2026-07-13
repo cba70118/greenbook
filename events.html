@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=200">
+<style>
+  .gb-sel { font-family:var(--font-mono); font-size:13px; padding:9px 12px; border:1px solid var(--cream-300); border-radius:5px; background:#fff; color:var(--green-800); cursor:pointer; }
+  .gb-sel:focus { outline:none; border-color:var(--brass-500); }
+  .dna { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:24px 28px; }
+  .dna h1 { font-family:var(--font-display); font-weight:400; font-size:34px; line-height:1.05; margin:2px 0; color:var(--cream-50); }
+  .dna .ev-course { font-family:var(--font-display); font-size:18px; color:var(--green-200); font-style:italic; }
+  .dna .meta { font-family:var(--font-mono); font-size:11px; color:var(--green-300); margin-top:10px; line-height:1.6; }
+  .dna .desc { font-size:13.5px; line-height:1.6; color:var(--cream-100); max-width:74ch; margin-top:14px; }
+  .dna .tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:14px; }
+  .dna .tg { background:rgba(255,255,255,.06); border:1px solid var(--green-600); border-radius:16px; padding:3px 10px; font-family:var(--font-mono); font-size:9.5px; color:var(--green-200); }
+  .fp-row { display:grid; grid-template-columns:170px 1fr 42px; align-items:center; gap:12px; padding:7px 0; border-bottom:1px solid var(--cream-100); }
+  .fp-row .l { font-family:var(--font-mono); font-size:12px; color:var(--green-800); }
+  .fp-row .n { font-family:var(--font-mono); font-size:9.5px; color:var(--cream-700); margin-top:2px; line-height:1.4; }
+  .fp-row .t { height:8px; background:var(--cream-200); border-radius:4px; overflow:hidden; }
+  .fp-row .t > div { height:100%; background:linear-gradient(90deg,var(--brass-500),var(--green-400)); }
+  .fp-row .w { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
+  .frow { display:grid; grid-template-columns:30px 190px 100px 1fr 64px; gap:14px; align-items:center; padding:9px 4px; border-bottom:1px solid var(--cream-200); }
+  .frow .r { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--brass-500); text-align:right; }
+  .frow .n a { font-family:var(--font-display); font-size:16px; font-weight:600; color:var(--green-800); text-decoration:none; } .frow .n a:hover{ color:var(--brass-600); }
+  .frow .why { font-size:11.5px; color:var(--cream-700); }
+  .frow .f { font-family:var(--font-mono); font-size:14px; text-align:right; color:var(--green-700); }
+  .radar-selects { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .radar-selects .gb-sel { flex:1; min-width:120px; font-size:12px; }
+  .radar-wrap { max-width:400px; margin:0 auto; }
+  .khole { display:grid; grid-template-columns:auto 1fr; gap:14px; padding:9px 0; border-bottom:1px solid var(--cream-100); }
+  .khole .num { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-600); }
+  .khole .par { font-family:var(--font-mono); font-size:9px; text-transform:uppercase; color:var(--cream-700); }
+  .khole .note { font-size:12.5px; color:var(--cream-900); line-height:1.5; }
+  .rwin { display:flex; gap:12px; padding:8px 0; border-bottom:1px solid var(--cream-100); align-items:baseline; }
+  .rwin .yr { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); width:38px; }
+  .rwin .nm { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
+  .rwin .mt { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); }
+  .htable { border-collapse:collapse; font-family:var(--font-mono); width:100%; }
+  .htable th,.htable td { padding:5px 7px; text-align:center; font-size:11px; border-bottom:1px solid var(--cream-200); }
+  .htable th { color:var(--cream-700); font-size:9px; text-transform:uppercase; }
+  .htable td.hp { text-align:left; font-family:var(--font-body); font-size:13px; color:var(--green-800); white-space:nowrap; }
+  .htable td.hp.inf::after { content:"● in field"; font-family:var(--font-mono); font-size:8px; color:var(--green-500); margin-left:8px; }
+  .hcell { display:inline-block; min-width:22px; padding:2px 4px; border-radius:3px; }
+  .hcell.w{ background:var(--brass-500); color:#fff; font-weight:700; } .hcell.t5{ background:var(--green-200); color:var(--green-700); } .hcell.t20{ background:var(--green-50); color:var(--green-600); } .hcell.o{ color:var(--cream-500); }
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+    <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-600)">Event</span>
+    <select id="evSel" class="gb-sel" style="min-width:280px"></select>
+  </div>
+  <div id="dnaHost"></div>
+
+  <div class="grid2" style="margin-top:20px">
+    <div class="card">
+      <div class="card-head"><h3>What the Course Rewards</h3><span class="note">the fingerprint · weighted</span></div>
+      <div id="fpHost"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Fit Radar</h3><span class="note">players vs the winning profile</span></div>
+      <div id="radarHost"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <div class="card-head"><h3>Who Fits — The Field</h3><span class="note">ranked by course fit, before any price</span></div>
+    <div id="fitHost"></div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><div class="card-head"><h3>Key Holes</h3><span class="note">where it's decided</span></div><div id="kholeHost"></div></div>
+    <div class="card"><div class="card-head"><h3>Recent Winners</h3><span class="note">the profile that travels here</span></div><div id="rwinHost"></div></div>
+  </div>
+
+  <div class="card" id="vhCard" style="margin-top:18px;display:none">
+    <div class="card-head"><h3>Historical Overlay</h3><span class="note" id="vhNote">multi-year finishes</span></div>
+    <div class="tablewrap" id="vhHost"></div>
+  </div>
+</main>
+<div id="gb-foot"></div>
+
+<script src="data.js?v=200"></script>
+<script src="tournament-data.js?v=200"></script>
+<script src="settled-data.js?v=200"></script>
+<script src="tools-data.js?v=200"></script>
+<script src="player-kb.js?v=200"></script>
+<script src="greenbook-core.js?v=200"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+GB.mountChrome('events');
+(function(){
+  if(typeof TOURNAMENT_DATA==='undefined') return;
+  const scrub=GB.scrub;
+  const order=['openchampionship','usopen','pgachampionship','masters','miamichampionship','rbcheritage','valero','houston','valspar','players','puertorico','arnoldpalmer','cognizant'];
+  const keys=order.filter(k=>TOURNAMENT_DATA[k]).concat(Object.keys(TOURNAMENT_DATA).filter(k=>!order.includes(k)));
+  const q=new URLSearchParams(location.search); let ev=q.get('ev'); if(!keys.includes(ev)) ev=keys[0];
+  const sel=document.getElementById('evSel');
+  sel.innerHTML=keys.map(k=>`<option value="${k}">${scrub(TOURNAMENT_DATA[k].name||k)}</option>`).join('');
+  sel.value=ev;
+
+  const radarColors=[{b:'#1E5C38',bg:'rgba(30,92,56,0.12)'},{b:'#C9A046',bg:'rgba(201,160,70,0.14)'},{b:'#2E7DD1',bg:'rgba(46,125,209,0.12)'}];
+  let radarInst=null;
+
+  function renderRadar(t){
+    const host=document.getElementById('radarHost');
+    const names=t.radarPlayers?Object.keys(t.radarPlayers):[];
+    if(!t.radarAxes||!names.length||typeof Chart==='undefined'){ host.innerHTML=`<div class="muted" style="text-align:center;font-family:var(--font-mono);font-size:12px;padding:30px 10px">${typeof Chart==='undefined'?'Radar needs a connection.':'No radar profiles built for this event yet.'}</div>`; return; }
+    const def3=names.slice(0,3);
+    host.innerHTML=`<div class="radar-selects">${[0,1,2].map(i=>`<select class="gb-sel rp" data-i="${i}"><option value="">—</option>${names.map(n=>`<option ${n===def3[i]?'selected':''}>${scrub(n)}</option>`).join('')}</select>`).join('')}</div><div class="radar-wrap"><canvas id="rc" height="300"></canvas></div><div id="rleg" style="margin-top:10px"></div>`;
+    const draw=()=>{ const chosen=Array.from(host.querySelectorAll('.rp')).map(s=>s.value).filter(Boolean);
+      const ds=[{label:'Avg winner',data:t.winnerProfile,backgroundColor:'rgba(192,57,43,0.05)',borderColor:'rgba(192,57,43,0.5)',borderWidth:2,borderDash:[6,3],pointRadius:2,pointBackgroundColor:'rgba(192,57,43,0.5)'}];
+      chosen.forEach((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return; const c=radarColors[i%3]; ds.push({label:n,data:d,backgroundColor:c.bg,borderColor:c.b,borderWidth:2.4,pointRadius:4,pointBackgroundColor:c.b}); });
+      if(radarInst)radarInst.destroy();
+      radarInst=new Chart(document.getElementById('rc'),{type:'radar',data:{labels:t.radarAxes,datasets:ds},options:{responsive:true,plugins:{legend:{display:false}},scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(107,95,74,0.15)'},angleLines:{color:'rgba(107,95,74,0.15)'},pointLabels:{font:{size:9.5,weight:'600'},color:'#152E1F'}}}}});
+      document.getElementById('rleg').innerHTML=chosen.map((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return''; const fit=d.reduce((s,v,idx)=>s+Math.min(v/(t.winnerProfile[idx]||100),1.2),0)/d.length*100; const col=fit>=95?'var(--green-600)':fit>=80?'var(--brass-600)':fit>=65?'var(--cream-700)':'var(--scarlet)';
+        return `<div style="display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;padding:2px 0"><span style="width:10px;height:10px;border-radius:50%;background:${radarColors[i%3].b}"></span><b style="font-family:var(--font-display)">${scrub(n)}</b><span style="margin-left:auto;color:${col}">Fit ${fit.toFixed(0)}%</span></div>`; }).join('');
+    };
+    host.querySelectorAll('.rp').forEach(s=>s.addEventListener('change',draw)); draw();
+  }
+
+  function render(k){
+    const t=TOURNAMENT_DATA[k]; if(!t)return; const nar=t.narrative||{};
+    history.replaceState(null,'',`events.html?ev=${k}`);
+    /* DNA */
+    document.getElementById('dnaHost').innerHTML=`<div class="dna">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-400)">${scrub(t.archetype||'')}</div>
+      <h1>${scrub(t.name.replace(' 2026',''))}</h1>
+      <div class="ev-course">${scrub(t.course)}${t.location?` · ${scrub(t.location)}`:''}</div>
+      <div class="meta">${scrub(t.meta||'')}</div>
+      ${nar.description?`<div class="desc">${scrub(nar.description)}</div>`:''}
+      ${nar.tags?`<div class="tags">${nar.tags.map(x=>`<span class="tg">${scrub(x)}</span>`).join('')}</div>`:''}
+    </div>`;
+    /* fingerprint */
+    const fp=t.fingerprint||[]; const mx=Math.max(...fp.map(f=>f.weight||0),0.01);
+    document.getElementById('fpHost').innerHTML=fp.length?fp.map(f=>`<div class="fp-row"><div><div class="l">${scrub(f.stat)}</div><div class="n">${scrub(f.note||'')}</div></div><div class="t"><div style="width:${(f.weight/mx*100).toFixed(0)}%"></div></div><div class="w">${Math.round((f.weight||0)*100)}%</div></div>`).join(''):'<div class="muted">No fingerprint on file.</div>';
+    /* radar */
+    renderRadar(t);
+    /* field fit */
+    const ranked=GB.eventFitField(k);
+    document.getElementById('fitHost').innerHTML = ranked.length? ranked.slice(0,20).map(e=>{ const v=GB.verdict(e.fitPct); const rs=GB.reasons(e).map(r=>r.s).slice(0,2).join(' · ');
+      return `<div class="frow"><div class="r">${e.rank}</div><div class="n"><a href="player.html?p=${encodeURIComponent(e.g.name)}">${scrub(e.g.name)}</a></div><div>${GB.chip(v.label,v.cls)}</div><div class="why">${rs}</div><div class="f">${e.fitPct}</div></div>`;
+    }).join('') : '<div class="muted">No field to score.</div>';
+    /* key holes */
+    const kh=nar.keyHoles||[];
+    document.getElementById('kholeHost').innerHTML=kh.length?kh.map(h=>`<div class="khole"><div><div class="num">${h.num}</div><div class="par">Par ${h.par} · ${h.yds}y</div></div><div class="note">${scrub(h.note)}</div></div>`).join(''):'<div class="muted">No key-hole notes.</div>';
+    /* recent winners */
+    const rw=nar.recentWinners||[];
+    document.getElementById('rwinHost').innerHTML=rw.length?rw.map(w=>`<div class="rwin"><span class="yr">${w.yr}</span><span><span class="nm">${scrub(w.name)}</span> <span class="mt">${w.score}${w.odds?` · ${w.odds}`:''}</span><div class="mt" style="margin-top:2px">${scrub(w.note||'')}</div></span></div>`).join(''):'<div class="muted">No recent-winner history.</div>';
+    /* venue history */
+    const vh=(typeof VENUE_HISTORY!=='undefined')?VENUE_HISTORY[k]:null;
+    const vhc=document.getElementById('vhCard');
+    if(vh){ vhc.style.display=''; const years=vh.years||[]; const field=new Set((vh.field2026||[]).map(n=>n.toLowerCase()));
+      const cell=p=>p==null?'<span class="hcell o">·</span>':`<span class="hcell ${p===1?'w':p<=5?'t5':p<=20?'t20':'o'}">${p}</span>`;
+      const rows=(vh.results||[]).map(r=>{ const best=r.finishes.length?Math.min(...r.finishes.map(f=>f.pos)):99; const byYr={}; r.finishes.forEach(f=>byYr[f.yr]=f.pos); return {player:r.player,byYr,n:r.finishes.length,best}; }).sort((a,b)=>b.n-a.n||a.best-b.best);
+      document.getElementById('vhNote').textContent=`${rows.length} players · ${years.length} years · ● = in 2026 field`;
+      document.getElementById('vhHost').innerHTML=`<table class="htable"><thead><tr><th style="text-align:left">Player</th>${years.map(y=>`<th>${String(y).slice(2)}</th>`).join('')}<th>Best</th></tr></thead><tbody>`+
+        rows.map(r=>`<tr><td class="hp${field.has(r.player.toLowerCase())?' inf':''}">${scrub(r.player)}</td>${years.map(y=>`<td>${cell(r.byYr[y])}</td>`).join('')}<td>${cell(r.best<99?r.best:null)}</td></tr>`).join('')+`</tbody></table>`;
+    } else vhc.style.display='none';
+  }
+  sel.addEventListener('change',e=>render(e.target.value));
+  render(ev);
+})();
+</script>
+</body>
+</html>
