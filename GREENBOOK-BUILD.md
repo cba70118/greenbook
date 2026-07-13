@@ -86,6 +86,28 @@ Never rename app.js class hooks. Verify JS after edits: `awk '/<script>/{f=1;nex
 6. **Cross-link** — golfer→best course fits, course→field ranked, via a transparent fit model
    (course `amplified`/`topStats` × golfer SG, surface-specific putting, accuracy-course bomber penalty). Click modal.
 
+## DONE: Piece 4 — IA reorder + DG-style player breakdowns + scalable nav (2026-07-12, cache `?v=103`)
+Operator direction: "overview is really upcoming tournaments + golfers in form, my record is secondary";
+"data is there, just isn't broken down well, I like the graphics"; top nav "isn't scalable."
+- **IA reordered** via CSS `order` on `#content` (flex column) — DOM untouched, JS untouched. New top-to-bottom:
+  This Week → Active Bets → **In Form** → Tournament → Golfers → Courses → History → Data Center →
+  **`.record-band` divider ("The Betting Record — the proof")** → Season P/L → Edge → Markets → Sources →
+  Ledger → Bet History → Winners. The forward-looking product leads; the P/L record is demoted below a divider.
+- **NEW `#inform` section** — "Golfers In Form": field ranked by current SG:Total (all 146), tier chips
+  (Top 25/Elite/Contender/All), each row = rank + name/tier + 4 field-percentile mini-bars (APP/OTT/ARG/PUTT) +
+  SG:Total. Rows click → the player breakdown modal (delegation wired on `#informGrid`).
+- **DG-style player breakdown** — the data was always there (raw SG for 146); it just wasn't *broken down*. Added
+  a **field-statistics engine** (`FIELD`: per-key sorted vals + mean/sd → `pct()`/`rank()`/`z()` vs the tracked
+  field). Golfer-card SG bars now scale to **field percentile** (+ pct number). The golfer modal (`.modal.wide`,
+  two-col `.pb-grid`) is now a real breakdown: big SG:Total with **field rank ("#6 of 146 · 96th pct")**, diverging
+  **z-score skill bars** centered on field average w/ **percentile pills**, putting-by-surface (best ★), a Chart.js
+  **percentile radar** (player vs field-median ring), strengths/weaknesses, player-kb learnings, and course fits.
+- **Scalable grouped nav** — 5 primary items (This Week▾ · In Form · Golfers · Intelligence▾ · The Record▾) +
+  right-aligned War Room. Dropdown menus (hover + click toggle, Esc/outside-click close) hold the secondary anchors;
+  **IntersectionObserver scrollspy** lights the active group. New sections slot into a group's menu — no more flat sprawl.
+Verified: inline JS `node --check` clean; headless FIELD math sane (Scheffler #1/99th, Clark #62/56th); all 15
+sections + record-divider present; nav spy covers every section. SEASON headline untouched.
+
 ## DONE: Piece 3 — war-room DATA TOOLS ported to PUBLIC greenbook (2026-07-12, cache `?v=102`)
 Public `index.html` now loads `tournament-data.js` + `settled-data.js` + Chart.js (jsdelivr CDN — GH Pages, no CSP)
 and has three new nav sections, all light-theme / units / golfer-linked:

@@ -56,11 +56,24 @@
   .fit-row .fr-parts { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
   .fit-row .fr-score { font-family:var(--font-mono); font-size:13px; text-align:right; }
 
-  /* NAV */
-  nav { position:sticky; top:0; z-index:20; background:var(--green-900); border-bottom:1px solid var(--green-700); }
-  nav .wrap { display:flex; gap:4px; padding:0 28px; overflow-x:auto; }
-  nav a { font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--green-300); text-decoration:none; padding:14px 16px; white-space:nowrap; border-bottom:2px solid transparent; transition:.15s; }
-  nav a:hover { color:var(--cream-100); border-bottom-color:var(--brass-500); }
+  /* NAV — grouped, scalable */
+  nav { position:sticky; top:0; z-index:40; background:var(--green-900); border-bottom:1px solid var(--green-700); }
+  nav .wrap { display:flex; gap:2px; padding:0 28px; align-items:stretch; }
+  .navgroup { position:relative; }
+  .navitem { display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--green-300); text-decoration:none; padding:15px 16px; white-space:nowrap; border-bottom:2px solid transparent; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; transition:.15s; }
+  .navitem:hover, .navitem:focus-visible { color:var(--cream-100); border-bottom-color:var(--brass-500); outline:none; }
+  .navitem.active { color:var(--brass-300); border-bottom-color:var(--brass-500); }
+  .navitem .caret { font-size:8px; opacity:.7; transition:transform .15s; }
+  .navgroup.open .navitem .caret { transform:rotate(180deg); }
+  .navmenu { position:absolute; top:100%; left:0; min-width:190px; background:var(--green-800); border:1px solid var(--green-700); border-top:2px solid var(--brass-500); border-radius:0 0 5px 5px; box-shadow:0 18px 40px -14px rgba(0,0,0,.7); padding:6px; display:none; flex-direction:column; z-index:41; }
+  .navgroup.open .navmenu, .navgroup:hover .navmenu, .navgroup:focus-within .navmenu { display:flex; }
+  .navmenu a { font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; color:var(--green-200); text-decoration:none; padding:9px 12px; border-radius:3px; white-space:nowrap; transition:.12s; display:flex; justify-content:space-between; gap:16px; align-items:center; }
+  .navmenu a:hover, .navmenu a:focus-visible { background:var(--green-700); color:var(--cream-100); outline:none; }
+  .navmenu a .nm-tag { font-size:8.5px; color:var(--brass-400); letter-spacing:.08em; text-transform:uppercase; }
+  .navspacer { margin-left:auto; }
+  .navwar { display:flex; align-items:center; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--green-900); background:var(--brass-400); padding:0 16px; margin:8px 0 8px 8px; border-radius:3px; text-decoration:none; transition:.15s; }
+  .navwar:hover { background:var(--brass-300); }
+  @media (max-width:820px){ nav .wrap{ overflow-x:auto; } .navmenu{ position:static; box-shadow:none; border:none; border-top:none; padding:2px 0 6px 14px; } }
 
   /* SECTION SHELL */
   section { padding:56px 0 12px; }
@@ -247,6 +260,73 @@
   .lead-row { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; font-size:13px; border-bottom:1px solid var(--cream-100); }
   .lead-row .ln { color:var(--green-800); } .lead-row .ln b { font-family:var(--font-mono); font-size:10px; color:var(--brass-600); margin-right:6px; }
   .lead-row .lv { font-family:var(--font-mono); font-size:12px; }
+
+  /* ---- IA reorder (forward-looking first, record secondary) ---- */
+  #content { display:flex; flex-direction:column; }
+  #content > section, .record-band { scroll-margin-top:66px; }
+  #thisweek  { order:1; }
+  #active    { order:2; }
+  #inform    { order:3; }
+  #tournament{ order:4; }
+  #golfers   { order:5; }
+  #courses   { order:6; }
+  #venuehist { order:7; }
+  #datacenter{ order:8; }
+  #record-divider { order:9; }
+  #overview  { order:10; }
+  #edge      { order:11; }
+  #markets   { order:12; }
+  #sources   { order:13; }
+  #ledger    { order:14; }
+  #history   { order:15; }
+  #winners   { order:16; }
+  .record-band { order:9; margin-top:22px; padding:34px 0 4px; border-top:1px solid var(--cream-300); }
+  .record-band .sec-label { color:var(--cream-500); }
+
+  /* ---- In-Form board ---- */
+  .if-row { display:grid; grid-template-columns:30px 168px 1fr auto; gap:16px; align-items:center; background:#fff; border:1px solid var(--cream-300); border-radius:5px; padding:11px 16px; margin-bottom:7px; cursor:pointer; transition:box-shadow .14s, transform .14s, border-color .14s; }
+  .if-row:hover { box-shadow:0 3px 14px -6px rgba(13,31,22,.35); border-color:var(--brass-400); transform:translateX(2px); }
+  .if-rank { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-500); text-align:right; font-variant-numeric:tabular-nums; }
+  .if-name { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--green-800); line-height:1.1; }
+  .if-tier { font-family:var(--font-mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); margin-top:2px; }
+  .if-mini { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .if-cell .mk { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); margin-bottom:3px; }
+  .if-cell .mtrack { height:5px; background:var(--cream-200); border-radius:3px; overflow:hidden; }
+  .if-cell .mbar { height:100%; border-radius:3px; }
+  .if-cell .mv { font-family:var(--font-mono); font-size:10px; margin-top:2px; font-variant-numeric:tabular-nums; }
+  .if-tot { text-align:right; }
+  .if-tot .tv { font-family:var(--font-display); font-size:24px; font-weight:600; font-variant-numeric:tabular-nums; }
+  .if-tot .tl { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--cream-700); }
+  @media (max-width:820px){ .if-row{ grid-template-columns:26px 1fr; row-gap:10px; } .if-mini{ grid-column:1/-1; } .if-tot{ grid-column:1/-1; text-align:left; } }
+
+  /* ---- DG-style player breakdown (modal) ---- */
+  .modal.wide { max-width:880px; }
+  .pb-grid { display:grid; grid-template-columns:1.25fr 1fr; gap:26px; }
+  @media (max-width:760px){ .pb-grid{ grid-template-columns:1fr; gap:20px; } }
+  .pb-hero { display:flex; gap:20px; align-items:baseline; margin-bottom:6px; }
+  .pb-tot { font-family:var(--font-display); font-size:44px; font-weight:600; line-height:1; font-variant-numeric:tabular-nums; }
+  .pb-tot .u { font-size:14px; font-family:var(--font-mono); color:var(--cream-700); margin-left:4px; }
+  .pb-tot-lab { font-family:var(--font-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); }
+  .pb-tot-rank { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); margin-top:3px; }
+  .pb-sub-label { font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass-600); margin:18px 0 10px; }
+  .sk-row { display:grid; grid-template-columns:74px 1fr 118px; gap:12px; align-items:center; padding:7px 0; border-bottom:1px solid var(--cream-100); }
+  .sk-lbl { font-family:var(--font-mono); font-size:11px; color:var(--green-800); letter-spacing:.02em; }
+  .sk-track { position:relative; height:16px; }
+  .sk-mid { position:absolute; left:50%; top:-1px; bottom:-1px; width:1px; background:var(--cream-300); }
+  .sk-bar { position:absolute; top:2px; height:12px; border-radius:2px; }
+  .sk-bar.pos { background:var(--green-400); } .sk-bar.neg { background:var(--scarlet); }
+  .sk-meta { font-family:var(--font-mono); font-size:11px; text-align:right; font-variant-numeric:tabular-nums; display:flex; gap:8px; justify-content:flex-end; align-items:baseline; }
+  .sk-val { font-weight:600; } .sk-pct { color:var(--cream-700); font-size:10px; }
+  .pctpill { font-family:var(--font-mono); font-size:8.5px; padding:1px 5px; border-radius:2px; letter-spacing:.04em; }
+  .pctpill.hi { background:var(--green-100); color:var(--green-600); }
+  .pctpill.mid { background:var(--brass-100); color:var(--brass-700); }
+  .pctpill.lo { background:var(--scarlet-light); color:var(--scarlet); }
+  .surf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:6px; }
+  .surf-cell { border:1px solid var(--cream-300); border-radius:4px; padding:9px 10px; text-align:center; }
+  .surf-cell.best { border-color:var(--brass-400); background:var(--brass-100); }
+  .surf-cell .sc-l { font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--cream-700); }
+  .surf-cell .sc-v { font-family:var(--font-mono); font-size:14px; margin-top:3px; font-variant-numeric:tabular-nums; }
+  .pb-radar-wrap { max-width:300px; margin:0 auto 4px; }
 </style>
 </head>
 <body>
@@ -266,24 +346,52 @@
 </div>
 
 <nav><div class="wrap">
-  <a href="#overview">Overview</a>
-  <a href="#golfers">Golfers</a>
-  <a href="#courses">Courses</a>
-  <a href="#thisweek">This Week</a>
-  <a href="#tournament">Tournament</a>
-  <a href="#venuehist">History</a>
-  <a href="#datacenter">Data Center</a>
-  <a href="#active">Active Bets</a>
-  <a href="#edge">Edge</a>
-  <a href="#markets">Markets</a>
-  <a href="#sources">Sources</a>
-  <a href="#ledger">Ledger</a>
-  <a href="#history">Bet History</a>
-  <a href="#courses">Courses</a>
-  <a href="#winners">Winners</a>
+  <div class="navgroup" data-spy="thisweek,active">
+    <button class="navitem" data-href="#thisweek">This Week <span class="caret">▼</span></button>
+    <div class="navmenu">
+      <a href="#thisweek">The Read <span class="nm-tag">course + leans</span></a>
+      <a href="#active">Active Bets <span class="nm-tag">open card</span></a>
+    </div>
+  </div>
+  <div class="navgroup" data-spy="inform">
+    <a class="navitem" href="#inform">In Form</a>
+  </div>
+  <div class="navgroup" data-spy="golfers">
+    <a class="navitem" href="#golfers">Golfers</a>
+  </div>
+  <div class="navgroup" data-spy="tournament,courses,venuehist,datacenter">
+    <button class="navitem" data-href="#tournament">Intelligence <span class="caret">▼</span></button>
+    <div class="navmenu">
+      <a href="#tournament">Tournament <span class="nm-tag">deep dive</span></a>
+      <a href="#courses">Courses <span class="nm-tag">venue DNA</span></a>
+      <a href="#venuehist">History <span class="nm-tag">multi-year</span></a>
+      <a href="#datacenter">Data Center <span class="nm-tag">SG leaders</span></a>
+    </div>
+  </div>
+  <div class="navgroup" data-spy="overview,edge,markets,sources,ledger,history,winners">
+    <button class="navitem" data-href="#overview">The Record <span class="caret">▼</span></button>
+    <div class="navmenu">
+      <a href="#overview">Season P/L <span class="nm-tag">the proof</span></a>
+      <a href="#ledger">Ledger <span class="nm-tag">every event</span></a>
+      <a href="#history">Bet History <span class="nm-tag">every ticket</span></a>
+      <a href="#markets">Markets <span class="nm-tag">by type</span></a>
+      <a href="#edge">Edge <span class="nm-tag">structures</span></a>
+      <a href="#sources">Sources <span class="nm-tag">calibration</span></a>
+      <a href="#winners">Winners <span class="nm-tag">the wins</span></a>
+    </div>
+  </div>
+  <span class="navspacer"></span>
+  <a href="war-room.html" class="navwar">War Room ▸</a>
 </div></nav>
 
-<div class="wrap">
+<div class="wrap" id="content">
+
+  <!-- ===== THE RECORD (secondary — the proof the intelligence works) ===== -->
+  <div class="record-band" id="record-divider">
+    <div class="sec-label">The Proof</div>
+    <div class="sec-title" style="font-size:28px">The Betting Record</div>
+    <div class="sec-sub" style="margin-bottom:0">The intelligence above is the product; the record below is the receipt. Every settled bet, every event, held to account.</div>
+  </div>
 
   <!-- OVERVIEW -->
   <section id="overview">
@@ -340,6 +448,18 @@
       <div class="card-head"><h3>The Open Question</h3><span class="note">independent vs market conflict</span></div>
       <p id="tw-reconcile" style="font-size:13px;color:var(--cream-900);line-height:1.6"></p>
     </div>
+  </section>
+
+  <!-- IN FORM -->
+  <section id="inform">
+    <div class="sec-label">Right Now</div>
+    <div class="sec-title">Golfers In Form</div>
+    <div class="sec-sub">The field ranked by current strokes-gained — who is playing the best golf on Tour this moment. Percentile bars are relative to the tracked field. Click any name for the full breakdown.</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+      <div class="chips" id="ifTiers" style="margin:0"></div>
+      <span id="ifCount" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin-left:auto"></span>
+    </div>
+    <div id="informGrid"></div>
   </section>
 
   <!-- TOURNAMENT INTELLIGENCE -->
@@ -482,11 +602,11 @@
   GREENBOOK · Data-first golf betting · Settled P/L <b id="footPL"></b> · <b id="footROI"></b> ROI · Last audited Jul 12 2026
 </div></footer>
 
-<script src="data.js?v=102"></script>
-<script src="tools-data.js?v=102"></script>
-<script src="player-kb.js?v=102"></script>
-<script src="tournament-data.js?v=102"></script>
-<script src="settled-data.js?v=102"></script>
+<script src="data.js?v=103"></script>
+<script src="tools-data.js?v=103"></script>
+<script src="player-kb.js?v=103"></script>
+<script src="tournament-data.js?v=103"></script>
+<script src="settled-data.js?v=103"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const $ = s => document.querySelector(s);
@@ -496,6 +616,25 @@ const money0 = n => (Math.abs(n)/U).toFixed(1) + 'u';                    // unsi
 const ustk   = n => (+(n/U).toFixed(2)) + 'u';                          // stake/return in units, trimmed
 const cls = n => n>0?'pos':(n<0?'neg':'zero');
 const clean = s => (s||'').replace(/�/g,'—').replace(/�/g,'—');
+
+/* ---------- field statistics engine (DG-style percentiles vs the tracked field) ---------- */
+const FIELD = (function(){
+  if (typeof SCOUTING === 'undefined') return null;
+  const keys = ['sg_tot','app','ott','arg','putt','dd','putt_bermuda','putt_bent','putt_poa'];
+  const S = {};
+  keys.forEach(k=>{
+    const vals = SCOUTING.map(p=>p[k]).filter(v=>v!=null).sort((a,b)=>a-b);
+    if(!vals.length){ S[k]=null; return; }
+    const n=vals.length, mean=vals.reduce((s,v)=>s+v,0)/n;
+    const sd=Math.sqrt(vals.reduce((s,v)=>s+(v-mean)*(v-mean),0)/n)||1;
+    S[k]={vals,n,mean,sd,min:vals[0],max:vals[n-1]};
+  });
+  const pct = (k,v)=>{ if(v==null||!S[k]) return null; const a=S[k].vals; let lo=0; for(const x of a) if(x<v) lo++; return Math.round(lo/a.length*100); };
+  const rank = (k,v)=>{ if(v==null||!S[k]) return null; let better=1; for(const x of S[k].vals) if(x>v) better++; return better; };
+  const z = (k,v)=>{ if(v==null||!S[k]) return null; return (v-S[k].mean)/S[k].sd; };
+  return { S, pct, rank, z, n:(SCOUTING||[]).length };
+})();
+const pctPill = p => { const c = p==null?'':p>=70?'hi':p>=40?'mid':'lo'; return `<span class="pctpill ${c}">${p==null?'—':p+'th pct'}</span>`; };
 
 /* ---------- derive ---------- */
 const settled = TOURNAMENTS.filter(t => t.status !== 'open');
@@ -653,13 +792,15 @@ drawBars('#marketBars', MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({
   const tierColor = { Elite:'var(--brass-500)', Contender:'var(--green-500)', Bubble:'var(--cream-500)', Fringe:'var(--cream-500)', Veteran:'var(--birdie)' };
   const scrub = s => (s||'').replace(/�/g,'—');
   const fmt = v => v===undefined?'—':(v>=0?'+':'')+v.toFixed(2);
-  const sgBar = (label,v)=>{ const val=v||0; const pct=Math.max(4,Math.min(96,val*30+50)); const col=val>0.3?'var(--green-500)':val>0?'var(--green-300)':'var(--scarlet)';
-    return `<div style="display:grid;grid-template-columns:34px 1fr 44px;gap:8px;align-items:center;margin-bottom:4px"><span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700)">${label}</span><div style="height:5px;background:var(--cream-200);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${col}"></div></div><span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:${val>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(val)}</span></div>`; };
+  const sgBar = (label,key,v)=>{ const val=v==null?null:v; const p = FIELD?FIELD.pct(key,val):null;
+    const width = p==null? Math.max(4,Math.min(96,(val||0)*30+50)) : Math.max(3,p);
+    const col = p==null?(val>0?'var(--green-300)':'var(--scarlet)'):(p>=70?'var(--green-500)':p>=40?'var(--green-300)':'var(--scarlet)');
+    return `<div style="display:grid;grid-template-columns:34px 1fr 78px;gap:8px;align-items:center;margin-bottom:4px"><span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700)">${label}</span><div style="height:5px;background:var(--cream-200);border-radius:3px;overflow:hidden" title="${p!=null?p+'th percentile in field':''}"><div style="height:100%;width:${width}%;background:${col}"></div></div><span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:${(val||0)>=0?'var(--green-600)':'var(--scarlet)'};font-variant-numeric:tabular-nums">${fmt(val)}${p!=null?` <span style="color:var(--cream-500);font-size:9px">${p}</span>`:''}</span></div>`; };
   const card = p => { const tc=tierColor[p.tier]||'var(--cream-500)'; const hasSurf=p.putt_bermuda!==undefined&&(p.putt_bermuda||p.putt_bent||p.putt_poa);
     return `<div class="gcard" data-golfer="${p.name.replace(/"/g,'&quot;')}" style="background:#fff;border:1px solid var(--cream-300);border-top:3px solid ${tc};border-radius:6px;padding:16px 18px;box-shadow:0 1px 0 var(--cream-200);cursor:pointer;transition:box-shadow .15s,transform .15s">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--green-800)">${p.name}</div><span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:var(--cream-100);color:${tc}">${p.tier||''}</span></div>
       <div style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin:3px 0 12px">SG:TOT <b style="color:${(p.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(p.sg_tot)}</b> · ${p.shape||'—'} · ${p.surface||'—'}${p.dd?` · ${p.dd>0?'+':''}${p.dd} dd`:''}</div>
-      ${sgBar('APP',p.app)}${sgBar('OTT',p.ott)}${sgBar('ARG',p.arg)}${sgBar('PUTT',p.putt)}
+      ${sgBar('APP','app',p.app)}${sgBar('OTT','ott',p.ott)}${sgBar('ARG','arg',p.arg)}${sgBar('PUTT','putt',p.putt)}
       ${hasSurf?`<div style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap"><span>Berm ${fmt(p.putt_bermuda)}</span><span>Bent ${fmt(p.putt_bent)}</span><span>Poa ${fmt(p.putt_poa)}</span></div>`:''}
       <div style="font-size:12px;line-height:1.5;margin-top:11px;color:var(--cream-900)"><b style="color:var(--green-600)">+</b> ${scrub(p.strengths)}</div>
       <div style="font-size:12px;line-height:1.5;margin-top:4px;color:var(--cream-900)"><b style="color:var(--scarlet)">−</b> ${scrub(p.weaknesses)}</div>
@@ -800,25 +941,74 @@ drawBars('#marketBars', MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({
     if(f.acc){ s+=(g.app||0)*0.5; if((g.dd||0)>8&&(g.app||0)<0.3){ s-=0.4; parts.push('bomber-misfit'); } }
     return {score:s, parts}; }
   const sc=v=> v>=1.2?'var(--green-600)':v>=0.5?'var(--brass-600)':'var(--cream-700)';
+  const modalEl = document.querySelector('.modal');
+  let gRadar = null;
+
+  // DG-style diverging skill row: bar centered on field average, sized by z, meta = value + percentile
+  const zbar=(label,key,val,disp)=>{ const z=FIELD?FIELD.z(key,val):null, p=FIELD?FIELD.pct(key,val):null, r=FIELD?FIELD.rank(key,val):null;
+    const mag = z==null?0:Math.min(Math.abs(z)/2.5,1)*50; const right = (z||0)>=0;
+    const side = right?`left:50%;width:${mag.toFixed(1)}%`:`right:50%;width:${mag.toFixed(1)}%`;
+    return `<div class="sk-row"><span class="sk-lbl">${label}</span>
+      <div class="sk-track" title="${r?`#${r} of ${FIELD.n}`:''}"><div class="sk-mid"></div><div class="sk-bar ${right?'pos':'neg'}" style="${side}"></div></div>
+      <span class="sk-meta"><span class="sk-val" style="color:${(val||0)>=0?'var(--green-600)':'var(--scarlet)'}">${disp!=null?disp:fmt(val)}</span>${pctPill(p)}</span></div>`; };
+
   function openGolfer(name){ const g=SCOUTING.find(x=>x.name===name); if(!g) return;
     const fits=COURSES.map(c=>({c,...fit(g,c)})).sort((a,b)=>b.score-a.score);
-    title.textContent=g.name; sub.textContent=`${g.tier||''} · SG:TOT ${fmt(g.sg_tot)} · best course fits`;
-    body.innerHTML = `<div style="font-size:13px;color:var(--cream-900);margin-bottom:16px;line-height:1.5"><b style="color:var(--green-600)">+</b> ${scrub(g.strengths)}<br><b style="color:var(--scarlet)">−</b> ${scrub(g.weaknesses)}</div>`+
-      `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Course Fit — where this game travels</div>`+
-      fits.slice(0,8).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.c.name}</span> <span class="fr-parts">${r.c.event}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('');
-    bg.classList.add('open'); }
+    const totR=FIELD?FIELD.rank('sg_tot',g.sg_tot):null, totP=FIELD?FIELD.pct('sg_tot',g.sg_tot):null;
+    // surface putting best
+    const surfs=[['Bermuda','putt_bermuda'],['Bent','putt_bent'],['Poa','putt_poa']].map(([l,k])=>({l,k,v:g[k]}));
+    const bestSurf = surfs.filter(s=>s.v!=null).sort((a,b)=>b.v-a.v)[0];
+    const kb=(typeof PLAYER_KB!=='undefined')?PLAYER_KB[g.name]:null;
+    modalEl.classList.add('wide');
+    title.textContent=g.name;
+    sub.textContent=`${g.tier||''} · ${g.shape||'—'}${g.dd?` · ${g.dd>0?'+':''}${g.dd} dist`:''} · ${FIELD?`#${totR} of ${FIELD.n} on Tour`:''}`;
+    body.innerHTML = `<div class="pb-grid">
+      <div>
+        <div class="pb-hero">
+          <div><div class="pb-tot-lab">SG: Total</div><div class="pb-tot" style="color:${(g.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(g.sg_tot)}</div><div class="pb-tot-rank">${totR?`#${totR} of ${FIELD.n} · ${totP}th pct`:''}</div></div>
+        </div>
+        <div class="pb-sub-label">Skill Breakdown <span style="color:var(--cream-500);text-transform:none;letter-spacing:0">· vs field average</span></div>
+        ${zbar('APP','app',g.app)}${zbar('OTT','ott',g.ott)}${zbar('ARG','arg',g.arg)}${zbar('PUTT','putt',g.putt)}${zbar('Distance','dd',g.dd,(g.dd>0?'+':'')+(g.dd==null?'—':g.dd))}
+        ${surfs.some(s=>s.v!=null)?`<div class="pb-sub-label">Putting by Surface</div>
+          <div class="surf-grid">${surfs.map(s=>`<div class="surf-cell ${bestSurf&&s.k===bestSurf.k?'best':''}"><div class="sc-l">${s.l}${bestSurf&&s.k===bestSurf.k?' ★':''}</div><div class="sc-v" style="color:${(s.v||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(s.v)}</div></div>`).join('')}</div>`:''}
+      </div>
+      <div>
+        ${typeof Chart!=='undefined'&&FIELD?`<div class="pb-radar-wrap"><canvas id="golferRadar" height="240"></canvas></div><div style="font-family:var(--font-mono);font-size:8.5px;text-align:center;color:var(--cream-500);letter-spacing:.06em;margin-bottom:14px">FIELD PERCENTILE · OUTER = TOUR BEST</div>`:''}
+        <div style="font-size:12.5px;color:var(--cream-900);line-height:1.55;margin-bottom:6px"><b style="color:var(--green-600);font-family:var(--font-mono);font-size:9px">STRENGTHS</b><br>${scrub(g.strengths)}</div>
+        <div style="font-size:12.5px;color:var(--cream-900);line-height:1.55"><b style="color:var(--scarlet);font-family:var(--font-mono);font-size:9px">WEAKNESSES</b><br>${scrub(g.weaknesses)}</div>
+        ${kb&&kb.learnings&&kb.learnings.length?`<div class="pb-sub-label">What We've Learned${kb.updated?` · ${kb.updated}`:''}</div>`+kb.learnings.map(l=>{const c=Math.round((l.conf||0)*100);const cc=c>=70?'var(--green-600)':c>=50?'var(--brass-600)':'var(--cream-700)';return `<div style="font-size:11.5px;line-height:1.5;color:var(--cream-900);margin-bottom:6px;display:flex;gap:7px"><span style="font-family:var(--font-mono);font-size:8.5px;color:${cc};border:1px solid ${cc};border-radius:2px;padding:1px 4px;height:fit-content;white-space:nowrap">${c}%${l.pending?'·prov':''}</span><span>${scrub(l.claim)}</span></div>`;}).join(''):''}
+      </div>
+    </div>
+    <div class="pb-sub-label" style="margin-top:20px">Course Fit — where this game travels</div>
+    ${fits.slice(0,6).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.c.name}</span> <span class="fr-parts">${r.c.event}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('')}`;
+    bg.classList.add('open');
+    // radar
+    if(typeof Chart!=='undefined' && FIELD && document.getElementById('golferRadar')){
+      const axes=[['APP','app'],['OTT','ott'],['ARG','arg'],['PUTT','putt'],['Dist','dd']];
+      const data=axes.map(([l,k])=>FIELD.pct(k,g[k])??0);
+      if(gRadar) gRadar.destroy();
+      gRadar=new Chart(document.getElementById('golferRadar'),{ type:'radar',
+        data:{ labels:axes.map(a=>a[0]), datasets:[
+          {label:'Field median', data:axes.map(()=>50), backgroundColor:'rgba(107,95,74,0.05)', borderColor:'rgba(107,95,74,0.35)', borderWidth:1, borderDash:[4,3], pointRadius:0},
+          {label:g.name, data, backgroundColor:'rgba(30,92,56,0.14)', borderColor:'#1E5C38', borderWidth:2.4, pointRadius:3.5, pointBackgroundColor:'#C9A046'} ]},
+        options:{responsive:true, plugins:{legend:{display:false}}, scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(107,95,74,0.15)'},angleLines:{color:'rgba(107,95,74,0.15)'},pointLabels:{font:{size:10,weight:'600'},color:'#152E1F'}}}} });
+    }
+  }
   function openCourse(name){ const c=COURSES.find(x=>x.name===name); if(!c) return;
+    if(gRadar){ gRadar.destroy(); gRadar=null; }
+    modalEl.classList.remove('wide');
     const ranked=SCOUTING.filter(g=>g.sg_tot!=null).map(g=>({g,...fit(g,c)})).sort((a,b)=>b.score-a.score);
     title.textContent=c.name; sub.textContent=`${c.event} · ${c.surface} · field ranked by fit`;
     body.innerHTML = `<div style="font-size:12.5px;color:var(--cream-900);margin-bottom:4px"><b>${c.archetype||''}</b></div><div style="font-size:12px;color:var(--cream-700);margin-bottom:16px;line-height:1.5">Forgives ${c.masked||'—'} · Amplifies ${c.amplified||'—'}</div>`+
       `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Top Fits (from the database)</div>`+
       ranked.slice(0,15).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.g.name}</span> <span class="fr-parts">${r.g.tier||''}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('');
     bg.classList.add('open'); }
-  const hide=()=>bg.classList.remove('open');
+  const hide=()=>{ bg.classList.remove('open'); if(gRadar){gRadar.destroy();gRadar=null;} };
   $('#modalClose').addEventListener('click',hide);
   bg.addEventListener('click',e=>{ if(e.target===bg) hide(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') hide(); });
-  const gg=$('#gGrid'); if(gg) gg.addEventListener('click',e=>{ const c=e.target.closest('[data-golfer]'); if(c) openGolfer(c.dataset.golfer.replace(/&quot;/g,'"')); });
+  const openG = name => openGolfer(name);
+  ['#gGrid','#informGrid'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('click',e=>{ const c=e.target.closest('[data-golfer]'); if(c) openG(c.dataset.golfer.replace(/&quot;/g,'"')); }); });
   const cg=$('#courseGrid'); if(cg) cg.addEventListener('click',e=>{ const c=e.target.closest('[data-course]'); if(c) openCourse(c.dataset.course.replace(/&quot;/g,'"')); });
 })();
 
@@ -997,6 +1187,61 @@ drawBars('#marketBars', MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({
     board('Bermuda Putting','putt_bermuda'), board('Bentgrass Putting','putt_bent'), board('Poa Putting','putt_poa'),
   ].filter(Boolean);
   $('#leadGrid').innerHTML = boards.join('');
+})();
+
+/* ---------- IN FORM board (SG:Total leaders, field-relative) ---------- */
+(function(){
+  if (typeof SCOUTING==='undefined' || !FIELD) return;
+  const scrub=s=>(s||'').replace(/�/g,'—'); const fmt=v=>v==null?'—':(v>=0?'+':'')+(+v).toFixed(2);
+  const data=SCOUTING.filter(p=>p.sg_tot!=null).sort((a,b)=>b.sg_tot-a.sg_tot);
+  const tierColor={ Elite:'var(--brass-500)', Contender:'var(--green-500)', Veteran:'var(--birdie)', 'Past Champ':'var(--brass-600)' };
+  const mini=(lbl,key,v)=>{ const p=FIELD.pct(key,v); const col=p==null?'var(--cream-400)':p>=70?'var(--green-500)':p>=40?'var(--green-300)':'var(--scarlet)';
+    return `<div class="if-cell"><div class="mk">${lbl}</div><div class="mtrack"><div class="mbar" style="width:${Math.max(3,p||0)}%;background:${col}"></div></div><div class="mv" style="color:${(v||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(v)}</div></div>`; };
+  const row=(p,i)=>{ const tc=tierColor[p.tier]||'var(--cream-500)';
+    return `<div class="if-row" data-golfer="${p.name.replace(/"/g,'&quot;')}">
+      <div class="if-rank">${i+1}</div>
+      <div><div class="if-name">${scrub(p.name)}</div><div class="if-tier" style="color:${tc}">${p.tier||''} · ${p.shape||'—'}</div></div>
+      <div class="if-mini">${mini('APP','app',p.app)}${mini('OTT','ott',p.ott)}${mini('ARG','arg',p.arg)}${mini('PUTT','putt',p.putt)}</div>
+      <div class="if-tot"><div class="tv" style="color:${(p.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(p.sg_tot)}</div><div class="tl">SG:Total</div></div>
+    </div>`; };
+  const tiers=['Top 25','Elite','Contender','All'];
+  let active='Top 25';
+  const render=()=>{ let rows;
+    if(active==='Top 25') rows=data.slice(0,25);
+    else if(active==='All') rows=data;
+    else rows=data.filter(p=>p.tier===active);
+    $('#informGrid').innerHTML=rows.map(row).join('');
+    $('#ifCount').textContent=`${rows.length} golfers · ranked by current SG:Total`; };
+  $('#ifTiers').innerHTML=tiers.map((t,i)=>`<div class="chip ${i===0?'on':''}" data-t="${t}">${t}</div>`).join('');
+  $('#ifTiers').addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(!c)return;
+    $('#ifTiers').querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); active=c.dataset.t; render(); });
+  render();
+})();
+
+/* ---------- nav: grouped dropdowns + scrollspy ---------- */
+(function(){
+  const groups=Array.from(document.querySelectorAll('.navgroup'));
+  const closeAll=except=>groups.forEach(g=>{ if(g!==except) g.classList.remove('open'); });
+  groups.forEach(g=>{
+    const btn=g.querySelector('.navitem[data-href]');
+    if(btn){ btn.addEventListener('click',e=>{ e.preventDefault();
+      const wasOpen=g.classList.contains('open'); closeAll(g);
+      if(wasOpen){ // second click → jump to primary section
+        const sec=document.querySelector(btn.dataset.href); if(sec) sec.scrollIntoView({behavior:'smooth'}); g.classList.remove('open');
+      } else g.classList.add('open'); }); }
+  });
+  document.querySelectorAll('.navmenu a').forEach(a=>a.addEventListener('click',()=>closeAll()));
+  document.addEventListener('click',e=>{ if(!e.target.closest('.navgroup')) closeAll(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAll(); });
+  // scrollspy
+  const spy={}; groups.forEach(g=>{ (g.dataset.spy||'').split(',').filter(Boolean).forEach(id=>spy[id]=g); });
+  const items=new Map(groups.map(g=>[g, g.querySelector('.navitem')]));
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ const g=spy[en.target.id]; if(!g)return;
+      groups.forEach(x=>{ const it=items.get(x); if(it) it.classList.remove('active'); });
+      const it=items.get(g); if(it) it.classList.add('active'); } });
+  },{rootMargin:'-45% 0px -50% 0px', threshold:0});
+  Object.keys(spy).forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
 })();
 </script>
 </body>
