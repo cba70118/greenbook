@@ -1,928 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GREENBOOK</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=91">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GREENBOOK — 2026 Season</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-900:#071209; --green-800:#0D1F16; --green-700:#152E1F; --green-600:#1E5C38;
+    --green-500:#2A7A4B; --green-400:#3D9E64; --green-300:#6DC48E; --green-200:#A8DDB9;
+    --green-100:#D8F0E2; --green-50:#EEF8F3;
+    --brass-900:#2B1E06; --brass-700:#7A540F; --brass-600:#A87218; --brass-500:#C9A046;
+    --brass-400:#DDB96A; --brass-300:#EDD090; --brass-100:#F9EFD5;
+    --cream-900:#2B2720; --cream-700:#6B5F4A; --cream-500:#A89880; --cream-300:#D9CDB8;
+    --cream-200:#EDE5D4; --cream-100:#F5EDD9; --cream-50:#FAF7F1;
+    --scarlet:#C0392B; --scarlet-light:#F4C6C2; --birdie:#2E7DD1; --birdie-light:#C4DCF5;
+    --font-display:'Cormorant Garamond',Georgia,serif;
+    --font-body:'Lora',Georgia,serif;
+    --font-mono:'DM Mono','Courier New',monospace;
+    --pos:var(--green-500); --neg:var(--scarlet);
+  }
+  body { font-family:var(--font-body); background:var(--cream-50); color:var(--green-800); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
 
+  /* MASTHEAD */
+  .masthead { background:var(--green-800); color:var(--cream-100); position:relative; overflow:hidden; border-bottom:2px solid var(--brass-500); }
+  .masthead::before { content:''; position:absolute; inset:0; pointer-events:none;
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px); }
+  .masthead .wrap { position:relative; display:flex; justify-content:space-between; align-items:flex-end; padding-top:34px; padding-bottom:26px; flex-wrap:wrap; gap:16px; }
+  .wordmark { font-family:var(--font-display); font-weight:300; font-size:52px; line-height:1; letter-spacing:.1em; color:var(--cream-100); }
+  .wordmark strong { font-weight:700; color:var(--brass-400); letter-spacing:.05em; }
+  .tagline { font-family:var(--font-mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--green-300); margin-top:12px; }
+  .mast-right { text-align:right; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; color:var(--green-300); }
+  .mast-right .badge { display:inline-block; border:1px solid var(--brass-600); color:var(--brass-300); padding:4px 12px; border-radius:2px; letter-spacing:.18em; text-transform:uppercase; margin-bottom:8px; }
+  .warroom-link { display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--green-900); background:var(--brass-400); padding:7px 14px; border-radius:2px; text-decoration:none; transition:.15s; }
+  .warroom-link:hover { background:var(--brass-300); }
+  .gcard:hover { box-shadow:0 4px 14px -6px rgba(0,0,0,.25); transform:translateY(-2px); }
+  .course:hover { box-shadow:0 4px 14px -6px rgba(0,0,0,.3); }
+
+  /* CROSS-LINK MODAL */
+  .modal-bg { position:fixed; inset:0; background:rgba(7,18,9,.62); z-index:100; display:none; align-items:flex-start; justify-content:center; padding:5vh 20px; overflow-y:auto; }
+  .modal-bg.open { display:flex; }
+  .modal { background:var(--cream-50); max-width:660px; width:100%; border-radius:8px; border-top:4px solid var(--brass-500); box-shadow:0 24px 70px -20px rgba(0,0,0,.7); overflow:hidden; }
+  .modal-head { background:var(--green-800); color:var(--cream-100); padding:20px 24px; display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .modal-head .mt { font-family:var(--font-display); font-size:26px; font-weight:600; line-height:1.1; }
+  .modal-head .ms { font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--brass-400); margin-top:5px; }
+  .modal-close { background:none; border:none; color:var(--green-300); font-size:26px; cursor:pointer; line-height:1; }
+  .modal-body { padding:22px 24px; }
+  .fit-row { display:grid; grid-template-columns:26px 1fr 56px; gap:12px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--cream-200); }
+  .fit-row .fr-rank { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
+  .fit-row .fr-name { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
+  .fit-row .fr-parts { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
+  .fit-row .fr-score { font-family:var(--font-mono); font-size:13px; text-align:right; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:20; background:var(--green-900); border-bottom:1px solid var(--green-700); }
+  nav .wrap { display:flex; gap:4px; padding:0 28px; overflow-x:auto; }
+  nav a { font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--green-300); text-decoration:none; padding:14px 16px; white-space:nowrap; border-bottom:2px solid transparent; transition:.15s; }
+  nav a:hover { color:var(--cream-100); border-bottom-color:var(--brass-500); }
+
+  /* SECTION SHELL */
+  section { padding:56px 0 12px; }
+  .sec-label { font-family:var(--font-mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass-600); margin-bottom:6px; }
+  .sec-title { font-family:var(--font-display); font-weight:300; font-size:34px; line-height:1.1; color:var(--green-800); margin-bottom:4px; }
+  .sec-sub { font-size:14px; color:var(--cream-700); margin-bottom:26px; max-width:64ch; }
+  .brass-rule { width:54px; height:2px; background:var(--brass-500); margin:14px 0 24px; }
+
+  /* HERO STATS */
+  .hero-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--cream-300); border:1px solid var(--cream-300); border-radius:4px; overflow:hidden; }
+  .stat { background:var(--cream-50); padding:22px 22px 20px; }
+  .stat.feature { background:var(--green-800); color:var(--cream-100); }
+  .stat .k { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream-700); margin-bottom:10px; }
+  .stat.feature .k { color:var(--green-300); }
+  .stat .v { font-family:var(--font-display); font-weight:400; font-size:40px; line-height:1; letter-spacing:.01em; }
+  .stat .v.pos { color:var(--green-500); } .stat.feature .v.pos { color:var(--green-300); }
+  .stat .v.neg { color:var(--scarlet); }
+  .stat .sub { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-top:9px; letter-spacing:.03em; }
+  .stat.feature .sub { color:var(--green-200); }
+
+  /* CHART CARD */
+  .card { background:#fff; border:1px solid var(--cream-300); border-radius:4px; padding:24px 26px; box-shadow:0 1px 0 var(--cream-200); }
+  .card-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; flex-wrap:wrap; gap:8px; }
+  .card-head h3 { font-family:var(--font-display); font-weight:600; font-size:20px; color:var(--green-700); }
+  .card-head .note { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); letter-spacing:.04em; }
+  .chart-host { position:relative; width:100%; }
+  svg { display:block; width:100%; height:auto; }
+  .tt { position:absolute; pointer-events:none; background:var(--green-900); color:var(--cream-100); border:1px solid var(--brass-600); border-radius:3px; padding:8px 11px; font-family:var(--font-mono); font-size:11px; letter-spacing:.02em; opacity:0; transition:opacity .1s; white-space:nowrap; z-index:5; transform:translate(-50%,-115%); }
+  .tt b { color:var(--brass-300); font-weight:500; }
+  .tt .d { color:var(--green-300); }
+
+  /* DIVERGING BARS */
+  .bars { display:flex; flex-direction:column; gap:9px; margin-top:6px; }
+  .bar-row { display:grid; grid-template-columns:150px 1fr 92px; align-items:center; gap:12px; }
+  .bar-row .lbl { font-family:var(--font-mono); font-size:11.5px; color:var(--green-800); letter-spacing:.02em; text-align:right; }
+  .bar-track { position:relative; height:22px; background:linear-gradient(90deg,transparent 0); }
+  .bar-mid { position:absolute; top:-3px; bottom:-3px; width:1px; background:var(--cream-300); }
+  .bar-fill { position:absolute; top:0; height:22px; border-radius:3px; }
+  .bar-fill.pos { background:var(--green-400); }
+  .bar-fill.neg { background:var(--scarlet); }
+  .bar-row .amt { font-family:var(--font-mono); font-size:12px; text-align:right; letter-spacing:.02em; }
+  .amt.pos { color:var(--green-600); } .amt.neg { color:var(--scarlet); }
+  .bar-meta { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); }
+
+  /* ACTIVE CARD */
+  .active-wrap { border:1px solid var(--green-600); border-radius:4px; overflow:hidden; }
+  .active-head { background:var(--green-700); color:var(--cream-100); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  .active-head .t { font-family:var(--font-display); font-size:22px; font-weight:600; }
+  .active-head .t small { font-family:var(--font-mono); font-size:10px; letter-spacing:.2em; color:var(--brass-400); display:block; text-transform:uppercase; margin-bottom:2px; font-weight:400; }
+  .active-head .exposure { font-family:var(--font-mono); font-size:11px; color:var(--green-200); text-align:right; }
+  .active-head .exposure b { color:var(--brass-300); }
+  .live-dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green-300); box-shadow:0 0 0 0 rgba(109,196,142,.6); animation:pulse 2s infinite; margin-right:7px; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(109,196,142,.5)} 70%{box-shadow:0 0 0 7px rgba(109,196,142,0)} 100%{box-shadow:0 0 0 0 rgba(109,196,142,0)} }
+  .abet { display:grid; grid-template-columns:1.4fr .9fr .8fr auto; gap:14px; padding:16px 22px; border-top:1px solid var(--cream-200); background:#fff; align-items:start; }
+  .abet:nth-child(even){ background:var(--cream-50); }
+  .abet .p { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--green-800); }
+  .abet .mk { font-family:var(--font-mono); font-size:11px; color:var(--cream-700); margin-top:2px; letter-spacing:.02em; }
+  .abet .th { font-size:12.5px; color:var(--cream-900); grid-column:1/-1; border-top:1px dashed var(--cream-300); padding-top:9px; margin-top:2px; line-height:1.5; }
+  .abet .odds { font-family:var(--font-mono); font-size:17px; color:var(--green-600); }
+  .abet .book { font-family:var(--font-mono); font-size:10px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
+  .abet .ret { text-align:right; font-family:var(--font-mono); }
+  .abet .ret .stk { font-size:10px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
+  .abet .ret .rv { font-size:16px; color:var(--brass-600); }
+
+  /* TABLES */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead th { font-family:var(--font-mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cream-700); text-align:right; padding:10px 12px; border-bottom:2px solid var(--cream-300); }
+  thead th:first-child, tbody td:first-child { text-align:left; }
+  tbody td { padding:10px 12px; border-bottom:1px solid var(--cream-200); font-family:var(--font-mono); font-size:12px; text-align:right; letter-spacing:.01em; }
+  tbody td.name { font-family:var(--font-body); font-size:13.5px; color:var(--green-800); }
+  tbody tr:hover td { background:var(--cream-50); }
+  td.pos { color:var(--green-600); } td.neg { color:var(--scarlet); } td.zero { color:var(--cream-700); }
+  .pill { display:inline-block; font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
+  .pill.win { background:var(--green-100); color:var(--green-600); }
+  .pill.loss { background:var(--scarlet-light); color:var(--scarlet); }
+  .pill.open { background:var(--brass-100); color:var(--brass-700); }
+  .pill.p1 { background:var(--cream-200); color:var(--cream-700); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:820px){ .two-col{ grid-template-columns:1fr; } .bar-row{ grid-template-columns:118px 1fr 78px; } .abet{ grid-template-columns:1fr 1fr; } .wordmark{ font-size:40px; } }
+
+  footer { background:var(--green-900); color:var(--green-300); font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; padding:26px 0; margin-top:56px; text-align:center; }
+  footer b { color:var(--brass-400); }
+  .mb { margin-bottom:22px; }
+
+  /* FILTER CHIPS */
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .chip { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:5px 12px; border:1px solid var(--cream-300); border-radius:20px; background:#fff; color:var(--cream-700); cursor:pointer; transition:.12s; }
+  .chip:hover { border-color:var(--brass-500); color:var(--green-700); }
+  .chip.on { background:var(--green-700); color:var(--cream-100); border-color:var(--green-700); }
+  .search { font-family:var(--font-mono); font-size:12px; padding:8px 12px; border:1px solid var(--cream-300); border-radius:3px; background:#fff; color:var(--green-800); width:240px; max-width:100%; margin-bottom:14px; }
+  .search:focus { outline:none; border-color:var(--brass-500); }
+
+  /* ROTATION COLUMNS */
+  .rot-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:820px){ .rot-grid{ grid-template-columns:1fr; } }
+  .rot-col h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid; }
+  .rot-col.active h4 { color:var(--green-600); border-color:var(--green-200); }
+  .rot-col.notice h4 { color:var(--brass-700); border-color:var(--brass-300); }
+  .rot-col.bench h4 { color:var(--scarlet); border-color:var(--scarlet-light); }
+  .rot-item { padding:10px 0; border-bottom:1px solid var(--cream-200); }
+  .rot-item .rn { font-family:var(--font-body); font-size:14.5px; color:var(--green-800); font-weight:600; display:flex; justify-content:space-between; align-items:baseline; }
+  .rot-item .rn .rp { font-family:var(--font-mono); font-size:12px; }
+  .rot-item .rr { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); margin-top:3px; letter-spacing:.02em; }
+
+  /* SCORE PILL for SG */
+  .sg { font-family:var(--font-mono); font-size:11.5px; }
+  .sg.p { color:var(--green-600); } .sg.n { color:var(--scarlet); }
+  .tier { font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:2px; }
+  .tier.Elite { background:var(--brass-100); color:var(--brass-700); }
+  .tier.Contender { background:var(--green-100); color:var(--green-600); }
+  .tier.Bubble { background:var(--cream-200); color:var(--cream-700); }
+  .tier.Fringe { background:var(--cream-200); color:var(--cream-700); }
+
+  /* STATUS ALERTS */
+  .alert { display:flex; gap:12px; padding:12px 16px; border-left:3px solid; border-radius:0 3px 3px 0; background:#fff; margin-bottom:8px; }
+  .alert.caution { border-color:var(--brass-500); background:var(--brass-100); }
+  .alert.info { border-color:var(--birdie); background:var(--birdie-light); }
+  .alert.serious { border-color:var(--scarlet); background:var(--scarlet-light); }
+  .alert .ap { font-family:var(--font-display); font-weight:600; font-size:16px; color:var(--green-800); min-width:150px; }
+  .alert .as { font-size:12.5px; color:var(--cream-900); line-height:1.5; }
+  .alert .atype { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); }
+
+  /* COURSE CARDS */
+  .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+  .course { background:#fff; border:1px solid var(--cream-300); border-radius:4px; padding:18px 20px; border-top:3px solid var(--green-500); }
+  .course.live { border-top-color:var(--brass-500); }
+  .course .cn { font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--green-800); }
+  .course .ce { font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream-700); margin-bottom:10px; }
+  .course .cmeta { display:flex; gap:14px; font-family:var(--font-mono); font-size:11px; color:var(--green-700); margin-bottom:10px; flex-wrap:wrap; }
+  .course .arch { font-size:13px; color:var(--green-600); font-style:italic; margin-bottom:10px; }
+  .course .stats { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+  .course .stat-tag { font-family:var(--font-mono); font-size:9.5px; background:var(--green-50); color:var(--green-600); padding:2px 7px; border-radius:2px; }
+  .course .fa { font-size:11.5px; line-height:1.5; color:var(--cream-900); }
+  .course .fa b { color:var(--green-600); font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
+  .course .cpl { font-family:var(--font-mono); font-size:11px; margin-top:10px; padding-top:8px; border-top:1px solid var(--cream-200); }
+
+  /* ---- Tournament Intelligence (Piece 3) ---- */
+  .gb-sel { font-family:var(--font-mono); font-size:12px; letter-spacing:.02em; color:var(--green-800); background:#fff; border:1px solid var(--cream-300); border-radius:3px; padding:7px 10px; cursor:pointer; transition:.12s; }
+  .gb-sel:hover, .gb-sel:focus { border-color:var(--brass-500); outline:none; }
+  .ev-meta { font-family:var(--font-mono); font-size:11.5px; color:var(--cream-700); line-height:1.6; letter-spacing:.01em; }
+  .ev-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+  .ev-tag { font-family:var(--font-mono); font-size:9.5px; background:var(--green-50); color:var(--green-600); padding:2px 8px; border-radius:2px; letter-spacing:.04em; }
+  .fp-row { display:grid; grid-template-columns:150px 1fr 42px; align-items:center; gap:12px; padding:7px 0; border-bottom:1px solid var(--cream-100); }
+  .fp-row .fp-lbl { font-family:var(--font-mono); font-size:12px; color:var(--green-800); }
+  .fp-row .fp-note { font-family:var(--font-mono); font-size:9.5px; color:var(--cream-700); margin-top:2px; line-height:1.4; }
+  .fp-track { position:relative; height:8px; background:var(--cream-200); border-radius:4px; overflow:hidden; }
+  .fp-bar { position:absolute; left:0; top:0; height:8px; background:linear-gradient(90deg,var(--brass-500),var(--green-400)); border-radius:4px; }
+  .fp-w { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); text-align:right; }
+  .radar-wrap { max-width:440px; margin:0 auto; }
+  .radar-selects { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .radar-selects .gb-sel { flex:1; min-width:120px; }
+  .radar-legend { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+  .rl-item { display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12px; color:var(--green-800); }
+  .rl-dot { width:10px; height:10px; border-radius:50%; flex:none; }
+  .rl-fit { margin-left:auto; font-size:11px; }
+  .sig { font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:1px 6px; border-radius:2px; }
+  .sig.TAILWIND { background:var(--green-100); color:var(--green-600); }
+  .sig.warm { background:var(--brass-100); color:var(--brass-700); }
+  .sig.neutral { background:var(--cream-200); color:var(--cream-700); }
+  .sig.cool, .sig.HEADWIND, .sig.caution { background:var(--scarlet-light); color:var(--scarlet); }
+  .khole { display:grid; grid-template-columns:auto 1fr; gap:14px; padding:10px 0; border-bottom:1px solid var(--cream-100); }
+  .khole .kh-num { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--brass-600); line-height:1; }
+  .khole .kh-par { font-family:var(--font-mono); font-size:9px; color:var(--cream-700); text-transform:uppercase; letter-spacing:.08em; }
+  .khole .kh-note { font-size:12.5px; color:var(--cream-900); line-height:1.5; }
+  .rwin { display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--cream-100); align-items:baseline; }
+  .rwin .rw-yr { font-family:var(--font-mono); font-size:12px; color:var(--brass-600); width:38px; flex:none; }
+  .rwin .rw-name { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--green-800); }
+  .rwin .rw-meta { font-family:var(--font-mono); font-size:10.5px; color:var(--cream-700); }
+  .hgrid { overflow-x:auto; }
+  .htable { border-collapse:collapse; font-family:var(--font-mono); }
+  .htable th, .htable td { padding:5px 7px; text-align:center; font-size:11px; border-bottom:1px solid var(--cream-200); }
+  .htable th { color:var(--cream-700); font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
+  .htable td.hp { text-align:left; font-family:var(--font-body); font-size:13px; color:var(--green-800); white-space:nowrap; }
+  .htable td.hp.infield::after { content:"● in field"; font-family:var(--font-mono); font-size:8.5px; color:var(--green-500); margin-left:8px; letter-spacing:.06em; }
+  .hcell { display:inline-block; min-width:22px; padding:2px 4px; border-radius:3px; }
+  .hcell.w { background:var(--brass-500); color:#fff; font-weight:700; }
+  .hcell.t5 { background:var(--green-200); color:var(--green-700); }
+  .hcell.t20 { background:var(--green-50); color:var(--green-600); }
+  .hcell.o { color:var(--cream-500); }
+  .lead-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+  .lead-card { background:#fff; border:1px solid var(--cream-300); border-radius:4px; border-top:3px solid var(--brass-500); padding:14px 16px; }
+  .lead-card h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass-600); margin-bottom:10px; }
+  .lead-row { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; font-size:13px; border-bottom:1px solid var(--cream-100); }
+  .lead-row .ln { color:var(--green-800); } .lead-row .ln b { font-family:var(--font-mono); font-size:10px; color:var(--brass-600); margin-right:6px; }
+  .lead-row .lv { font-family:var(--font-mono); font-size:12px; }
+</style>
 </head>
 <body>
-    <!-- Auth Gate -->
-    <div id="auth-gate">
-        <div class="auth-box">
-            <h1 class="auth-title">GREEN<strong>BOOK</strong></h1>
-            <p class="auth-sub">Golf Intelligence & Analytics</p>
-            <div class="auth-field">
-                <input type="password" id="auth-input" placeholder="Enter access code" autocomplete="off">
-                <button id="auth-btn">Enter</button>
-            </div>
-            <p id="auth-error" class="auth-error"></p>
-        </div>
+
+<div class="masthead">
+  <div class="wrap">
+    <div>
+      <div class="wordmark">GREEN<strong>BOOK</strong></div>
+      <div class="tagline">PGA Tour Betting Intelligence · 2026 Season</div>
+    </div>
+    <div class="mast-right">
+      <div class="badge">Phase 2 Active</div>
+      <div id="mastMeta"></div>
+      <a href="war-room.html" class="warroom-link">War Room ▸</a>
+    </div>
+  </div>
+</div>
+
+<nav><div class="wrap">
+  <a href="#overview">Overview</a>
+  <a href="#golfers">Golfers</a>
+  <a href="#courses">Courses</a>
+  <a href="#thisweek">This Week</a>
+  <a href="#tournament">Tournament</a>
+  <a href="#venuehist">History</a>
+  <a href="#datacenter">Data Center</a>
+  <a href="#active">Active Bets</a>
+  <a href="#edge">Edge</a>
+  <a href="#markets">Markets</a>
+  <a href="#sources">Sources</a>
+  <a href="#ledger">Ledger</a>
+  <a href="#history">Bet History</a>
+  <a href="#courses">Courses</a>
+  <a href="#winners">Winners</a>
+</div></nav>
+
+<div class="wrap">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-label">The Season</div>
+    <div class="sec-title">2026 Performance</div>
+    <div class="brass-rule"></div>
+    <div class="hero-grid mb" id="heroGrid"></div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Cumulative P/L</h3>
+        <span class="note" id="chartNote"></span>
+      </div>
+      <div class="chart-host" id="chartHost"></div>
+    </div>
+    <div class="two-col" style="margin-top:22px">
+      <div class="card" id="phase1card"></div>
+      <div class="card" id="phase2card"></div>
+    </div>
+  </section>
+
+  <!-- GOLFER INTELLIGENCE -->
+  <section id="golfers">
+    <div class="sec-label">The Database</div>
+    <div class="sec-title">Golfer Intelligence</div>
+    <div class="sec-sub">Every golfer we track — strokes-gained profile, surface putting, ball flight, and the read on their game. An ever-growing knowledge base; it deepens with every event.</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
+      <input class="search" id="gSearch" placeholder="Search a golfer…" autocomplete="off" style="width:280px">
+      <div class="chips" id="gTiers" style="margin:0"></div>
+      <span id="gCount" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin-left:auto"></span>
+    </div>
+    <div id="gGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
+  </section>
+
+  <!-- THIS WEEK -->
+  <section id="thisweek">
+    <div class="sec-label">The Read</div>
+    <div class="sec-title" id="tw-title">This Week</div>
+    <div class="sec-sub" id="tw-sub"></div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-head"><h3>Course DNA</h3><span class="note" id="tw-surface"></span></div>
+        <p id="tw-fingerprint" style="font-size:13.5px;line-height:1.65;color:var(--cream-900)"></p>
+        <div class="card-head" style="margin-top:20px"><h3>Independent Top 10</h3><span class="note">skill-only · pre-market</span></div>
+        <div id="tw-indep"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Value Leans</h3><span class="note">independent &gt; market</span></div>
+        <div id="tw-leans"></div>
+        <div class="card-head" style="margin-top:18px"><h3>Fades</h3><span class="note">market too short</span></div>
+        <div id="tw-fades"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:18px;border-left:3px solid var(--brass-500)">
+      <div class="card-head"><h3>The Open Question</h3><span class="note">independent vs market conflict</span></div>
+      <p id="tw-reconcile" style="font-size:13px;color:var(--cream-900);line-height:1.6"></p>
+    </div>
+  </section>
+
+  <!-- TOURNAMENT INTELLIGENCE -->
+  <section id="tournament">
+    <div class="sec-label">The Deep Dive</div>
+    <div class="sec-title">Tournament Intelligence</div>
+    <div class="sec-sub">The full per-event read the war room runs — stat fingerprint, player-vs-course radar fit, the field scored on the course's exact weighting, and the holes that decide it. Pick any event on the schedule.</div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+      <select id="evSel" class="gb-sel" style="min-width:260px"></select>
+      <span id="evArch" style="font-family:var(--font-body);font-style:italic;font-size:14px;color:var(--green-600)"></span>
     </div>
 
-    <div id="app-content" style="display:none">
-    <header>
-        <div class="header-content">
-            <h1>GREEN<strong>BOOK</strong></h1>
-            <p class="subtitle">Golf Intelligence &amp; Analytics &#183; 2026 PGA Tour Season <span style="background:rgba(201,160,70,0.15);color:var(--brass-400);padding:0.1rem 0.4rem;border-radius:3px;font-size:0.55rem;margin-left:0.5rem;vertical-align:middle">BETA v0.1</span> <span id="cut-link" style="background:var(--green-700);color:var(--green-300);padding:0.15rem 0.5rem;border-radius:3px;font-size:0.55rem;margin-left:0.5rem;cursor:pointer;border:1px solid var(--green-600);display:inline-block">The Cut</span> <a href="leaderboard.html" style="background:var(--green-700);color:var(--green-300);padding:0.15rem 0.5rem;border-radius:3px;font-size:0.55rem;margin-left:0.25rem;cursor:pointer;border:1px solid var(--green-600);display:inline-block;text-decoration:none">Live Leaderboard</a></p>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-head"><h3>Stat Fingerprint</h3><span class="note" id="fpNote">course-weighted priorities</span></div>
+        <div id="fpBody"></div>
+        <div class="ev-tags" id="evTags"></div>
+        <div class="ev-meta" id="evMeta" style="margin-top:14px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Player · Course Fit Radar</h3><span class="note">vs avg winner profile</span></div>
+        <div id="radarHost">
+          <div class="radar-selects" id="radarSelects"></div>
+          <div class="radar-wrap"><canvas id="radarCanvas" height="300"></canvas></div>
+          <div class="radar-legend" id="radarLegend"></div>
         </div>
-        <nav>
-            <button class="nav-btn active" data-section="tournament">Tournaments</button>
-            <button class="nav-btn" data-section="datacenter">Data Center</button>
-            <button class="nav-btn" data-section="liveodds">Live Odds</button>
-            <button class="nav-btn" data-section="tools">Tools <span style="font-size:0.45rem;opacity:0.6;vertical-align:super">beta</span></button>
-            <button class="nav-btn" data-section="activebets">Active Bets</button>
-            <button class="nav-btn" data-section="betting">Season P/L</button>
-            <button class="nav-btn" data-section="dfs">DFS</button>
-        </nav>
-    </header>
-
-    <!-- Beta Banner -->
-    <div style="background:var(--green-900);border-bottom:1px solid var(--border);padding:0.4rem 2.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--brass-500);letter-spacing:0.04em">This dashboard updates regularly during the PGA Tour season. Data, odds, and analysis are point-in-time and may change. Beta v0.1.</div>
-
-    <!-- ═══ NOTES ═══ -->
-    <div class="notes-bar" id="notes-bar">
-        <div class="notes-entry notes-latest"><span class="notes-date">May 13 PM</span>PGA CHAMP CARD LOCKED. 12 tickets / ~$260: 4 pre-week futures (Fleetwood/Fitz/Henley/Cantlay $70) + 8 week-of (McNealy +7000 EW, Detry FRL +8000, Schauffele FRL +3000 FD — season-first 5/5 screen pass, Straka outright +8400 + T10 +495 DK, 2-pick Niemann/Potgieter, 3-pick Cink/Hojgaard/Matsuyama, Haotong Li R1 3-Ball $100).</div>
-        <div class="notes-entry"><span class="notes-date">May 13</span>3 SETTLEMENTS, ALL LOSSES: Cadillac -$132.50 (16 bets, full card), Truist -$65 (Reitan won 76/1 off card), Myrtle Beach -$10 (Lamprecht FRL). Season now 258 bets, 240 settled, $143.34 P/L, 6.0% ROI.</div>
-        <div class="notes-entry"><span class="notes-date">May 12</span>PGA CHAMP CARD ADJUSTMENTS: Cantlay +4500 EW b365 ($10) added as week-of futures. Matsuyama +4000 BOUGHT OUT — off card (still in DK 3-pick regional). Tony Finau b365 +8000 placed but excluded from tracking per user.</div>
-        <div class="notes-entry"><span class="notes-date">May 11</span>TRUIST settled. Bhatia $20 E/W lost (T37 -2). Reitan won at -15 (76/1, not on card). Onto PGA Champ at Aronimink — first major here since 1962.</div>
-        <div class="notes-toggle" id="notes-toggle">Previous notes <span id="notes-arrow">&#9660;</span></div>
-        <div class="notes-content hidden" id="notes-content">
-            <div class="notes-entry"><span class="notes-date">Apr 29 PM</span>MIAMI FRL ADDS: Spaun +4000 + Bhatia +4000, both E/W 1/4 5pl b365 ($10 each). Both AM wave (10:05/10:35) — calm-Thursday bomber-lean R1 fit. Card now 16 bets / $132.50.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 29 PM</span>MIAMI ADDS x4 via b365 E/W 1/4 5pl: Henley +2500 anchor ($20), Hojgaard +4000 ($10), Bhatia +4500 ($10), Smalley +8000 dart ($5). Non-chalk strategy per house style.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 29 AM</span>MIAMI ADD: Viktor Hovland Outright E/W 1/5 3pl +5500 b365 ($5/$10 total). Sharp money play — Pin +3762 vs DG +6131 = biggest sharp respect on entire board (gap 2369).</div>
-            <div class="notes-entry"><span class="notes-date">Apr 28 PM</span>MIAMI ADDS via b365: Hideki +4500 E/W 1/5 3pl ($10), Pierceson Coody FRL +4500 E/W 1/4 5pl ($10), Keith Mitchell FRL +5000 E/W 1/4 5pl ($10). Card now 9 bets / $57.50.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 28 AM</span>ZURICH SETTLED. 9 bets, $80 staked, 2W (Springer/Smalley placed +$32.50 + DFS +$35.50). Net +$3.00.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 26</span>MIAMI CARD OPENED. 6 outright bets @ $27.50 on DK for Cadillac Championship.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 20 AM</span>RBC SETTLED. 15 bets, 1W, -$106.50 (DFS +$33.50 lone cash). Henley anchor T25, nothing placed.</div>
-            <div class="notes-entry"><span class="notes-date">Apr 12</span>Masters settled: 9W-19L, +$567.64 (108% ROI). PGA Champ + US Open futures locked ($90 b365). 2027 Masters futures ($20 DK).</div>
-        </div>
+      </div>
     </div>
 
-    <!-- ═══ THE CUT (separate page, accessed via header link) ═══ -->
-    <section id="thecut" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1.25rem">The Cut</h2>
-
-        <!-- Row 1: This Week + Intel Feed -->
-        <div class="grid-2">
-            <div class="card">
-                <h3 id="cut-event-name"></h3>
-                <p class="card-subtitle" id="cut-event-meta"></p>
-                <div id="cut-weather-mini" class="cut-weather-mini" style="margin-bottom:0.75rem"></div>
-                <div id="cut-one-to-watch"></div>
-            </div>
-            <div class="card">
-                <h3>News</h3>
-                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
-                    <a href="https://x.com/i/lists/2038624167235379584" target="_blank" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.7rem;background:#000;border:1px solid #333;border-radius:4px;color:#fff;text-decoration:none;font-family:var(--font-mono);font-size:0.65rem;font-weight:600;letter-spacing:0.02em">&#120143; Open List</a>
-                    <a href="https://www.rotowire.com/golf/news.php" target="_blank" style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:3px">RotoWire</a>
-                    <a href="https://www.golfdigest.com/" target="_blank" style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-500);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:3px">Golf Digest</a>
-                    <span style="font-family:var(--font-mono);font-size:0.5rem;color:var(--cream-700);margin-left:auto" id="news-updated"></span>
-                </div>
-                <div id="news-ticker" style="max-height:400px;overflow-y:auto"></div>
-            </div>
-        </div>
-
-        <!-- Row 2: Top Fits + Status Feed -->
-        <div class="grid-2">
-            <div class="card">
-                <h3>Top Course Fits</h3>
-                <p class="card-subtitle">Best skill-matched players for this week's course profile.</p>
-                <div id="cut-top-fits"></div>
-            </div>
-            <div class="card">
-                <h3>Status Feed</h3>
-                <div id="cut-status-feed"></div>
-                <div style="margin-top:0.75rem">
-                    <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-600);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Upcoming</div>
-                    <div id="cut-calendar"></div>
-                    <div id="cut-last-week" style="margin-top:0.5rem"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Row 3: Field Snapshot -->
-        <div class="card">
-            <h3>Field Snapshot</h3>
-            <div id="cut-field-snapshot"></div>
-        </div>
-
-        <!-- Live Tracker (collapsible) -->
-        <div class="card" style="margin-top:0.75rem">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed');var ifr=document.getElementById('cut-tracker');if(ifr&&!ifr.src&&ifr.dataset.src)ifr.src=ifr.dataset.src;">
-            <h3 style="display:inline">Live Tracker</h3> <span style="font-size:0.6rem;color:var(--cream-500);margin-left:0.5rem">DraftKings / IMG Arena</span><span class="collapsible-arrow">&#9660;</span></div>
-            <div class="collapsible-content collapsed">
-                <iframe id="cut-tracker" data-src="https://draftkings.apps.imgarena.com/golf/6.x/full/?eventId=1512&operator=draftkings&theme=default&language=en&env=prod&targetModule=full&options=eyJ2aWRlb1BsYXliYWNrRW5hYmxlZCI6dHJ1ZX0=" style="width:100%;height:500px;border:1px solid var(--border);border-radius:6px;background:#111;margin-top:0.5rem" allowfullscreen></iframe>
-                <p style="font-family:var(--font-mono);font-size:0.55rem;color:var(--cream-700);margin-top:0.4rem">For full-screen view: <a href="leaderboard.html" style="color:var(--green-400)">Open Live Leaderboard</a></p>
-            </div>
-        </div>
-            <div style="margin-top:0.75rem">
-                <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-                <h4 style="font-size:0.75rem;color:var(--brass-500);font-family:var(--font-mono)">Source Directory</h4><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.65rem;margin-top:0.5rem">
-                    <div>
-                        <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Field & Conditions</div>
-                        <div><a href="https://www.pgatour.com/news" target="_blank" style="color:var(--green-400)">pgatour.com</a> — official WDs, field, tee times</div>
-                        <div><a href="https://www.rotowire.com/golf/news.php" target="_blank" style="color:var(--green-400)">rotowire.com</a> — daily player injury/status blurbs</div>
-                        <div><a href="https://www.asapsports.com/" target="_blank" style="color:var(--green-400)">asapsports.com</a> — press conference transcripts</div>
-                        <div><a href="https://www.windy.com/" target="_blank" style="color:var(--green-400)">windy.com</a> — wind visualization</div>
-                        <div><a href="https://www.owgr.com/" target="_blank" style="color:var(--green-400)">owgr.com</a> — world rankings, Masters qualification</div>
-                    </div>
-                    <div>
-                        <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Data & Models</div>
-                        <div><a href="https://datagolf.com/" target="_blank" style="color:var(--green-400)">datagolf.com</a> — skill ratings, decomps, odds, field updates</div>
-                        <div><a href="https://betspertsgolf.com/the-rabbit-hole" target="_blank" style="color:var(--green-400)">Rabbit Hole</a> — custom ShotLink composite models</div>
-                        <div><a href="https://www.espn.com/golf/statistics" target="_blank" style="color:var(--green-400)">espn.com/golf/stats</a> — historical stat tables</div>
-                    </div>
-                    <div>
-                        <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Narrative Sources</div>
-                        <div><a href="https://mayomedia.substack.com/" target="_blank" style="color:var(--green-400)">Pat Mayo</a> — weekly picks, course breakdowns, podcast</div>
-                        <div><a href="https://betspertsgolf.com/newsletter" target="_blank" style="color:var(--green-400)">Klos + Noonan</a> — Betsperts newsletter + RH models</div>
-                        <div><a href="https://www.readtheline.com/" target="_blank" style="color:var(--green-400)">Keith Stewart</a> — on-site live betting angles</div>
-                        <div><a href="https://www.actionnetwork.com/golf" target="_blank" style="color:var(--green-400)">Action Network</a> — Spencer Aguiar + Kyle Murray models + matchups</div>
-                        <div><a href="https://www.golfdigest.com/" target="_blank" style="color:var(--green-400)">Golf Digest panel</a> — Mayo + Noonan + Stewart weekly</div>
-                        <div><a href="https://nolayingup.com/" target="_blank" style="color:var(--green-400)">No Laying Up</a> — analytical podcast, course coverage</div>
-                        <div><a href="https://thefriedegg.com/" target="_blank" style="color:var(--green-400)">The Fried Egg</a> — course architecture + setup</div>
-                    </div>
-                </div>
-            </div></div>
-        </div>
-    </section>
-
-    <!-- ═══ TOURNAMENTS ═══ -->
-    <section id="tournament" class="panel active">
-
-        <!-- Tournament Nav -->
-        <div class="timeline-strip">
-            <div class="timeline-btn upcoming live" data-t="pgachampionship"><span class="tl-name">PGA Champ</span><span class="tl-date">May 14</span></div>
-            <div class="tl-divider"></div>
-            <div class="timeline-btn settled recent" data-t="truist"><span class="tl-name">Truist</span><span class="tl-settled-result">Reitan -15</span></div>
-            <div class="timeline-btn settled recent" data-t="myrtlebeach"><span class="tl-name">Myrtle Beach</span><span class="tl-settled-result">-$10</span></div>
-            <div class="timeline-btn settled recent" data-t="miamichampionship"><span class="tl-name">Miami Champ</span><span class="tl-settled-result">-$132.50</span></div>
-            <div class="timeline-btn settled recent" data-t="zurich"><span class="tl-name">Zurich</span><span class="tl-settled-result">+$3</span></div>
-            <div class="timeline-btn settled recent" data-t="rbcheritage"><span class="tl-name">RBC Heritage</span><span class="tl-settled-result">Fitz -18</span></div>
-            <div class="timeline-btn settled recent" data-t="masters"><span class="tl-name">Masters</span><span class="tl-settled-result">Rory -12</span></div>
-            <div class="timeline-btn settled" data-t="valero"><span class="tl-name">Valero</span><span class="tl-settled-result">Spaun -17</span></div>
-            <div class="timeline-btn settled" data-t="houston"><span class="tl-name">Houston</span><span class="tl-settled-result">Woodland -21</span></div>
-            <div class="timeline-btn settled" data-t="valspar"><span class="tl-name">Valspar</span><span class="tl-settled-result">Fitzpatrick -11</span></div>
-            <div class="timeline-btn settled" data-t="players"><span class="tl-name">Players</span><span class="tl-settled-result">C. Young -14</span></div>
-            <div class="timeline-btn settled" data-t="arnoldpalmer"><span class="tl-name">Arnold Palmer</span><span class="tl-settled-result">Bhatia -12</span></div>
-            <div class="timeline-btn settled" data-t="puertorico"><span class="tl-name">Puerto Rico</span><span class="tl-settled-result">Castillo -17</span></div>
-            <div class="timeline-btn settled" data-t="cognizant"><span class="tl-name">Cognizant</span><span class="tl-settled-result">Echavarria -17</span></div>
-        </div>
-
-        <!-- Result Banner (injected by JS) -->
-        <div id="result-banner-slot"></div>
-
-        <!-- Tournament Review (settled tournaments only) -->
-        <div id="review-section" style="display:none">
-            <div class="card" style="border-left:3px solid var(--brass-500)">
-                <h3>Tournament Review</h3>
-                <p class="card-subtitle">Post-mortem analysis: what we picked, why, and how the model performed against actual results.</p>
-                <div id="review-summary" style="margin-bottom:1rem"></div>
-                <table class="data-table"><thead><tr><th>Player</th><th>Market</th><th>Odds</th><th>Finish</th><th>Result</th><th>Thesis</th><th>Verdict</th></tr></thead>
-                <tbody id="review-picks"></tbody></table>
-                <div id="review-model" style="margin-top:1.25rem"></div>
-                <div id="review-lessons" style="margin-top:1rem"></div>
-            </div>
-        </div>
-
-        <!-- Course Bar -->
-        <div class="course-bar">
-            <div class="course-bar-left">
-                <h2 id="course-name"></h2>
-                <span class="course-meta-inline" id="course-meta"></span>
-            </div>
-            <div class="course-bar-right">
-                <div class="archetype-tag" id="course-archetype"></div>
-            </div>
-        </div>
-
-        <!-- Course Narrative -->
-        <div id="narrative-section">
-            <div class="card">
-                <h3>Course DNA</h3>
-                <div class="narrative-grid">
-                    <div class="narrative-main">
-                        <div id="course-description" class="narrative-text"></div>
-                        <div class="narrative-tags" id="course-tags" style="margin-top:0.5rem"></div>
-                        <div id="correlated-courses" style="margin-top:0.75rem"></div>
-                    </div>
-                    <div class="narrative-sidebar">
-                        <div class="masked-box"><h4>Weakness Masked</h4><div id="masked-list"></div></div>
-                        <div class="amplified-box"><h4>Strength Amplified</h4><div id="amplified-list"></div></div>
-                        <div class="narrative-box"><h4>Winner DNA</h4><p class="narrative-text" id="winner-dna" style="margin:0;font-size:0.78rem"></p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Player Board (likes, bets, fades) -->
-        <div class="card" id="player-board-card">
-            <h3>Player Board</h3>
-            <p class="card-subtitle">Players on card, likes, and fades for this tournament.</p>
-            <div id="pb-filters" style="margin-bottom:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap">
-                <button data-pbfilter="all" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:var(--green-800);color:var(--green-300);cursor:pointer">All</button>
-                <button data-pbfilter="card" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">On Card</button>
-                <button data-pbfilter="like" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Likes</button>
-                <button data-pbfilter="fade" style="font-size:0.6rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:var(--cream-500);cursor:pointer">Fades</button>
-            </div>
-            <div id="player-board"></div>
-        </div>
-
-        <!-- Analysis Log (process notes, timestamped, newest first) -->
-        <div class="card" id="tourney-notes-card">
-            <h3>Analysis Log</h3>
-            <p class="card-subtitle">Process observations, data updates, and watch items. Newest first.</p>
-            <div id="tourney-notes" style="max-height:420px;overflow-y:auto"></div>
-        </div>
-
-        <!-- Skill Fit Rankings + Tournament Surface Fits -->
-        <div class="card" id="skill-fit-card">
-            <h3>Skill Fit Rankings</h3>
-            <p class="card-subtitle">How players rank for this specific course. Skill tabs rank by individual stats. Tournament tabs pull surface-specific and course-type data.</p>
-            <div class="quick-tags" id="skill-fit-tabs">
-                <span class="quick-tag active" data-skill="overall">Overall Fit</span>
-                <span class="quick-tag" data-skill="app">Approach</span>
-                <span class="quick-tag" data-skill="putt">Putting</span>
-                <span class="quick-tag" data-skill="ott">Off the Tee</span>
-                <span class="quick-tag" data-skill="arg">Short Game</span>
-                <span class="quick-tag" data-skill="dd">Distance</span>
-                <span class="quick-tag" data-skill="surface">Surface Putters</span>
-                <span class="quick-tag" data-skill="weekfit">This Week's Fit</span>
-            </div>
-            <div id="skill-fit-display"></div>
-        </div>
-
-        <!-- Form Check (standalone section) -->
-        <div class="card" id="form-check-card">
-            <h3>Form Check</h3>
-            <p class="card-subtitle">Recent momentum signals. Who's trending up, who's flagged, who's cold.</p>
-            <div id="form-check-display"></div>
-        </div>
-
-        <!-- Stat Fingerprint + Radar -->
-        <div class="grid-2">
-            <div class="card">
-                <h3>Stat Fingerprint</h3>
-                <div id="fingerprint-grid" class="fingerprint-grid"></div>
-            </div>
-            <div class="card">
-                <h3>Player-Course Fit</h3>
-                <div class="radar-controls">
-                    <select id="radar-p1" class="calc-input" style="max-width:180px"></select>
-                    <select id="radar-p2" class="calc-input" style="max-width:180px"></select>
-                    <select id="radar-p3" class="calc-input" style="max-width:180px"></select>
-                </div>
-                <div class="radar-container" style="max-width:450px"><canvas id="radar-chart"></canvas></div>
-                <div class="radar-legend" id="radar-legend"></div>
-            </div>
-        </div>
-
-        <!-- Blind Composite (moved up before weather/FRL) -->
-
-        <!-- Weather + FRL (moved below composite) -->
-        <div class="card" id="weather-card">
-            <h3>Course Conditions</h3>
-            <div id="weather-display" class="weather-grid"></div>
-        </div>
-
-        <div class="card" id="frl-card">
-            <h3>First Round Leader Analysis</h3>
-            <p class="card-subtitle">Wave advantage, weather splits, and FRL candidates.</p>
-            <div id="frl-wave-summary"></div>
-            <table class="data-table" id="frl-table">
-                <thead><tr><th>Player</th><th>Wave</th><th>Odds</th><th>Wind Advantage</th><th>Form</th><th>FRL History</th></tr></thead>
-                <tbody id="frl-body"></tbody>
-            </table>
-        </div>
-
-        <!-- 3-Ball / Player Comparison -->
-        <div class="card">
-            <h3>Player Comparison / 3-Ball</h3>
-            <p class="card-subtitle">Select 2-3 players to compare skill profiles. Useful for 3-ball matchup analysis.</p>
-            <div class="compare-selects">
-                <select id="tourney-compare-1" class="calc-input"></select>
-                <select id="tourney-compare-2" class="calc-input"></select>
-                <select id="tourney-compare-3" class="calc-input"></select>
-            </div>
-            <div id="tourney-compare-output"></div>
-        </div>
-
-        <!-- Key Holes + Recent Winners (moved to bottom) -->
-        <div class="grid-2">
-            <div class="card"><h3>Key Holes</h3><div id="key-holes"></div></div>
-            <div class="card"><h3>Recent Winners</h3><div id="recent-winners"></div></div>
-        </div>
-
-        <!-- Blind Composite (original position marker - actual composite follows) -->
-        <div class="card">
-            <h3>Blind Composite Rankings</h3>
-            <p class="card-subtitle">Phase 2.5 output. Ranked by weighted course-fit composite using DG skill ratings, Rabbit Hole models, and form signals. "Model Fits" = top-10 in a specific statistical model (e.g., M17#1 = ranked #1 in the driver/ball-speed model).</p>
-            <div id="density-bar" class="density-bar"></div>
-            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Comp</th><th>Form</th><th>Signal</th><th>APP</th><th>OTT</th><th>DD</th><th>ARG</th><th>PUTT</th><th>T10%</th><th title="Top-10 rank in any individual Rabbit Hole statistical model. Indicates course-specific specialist skill.">Model Fits</th><th>Flag</th></tr></thead>
-            <tbody id="composite-body"></tbody></table>
-        </div>
-
-        <!-- Top Placement Pricing (when T5/T20 data available) -->
-        <div id="placements-card" class="card" style="display:none">
-            <h3>Placement Pricing</h3>
-            <p class="card-subtitle">DraftKings Top 5 and Top 20 odds cross-referenced with our composite rankings. Gap = how many positions the market underprices vs our model (positive = value). Green highlights = composite rank significantly higher than market rank.</p>
-            <table class="data-table"><thead><tr><th>Comp#</th><th>Player</th><th>Outright</th><th>Top 5</th><th>Top 20</th><th>T20 Imp%</th><th>Form</th><th>Mkt#</th><th>Gap</th></tr></thead>
-            <tbody id="placements-body"></tbody></table>
-        </div>
-
-        <!-- RH Heatmap + Form Chart -->
-        <div class="grid-2">
-            <div class="card">
-                <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-                <h3>RH Model Heatmap</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-                <table class="data-table compact" id="rh-table"><thead id="rh-header"><tr><th>Player</th><th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>Meta</th></tr></thead>
-                <tbody id="rh-body"></tbody></table>
-            </div></div>
-            <div class="card">
-                <h3>DG Form Signals</h3>
-                <p class="card-subtitle">Gray = career baseline win probability. Colored = form-adjusted (BHF). Green = surging (TAILWIND), light green = warm, amber = cooling, red = declining (HEADWIND). Taller colored bar = player is outperforming their baseline.</p>
-                <div id="form-chart-placeholder" class="placeholder-msg">Form signal data populates from DataGolf API during tournament week analysis. Check back closer to the event.</div>
-                <canvas id="form-chart" height="300"></canvas>
-            </div>
-        </div>
-
-        <!-- Weakness Masked + Narrative Matrix -->
-        <div class="grid-2">
-            <div class="card">
-                <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-                <h3>Weakness-Masked Overlay</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-                <table class="data-table"><thead><tr><th>Player</th><th>Weakness</th><th>Masked?</th><th>Strength</th><th>Amplified?</th><th>Rk</th><th>Form</th><th>Verdict</th></tr></thead>
-                <tbody id="masked-body"></tbody></table>
-            </div></div>
-            <div class="card">
-                <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-                <h3>Narrative Source Matrix</h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-                <table class="data-table compact"><thead><tr><th>Player</th><th>Noon</th><th>Klos</th><th>Mayo</th><th>Stew</th><th>Titan</th><th>AN</th><th>#</th><th>Rk</th></tr></thead>
-                <tbody id="narrative-body"></tbody></table>
-            </div></div>
-        </div>
-
-        <!-- Bets section moved to My Betting tab -->
-        <div id="bets-card" style="display:none"><tbody id="bets-body"></tbody></div>
-    </section>
-
-    <!-- ═══ DATA CENTER ═══ -->
-    <section id="datacenter" class="panel">
-        <div class="dc-header"><h2>Data Center</h2><p class="card-subtitle">Tournament-neutral golfer intelligence. Career skill profiles, surface performance, and course-type analysis.</p></div>
-
-        <!-- Player Profiles FIRST -->
-        <div class="card">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Player Profiles</h3><span class="collapsible-arrow open">&#9660;</span></div><div class="collapsible-content">
-            <!-- Quick-access tags -->
-            <div class="quick-tags">
-                <span class="quick-tag" data-filter="Elite">Elite Tier</span>
-                <span class="quick-tag" data-filter="Contender">Contenders</span>
-                <span class="quick-tag" data-filter="Mid-field">Mid-field</span>
-                <span class="quick-tag" data-filter="Veteran">Veterans</span>
-                <span class="quick-tag" data-stat="app">Best Iron Players</span>
-                <span class="quick-tag" data-stat="putt">Best Putters</span>
-                <span class="quick-tag" data-stat="ott">Longest Drivers</span>
-                <span class="quick-tag" data-stat="arg">Best Short Game</span>
-                <span class="quick-tag" data-surface="bermuda">Bermuda Putters</span>
-                <span class="quick-tag" data-surface="bent">Bentgrass Putters</span>
-                <span class="quick-tag" data-surface="poa">Poa Putters</span>
-                <span class="quick-tag" data-form="hot">Hot Right Now</span>
-                <span class="quick-tag" data-form="cold">Cold / Struggling</span>
-                <span class="quick-tag" data-form="rising">Rising</span>
-                <span class="quick-tag" data-form="injured">Injury / Caution</span>
-                <span class="quick-tag" data-reset="true">Show All</span>
-            </div>
-            <div class="quick-tags" style="margin-bottom:0.75rem">
-                <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500);letter-spacing:0.06em;text-transform:uppercase;margin-right:0.5rem">Timeframe:</span>
-                <span class="quick-tag active" data-time="career">Career</span>
-                <span class="quick-tag" data-time="recent">Recent (1-6mo)</span>
-                <span class="quick-tag" data-time="compcourse">At Similar Courses</span>
-                <span class="quick-tag" data-time="thisweek">This Week's Fit</span>
-            </div>
-            <div class="scout-search">
-                <input type="text" id="scout-search-input" placeholder="Search by name..." class="calc-input" style="max-width:300px">
-                <select id="scout-tier-filter" class="calc-input" style="max-width:150px;margin-left:0.5rem">
-                    <option value="">All Tiers</option><option value="Elite">Elite</option><option value="Contender">Contender</option><option value="Mid-field">Mid-field</option><option value="Veteran">Veteran</option>
-                </select>
-            </div>
-            <div class="scout-grid" id="scout-grid"></div>
-        </div></div>
-        <!-- Skill Analysis -->
-        <div class="grid-2">
-            <div class="card">
-                <h3>Tour Elite</h3>
-                <p class="card-subtitle">Top 10 by career SG:Total. Component breakdown shows where strokes come from.</p>
-                <canvas id="dc-stacked-chart" height="280"></canvas>
-            </div>
-            <div class="card">
-                <h3>Iron Play vs Putting</h3>
-                <p class="card-subtitle">The two skills that separate. Green = Elite, Blue = Contender, Gray = Mid-field.</p>
-                <canvas id="dc-scatter-chart" height="280"></canvas>
-            </div>
-        </div>
-
-        <!-- Surface Performance -->
-        <div class="card">
-            <h3>Surface Performance</h3>
-            <p class="card-subtitle">How players perform on different grass types. Putting is the most surface-dependent skill in golf — a player who gains +0.50 on Bermuda may lose -0.20 on Poa. This matters for weekly course selection.</p>
-            <div class="quick-tags" id="surface-tabs">
-                <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500);letter-spacing:0.06em;text-transform:uppercase;margin-right:0.5rem">Surface:</span>
-                <span class="quick-tag active" data-surf="all">All Surfaces</span>
-                <span class="quick-tag" data-surf="bermuda">Bermuda</span>
-                <span class="quick-tag" data-surf="bent">Bentgrass</span>
-                <span class="quick-tag" data-surf="poa">Poa Annua / Triv</span>
-            </div>
-            <div class="quick-tags" style="margin-bottom:0.75rem">
-                <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cream-500);letter-spacing:0.06em;text-transform:uppercase;margin-right:0.5rem">View:</span>
-                <span class="quick-tag active" data-surfview="putting">Putting</span>
-                <span class="quick-tag" data-surfview="spread">Surface Spread</span>
-                <span class="quick-tag" data-surfview="specialists">Specialists</span>
-            </div>
-            <div id="surface-display"></div>
-        </div>
-
-        <!-- Course Type Fit -->
-        <div class="card">
-            <h3>Course Type Fit</h3>
-            <p class="card-subtitle">This week: <strong>Harbour Town — Accuracy + Iron Play (Second-Shot)</strong>. Select a type to compare.</p>
-            <div class="quick-tags" id="dc-archetype-tabs">
-                <span class="quick-tag active" data-arch="thisweek">This Week's Fit</span>
-                <span class="quick-tag" data-arch="secondshot">Second-Shot</span>
-                <span class="quick-tag" data-arch="bomber">Bomber</span>
-                <span class="quick-tag" data-arch="bermuda">Bermuda Putting</span>
-                <span class="quick-tag" data-arch="poa">Poa Putting</span>
-                <span class="quick-tag" data-arch="grinder">Grinder</span>
-                <span class="quick-tag" data-arch="shortgame">Short Game</span>
-                <span class="quick-tag" data-arch="wind">Wind</span>
-            </div>
-            <div id="dc-archetype-display"></div>
-        </div>
-
-        <!-- Stat Leaders (pushed down) -->
-        <div class="card">
-            <h3>Stat Leaders</h3>
-            <p class="card-subtitle">Top performer in each career SG category across all profiled players.</p>
-            <div class="stats-row">
-                <div class="stat-card" id="dc-best-tot"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:Total</div></div>
-                <div class="stat-card" id="dc-best-app"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:APP</div></div>
-                <div class="stat-card" id="dc-best-ott"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:OTT</div></div>
-                <div class="stat-card" id="dc-best-arg"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:ARG</div></div>
-                <div class="stat-card" id="dc-best-putt"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Best SG:PUTT</div></div>
-                <div class="stat-card" id="dc-best-dd"><div class="stat-value" style="font-size:1.1rem"></div><div class="stat-label">Longest Driver</div></div>
-            </div>
-        </div>
-
-        <div class="card"><h3>Course Intelligence Library</h3><div class="course-grid" id="course-grid"></div></div>
-    </section>
-
-    <!-- ═══ LIVE ODDS ═══ -->
-    <section id="liveodds" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Live Odds</h2>
-        <p class="card-subtitle" style="margin-bottom:1.5rem">Odds sourced from DataGolf (aggregated across 10+ books). Best available price highlighted. Updated when DG context is pulled.</p>
-
-        <div class="card">
-            <h3>Outright Win Market</h3>
-            <div style="margin-bottom:1rem">
-                <select id="odds-tourney" class="calc-input" style="max-width:280px">
-                    <option value="rbcheritage" selected>RBC Heritage</option>
-                    <option value="miamichampionship">Miami Championship</option>
-                    <option value="pgachampionship">PGA Championship</option>
-                    <option value="travelers">Travelers Championship</option>
-                    <option value="masters">The Masters (Settled)</option>
-                </select>
-            </div>
-            <table class="data-table" id="live-odds-table">
-                <thead>
-                    <tr>
-                        <th>Rk</th>
-                        <th>Player</th>
-                        <th>Best Price</th>
-                        <th>b365 E/W 1/4 5pl</th>
-                        <th>DG Form</th>
-                        <th>Note</th>
-                    </tr>
-                </thead>
-                <tbody id="live-odds-body"></tbody>
-            </table>
-        </div>
-
-        <div class="grid-2">
-            <div class="card">
-                <h3>Hot Form</h3>
-                <p class="card-subtitle">Players trending up heading into the tournament.</p>
-                <div id="value-picks"></div>
-            </div>
-            <div class="card">
-                <h3>Caution Flags</h3>
-                <p class="card-subtitle">Players with declining form, injury concerns, or other risk factors.</p>
-                <div id="fade-picks"></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>Odds Source Notes</h3>
-            <p class="narrative-text">Odds are pulled from DataGolf's aggregated feed which covers Pinnacle, bet365, DraftKings, FanDuel, BetMGM, Caesars, BetOnline, BetCris, and others. "DG Fair" is DataGolf's model-implied fair price using baseline_history_fit probabilities. "Best Book" is the longest available odds across all tracked books. Edge = our composite-implied probability minus the best book's implied probability. Positive edge = we think the player is more likely to perform than the market suggests.</p>
-        </div>
-    </section>
-
-    <!-- ═══ TOOLS ═══ -->
-    <section id="tools" class="panel">
-        <div class="card"><h3>Historical Leaderboard Overlay</h3>
-            <div class="grid-2"><div><select id="history-venue-select"><option value="rbcheritage">Harbour Town (2019-2025)</option><option value="masters">Augusta National (2010-2025)</option><option value="valero">TPC San Antonio (2016-2025)</option></select></div>
-            <div class="field-filters"><label><input type="checkbox" id="hist-top10" checked> Top 10 only</label><label><input type="checkbox" id="hist-in-field"> In 2026 field only</label></div></div>
-            <canvas id="history-scatter" height="400"></canvas>
-            <div class="card" style="margin-top:1rem;background:var(--green-900)"><h4 style="font-size:0.85rem">Repeat Performers</h4>
-            <table class="data-table compact"><thead><tr><th>Player</th><th>Starts</th><th>T5</th><th>T10</th><th>T20</th><th>T10%</th><th>Best</th><th>Finishes</th></tr></thead><tbody id="repeaters-body"></tbody></table></div>
-        </div>
-        <div class="card"><h3>E/W Payout Calculator</h3>
-            <div class="calc-grid">
-                <div class="calc-input-group"><label>Odds (American)</label><input type="text" id="calc-odds" value="+5000" class="calc-input"></div>
-                <div class="calc-input-group"><label>E/W Fraction</label><select id="calc-fraction" class="calc-input"><option value="0.33">1/3</option><option value="0.25">1/4</option><option value="0.20">1/5</option></select></div>
-                <div class="calc-input-group"><label>Places</label><select id="calc-places" class="calc-input"><option value="5">5</option><option value="8">8</option><option value="10">10</option><option value="12">12</option></select></div>
-                <div class="calc-input-group"><label>Total Stake ($)</label><input type="number" id="calc-stake" value="10" class="calc-input"></div>
-                <div class="calc-input-group"><label>Win Prob (%)</label><input type="number" id="calc-win-prob" value="2.5" step="0.1" class="calc-input"></div>
-                <div class="calc-input-group"><label>Place Prob (%)</label><input type="number" id="calc-place-prob" value="12" step="0.5" class="calc-input"></div>
-                <div class="calc-input-group"><label>Bankroll ($)</label><input type="number" id="calc-bankroll" value="400" class="calc-input"></div>
-                <div class="calc-input-group"><label>Kelly</label><select id="calc-kelly" class="calc-input"><option value="0.25">Quarter Kelly</option><option value="0.5">Half Kelly</option><option value="1">Full Kelly</option></select></div>
-            </div>
-            <button class="calc-btn" id="calc-btn">Calculate</button>
-            <div id="calc-results"></div>
-        </div>
-
-        <!-- Player Comparison -->
-        <div class="card">
-            <h3>Player Comparison</h3>
-            <p class="card-subtitle">Select 2-3 players to compare skill profiles, surface putting, and course-type fit side by side.</p>
-            <div class="compare-selects">
-                <select id="compare-1" class="calc-input"></select>
-                <select id="compare-2" class="calc-input"></select>
-                <select id="compare-3" class="calc-input"></select>
-            </div>
-            <div id="compare-output"></div>
-        </div>
-
-        <!-- Course-Player Matcher -->
-        <div class="card">
-            <h3>Course-Player Matcher</h3>
-            <p class="card-subtitle">Select a course type to see the best-fit players from our database, ranked by archetype fit score.</p>
-            <div class="matcher-controls">
-                <select id="matcher-archetype" class="calc-input" style="max-width:250px">
-                    <option value="secondshot">Second-Shot Course</option>
-                    <option value="bomber">Bomber / Distance Course</option>
-                    <option value="bermuda">Bermuda Putting Course</option>
-                    <option value="poa">Poa Putting Course</option>
-                    <option value="grinder">Grinder / Penalty Course</option>
-                    <option value="shortgame">Short Game Course</option>
-                    <option value="wind">Wind-Exposed Course</option>
-                </select>
-            </div>
-            <table class="data-table" id="matcher-table">
-                <thead><tr><th>Rk</th><th>Player</th><th>Fit</th><th>Key Stat</th><th>Surface Putting</th><th>Tier</th></tr></thead>
-                <tbody id="matcher-body"></tbody>
-            </table>
-        </div>
-
-        <!-- Season Bet Analyzer -->
-        <div class="card">
-            <h3>Season Bet Analyzer</h3>
-            <p class="card-subtitle">Filter and slice the season's 171 bets by any dimension to find patterns.</p>
-            <div class="analyzer-filters">
-                <select id="analyzer-book" class="calc-input"><option value="">All Books</option><option value="bet365">bet365</option><option value="DraftKings">DraftKings</option><option value="FanDuel">FanDuel</option></select>
-                <select id="analyzer-market" class="calc-input"><option value="">All Markets</option><option value="Outright">Outright</option><option value="FRL">FRL</option><option value="Prop">Prop</option><option value="DFS">DFS</option><option value="Matchup">Matchup</option></select>
-                <select id="analyzer-status" class="calc-input"><option value="">All Status</option><option value="Won">Won</option><option value="Lost">Lost</option><option value="Open">Open</option></select>
-            </div>
-            <div id="analyzer-summary"></div>
-            <table class="data-table compact" id="analyzer-table">
-                <thead><tr><th>Tournament</th><th>Player</th><th>Market</th><th>Odds</th><th>Stake</th><th>Status</th><th>Return</th></tr></thead>
-                <tbody id="analyzer-body"></tbody>
-            </table>
-        </div>
-
-        <!-- Form Signal Scanner -->
-        <div class="card">
-            <h3>Form Signal Scanner</h3>
-            <p class="card-subtitle">All profiled players sorted by current form momentum. Who's surging, who's fading.</p>
-            <canvas id="form-scanner-chart" height="350"></canvas>
-        </div>
-    </section>
-
-    <!-- ═══ ACTIVE BETS ═══ -->
-    <section id="activebets" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Active Bets</h2>
-
-        <!-- Portfolio Exposure -->
-        <div class="stats-row" style="margin-bottom:1.5rem" id="exposure-stats"></div>
-
-        <!-- Genesis Scottish Open (Active / Open) -->
-        <div class="card" style="border-left:3px solid var(--brass-500)">
-            <h3>Genesis Scottish Open <span class="badge upcoming" style="background:var(--brass-700,#6b5a18);color:var(--brass-300,#e9c46a)">OPEN | JUL 9-12</span> <a href="field-model.html?v=92" style="font-family:var(--font-mono);font-size:0.62rem;font-weight:400;color:var(--brass-400);text-decoration:none;border:1px solid var(--brass-500);border-radius:4px;padding:3px 8px;margin-left:6px">FIELD MODEL &rarr;</a></h3>
-            <p class="card-subtitle">The Renaissance Club (Tom Doak, firm-fast links par 70, fescue) &middot; Open warm-up | data-first card: independent MC model &rarr; narrative overlay &rarr; market. Links-weighted model (APP .31 / OTT .20 / FORM .18): Scheffler 15.9% win, then McIlroy / Rahm / Schauffele / Fleetwood. <b>Links-DNA lean</b> (over recency/EV): Fleetwood, Lowry, MacIntyre, Rahm &mdash; fade the bomber misfits (Cantlay, Clark). Gotterup taken as a defending-champ course-history lottery despite the approach-fit flag. Full interactive model &rarr; <a href="field-model.html?v=92" style="color:var(--brass-400)">field-model.html</a>.</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Nicolai Hojgaard</td><td>Win (anchor)</td><td>DK</td><td>+5900</td><td>$5</td><td>PLACED</td></tr>
-              <tr><td>Min Woo Lee</td><td>Win &middot; won here '21</td><td>DK</td><td>+4900</td><td>$5</td><td>PLACED</td></tr>
-              <tr><td>Kristoffer Reitan</td><td>Win</td><td>DK</td><td>+6300</td><td>$5</td><td>PLACED</td></tr>
-              <tr><td>Brian Harman</td><td>Win &middot; '23 Open champ</td><td>DK</td><td>+12000</td><td>$5</td><td>PLACED</td></tr>
-              <tr><td>Chris Gotterup</td><td>Win &middot; defending champ</td><td>Caesars</td><td>+2900</td><td>$5</td><td>PLACED</td></tr>
-              <tr><td>Kurt Kitayama</td><td>Win &middot; elite long-irons</td><td>DK</td><td>+5300</td><td>$5</td><td>PLACED</td></tr>
-            </tbody></table>
-        </div>
-
-        <!-- John Deere Classic (Active / Open) -->
-        <div class="card" style="border-left:3px solid var(--brass-500)">
-            <h3>John Deere Classic <span class="badge upcoming" style="background:var(--brass-700,#6b5a18);color:var(--brass-300,#e9c46a)">OPEN | JUL 2-5</span> <a href="field-model.html?v=92" style="font-family:var(--font-mono);font-size:0.62rem;font-weight:400;color:var(--brass-400);text-decoration:none;border:1px solid var(--brass-500);border-radius:4px;padding:3px 8px;margin-left:6px">FIELD MODEL &rarr;</a></h3>
-            <p class="card-subtitle">TPC Deere Run (D.A. Weibring, birdie-fest par 71, pure bentgrass) | 6 tickets / $65 staked | data-first card: independent MC model &rarr; narrative overlay &rarr; market. <b>Outrights</b> (b365 E/W): Mitchell +2500 (anchor, model #3), McGreevy +6600 (form riser), Blair +11000 (TAILWIND dart), Putnam +9000 (E/W Extra). <b>FRL</b> (b365 E/W 1/4 5pl): Grillo +6000, Ghim +5000 (2025 Deere FRL). Full interactive model &rarr; <a href="field-model.html?v=92" style="color:var(--brass-400)">field-model.html</a>.</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-jdc"></tbody></table>
-        </div>
-
-        <!-- Travelers Championship (settled — ledger reconciliation pending) -->
-        <div class="card" style="border-left:3px solid var(--brass-500)">
-            <h3>Travelers Championship <span class="badge upcoming" style="background:var(--brass-700,#6b5a18);color:var(--brass-300,#e9c46a)">OPEN | JUN 25-28</span></h3>
-            <p class="card-subtitle">TPC River Highlands (Pete Dye, short positional par 70, bent/poa) | 6 tickets / $80 staked (4u) | data-first card: independent MC model &rarr; narrative overlay &rarr; market. <b>Outrights</b> (b365 E/W top-3): Schauffele +2500 (2u), Rai +6600, Spaun +6600. <b>FRL</b> (b365 E/W 1/5, settle Thu): Poston +5000, Cantlay +3300 (AM-wave template), Suber +9000.</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-travelers"></tbody></table>
-        </div>
-
-        <!-- PGA Championship (Active) -->
-        <div class="card" style="border-left:3px solid var(--green-500)">
-            <h3>PGA Championship <span class="badge upcoming" style="background:var(--green-700);color:var(--green-300)">UPCOMING | MAY 14-17</span></h3>
-            <p class="card-subtitle">Aronimink GC (Donald Ross, Hanse restoration, bentgrass) | 19 tickets / ~$355 staked | 4 pre-week futures + 1 week-of outright (McNealy) + 4 FRLs (Schauffele/Detry AM-sweet + Bhatia/Coody PM) + Straka stack + 2 DK regional picks + Haotong Li 3-Ball ($100) + DFS Lineup B $50 GPP + 4 par-5-winner props (Scheffler/Aberg/Hojgaard/A.Fitz).</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-pga"></tbody></table>
-        </div>
-
-        <!-- Truist Championship (Settled) -->
-        <div class="card" style="border-left:3px solid var(--red-600);opacity:0.85">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Truist Championship <span class="badge" style="background:var(--red-900);color:var(--red-400)">SETTLED | -$65.00</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Quail Hollow | 7 bets | $65 staked | Full-card loss — Reitan won at -15 (76/1, off card). Bhatia T37, no card cashes.</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-truist"></tbody></table>
-            </div>
-        </div>
-
-        <!-- Myrtle Beach Classic (Settled) -->
-        <div class="card" style="border-left:3px solid var(--red-600);opacity:0.85">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Myrtle Beach Classic <span class="badge" style="background:var(--red-900);color:var(--red-400)">SETTLED | -$10.00</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Dunes G&BC | 1 bet | $10 staked | Lamprecht FRL did not cash</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-mb"></tbody></table>
-            </div>
-        </div>
-
-        <!-- Cadillac Championship (Settled) -->
-        <div class="card" style="border-left:3px solid var(--red-600);opacity:0.85">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Cadillac Championship <span class="badge" style="background:var(--red-900);color:var(--red-400)">SETTLED | -$132.50</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Doral Blue Monster | 16 bets | $132.50 staked | Full-card loss — no cashes across 6 outrights + 4 FRLs + Henley anchor</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-miami"></tbody></table>
-            </div>
-        </div>
-
-        <!-- Zurich Classic (Settled) -->
-        <div class="card" style="border-left:3px solid var(--brass-500);opacity:0.85">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Zurich Classic of New Orleans <span class="badge" style="background:var(--brass-900);color:var(--brass-400)">SETTLED | +$3.00</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">TPC Louisiana | 9 bets | $80 staked | Springer/Smalley placed +$32.50 + DFS +$35.50 | -$30 on FRLs</p>
-            <table class="data-table"><thead><tr><th>Team</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-zurich"></tbody></table>
-            </div>
-        </div>
-
-        <!-- RBC Heritage (Settled) -->
-        <div class="card" style="border-left:3px solid var(--red-600);opacity:0.85">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>RBC Heritage <span class="badge" style="background:var(--red-900);color:var(--red-400)">SETTLED | -$106.50</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <p class="card-subtitle">Harbour Town | 15 bets | $150 staked | DFS +$33.50 only cash | Fitz won (-18)</p>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-rbc"></tbody></table>
-            </div>
-        </div>
-
-        <!-- Futures / Major Championship Bets -->
-        <div class="card" style="border-left:3px solid var(--brass-500)">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Futures <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-400);font-weight:400">US Open + 2027 Masters | 4 bets | PGA Champ bets moved to Active Bets section</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-            <table class="data-table"><thead><tr><th>Player</th><th>Event</th><th>Odds</th><th>Terms</th><th>Book</th><th>Stake</th></tr></thead>
-            <tbody id="ab-futures"></tbody></table>
-        </div></div>
-
-        <!-- Previously Settled -->
-        <div class="card" style="border-left:2px solid var(--border);opacity:0.8">
-            <div class="collapsible-header" onclick="this.querySelector('.collapsible-arrow').classList.toggle('open');this.nextElementSibling.classList.toggle('collapsed')">
-            <h3>Previous Tournaments <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--brass-500);font-weight:400">Season History</span></h3><span class="collapsible-arrow">&#9660;</span></div><div class="collapsible-content collapsed">
-
-            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:0.75rem 0 0.25rem;font-family:var(--font-mono)">The Masters <span style="color:var(--green-400);font-weight:400">SETTLED | Rory -12 | 9W-19L | +$567.64</span></h4>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-masters"></tbody></table>
-
-            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:1rem 0 0.25rem;font-family:var(--font-mono)">Valero Texas Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Spaun -17 | 1W-16L | -$83.05</span></h4>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-valero"></tbody></table>
-
-            <h4 style="font-size:0.75rem;color:var(--brass-400);margin:1rem 0 0.25rem;font-family:var(--font-mono)">Houston Open <span style="color:var(--cream-500);font-weight:400">SETTLED | Woodland -21 | 1W-10L | -$58</span></h4>
-            <table class="data-table"><thead><tr><th>Player</th><th>Bet</th><th>Book</th><th>Odds</th><th>Stake</th><th>Placed</th><th>Status</th></tr></thead>
-            <tbody id="ab-houston"></tbody></table>
-
-        </div></div>
-
-        <!-- Odds Board -->
-        <div class="card">
-            <h3>Odds Board</h3>
-            <p class="card-subtitle">Composite-implied fair odds vs book price.</p>
-            <select id="betting-tourney-select" class="calc-input" style="max-width:280px;margin-bottom:1rem">
-                <option value="rbcheritage" selected>RBC Heritage</option>
-                <option value="miamichampionship">Miami Championship</option>
-                <option value="pgachampionship">PGA Championship</option>
-                <option value="travelers">Travelers Championship</option>
-                <option value="masters">The Masters (Settled)</option>
-            </select>
-            <table class="data-table"><thead><tr><th>Rk</th><th>Player</th><th>Our Fair</th><th>Best Book</th><th>b365</th><th>Edge</th><th>Form</th><th>Verdict</th></tr></thead>
-            <tbody id="odds-body"></tbody></table>
-        </div>
-    </section>
-
-    <!-- ═══ SEASON P/L ═══ -->
-    <section id="betting" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:1rem">2026 Season Tracker</h2>
-
-        <!-- Phase 2 Callout -->
-        <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
-            <div class="card" style="flex:1;min-width:200px;border-left:3px solid #c44;padding:0.75rem 1rem">
-                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 1 (AMEX - WM Open)</div>
-                <div style="font-size:1.1rem;font-weight:700;color:#c44">0-44 | -$319.50</div>
-                <div style="font-size:0.7rem;color:var(--cream-500)">-96.9% ROI | Learning curve</div>
-            </div>
-            <div class="card" style="flex:1;min-width:200px;border-left:3px solid var(--green-400);padding:0.75rem 1rem">
-                <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--brass-500);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem">Phase 2 (Genesis - Masters)</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--green-400)">22W | +$773.84</div>
-                <div style="font-size:0.7rem;color:var(--cream-500)">+47.5% ROI | Masters +$567.64 best week</div>
-            </div>
-        </div>
-
-        <!-- Season Summary Table (like the Excel tracker) -->
-        <div class="card">
-            <h3>Season Summary</h3>
-            <p class="card-subtitle">Auto-rendered from the settled ledger (TOURNAMENTS) + open cards. Last reconciled through US Open; Travelers open.</p>
-            <table class="data-table">
-                <thead><tr><th>Tournament</th><th>Phase</th><th>Bets</th><th>Staked</th><th>Returned</th><th>P/L</th><th>Status</th></tr></thead>
-                <tbody id="season-tbody"></tbody>
-            </table>
-        </div>
-
-        <!-- Key Numbers -->
-        <div class="stats-row">
-            <div class="stat-card"><div class="stat-value" id="kn-total">—</div><div class="stat-label">Total Bets</div></div>
-            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)" id="kn-pl">—</div><div class="stat-label">Settled P/L</div></div>
-            <div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value" style="color:var(--green-400)" id="kn-roi">—</div><div class="stat-label">ROI (settled)</div></div>
-            <div class="stat-card"><div class="stat-value" id="kn-win">—</div><div class="stat-label">Winners</div></div>
-            <div class="stat-card"><div class="stat-value" id="kn-open">—</div><div class="stat-label">Open Bets</div></div>
-        </div>
-        <div class="grid-2">
-            <div class="card"><h3>Tournament P/L</h3><canvas id="tournament-pl-chart"></canvas></div>
-            <div class="card"><h3>Cumulative P/L</h3><canvas id="cumulative-pl-chart"></canvas></div>
-        </div>
-        <div class="grid-2">
-            <div class="card"><h3>By Market Type</h3><canvas id="market-chart"></canvas></div>
-            <div class="card"><h3>By E/W Terms</h3><canvas id="ew-chart"></canvas></div>
-        </div>
-        <div class="card">
-            <h3>Source Attribution</h3>
-            <p class="card-subtitle">Auto-generated from tracker. Which books, markets, and signals generate alpha? Updated via <code>node scripts/tracker-sync.js</code></p>
-            <table class="data-table"><thead><tr><th>Source</th><th>Bets</th><th>W</th><th>L</th><th>Win%</th><th>Staked</th><th>Returned</th><th>P/L</th><th>ROI</th></tr></thead>
-            <tbody id="source-attr-body"></tbody></table>
-        </div>
-        <div class="card"><h3>Phase Analysis</h3>
-            <div class="phase-grid">
-                <div class="phase-card negative"><h4>Phase 1 (AMEX - WM Open)</h4><div class="phase-stat">0-44 | -$319.50 | -96.9%</div><p>Pre-process. No course-fit weighting.</p></div>
-                <div class="phase-card positive"><h4>Phase 2 (Genesis - Present)</h4><div class="phase-stat">10W | +$342.25 | +44.9%</div><p>Course-fit + E/W structure + form signals.</p></div>
-            </div>
-        </div>
-        <div class="card"><h3>Winners Log</h3>
-            <table class="data-table"><thead><tr><th>Tournament</th><th>Player</th><th>Market</th><th>Odds</th><th>Stake</th><th>Return</th><th>P/L</th></tr></thead><tbody id="winners-table"></tbody></table>
-        </div>
-        <div class="card"><h3>Rotation Status</h3>
-            <div class="grid-3">
-                <div class="rotation-card active-status"><h4>Active</h4><div id="active-players"></div></div>
-                <div class="rotation-card on-notice"><h4>On Notice</h4><div id="soft-players"></div></div>
-                <div class="rotation-card benched"><h4>Benched</h4><div id="hard-players"></div></div>
-            </div>
-        </div>
-        <div class="card"><h3>Source Attribution</h3>
-            <div class="grid-2">
-                <div><canvas id="source-roi-chart" height="250"></canvas></div>
-                <div><canvas id="source-winrate-chart" height="250"></canvas></div>
-            </div>
-            <table class="data-table" style="margin-top:1rem"><thead><tr><th>Source</th><th>Tagged</th><th>Wins</th><th>Places</th><th>Win%</th><th>P/L</th><th>ROI</th><th>Best Hit</th></tr></thead><tbody id="source-body"></tbody></table>
-        </div>
-    </section>
-
-    </div><!-- /app-content -->
-
-    <!-- ═══ DFS ═══ -->
-    <section id="dfs" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Daily Fantasy</h2>
-        <p class="card-subtitle" style="margin-bottom:1.5rem">RBC Heritage 2026 | Harbour Town Golf Links | 82 players, no cut | DK salaries from comp course data</p>
-        <div class="card" style="margin-bottom:1rem;border-left:3px solid var(--green-500)">
-            <h3>Masters DFS Result</h3>
-            <p class="card-subtitle">$109 entry | $750 returned | <span class="pos">+$641 profit</span> | Best DFS week of season</p>
-        </div>
-
-        <div class="grid-2">
-            <div class="card">
-                <h3>Harbour Town Fit Plays</h3>
-                <p class="card-subtitle">7-model avg + comp course 5yr + Poa Triv surface data. DK salaries from Betsperts.</p>
-                <div style="font-size:0.75rem">
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Fitzpatrick</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$10,000</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #3.1 | DG #2 | TAIL 1.27x</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Si Woo Kim</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,900</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #5.7 | DG #8 | TAIL 1.61x | Best SG fit</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Henley</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$9,600</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #3.6 | DG #3 | TAIL 1.87x</span> <span style="font-size:0.55rem;color:var(--brass-400)">ON CARD $40</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Fleetwood</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$10,100</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #5.9 | DG #6 | Poa Triv ARG #2</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>McNealy</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$8,500</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #14.8 | T3 2025 | Poa Triv PUTT #4</span></div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border)"><strong>Straka</strong> <span style="font-family:var(--font-mono);color:var(--cream-500)">$7,900</span> <span style="font-family:var(--font-mono);color:var(--green-400)">7-model #13.1 | TAIL 1.35x | Klos loves</span></div>
-                </div>
-            </div>
-            <div class="card">
-                <h3>GPP Leverage + Punts</h3>
-                <p class="card-subtitle">Low ownership course horses. Poa Triv + comp course backed.</p>
-                <div style="font-size:0.75rem">
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--green-400)"><strong>Ghost tier ($6-7K, sub-3% own):</strong> Poston (Poa Triv TOT #7, 6 top-11s), Harman (TAIL 2.04x, T3 2025), Glover (APP #8 comp 5yr), Hoge (APP #5 comp 5yr)</div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--green-400)"><strong>Mid-tier leverage ($7-8K):</strong> Berger (T3 2025, APP #5 Poa Triv), Day (ARG #5 + PUTT #6 Poa Triv), Noren (TAIL 1.66x), Nick Taylor (TAIL 1.56x)</div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>Chalk fades:</strong> Scheffler $13,500 (25%+ own — price too high for GPP). Burns $9,000 (putter-dependent, wrong course). Cam Young $9,800 (HEADWIND 0.78, bomber on accuracy course).</div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>No cut = different strategy.</strong> 82 players all play 4 rounds. No cut pressure changes aggression. Course horses get all 4 rounds to grind.</div>
-                    <div style="padding:0.3rem 0;border-bottom:1px solid var(--border);color:var(--brass-400)"><strong>Weather benign</strong> all 4 rounds. No wave advantage. Calm conditions = bombers slightly less penalized but APP still king.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>DFS Core Build</h3>
-            <p class="card-subtitle">$50K salary cap. DK salaries pending lock — these are early Betsperts numbers. Lineups finalize when DK salaries + ownership projections drop.</p>
-            <p class="card-subtitle" style="font-style:italic;color:var(--cream-700)">Lineups finalize when DK salaries and ownership projections are published (typically Tuesday/Wednesday). Early salary estimates from Betsperts comp course data above. Core: Fitzpatrick + Si Woo + Henley anchors. Punts: Poston/Harman/Glover at ghost ownership.</p>
-        </div>
-
-        <div class="card">
-            <h3>Harbour Town Core (7-Model Consensus + Poa Triv Data)</h3>
-            <p class="card-subtitle">7-model avg rank + DG TAILWIND ratio + Poa Trivialis surface performance (3yr). Updated Apr 13.</p>
-            <table class="data-table"><thead><tr><th>#</th><th>Player</th><th>DK Salary</th><th>7-Model</th><th>DG Rank</th><th>TAILWIND</th><th>Poa Triv</th><th>2025 HT</th></tr></thead>
-            <tbody>
-                <tr><td>1</td><td><strong>Matt Fitzpatrick</strong></td><td style="font-family:var(--font-mono)">$10,000</td><td class="pos">#3.1</td><td class="pos">#2</td><td class="pos">1.27x</td><td>#9</td><td>T38</td></tr>
-                <tr><td>2</td><td><strong>Russell Henley</strong></td><td style="font-family:var(--font-mono)">$9,600</td><td class="pos">#3.6</td><td class="pos">#3</td><td class="pos">1.87x</td><td>#20</td><td>T8</td></tr>
-                <tr><td>3</td><td><strong>Si Woo Kim</strong></td><td style="font-family:var(--font-mono)">$8,900</td><td class="pos">#5.7</td><td>#8</td><td class="pos">1.61x</td><td>#8</td><td>T8</td></tr>
-                <tr><td>4</td><td><strong>Tommy Fleetwood</strong></td><td style="font-family:var(--font-mono)">$10,100</td><td class="pos">#5.9</td><td>#6</td><td class="pos">1.25x</td><td>#4</td><td>T7</td></tr>
-                <tr><td>5</td><td><strong>Patrick Cantlay</strong></td><td style="font-family:var(--font-mono)">$9,200</td><td class="pos">#9.6</td><td>#10</td><td class="pos">1.26x</td><td>#6</td><td>T13</td></tr>
-                <tr><td>6</td><td><strong>Ryo Hisatsune</strong></td><td style="font-family:var(--font-mono)">$7,700</td><td>#11.7</td><td>#31</td><td>1.03x</td><td>#16</td><td>T18</td></tr>
-                <tr><td>7</td><td><strong>Sepp Straka</strong></td><td style="font-family:var(--font-mono)">$7,900</td><td>#13.1</td><td>#27</td><td class="pos">1.35x</td><td>#15</td><td>-</td></tr>
-                <tr><td>8</td><td><strong>Maverick McNealy</strong></td><td style="font-family:var(--font-mono)">$8,500</td><td>#14.8</td><td>#12</td><td>1.06x</td><td>#21</td><td>T3</td></tr>
-                <tr><td>9</td><td><strong>Daniel Berger</strong></td><td style="font-family:var(--font-mono)">$7,300</td><td>#18.7</td><td>#45</td><td class="pos">1.45x</td><td>#18</td><td>T3</td></tr>
-                <tr><td>10</td><td><strong>Brian Harman</strong></td><td style="font-family:var(--font-mono)">$7,000</td><td>#29.3</td><td>#38</td><td class="pos">2.04x</td><td>#30</td><td>T3</td></tr>
-            </tbody></table>
-        </div>
-    </section>
-
-    <!-- ═══ MASTERS POOL ═══ -->
-    <section id="masterspool" class="panel">
-        <h2 style="font-family:var(--font-display);font-weight:300;letter-spacing:0.06em;margin-bottom:0.5rem">Masters Pool Picks</h2>
-        <p class="card-subtitle" style="margin-bottom:1.25rem">Pick 1 per tier. Best 4 of 6 combined to-par scores. Data from 5 RH models, Tindall trends, Noonan Augusta SG, Mayo trends, GBS model.</p>
-
-        <div id="pool-tiers"></div>
-
-        <!-- My Picks Summary -->
-        <div class="card" style="margin-top:1rem">
-            <h3>My Picks</h3>
-            <p class="card-subtitle">Click a player in any tier to select them. Your 6 picks appear here.</p>
-            <div id="pool-picks" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem"></div>
-        </div>
-    </section>
-
-    <script>
-    // Load sparkline data if available
-    var SPARKLINES = {};
-    fetch('snapshots/sparklines.json').then(r=>r.json()).then(d=>{SPARKLINES=d}).catch(()=>{});
-    </script>
-    <!-- Player Card Popup -->
-    <div id="player-popup" class="player-popup hidden">
-        <div class="player-popup-content" id="player-popup-content"></div>
+    <div class="card" style="margin-top:18px">
+      <div class="card-head"><h3>Skill-Fit Composite</h3><span class="note" id="compNote">field scored on this course's stat weighting</span></div>
+      <div style="overflow-x:auto"><table id="compTable"></table></div>
     </div>
 
-    <script src="auth.js?v=91"></script>
-    <script src="data.js?v=91"></script>
-    <script src="tournament-data.js?v=91"></script>
-    <script src="settled-data.js?v=91"></script>
-    <script src="masters-odds.js?v=91"></script>
-    <script src="valero-odds.js?v=91"></script>
-    <script src="tools-data.js?v=91"></script>
-    <script src="news-feed.js?v=91"></script>
-    <script src="source-attribution.js?v=91"></script>
-    <script src="app.js?v=91"></script>
-    <script src="masters-pool.js?v=91"></script>
-    <script src="tools.js?v=91"></script>
+    <div class="two-col" style="margin-top:18px">
+      <div class="card">
+        <div class="card-head"><h3>Key Holes</h3><span class="note">where it's won and lost</span></div>
+        <div id="kholeBody"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Recent Winners</h3><span class="note">the profile that travels here</span></div>
+        <div id="rwinBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENUE HISTORY -->
+  <section id="venuehist">
+    <div class="sec-label">The Record</div>
+    <div class="sec-title">Historical Overlay</div>
+    <div class="sec-sub">Multi-year finishing history at a venue — who shows up year after year. Repeat performers are highlighted; players in the 2026 field are flagged. Course history is a real, tradeable edge at the venues that reward it.</div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+      <select id="vhSel" class="gb-sel" style="min-width:280px"></select>
+      <span id="vhSpan" style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700)"></span>
+    </div>
+    <div class="card"><div class="hgrid" id="vhBody"></div></div>
+  </section>
+
+  <!-- DATA CENTER -->
+  <section id="datacenter">
+    <div class="sec-label">The Leaders</div>
+    <div class="sec-title">Data Center</div>
+    <div class="sec-sub">Strokes-gained leaderboards across the tracked database — who's best in each phase of the game, and who owns each putting surface. Drawn live from the golfer intelligence base.</div>
+    <div class="lead-grid" id="leadGrid"></div>
+  </section>
+
+  <!-- ACTIVE -->
+  <section id="active">
+    <div class="sec-label">This Week</div>
+    <div class="sec-title">Active Bets</div>
+    <div class="brass-rule"></div>
+    <div class="active-wrap" id="activeWrap"></div>
+  </section>
+
+  <!-- EDGE STRUCTURES -->
+  <section id="edge">
+    <div class="sec-label">The Edge</div>
+    <div class="sec-title">Bet Structures</div>
+    <div class="sec-sub">Each-way 1/4 to 5 places is the operation's confirmed structural edge. Everything else is a drag — the season's clearest lesson, priced in dollars.</div>
+    <div class="card"><div class="bars" id="edgeBars"></div></div>
+  </section>
+
+  <!-- MARKETS -->
+  <section id="markets">
+    <div class="sec-label">By Market</div>
+    <div class="sec-title">Where the Money Is Made</div>
+    <div class="sec-sub">Settled P/L by market type. DFS is the season hero; FRL and win-only outrights are the confirmed leaks.</div>
+    <div class="card"><div class="bars" id="marketBars"></div></div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <div class="sec-label">The Read</div>
+    <div class="sec-title">Source Calibration</div>
+    <div class="sec-sub">Which reads actually make money. P/L by attributed source — the analytical edge, held to account.</div>
+    <div class="two-col">
+      <div class="card"><div class="card-head"><h3>P/L by Source</h3><span class="note">by attribution tag</span></div><div class="bars" id="sourceBars"></div></div>
+      <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="sourceTable"></table></div></div>
+    </div>
+  </section>
+
+  <!-- LEDGER -->
+  <section id="ledger">
+    <div class="sec-label">Every Event</div>
+    <div class="sec-title">Tournament Ledger</div>
+    <div class="brass-rule"></div>
+    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="ledgerTable"></table></div></div>
+  </section>
+
+  <!-- BET HISTORY -->
+  <section id="history">
+    <div class="sec-label">Every Ticket</div>
+    <div class="sec-title">Bet History</div>
+    <div class="sec-sub">Every bet placed, by event. The full card record — filter to any week.</div>
+    <div class="chips" id="histChips"></div>
+    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="histTable"></table></div></div>
+  </section>
+
+  <!-- COURSES -->
+  <section id="courses">
+    <div class="sec-label">The Venues</div>
+    <div class="sec-title">Course Library</div>
+    <div class="sec-sub">Course DNA — archetype, what each setup forgives and amplifies, and our record there.</div>
+    <div class="course-grid" id="courseGrid"></div>
+  </section>
+
+  <!-- WINNERS -->
+  <section id="winners">
+    <div class="sec-label">The Wins</div>
+    <div class="sec-title">Winners Log</div>
+    <div class="sec-sub">Every settled winning ticket, biggest first. 30 winners, all Phase 2.</div>
+    <div class="card" style="padding:8px 10px"><div style="overflow-x:auto"><table id="winnersTable"></table></div></div>
+  </section>
+
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal"><div class="modal-head"><div><div class="mt" id="modalTitle"></div><div class="ms" id="modalSub"></div></div><button class="modal-close" id="modalClose">&times;</button></div><div class="modal-body" id="modalBody"></div></div></div>
+
+<footer><div class="wrap">
+  GREENBOOK · Data-first golf betting · Settled P/L <b id="footPL"></b> · <b id="footROI"></b> ROI · Last audited Jul 12 2026
+</div></footer>
+
+<script src="data.js?v=102"></script>
+<script src="tools-data.js?v=102"></script>
+<script src="player-kb.js?v=102"></script>
+<script src="tournament-data.js?v=102"></script>
+<script src="settled-data.js?v=102"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const U = 20; // $ per unit
+const money  = n => (n<0?'−':'+') + (Math.abs(n)/U).toFixed(1) + 'u';   // signed units (P/L)
+const money0 = n => (Math.abs(n)/U).toFixed(1) + 'u';                    // unsigned units (staked/returned)
+const ustk   = n => (+(n/U).toFixed(2)) + 'u';                          // stake/return in units, trimmed
+const cls = n => n>0?'pos':(n<0?'neg':'zero');
+const clean = s => (s||'').replace(/�/g,'—').replace(/�/g,'—');
+
+/* ---------- derive ---------- */
+const settled = TOURNAMENTS.filter(t => t.status !== 'open');
+const openEv  = TOURNAMENTS.filter(t => t.status === 'open');
+const p1 = settled.filter(t=>t.phase===1), p2 = settled.filter(t=>t.phase===2);
+const sum = (a,k)=>a.reduce((s,t)=>s+(t[k]||0),0);
+const p1pl=sum(p1,'pl'), p2pl=sum(p2,'pl'), p1st=sum(p1,'staked'), p2st=sum(p2,'staked');
+const openStake = sum(openEv,'staked');
+
+/* ---------- masthead + hero ---------- */
+$('#mastMeta').innerHTML = `Net ${money(SEASON.pl)} · ${SEASON.roi}% ROI · ${SEASON.winners} winners`;
+$('#footPL').textContent = money(SEASON.pl); $('#footROI').textContent = SEASON.roi+'%';
+
+const hero = [
+  {k:'Net P/L (settled)', v:money(SEASON.pl), c:cls(SEASON.pl), sub:`on ${money0(SEASON.settledStaked)} staked`, feature:true},
+  {k:'Return on Investment', v:SEASON.roi+'%', c:cls(SEASON.roi), sub:'settled bets only'},
+  {k:'Record', v:`${SEASON.winners}W`, c:'pos', sub:`${SEASON.settled} settled bets`},
+  {k:'Total Returned', v:money0(SEASON.returned), c:'', sub:`from ${money0(SEASON.settledStaked)} risked`},
+  {k:'Open Exposure', v:money0(openStake), c:'', sub:openEv.map(e=>e.name).join(', ')||'none'},
+];
+$('#heroGrid').innerHTML = hero.map(h=>`<div class="stat ${h.feature?'feature':''}">
+  <div class="k">${h.k}</div><div class="v ${h.c}">${h.v}</div><div class="sub">${h.sub}</div></div>`).join('');
+
+/* phase cards */
+const phaseCard = (title,bets,pl,st,note)=>`<div class="card-head"><h3>${title}</h3><span class="note">${note}</span></div>
+  <div style="display:flex;gap:28px;align-items:baseline;margin-top:4px">
+    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">Net P/L</div>
+      <div style="font-family:var(--font-display);font-size:34px" class="${cls(pl)==='pos'?'':''}"><span style="color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${money(pl)}</span></div></div>
+    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">ROI</div>
+      <div style="font-family:var(--font-display);font-size:34px;color:${pl<0?'var(--scarlet)':'var(--green-500)'}">${st?((pl/st)*100).toFixed(1):'0'}%</div></div>
+    <div><div class="k" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-700);margin-bottom:6px">Bets</div>
+      <div style="font-family:var(--font-display);font-size:34px;color:var(--green-800)">${bets}</div></div>
+  </div>`;
+$('#phase1card').innerHTML = phaseCard('Phase 1', sum(p1,'bets'), p1pl, p1st, 'Pre-Genesis · no course-fit');
+$('#phase2card').innerHTML = phaseCard('Phase 2', sum(p2,'bets'), p2pl, p2st, 'Genesis onward · full process');
+
+/* ---------- cumulative chart (SVG) ---------- */
+(function(){
+  const W=1000,H=340,mL=54,mR=64,mT=22,mB=54;
+  let cum=0; const pts = settled.map(t=>({name:t.name,pl:t.pl,cum:(cum+=t.pl)}));
+  const ys = pts.map(p=>p.cum).concat([0]);
+  let lo=Math.min(...ys), hi=Math.max(...ys); const pad=(hi-lo)*0.12||10; lo-=pad; hi+=pad;
+  const x=i=> mL + i*(W-mL-mR)/(pts.length-1);
+  const y=v=> mT + (hi-v)*(H-mT-mB)/(hi-lo);
+  const zeroY=y(0);
+  // gridlines
+  const niceU = x=>{const p=Math.pow(10,Math.floor(Math.log10(x)));const f=x/p;return (f<1.5?1:f<3?2:f<7?5:10)*p;};
+  const step = niceU(Math.max(1,(hi-lo)/5/U))*U;
+  const ticks=[]; for(let v=Math.ceil(lo/step)*step; v<hi; v+=step) ticks.push(v);
+  const line = pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ');
+  const area = `M${x(0).toFixed(1)},${zeroY.toFixed(1)} ` + pts.map((p,i)=>`L${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join(' ') + ` L${x(pts.length-1).toFixed(1)},${zeroY.toFixed(1)} Z`;
+  const p1end = pts.findIndex(p=>settled[pts.indexOf(p)]?.phase===2); // first p2 index
+  const phaseX = p1end>0? x(p1end-0.5): null;
+  const last = pts[pts.length-1];
+  const svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Cumulative season profit and loss">
+    <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A7A4B" stop-opacity="0.22"/><stop offset="1" stop-color="#2A7A4B" stop-opacity="0.02"/></linearGradient></defs>
+    ${ticks.map(v=>`<line x1="${mL}" x2="${W-mR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#EDE5D4" stroke-width="1"/>
+      <text x="${mL-10}" y="${(y(v)+3).toFixed(1)}" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#A89880">${v<0?'−':''}${Math.abs(v/U).toFixed(0)}u</text>`).join('')}
+    <line x1="${mL}" x2="${W-mR}" y1="${zeroY.toFixed(1)}" y2="${zeroY.toFixed(1)}" stroke="#C0392B" stroke-width="1" stroke-dasharray="4 4" opacity="0.55"/>
+    ${phaseX?`<line x1="${phaseX.toFixed(1)}" x2="${phaseX.toFixed(1)}" y1="${mT}" y2="${H-mB}" stroke="#C9A046" stroke-width="1" stroke-dasharray="2 4" opacity="0.7"/>
+      <text x="${(phaseX+6).toFixed(1)}" y="${mT+12}" font-family="DM Mono,monospace" font-size="9.5" fill="#A87218" letter-spacing="0.1em">PHASE 2 →</text>`:''}
+    <path d="${area}" fill="url(#fill)"/>
+    <path d="${line}" fill="none" stroke="#1E5C38" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="3" fill="#fff" stroke="#1E5C38" stroke-width="1.6"/>`).join('')}
+    <circle cx="${x(pts.length-1).toFixed(1)}" cy="${y(last.cum).toFixed(1)}" r="5" fill="#C9A046" stroke="#fff" stroke-width="1.6"/>
+    <text x="${(x(pts.length-1)+8).toFixed(1)}" y="${(y(last.cum)+4).toFixed(1)}" font-family="Cormorant Garamond,serif" font-size="19" font-weight="600" fill="#1E5C38">${money(last.cum)}</text>
+  </svg>`;
+  const host=$('#chartHost'); host.innerHTML = svg + '<div class="tt" id="tt"></div>';
+  $('#chartNote').textContent = `${pts.length} settled events · trough ${money(Math.min(...pts.map(p=>p.cum)))} → ${money(last.cum)}`;
+  // hover
+  const tt=$('#tt'); const svgEl=host.querySelector('svg');
+  const hit=document.createElementNS('http://www.w3.org/2000/svg','rect');
+  hit.setAttribute('x',0);hit.setAttribute('y',0);hit.setAttribute('width',W);hit.setAttribute('height',H);hit.setAttribute('fill','transparent');svgEl.appendChild(hit);
+  const cross=document.createElementNS('http://www.w3.org/2000/svg','line');
+  cross.setAttribute('stroke','#1E5C38');cross.setAttribute('stroke-width','1');cross.setAttribute('opacity','0');cross.setAttribute('y1',mT);cross.setAttribute('y2',H-mB);svgEl.appendChild(cross);
+  svgEl.addEventListener('mousemove',e=>{
+    const r=svgEl.getBoundingClientRect(); const sx=(e.clientX-r.left)/r.width*W;
+    let i=Math.round((sx-mL)/((W-mL-mR)/(pts.length-1))); i=Math.max(0,Math.min(pts.length-1,i));
+    const px=x(i), py=y(pts[i].cum);
+    cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.setAttribute('opacity','0.35');
+    tt.style.opacity=1; tt.style.left=(px/W*100)+'%'; tt.style.top=(py/H*100)+'%';
+    tt.innerHTML=`<b>${pts[i].name}</b><br>Cumulative ${money(pts[i].cum)}<br><span class="d">Event ${pts[i].pl>=0?'+':'−'}$${Math.abs(pts[i].pl).toFixed(2)}</span>`;
+  });
+  svgEl.addEventListener('mouseleave',()=>{tt.style.opacity=0;cross.setAttribute('opacity','0');});
+})();
+
+/* ---------- diverging bars helper ---------- */
+function drawBars(hostId, rows){
+  const maxAbs = Math.max(...rows.map(r=>Math.abs(r.pl)));
+  const host=$(hostId);
+  host.innerHTML = rows.map(r=>{
+    const w = Math.abs(r.pl)/maxAbs*50; // % of half-track
+    const pos = r.pl>=0;
+    const fill = `<div class="bar-fill ${pos?'pos':'neg'}" style="${pos?`left:50%;width:${w}%`:`right:50%;width:${w}%`}"></div>`;
+    return `<div class="bar-row">
+      <div class="lbl">${r.label}<div class="bar-meta">${r.meta||''}</div></div>
+      <div class="bar-track"><div class="bar-mid" style="left:50%"></div>${fill}</div>
+      <div class="amt ${pos?'pos':'neg'}">${money(r.pl)}</div></div>`;
+  }).join('');
+}
+
+/* edge structures (EW_TERMS) sorted by pl desc */
+drawBars('#edgeBars', EW_TERMS.slice().sort((a,b)=>b.pl-a.pl).map(t=>({
+  label:t.terms, pl:t.pl, meta:`${t.bets} bets · ${t.roi>0?'+':''}${t.roi}% ROI`
+})));
+
+/* markets (MARKETS) sorted by pl desc */
+drawBars('#marketBars', MARKETS.slice().sort((a,b)=>b.pl-a.pl).map(m=>({
+  label:m.type, pl:m.pl, meta:`${m.bets} bets · ${m.roi>0?'+':''}${m.roi}% ROI`
+})));
+
+/* ---------- active bets (OPEN_CARD) ---------- */
+(function(){
+  const stake=OPEN_CARD.reduce((s,b)=>s+b.stake,0);
+  const maxRet=OPEN_CARD.reduce((s,b)=>s+(b.toReturn||0),0);
+  $('#activeWrap').innerHTML = `<div class="active-head">
+      <div class="t"><small><span class="live-dot"></span>Open · Royal Birkdale</small>The Open Championship</div>
+      <div class="exposure">Exposure <b>${money0(stake)}</b> · Max return <b>${money0(maxRet)}</b><br>Tees Thu Jul 16</div></div>` +
+    OPEN_CARD.map(b=>`<div class="abet">
+      <div><div class="p">${b.player}</div><div class="mk">${b.market} · ${b.terms}</div></div>
+      <div><div class="odds">${b.odds}</div><div class="book">${b.book}</div></div>
+      <div class="book" style="align-self:center">${b.placed}</div>
+      <div class="ret"><div class="stk">${ustk(b.stake)} → </div><div class="rv">${ustk(b.toReturn)}</div></div>
+      <div class="th">${b.comp}</div></div>`).join('');
+})();
+
+/* ---------- tournament ledger ---------- */
+(function(){
+  const rows = TOURNAMENTS.slice().reverse();
+  let html = `<thead><tr><th>Tournament</th><th>Phase</th><th>Bets</th><th>Staked</th><th>Returned</th><th>P/L</th><th>ROI</th><th>Status</th></tr></thead><tbody>`;
+  rows.forEach(t=>{
+    const open = t.status==='open';
+    const roi = t.staked? (t.pl/t.staked*100).toFixed(0)+'%' : '—';
+    html += `<tr>
+      <td class="name">${t.name}</td>
+      <td><span class="pill ${t.phase===1?'p1':'win'}" style="${t.phase===2?'background:var(--green-100);color:var(--green-600)':''}">P${t.phase}</span></td>
+      <td>${t.bets}</td>
+      <td>${money0(t.staked)}</td>
+      <td>${open?'—':money0(t.returned)}</td>
+      <td class="${open?'zero':cls(t.pl)}">${open?'—':money(t.pl)}</td>
+      <td class="${open?'zero':cls(t.pl)}">${open?'—':roi}</td>
+      <td>${open?'<span class="pill open">Open</span>':(t.pl>0?'<span class="pill win">Profit</span>':'<span class="pill loss">Loss</span>')}</td>
+    </tr>`;
+  });
+  $('#ledgerTable').innerHTML = html+'</tbody>';
+})();
+
+/* ---------- golfer intelligence (the outward-facing database) ---------- */
+(function(){
+  if (typeof SCOUTING === 'undefined') return;
+  const rk = t => ({Elite:0,Contender:1,Bubble:2,Fringe:3,Veteran:2}[t] ?? 2);
+  const data = SCOUTING.slice().sort((a,b)=> rk(a.tier)-rk(b.tier) || (b.sg_tot||-9)-(a.sg_tot||-9));
+  const tiers = ['All', ...Array.from(new Set(data.map(p=>p.tier).filter(Boolean)))];
+  const tierColor = { Elite:'var(--brass-500)', Contender:'var(--green-500)', Bubble:'var(--cream-500)', Fringe:'var(--cream-500)', Veteran:'var(--birdie)' };
+  const scrub = s => (s||'').replace(/�/g,'—');
+  const fmt = v => v===undefined?'—':(v>=0?'+':'')+v.toFixed(2);
+  const sgBar = (label,v)=>{ const val=v||0; const pct=Math.max(4,Math.min(96,val*30+50)); const col=val>0.3?'var(--green-500)':val>0?'var(--green-300)':'var(--scarlet)';
+    return `<div style="display:grid;grid-template-columns:34px 1fr 44px;gap:8px;align-items:center;margin-bottom:4px"><span style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700)">${label}</span><div style="height:5px;background:var(--cream-200);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${col}"></div></div><span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:${val>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(val)}</span></div>`; };
+  const card = p => { const tc=tierColor[p.tier]||'var(--cream-500)'; const hasSurf=p.putt_bermuda!==undefined&&(p.putt_bermuda||p.putt_bent||p.putt_poa);
+    return `<div class="gcard" data-golfer="${p.name.replace(/"/g,'&quot;')}" style="background:#fff;border:1px solid var(--cream-300);border-top:3px solid ${tc};border-radius:6px;padding:16px 18px;box-shadow:0 1px 0 var(--cream-200);cursor:pointer;transition:box-shadow .15s,transform .15s">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--green-800)">${p.name}</div><span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:var(--cream-100);color:${tc}">${p.tier||''}</span></div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--cream-700);margin:3px 0 12px">SG:TOT <b style="color:${(p.sg_tot||0)>=0?'var(--green-600)':'var(--scarlet)'}">${fmt(p.sg_tot)}</b> · ${p.shape||'—'} · ${p.surface||'—'}${p.dd?` · ${p.dd>0?'+':''}${p.dd} dd`:''}</div>
+      ${sgBar('APP',p.app)}${sgBar('OTT',p.ott)}${sgBar('ARG',p.arg)}${sgBar('PUTT',p.putt)}
+      ${hasSurf?`<div style="font-family:var(--font-mono);font-size:10px;color:var(--cream-700);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap"><span>Berm ${fmt(p.putt_bermuda)}</span><span>Bent ${fmt(p.putt_bent)}</span><span>Poa ${fmt(p.putt_poa)}</span></div>`:''}
+      <div style="font-size:12px;line-height:1.5;margin-top:11px;color:var(--cream-900)"><b style="color:var(--green-600)">+</b> ${scrub(p.strengths)}</div>
+      <div style="font-size:12px;line-height:1.5;margin-top:4px;color:var(--cream-900)"><b style="color:var(--scarlet)">−</b> ${scrub(p.weaknesses)}</div>
+      ${p.notes?`<div style="font-size:11.5px;font-style:italic;color:var(--cream-700);margin-top:9px;line-height:1.5">${scrub(p.notes)}</div>`:''}
+      ${kbBlock(p.name)}</div>`; };
+  const kbBlock = name => { const kb=(typeof PLAYER_KB!=='undefined')?PLAYER_KB[name]:null; if(!kb||!kb.learnings||!kb.learnings.length) return '';
+    return `<div style="margin-top:11px;padding-top:10px;border-top:1px dashed var(--brass-300)"><div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:7px">What we've learned${kb.updated?` · ${kb.updated}`:''}</div>`+
+      kb.learnings.map(l=>{ const c=Math.round((l.conf||0)*100); const cc=c>=70?'var(--green-600)':c>=50?'var(--brass-600)':'var(--cream-700)';
+        return `<div style="font-size:11.5px;line-height:1.5;color:var(--cream-900);margin-bottom:6px;display:flex;gap:7px"><span style="font-family:var(--font-mono);font-size:8.5px;color:${cc};border:1px solid ${cc};border-radius:2px;padding:1px 4px;height:fit-content;white-space:nowrap" title="confidence · ${l.support||0} support / ${l.contra||0} contra">${c}%${l.pending?'·prov':''}</span><span>${scrub(l.claim)}</span></div>`;}).join('')+`</div>`; };
+  let activeTier='All', q='';
+  const render=()=>{ const rows=data.filter(p=>(activeTier==='All'||p.tier===activeTier)&&(!q||p.name.toLowerCase().includes(q)));
+    $('#gGrid').innerHTML = rows.map(card).join('')||'<div style="color:var(--cream-700);font-family:var(--font-mono);font-size:12px">No golfers match.</div>';
+    $('#gCount').textContent = `${rows.length} of ${data.length} golfers`; };
+  $('#gTiers').innerHTML = tiers.map((t,i)=>`<div class="chip ${i===0?'on':''}" data-t="${t}">${t}</div>`).join('');
+  $('#gTiers').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$('#gTiers').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');activeTier=c.dataset.t;render();});
+  $('#gSearch').addEventListener('input',e=>{q=e.target.value.toLowerCase().trim();render();});
+  render();
+})();
+
+/* ---------- this week (current-event intelligence) ---------- */
+(function(){
+  if (typeof CURRENT_INTEL === 'undefined') return;
+  const c = CURRENT_INTEL;
+  $('#tw-title').textContent = c.event;
+  $('#tw-sub').textContent = `${c.course} · ${c.dates} — the data-first read behind this week's card`;
+  $('#tw-surface').textContent = c.surface;
+  $('#tw-fingerprint').textContent = c.fingerprint;
+  $('#tw-indep').innerHTML = c.independentTop.map(p=>`<div style="display:flex;gap:12px;padding:5px 0;font-family:var(--font-mono);font-size:12.5px;border-bottom:1px solid var(--cream-100)"><span style="color:var(--brass-600);width:20px;text-align:right">${p.rank}</span><span style="color:var(--green-800)">${p.name}</span></div>`).join('');
+  $('#tw-leans').innerHTML = c.leans.map(l=>`<div style="padding:9px 0;border-bottom:1px solid var(--cream-200)"><div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--green-800)">${l.name} ${l.bet?'<span class="pill win" style="font-size:8px;vertical-align:middle">ON CARD</span>':''}</div><div style="font-size:12px;color:var(--cream-700);margin-top:3px;line-height:1.5">${l.note}</div></div>`).join('');
+  $('#tw-fades').innerHTML = c.fades.map(f=>`<div style="padding:9px 0;border-bottom:1px solid var(--cream-200)"><div style="font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--scarlet)">${f.name}</div><div style="font-size:12px;color:var(--cream-700);margin-top:3px;line-height:1.5">${f.note}</div></div>`).join('');
+  $('#tw-reconcile').textContent = c.reconcile;
+})();
+
+/* ---------- sources ---------- */
+(function(){
+  if (typeof SOURCE_PERFORMANCE === 'undefined') return;
+  const src = SOURCE_PERFORMANCE.slice().sort((a,b)=>b.pl-a.pl);
+  drawBars('#sourceBars', src.map(s=>({ label:s.source, pl:s.pl, meta:`${s.tagged} tagged · ${s.wins}W ${s.places}P` })));
+  let html = `<thead><tr><th>Source</th><th>Tagged</th><th>W/P</th><th>Staked</th><th>P/L</th><th>ROI</th></tr></thead><tbody>`;
+  src.forEach(s=>{ const roi = s.staked?(s.pl/s.staked*100).toFixed(0)+'%':'—';
+    html += `<tr><td class="name">${s.source}<div style="font-size:10px;color:var(--cream-700);font-family:var(--font-mono)">${s.bestHit}</div></td>
+      <td>${s.tagged}</td><td>${s.wins}/${s.places}</td><td>${money0(s.staked)}</td>
+      <td class="${cls(s.pl)}">${money(s.pl)}</td><td class="${cls(s.pl)}">${roi}</td></tr>`; });
+  $('#sourceTable').innerHTML = html+'</tbody>';
+})();
+
+/* ---------- bet history (all cards) ---------- */
+(function(){
+  const G = (v)=> (typeof window[v]!=='undefined') ? window[v] : (typeof eval('typeof '+v)!=='undefined'?eval(v):null);
+  const cards = [
+    ['The Open','OPEN_CARD'],['Scottish','SCOTTISH_CARD'],['ISCO','ISCO_CARD'],['John Deere','JDC_CARD'],
+    ['Travelers','TRAVELERS_CARD'],['US Open','US_OPEN_CARD'],['Memorial','MEMORIAL_CARD'],['PGA Champ','PGA_CARD'],
+    ['Myrtle Beach','MB_CARD'],['Truist','TRUIST_CARD'],['Miami','MIAMI_CARD'],['Zurich','ZURICH_CARD'],
+    ['RBC','RBC_CARD'],['Masters','MASTERS_CARD'],['Valero','VALERO_CARD'],['Houston','HOUSTON_CARD'],
+  ];
+  let all=[];
+  cards.forEach(([ev,name])=>{ let arr; try{ arr=eval(name); }catch(e){ arr=null; }
+    if(Array.isArray(arr)) arr.forEach(b=> all.push({ev,...b})); });
+  const events = ['All',...cards.filter(([ev,n])=>{try{return Array.isArray(eval(n))}catch(e){return false}}).map(c=>c[0])];
+  const chips=$('#histChips'); chips.innerHTML = events.map((e,i)=>`<div class="chip ${i===0?'on':''}" data-ev="${e}">${e}</div>`).join('');
+  function render(ev){
+    const rows = ev==='All'? all : all.filter(b=>b.ev===ev);
+    let html = `<thead><tr><th>Event</th><th>Player</th><th>Market</th><th>Terms</th><th>Odds</th><th>Stake</th><th>Result</th></tr></thead><tbody>`;
+    rows.forEach(b=>{ const r=(b.result||b.status||'').toLowerCase();
+      const pill = r.includes('won')?'<span class="pill win">Won</span>': r.includes('push')?'<span class="pill p1">Push</span>': (b.status==='Open'||r==='')?'<span class="pill open">Open</span>':'<span class="pill loss">Lost</span>';
+      html += `<tr><td class="name" style="font-size:11px;color:var(--cream-700)">${b.ev}</td>
+        <td class="name">${b.player}</td><td style="text-align:left;font-size:11px">${b.market}</td>
+        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${b.terms||''}</td>
+        <td>${b.odds||'—'}</td><td>${ustk(b.stake)}</td>
+        <td style="text-align:left;font-size:11px">${pill} <span style="color:var(--cream-700)">${(b.status&&b.status!=='Open')?b.status:''}</span></td></tr>`; });
+    $('#histTable').innerHTML = html+'</tbody>';
+  }
+  chips.addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(!c)return;
+    chips.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); render(c.dataset.ev); });
+  render('All');
+})();
+
+/* ---------- players: rotation + status + scouting (internal-only; skipped on public page) ---------- */
+(function(){
+  if (!document.querySelector('#rotActive')) return; // section lives in the War Room, not the public face
+  if (typeof PLAYERS !== 'undefined'){
+    const item = p=>`<div class="rot-item"><div class="rn">${p.name}<span class="rp ${cls(p.pl)}">${money(p.pl)}</span></div>
+      <div class="rr">${p.wins}W / ${p.bets} bets${p.roi!==undefined?` · ${p.roi>0?'+':''}${p.roi}% ROI`:''}${p.consec?` · ${p.consec} consec L`:''}${p.note||p.reason?` — ${p.note||p.reason}`:''}</div></div>`;
+    $('#rotActive').innerHTML=(PLAYERS.active||[]).map(item).join('');
+    $('#rotNotice').innerHTML=(PLAYERS.onNotice||[]).map(item).join('');
+    $('#rotBench').innerHTML=(PLAYERS.benched||[]).map(item).join('');
+  }
+  if (typeof PLAYER_STATUS !== 'undefined'){
+    $('#statusWrap').innerHTML = `<div class="card" style="padding:18px 20px"><div class="card-head" style="margin-bottom:14px"><h3>Status Flags</h3><span class="note">intel · injuries · form</span></div>`+
+      PLAYER_STATUS.map(s=>`<div class="alert ${s.severity==='caution'?'caution':s.severity==='serious'?'serious':'info'}">
+        <div class="ap">${s.player}<div class="atype">${s.type} · ${s.updated}</div></div>
+        <div class="as">${clean(s.status)}</div></div>`).join('')+`</div>`;
+  }
+  if (typeof SCOUTING !== 'undefined'){
+    const rank = t=>({Elite:0,Contender:1,Bubble:2,Fringe:3}[t]??2);
+    const data = SCOUTING.slice().sort((a,b)=> rank(a.tier)-rank(b.tier) || (b.sg_tot||-9)-(a.sg_tot||-9));
+    $('#scoutCount').textContent = `${data.length} players`;
+    const sgc = v=> v===undefined?'':`<span class="sg ${v>=0?'p':'n'}">${v>=0?'+':''}${v.toFixed(2)}</span>`;
+    function render(q){
+      const rows = q? data.filter(p=>p.name.toLowerCase().includes(q)) : data;
+      let html=`<thead><tr><th>Player</th><th>Tier</th><th>SG:TOT</th><th>APP</th><th>OTT</th><th>ARG</th><th>PUTT</th><th>DD</th><th>Shape</th><th>Surface</th></tr></thead><tbody>`;
+      rows.forEach(p=>{ html+=`<tr title="${clean((p.strengths||'')+' | '+(p.weaknesses||''))}">
+        <td class="name">${p.name}</td><td><span class="tier ${p.tier}">${p.tier}</span></td>
+        <td>${sgc(p.sg_tot)}</td><td>${sgc(p.app)}</td><td>${sgc(p.ott)}</td><td>${sgc(p.arg)}</td><td>${sgc(p.putt)}</td>
+        <td style="color:var(--cream-700)">${p.dd?(p.dd>0?'+':'')+p.dd:'—'}</td>
+        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${p.shape||''}</td>
+        <td style="text-align:left;font-size:11px;color:var(--cream-700)">${p.surface||''}</td></tr>`; });
+      $('#scoutTable').innerHTML=html+'</tbody>';
+    }
+    render(''); $('#scoutSearch').addEventListener('input',e=>render(e.target.value.toLowerCase().trim()));
+  }
+})();
+
+/* ---------- courses ---------- */
+(function(){
+  if (typeof COURSES === 'undefined') return;
+  $('#courseGrid').innerHTML = COURSES.map(c=>`<div class="course ${c.status==='live'?'live':''}" data-course="${(c.name||'').replace(/"/g,'&quot;')}" style="cursor:pointer">
+    <div class="cn">${c.name}</div><div class="ce">${c.event}</div>
+    <div class="cmeta"><span>${c.surface}</span><span>${c.length}</span><span>${c.scoring}</span></div>
+    <div class="arch">${c.archetype}</div>
+    <div class="stats">${(c.topStats||[]).map(s=>`<span class="stat-tag">${s}</span>`).join('')}</div>
+    <div class="fa"><b>Forgives</b> ${c.masked||'—'}<br><b>Amplifies</b> ${c.amplified||'—'}</div>
+    <div class="cpl">Record: ${c.bets} bets · <span class="${c.status==='live'?'':cls(c.pl)}">${c.status==='live'?'live':money(c.pl)}</span></div>
+  </div>`).join('');
+})();
+
+/* ---------- CROSS-LINK: golfer <-> course fit ---------- */
+(function(){
+  if (typeof SCOUTING==='undefined' || typeof COURSES==='undefined') return;
+  const bg=$('#modalBg'), body=$('#modalBody'), title=$('#modalTitle'), sub=$('#modalSub');
+  const scrub=s=>(s||'').replace(/�/g,'—'); const fmt=v=>(v==null)?'—':(v>=0?'+':'')+(+v).toFixed(2);
+  const factors=c=>{ const t=((c.archetype||'')+' '+(c.topStats||[]).join(' ')+' '+(c.amplified||'')).toLowerCase();
+    return { app:/app|approach|iron|second-shot/.test(t), ott:/ott|distance|bomber|driving|off the tee|carry|par 5/.test(t), arg:/arg|scrambl|short game|around the green|chip/.test(t), putt:/putt/.test(t), acc:/accuracy|precision|positional|tight|penal|fairway/.test(t), surface:(c.surface||'').toLowerCase() }; };
+  function fit(g,c){ const f=factors(c); let s=(g.sg_tot||0)*0.3, parts=[];
+    const add=(on,v,lab)=>{ if(on){ s+=(v||0); if(Math.abs(v||0)>=0.12) parts.push(lab+' '+fmt(v)); } };
+    add(f.app,g.app,'APP'); add(f.ott,g.ott,'OTT'); add(f.arg,g.arg,'ARG');
+    if(f.putt){ let pv=g.putt; if(/bermuda/.test(f.surface)&&g.putt_bermuda!=null)pv=g.putt_bermuda; else if(/bent/.test(f.surface)&&g.putt_bent!=null)pv=g.putt_bent; else if(/poa/.test(f.surface)&&g.putt_poa!=null)pv=g.putt_poa; s+=(pv||0); if(Math.abs(pv||0)>=0.12)parts.push('PUTT '+fmt(pv)); }
+    if(f.acc){ s+=(g.app||0)*0.5; if((g.dd||0)>8&&(g.app||0)<0.3){ s-=0.4; parts.push('bomber-misfit'); } }
+    return {score:s, parts}; }
+  const sc=v=> v>=1.2?'var(--green-600)':v>=0.5?'var(--brass-600)':'var(--cream-700)';
+  function openGolfer(name){ const g=SCOUTING.find(x=>x.name===name); if(!g) return;
+    const fits=COURSES.map(c=>({c,...fit(g,c)})).sort((a,b)=>b.score-a.score);
+    title.textContent=g.name; sub.textContent=`${g.tier||''} · SG:TOT ${fmt(g.sg_tot)} · best course fits`;
+    body.innerHTML = `<div style="font-size:13px;color:var(--cream-900);margin-bottom:16px;line-height:1.5"><b style="color:var(--green-600)">+</b> ${scrub(g.strengths)}<br><b style="color:var(--scarlet)">−</b> ${scrub(g.weaknesses)}</div>`+
+      `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Course Fit — where this game travels</div>`+
+      fits.slice(0,8).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.c.name}</span> <span class="fr-parts">${r.c.event}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('');
+    bg.classList.add('open'); }
+  function openCourse(name){ const c=COURSES.find(x=>x.name===name); if(!c) return;
+    const ranked=SCOUTING.filter(g=>g.sg_tot!=null).map(g=>({g,...fit(g,c)})).sort((a,b)=>b.score-a.score);
+    title.textContent=c.name; sub.textContent=`${c.event} · ${c.surface} · field ranked by fit`;
+    body.innerHTML = `<div style="font-size:12.5px;color:var(--cream-900);margin-bottom:4px"><b>${c.archetype||''}</b></div><div style="font-size:12px;color:var(--cream-700);margin-bottom:16px;line-height:1.5">Forgives ${c.masked||'—'} · Amplifies ${c.amplified||'—'}</div>`+
+      `<div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600);margin-bottom:8px">Top Fits (from the database)</div>`+
+      ranked.slice(0,15).map((r,i)=>`<div class="fit-row"><span class="fr-rank">${i+1}</span><span><span class="fr-name">${r.g.name}</span> <span class="fr-parts">${r.g.tier||''}${r.parts.length?' · '+r.parts.join('  '):''}</span></span><span class="fr-score" style="color:${sc(r.score)}">${r.score>=0?'+':''}${r.score.toFixed(2)}</span></div>`).join('');
+    bg.classList.add('open'); }
+  const hide=()=>bg.classList.remove('open');
+  $('#modalClose').addEventListener('click',hide);
+  bg.addEventListener('click',e=>{ if(e.target===bg) hide(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') hide(); });
+  const gg=$('#gGrid'); if(gg) gg.addEventListener('click',e=>{ const c=e.target.closest('[data-golfer]'); if(c) openGolfer(c.dataset.golfer.replace(/&quot;/g,'"')); });
+  const cg=$('#courseGrid'); if(cg) cg.addEventListener('click',e=>{ const c=e.target.closest('[data-course]'); if(c) openCourse(c.dataset.course.replace(/&quot;/g,'"')); });
+})();
+
+/* ---------- winners log ---------- */
+(function(){
+  const rows = WINNERS.slice().sort((a,b)=>b.pl-a.pl);
+  let html = `<thead><tr><th>Player / Bet</th><th>Tournament</th><th>Market</th><th>Odds</th><th>Stake</th><th>Profit</th></tr></thead><tbody>`;
+  rows.forEach(w=>{
+    html += `<tr>
+      <td class="name">${w.player}</td>
+      <td>${w.tournament}</td>
+      <td style="text-align:left;font-size:11px;color:var(--cream-700)">${w.market}</td>
+      <td>${w.odds}</td>
+      <td>${ustk(w.stake)}</td>
+      <td class="pos">${money(w.pl)}</td>
+    </tr>`;
+  });
+  $('#winnersTable').innerHTML = html+'</tbody>';
+})();
+
+/* ================= PIECE 3 — Tournament Intelligence ================= */
+
+/* ---------- event deep-dive (fingerprint / radar / composite / holes / winners) ---------- */
+(function(){
+  if (typeof TOURNAMENT_DATA === 'undefined') return;
+  const scrub = s => (s||'').replace(/�/g,'—');
+  // schedule order (most recent last); default = current week
+  const order = ['cognizant','arnoldpalmer','puertorico','players','valspar','houston','valero',
+    'rbcheritage','masters','miamichampionship','pgachampionship','usopen','openchampionship'];
+  const keys = order.filter(k=>TOURNAMENT_DATA[k]).concat(
+    Object.keys(TOURNAMENT_DATA).filter(k=>!order.includes(k)));
+  const sel = $('#evSel');
+  sel.innerHTML = keys.map(k=>`<option value="${k}">${scrub(TOURNAMENT_DATA[k].name||k)}</option>`).join('');
+  const def = keys.includes('openchampionship') ? 'openchampionship' : keys[keys.length-1];
+  sel.value = def;
+
+  const radarColors = [
+    {border:'#1E5C38', bg:'rgba(30,92,56,0.12)'},
+    {border:'#C9A046', bg:'rgba(201,160,70,0.14)'},
+    {border:'#2E7DD1', bg:'rgba(46,125,209,0.12)'},
+  ];
+  let radarInst = null;
+
+  function renderRadar(t){
+    const host = $('#radarHost');
+    const names = t.radarPlayers ? Object.keys(t.radarPlayers) : [];
+    if (!t.radarAxes || !names.length || typeof Chart === 'undefined'){
+      $('#radarSelects').innerHTML=''; $('#radarLegend').innerHTML='';
+      const wrap=host.querySelector('.radar-wrap');
+      wrap.innerHTML = `<div style="padding:34px 10px;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--cream-700);line-height:1.6">${typeof Chart==='undefined'?'Radar needs a connection to load the chart library.':'No radar fit data for this event yet.'}</div>`;
+      return;
+    }
+    // ensure canvas exists
+    let wrap=host.querySelector('.radar-wrap');
+    if(!wrap.querySelector('canvas')) wrap.innerHTML='<canvas id="radarCanvas" height="300"></canvas>';
+    const def3 = names.slice(0,3);
+    $('#radarSelects').innerHTML = [0,1,2].map(i=>`<select class="gb-sel rp-sel" data-i="${i}">
+      <option value="">—</option>${names.map(n=>`<option value="${n}" ${n===def3[i]?'selected':''}>${scrub(n)}</option>`).join('')}</select>`).join('');
+    const draw=()=>{
+      const chosen = Array.from(document.querySelectorAll('.rp-sel')).map(s=>s.value).filter(Boolean);
+      const ds = [{ label:'Avg Winner', data:t.winnerProfile, backgroundColor:'rgba(192,57,43,0.05)', borderColor:'rgba(192,57,43,0.5)', borderWidth:2, borderDash:[6,3], pointRadius:2, pointBackgroundColor:'rgba(192,57,43,0.5)' }];
+      chosen.forEach((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return; const c=radarColors[i%3];
+        ds.push({ label:scrub(n), data:d, backgroundColor:c.bg, borderColor:c.border, borderWidth:2.4, pointRadius:4, pointBackgroundColor:c.border }); });
+      if(radarInst) radarInst.destroy();
+      radarInst = new Chart($('#radarCanvas'), {
+        type:'radar', data:{labels:t.radarAxes, datasets:ds},
+        options:{ responsive:true, plugins:{legend:{display:false}},
+          scales:{ r:{ min:0, max:100, ticks:{display:false}, grid:{color:'rgba(107,95,74,0.15)'}, angleLines:{color:'rgba(107,95,74,0.15)'}, pointLabels:{font:{size:10,weight:'600'},color:'#152E1F'} } } }
+      });
+      $('#radarLegend').innerHTML = chosen.map((n,i)=>{ const d=t.radarPlayers[n]; if(!d)return'';
+        const fit=d.reduce((s,v,idx)=>s+Math.min(v/(t.winnerProfile[idx]||100),1.2),0)/d.length*100;
+        const cl=fit>=95?'pos':fit>=80?'amt pos':fit>=65?'':'neg'; const col=fit>=95?'var(--green-600)':fit>=80?'var(--brass-600)':fit>=65?'var(--cream-700)':'var(--scarlet)';
+        return `<div class="rl-item"><span class="rl-dot" style="background:${radarColors[i%3].border}"></span><strong style="font-family:var(--font-display);font-weight:600">${scrub(n)}</strong><span class="rl-fit" style="color:${col}">Fit ${fit.toFixed(0)}%</span></div>`; }).join('');
+    };
+    $('#radarSelects').querySelectorAll('.rp-sel').forEach(s=>s.addEventListener('change',draw));
+    draw();
+  }
+
+  function render(k){
+    const t = TOURNAMENT_DATA[k]; if(!t) return;
+    $('#evArch').textContent = scrub(t.archetype||'');
+    // fingerprint
+    const fp = t.fingerprint||[];
+    const maxW = Math.max(...fp.map(f=>f.weight||0), 0.01);
+    $('#fpBody').innerHTML = fp.length ? fp.map(f=>`<div class="fp-row">
+      <div><div class="fp-lbl">${scrub(f.stat)}</div><div class="fp-note">${scrub(f.note||'')}</div></div>
+      <div class="fp-track"><div class="fp-bar" style="width:${(f.weight/maxW*100).toFixed(0)}%"></div></div>
+      <div class="fp-w">${Math.round((f.weight||0)*100)}%</div></div>`).join('')
+      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No fingerprint on file.</div>';
+    // tags + meta
+    const tags = (t.narrative&&t.narrative.tags)||[];
+    $('#evTags').innerHTML = tags.map(x=>`<span class="ev-tag">${scrub(x)}</span>`).join('');
+    $('#evMeta').innerHTML = `<div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--green-800);margin-bottom:2px">${scrub(t.course||'')}</div>${scrub(t.meta||'')}${t.location?`<br>${scrub(t.location)}`:''}`;
+    // radar
+    renderRadar(t);
+    // composite
+    const comp = t.composite||[];
+    const compReal = comp.filter(r=>r&&r.name&&r.comp!==undefined);
+    if(compReal.length){
+      let h=`<thead><tr><th style="text-align:left">#</th><th style="text-align:left">Player</th><th>Comp</th><th>Form</th><th>Signal</th><th>APP</th><th>OTT</th><th>DD</th><th>ARG</th><th>PUTT</th><th>T10%</th><th style="text-align:left">Flag</th></tr></thead><tbody>`;
+      const sgc=v=>v==null?'—':`<span style="color:${v>=0?'var(--green-600)':'var(--scarlet)'}">${v>=0?'+':''}${(+v).toFixed(2)}</span>`;
+      compReal.forEach(r=>{ const sig=(r.signal||'neutral');
+        const flagPill = r.flag ? `<span class="pill ${/WINNER/.test(r.flag)?'win':/CARD/.test(r.flag)?'open':'p1'}">${scrub(r.flag)}</span>` : '';
+        h+=`<tr><td class="name" style="text-align:left;color:var(--brass-600)">${r.rank||''}</td>
+          <td class="name" style="text-align:left">${scrub(r.name)}</td>
+          <td><b>${(+r.comp).toFixed(2)}</b></td>
+          <td style="color:var(--cream-700)">${r.form!=null?(+r.form).toFixed(2):'—'}</td>
+          <td><span class="sig ${sig}">${sig}</span></td>
+          <td>${sgc(r.app)}</td><td>${sgc(r.ott)}</td>
+          <td style="color:var(--cream-700)">${r.dd!=null?(r.dd>0?'+':'')+r.dd:'—'}</td>
+          <td>${sgc(r.arg)}</td><td>${sgc(r.putt)}</td>
+          <td style="color:var(--cream-700)">${r.t10!=null?(+r.t10).toFixed(1):'—'}</td>
+          <td style="text-align:left">${flagPill}</td></tr>`; });
+      $('#compTable').innerHTML=h+'</tbody>';
+      $('#compNote').textContent=`${compReal.length} ranked on ${scrub(t.course||'course')} weighting`;
+    } else {
+      $('#compTable').innerHTML=`<tbody><tr><td class="name" style="text-align:left;color:var(--cream-700);font-family:var(--font-mono);font-size:12px">Composite not yet scored for this event — built during tournament week.</td></tr></tbody>`;
+      $('#compNote').textContent='pending event week';
+    }
+    // key holes
+    const kh=(t.narrative&&t.narrative.keyHoles)||[];
+    $('#kholeBody').innerHTML = kh.length ? kh.map(k=>`<div class="khole"><div><div class="kh-num">${k.num}</div><div class="kh-par">Par ${k.par} · ${k.yds}y</div></div><div class="kh-note">${scrub(k.note)}</div></div>`).join('')
+      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No key-hole notes on file.</div>';
+    // recent winners
+    const rw=(t.narrative&&t.narrative.recentWinners)||[];
+    $('#rwinBody').innerHTML = rw.length ? rw.map(w=>`<div class="rwin"><span class="rw-yr">${w.yr}</span><span><span class="rw-name">${scrub(w.name)}</span> <span class="rw-meta">${w.score}${w.odds?` · ${w.odds}`:''}</span><div class="rw-meta" style="margin-top:2px">${scrub(w.note||'')}</div></span></div>`).join('')
+      : '<div style="font-family:var(--font-mono);font-size:12px;color:var(--cream-700)">No recent-winner history on file.</div>';
+  }
+  sel.addEventListener('change',e=>render(e.target.value));
+  render(def);
+})();
+
+/* ---------- historical overlay (VENUE_HISTORY) ---------- */
+(function(){
+  if (typeof VENUE_HISTORY === 'undefined') return;
+  const scrub = s => (s||'').replace(/�/g,'—');
+  const keys = Object.keys(VENUE_HISTORY);
+  const sel = $('#vhSel');
+  sel.innerHTML = keys.map(k=>`<option value="${k}">${scrub(VENUE_HISTORY[k].name||k)}</option>`).join('');
+  function cell(pos){ if(pos==null) return '<span class="hcell o">·</span>';
+    const c = pos===1?'w':pos<=5?'t5':pos<=20?'t20':'o'; return `<span class="hcell ${c}">${pos}</span>`; }
+  function render(k){
+    const v = VENUE_HISTORY[k]; if(!v) return;
+    const years = v.years||[];
+    const field = new Set((v.field2026||[]).map(n=>n.toLowerCase()));
+    // rank players by count of finishes then best finish
+    const rows = (v.results||[]).map(r=>{
+      const best = r.finishes.length ? Math.min(...r.finishes.map(f=>f.pos)) : 99;
+      const byYr = {}; r.finishes.forEach(f=>byYr[f.yr]=f.pos);
+      return {player:r.player, byYr, n:r.finishes.length, best};
+    }).sort((a,b)=> b.n-a.n || a.best-b.best);
+    $('#vhSpan').textContent = `${rows.length} players · ${years.length} years${field.size?` · ● = in 2026 field`:''}`;
+    let h=`<table class="htable"><thead><tr><th style="text-align:left">Player</th>${years.map(y=>`<th>${String(y).slice(2)}</th>`).join('')}<th>Best</th></tr></thead><tbody>`;
+    rows.forEach(r=>{ const inf = field.has(r.player.toLowerCase());
+      h+=`<tr><td class="hp${inf?' infield':''}">${scrub(r.player)}</td>${years.map(y=>`<td>${cell(r.byYr[y])}</td>`).join('')}<td>${cell(r.best<99?r.best:null)}</td></tr>`; });
+    $('#vhBody').innerHTML = h+'</tbody></table>';
+  }
+  sel.addEventListener('change',e=>render(e.target.value));
+  render(keys[0]);
+})();
+
+/* ---------- data center: SG leaderboards (SCOUTING) ---------- */
+(function(){
+  if (typeof SCOUTING === 'undefined') return;
+  const scrub = s => (s||'').replace(/�/g,'—');
+  const fmt = v => (v>=0?'+':'')+(+v).toFixed(2);
+  const col = v => v>=0?'var(--green-600)':'var(--scarlet)';
+  const board = (title, key, n=7) => {
+    const rows = SCOUTING.filter(p=>p[key]!=null).sort((a,b)=>b[key]-a[key]).slice(0,n);
+    if(!rows.length) return '';
+    return `<div class="lead-card"><h4>${title}</h4>`+rows.map((p,i)=>`<div class="lead-row"><span class="ln"><b>${i+1}</b>${scrub(p.name)}</span><span class="lv" style="color:${col(p[key])}">${fmt(p[key])}</span></div>`).join('')+`</div>`;
+  };
+  const boards = [
+    board('SG: Total','sg_tot'), board('SG: Approach','app'), board('SG: Off the Tee','ott'),
+    board('SG: Around Green','arg'), board('SG: Putting','putt'), board('Driving Distance','dd'),
+    board('Bermuda Putting','putt_bermuda'), board('Bentgrass Putting','putt_bent'), board('Poa Putting','putt_poa'),
+  ].filter(Boolean);
+  $('#leadGrid').innerHTML = boards.join('');
+})();
+</script>
 </body>
 </html>

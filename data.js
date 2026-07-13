@@ -1,21 +1,49 @@
-// Season data — last audited Jun 29, 2026 (Travelers settled; NO open bets)
-// Audit math: 280 settled + 0 open + 2 voided = 282 totalBets
-// Travelers settled: 6 bets, $80 staked, $0 returned, -$80 (all lost; no top-3, no FRL hit).
-//   Hovland won -21. Best of ours: Spaun T7 (would have cashed on standard 1/5 8pl E/W; top-3 net too tight).
-// Settled stake: $3,009.65. Returned: $3,529.24. P/L = +$519.59. ROI = 17.3% (settled only)
-// WINNERS array 28 entries (Travelers added 0 winners)
+// Season data — last audited Jul 12, 2026 (ISCO settled; The Open now the only open event)
+// ISCO settled: 4 bets E/W 1/4 5pl, $40 staked, $216.25 returned, +$176.25 (+441% ROI).
+//   Steven Fisk WON (playoff) — pure data-first/narrative-silent read + edge structure = both E/W legs paid.
+//   Same-week structure contrast: ISCO E/W 1/4 5pl WON +$176 vs Scottish win-only LOST -$40 (Min Woo 2nd).
+// Settled P/L = +$634.18. ROI = 20.1% (settled only).
+// OPEN: The Open Championship 2026 — 4 bets, $60 (Rahm win $20, Morikawa win $10, Morikawa T20 $20, JT E/W $10).
+//   Detail in the-open-championship-2026/bets-placed.md (logged here to avoid the US-Open-week tracking gap).
+// WINNERS array 30 entries (+Fisk)
 const SEASON = {
-    totalBets: 299,
-    settled: 286,              // +6 John Deere (settled)
-    open: 11,                  // ISCO (4, $40) + Scottish Open (7, $40)
+    totalBets: 303,            // +4 The Open bets registered
+    settled: 297,              // +4 ISCO (settled Jul 12)
+    open: 4,                   // The Open Championship (Rahm, Morikawa x2, JT)
     voided: 2,
-    staked: 3154.65,
-    settledStaked: 3074.65,    // +$65 John Deere
-    openStaked: 80.00,         // ISCO $40 + Scottish $40
-    returned: 3572.58,         // +$43.34 John Deere (Blair)
-    pl: 497.93,                // 519.59 - 21.66 (John Deere); settled only
-    roi: 16.2,                 // 497.93 / 3074.65
-    winners: 29                // +Blair (E/W place)
+    staked: 3214.65,
+    settledStaked: 3154.65,    // +$40 ISCO
+    openStaked: 60.00,         // The Open $60
+    returned: 3788.83,         // +$216.25 ISCO (Fisk E/W)
+    pl: 634.18,                // 457.93 + 176.25 (ISCO); settled only
+    roi: 20.1,                 // 634.18 / 3154.65
+    winners: 30                // +Fisk (ISCO E/W)
+};
+
+// CURRENT EVENT INTELLIGENCE — the data-first read behind this week's card. Independent scan → overlay → market.
+const CURRENT_INTEL = {
+    event: "The Open Championship 2026",
+    course: "Royal Birkdale",
+    dates: "Jul 16–19",
+    surface: "Fescue links · firm & fast",
+    fingerprint: "Precision links test: driving accuracy + long-iron control + around-the-green creativity. NOT a bomber's course. Slow native greens mute putting. Winning profile = the accurate, wind-savvy iron player.",
+    independentTop: [
+        { rank:1, name:"Scheffler" }, { rank:2, name:"Rahm" }, { rank:3, name:"M. Fitzpatrick" },
+        { rank:4, name:"Fleetwood" }, { rank:5, name:"McIlroy" }, { rank:6, name:"Morikawa" },
+        { rank:7, name:"J. Thomas" }, { rank:8, name:"Schauffele" }, { rank:9, name:"Åberg" }, { rank:10, name:"Si Woo Kim" },
+    ],
+    leans: [
+        { name:"Collin Morikawa", note:"Independent #6 vs market #11 — cleanest value. Accuracy/iron RSG-champ prototype.", bet:true },
+        { name:"Jon Rahm", note:"Independent #2 + DG baseline + Andy Lack's #1 bet. The market's LIV discount IS the edge.", bet:true },
+        { name:"Justin Thomas", note:"The silence play — independent #7, undiscussed by all 5 sources. Taken as b365 E/W.", bet:true },
+        { name:"Tommy Fleetwood", note:"Home links (Southport) — the un-priced angle not one source mentions.", bet:false },
+    ],
+    fades: [
+        { name:"Cameron Young", note:"Market #9 / independent #18 — coldest top-tier form (−1.16)." },
+        { name:"Chris Gotterup", note:"Market #8 / independent #23 — pedigree bubble." },
+        { name:"Koepka & Bryson", note:"Bombers Birkdale neutralizes; flat form." },
+    ],
+    reconcile: "MacIntyre & Lowry — the skill-only read buries them, but links pedigree + comp-course say HOLD, not fade. The one genuine independent-vs-market conflict, deferred to the draw.",
 };
 
 const TOURNAMENTS = [
@@ -41,8 +69,9 @@ const TOURNAMENTS = [
     { name: "US Open", bets: 9, staked: 110, returned: 635, pl: 525, phase: 2, status: "settled" },
     { name: "Travelers", bets: 6, staked: 80, returned: 0, pl: -80, phase: 2, status: "settled" },
     { name: "John Deere", bets: 6, staked: 65, returned: 43.34, pl: -21.66, phase: 2, status: "settled" }, // Blair E/W placed (+38.34); all else lost
-    { name: "ISCO", bets: 4, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" },         // opposite-field, settles Jul 12
-    { name: "Scottish Open", bets: 7, staked: 40, returned: 0, pl: 0, phase: 2, status: "open" }, // Renaissance, settles Jul 12
+    { name: "ISCO", bets: 4, staked: 40, returned: 216.25, pl: 176.25, phase: 2, status: "settled" }, // Steven Fisk WON (playoff) — E/W 1/4 5pl both legs paid. +$176.25 (+441% ROI)
+    { name: "Scottish Open", bets: 7, staked: 40, returned: 0, pl: -40, phase: 2, status: "settled" }, // Renaissance, settled Jul 12 — 0/7, all win-only; Min Woo Lee 2nd (no cash). Winner Tom Kim -17.
+    { name: "The Open", bets: 4, staked: 60, returned: 0, pl: 0, phase: 2, status: "open" },      // Royal Birkdale Jul 16-19 — Rahm win/Morikawa win+T20/JT E/W. Detail: the-open-championship-2026/bets-placed.md
 ];
 
 const WINNERS = [
@@ -75,37 +104,34 @@ const WINNERS = [
     { tournament: "Memorial", player: "J.J. Spaun", market: "FRL E/W 1/4 5pl (R1 DH win+place)", odds: "+3000", stake: 10, ret: 81.25, pl: 71.25 },
     { tournament: "US Open", player: "Wyndham Clark", market: "E/W 1/4 5pl WIN", odds: "+10000", stake: 10, ret: 635, pl: 625 },
     { tournament: "John Deere", player: "Zac Blair", market: "E/W 1/5 10pl Placed", odds: "+11000", stake: 5, ret: 43.34, pl: 38.34 },
+    { tournament: "ISCO", player: "Steven Fisk", market: "E/W 1/4 5pl WIN (playoff)", odds: "+3300", stake: 10, ret: 216.25, pl: 206.25 },
 ];
 
-// MARKETS — audited May 13. Sums to +$143.34 total settled P/L.
-// Winner profit per category: precisely tracked from WINNERS array.
-// Loser stakes per category: estimated where per-bet data not preserved (early-season).
-// All numbers are honest approximations; directional signal (which markets are +/-) is reliable.
+// MARKETS — RECOMPUTED 2026-07-12 from bet-level card data. Basis: CARDED ERA (Houston→The Open + all majors).
+// Sums to +$603.93 (the carded portion of the +$634.18 season; pre-Houston early season is event-level only).
+// DFS is the season hero; FRL is the confirmed structural leak.
 const MARKETS = [
-    { type: "DFS",                bets: 11, pl: 852,    roi: 398 },   // 5 wins, +$867.20 winner profit, ~$60 loser stake. Season hero.
-    { type: "Outright E/W",       bets: 95, pl: -12,    roi: -1 },    // 7 wins, +$888.25 winner profit, ~$900 loser net. Phase-1 EW outrights drag.
-    { type: "Top 10 prop",        bets: 19, pl: 67,     roi: 38 },    // 3 wins (Genesis Morikawa/Fleetwood, AP Morikawa). Strong.
-    { type: "Props (Regional)",   bets: 8,  pl: 55,     roi: 65 },    // 2 wins (Masters ZJ Top Senior, Masters Stevens). Niche but clean.
-    { type: "Top 20 prop",        bets: 4,  pl: 10,     roi: 25 },    // 1 win (Masters Henley T20)
-    { type: "Matchups/Parlays",   bets: 13, pl: -18,    roi: -14 },   // 3 wins. Marginal.
-    { type: "EoR1 Props",         bets: 8,  pl: -22,    roi: -28 },   // 1 win (Masters Rose)
-    { type: "Outright Win-only",  bets: 17, pl: -148,   roi: -75 },   // 0 wins. Phase-1 darts.
-    { type: "3-Ball",             bets: 9,  pl: -48,    roi: -55 },   // 1 win (Masters Bridgeman DH +$2)
-    { type: "Top 5 prop",         bets: 1,  pl: -50,    roi: -100 },  // Phase-1 dart, no winners
-    { type: "Pool",               bets: 1,  pl: -50,    roi: -100 },  // Masters Pool entry
-    { type: "FRL",                bets: 62, pl: -491,   roi: -78 },   // 1 win (Masters Reed placed +$38.75). Structural leak confirmed.
+    { type: "DFS",                bets: 5,  pl: 693.20,  roi: 508 },  // Masters +641 anchors. Season hero. (+ early AP DFS +124 event-level.)
+    { type: "Outright E/W",       bets: 88, pl: 172.84,  roi: 15 },   // US Open Clark +625 / ISCO Fisk +206 carry a heavy loser tail.
+    { type: "Matchups/Parlays",   bets: 7,  pl: 89.89,   roi: 128 },  // PGA regional 2-pick +85, Masters R3 parlay +33.
+    { type: "Props (Top 5/Reg)",  bets: 8,  pl: -0.40,   roi: -1 },   // Regional props ~breakeven.
+    { type: "Top 20 prop",        bets: 3,  pl: -19.60,  roi: -33 },  // Masters Henley +20 offset by US Open Henley −20.
+    { type: "Top 10 prop",        bets: 8,  pl: -52.00,  roi: -65 },  // Straka/Spaun/US-Open misses.
+    { type: "Pool",               bets: 1,  pl: -50.00,  roi: -100 }, // Masters pool entry.
+    { type: "FRL",                bets: 40, pl: -230.00, roi: -58 },  // Biggest leak. 40 carded FRL, minimal cashes (Memorial Spaun +71).
 ];
-// Per-category sum = +$145 (~ matches season +$143.34, within rounding tolerance)
-// SEASON authoritative total: 240 bets / +$143.34 P/L / 5.99% ROI
+// Carded-era checksum: +$603.93. SEASON authoritative (all 297 settled): +$634.18 / 20.1% ROI. Early season = event-level (TOURNAMENTS).
 
-// EW_TERMS — audited May 13. 87 total E/W bets across all settled cards + WINNERS lookup.
+// EW_TERMS — RECOMPUTED 2026-07-12 from bet-level card data. Basis: CARDED ERA (Houston→The Open + all majors,
+// every bet accounted). Early season (pre-Houston, event-level only) excluded for internal consistency.
+// 1/4 5pl is the confirmed structural edge; every other E/W structure is negative. See EW_COVERAGE note.
 const EW_TERMS = [
-    { terms: "E/W 1/4 5pl",  bets: 43, pl: 433.25,  roi: 100.8 },   // Cognizant Echavarria/Smotherman + PR Castillo + Masters Reed + Zurich Springer + Houston Hojgaard = 7 wins of 43
-    { terms: "E/W 1/5 8pl",  bets: 11, pl: -110.00, roi: -78.6 },   // Cognizant Mitchell 1 win + 10 losses (RBC era)
-    { terms: "E/W 1/5 10pl", bets: 17, pl: -140.00, roi: -56.0 },   // Masters Henley E/W placed +30 + 16 losses (mostly Masters)
-    { terms: "E/W 1/5 5pl",  bets: 13, pl: -130.00, roi: -100 },    // 0 wins. Mostly early-season dart structure
-    { terms: "E/W 1/5 3pl",  bets: 5,  pl: -50.00,  roi: -100 },    // 0 wins. Miami era extra-place
-    { terms: "E/W 1/5 4pl",  bets: 3,  pl: -30.00,  roi: -100 },    // 0 wins. Truist era extra-place
+    { terms: "E/W 1/4 5pl",  bets: 66, pl: 353.25,  roi: 63.9 },   // THE edge. Incl US Open Clark +625, ISCO Fisk +206.25 (+ early uncarded: Echavarria/Castillo/Smotherman add ~+744 more, event-level)
+    { terms: "E/W 1/5 8pl",  bets: 15, pl: -125.00, roi: -83.3 },  // Memorial Gerard placed +70 offset by losses
+    { terms: "E/W 1/5 10pl", bets: 13, pl: -56.66,  roi: -43.6 },  // Masters Henley +30, JDC Blair +38.34 offset by losses
+    { terms: "E/W 1/5 3pl",  bets: 5,  pl: -50.00,  roi: -100 },   // 0 wins. Extra-place darts
+    { terms: "E/W 1/5 4pl",  bets: 3,  pl: -30.00,  roi: -100 },   // 0 wins. Truist extra-place
+    { terms: "E/W top-3/other", bets: 4, pl: -30.00, roi: -75 },   // Travelers b365 top-3 specials (place net too tight)
 ];
 
 // Current Houston card
@@ -298,21 +324,30 @@ const JDC_CARD = [
 // b365 E/W 1/4 5 places. Stake = total each-way ($5 E/W = $10 total per golfer), $40 total (2u).
 // NOTE: card planned 1/5 8pl on a wide field; b365 only offered 1/4 5pl, and prices came in shorter than the value scan.
 const ISCO_CARD = [
-    { num: 1, player: "Rico Hoey", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3000", book: "b365", stake: 10, placed: "Jul 8", comp: "Anchor. Cleanest convergence — Molitor 35/1 lead + DG +EV + course-fit (elite APP, weak putter masked by tiny greens) + T2 here '24. Booked +3000 (value price +3500).", status: "Open", result: "" },
-    { num: 2, player: "Steven Fisk", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3300", book: "b365", stake: 10, placed: "Jul 8", comp: "DG-only surface (narratives silent) riding the field's strongest form tailwind (1.13). Booked +3300 (value +4000).", status: "Open", result: "" },
-    { num: 3, player: "Lanto Griffin", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Veteran APP deep value, pure DG read. Booked +6600 (value +8000).", status: "Open", result: "" },
-    { num: 4, player: "Pontus Nyholm", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Mayo 80/1 + DG best-EV deep flier. Booked +6600 (value +9000).", status: "Open", result: "" },
+    { num: 1, player: "Rico Hoey", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3000", book: "b365", stake: 10, placed: "Jul 8", comp: "Anchor. Cleanest convergence — Molitor 35/1 lead + DG +EV + course-fit (elite APP, weak putter masked by tiny greens) + T2 here '24. Booked +3000 (value price +3500).", status: "T49 (-6)", result: "Lost" },
+    { num: 2, player: "Steven Fisk", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3300", book: "b365", stake: 10, placed: "Jul 8", comp: "DG-only surface (narratives silent) riding the field's strongest form tailwind (1.13). Booked +3300 (value +4000). THE WINNER — pure data-first, narrative-silent read.", status: "1st (-16, playoff)", result: "WON (E/W both legs — win $170 + place $46.25 = $216.25)" },
+    { num: 3, player: "Lanto Griffin", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Veteran APP deep value, pure DG read. Booked +6600 (value +8000).", status: "T55 (-4)", result: "Lost" },
+    { num: 4, player: "Pontus Nyholm", market: "Outright", terms: "E/W 1/4 5pl", odds: "+6600", book: "b365", stake: 10, placed: "Jul 8", comp: "Mayo 80/1 + DG best-EV deep flier. Booked +6600 (value +9000).", status: "T55 (-4)", result: "Lost" },
 ];
 
 // Genesis Scottish Open 2026 — The Renaissance Club. Straight WIN outrights, $5 each. Settles Jul 12.
 const SCOTTISH_CARD = [
-    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+5900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Anchor — independent #18, DG form 1.65 (field-best), sharp (Mayo 60/1). Locked at +5900.", status: "Open", result: "" },
-    { num: 2, player: "Min Woo Lee", market: "Outright", terms: "Win", odds: "+4900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Won Renaissance 2021 — proven course horse; bomber + comp-course fit.", status: "Open", result: "" },
-    { num: 3, player: "Kristoffer Reitan", market: "Outright", terms: "Win", odds: "+6300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "DP form + course history (T13 '25).", status: "Open", result: "" },
-    { num: 4, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12000", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "2023 Open champ links pedigree; drifted-out lottery ticket.", status: "Open", result: "" },
-    { num: 5, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "Open", result: "" },
-    { num: 6, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. $5 to pay $270.", status: "Open", result: "" },
-    { num: 7, player: "Tyrrell Hatton", market: "Outright", terms: "Win", odds: "+3400", book: "DraftKings", stake: 10, placed: "Jul 8", comp: "Best overlay on the board — +3400 vs Pinnacle +2537 (33% over sharp), DG fair even longer; proven links/wind ball-striker. Links-DNA value the model + market underrated.", status: "Open", result: "" },
+    { num: 1, player: "Nicolai Hojgaard", market: "Outright", terms: "Win", odds: "+5900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Anchor — independent #18, DG form 1.65 (field-best), sharp (Mayo 60/1). Locked at +5900.", status: "T26 (-6)", result: "Lost" },
+    { num: 2, player: "Min Woo Lee", market: "Outright", terms: "Win", odds: "+4900", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Won Renaissance 2021 — proven course horse; bomber + comp-course fit. WIN-ONLY on a 2nd-place finish = E/W leak.", status: "2nd (-15)", result: "Lost (win-only)" },
+    { num: 3, player: "Kristoffer Reitan", market: "Outright", terms: "Win", odds: "+6300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "DP form + course history (T13 '25).", status: "CUT (+3)", result: "Lost" },
+    { num: 4, player: "Brian Harman", market: "Outright", terms: "Win", odds: "+12000", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "2023 Open champ links pedigree; drifted-out lottery ticket.", status: "T36 (-4)", result: "Lost" },
+    { num: 5, player: "Chris Gotterup", market: "Outright", terms: "Win", odds: "+2900", book: "Caesars", stake: 5, placed: "Jul 8", comp: "Defending Renaissance champ. Course history over weak approach-stat fit — lottery on this exact track.", status: "T11 (-10)", result: "Lost" },
+    { num: 6, player: "Kurt Kitayama", market: "Outright", terms: "Win", odds: "+5300", book: "DraftKings", stake: 5, placed: "Jul 8", comp: "Elite long-irons; sharp cards + all models backed him. Overrode our putting board for sharp-consensus.", status: "T44 (-3)", result: "Lost" },
+    { num: 7, player: "Tyrrell Hatton", market: "Outright", terms: "Win", odds: "+3900", book: "DraftKings", stake: 10, placed: "Jul 8", comp: "Largest stake, win-only. Proven links/wind ball-striker; links-DNA value. (Odds updated +3400→+3900 per placed slip.)", status: "T17 (-8)", result: "Lost" },
+];
+
+// The Open Championship 2026 — Royal Birkdale. Jul 16-19. OPEN card (data-first: independent scan → narrative overlay → market).
+// Structure discipline applied post-Scottish: JT taken E/W, Morikawa hedged win+T20. Detail: the-open-championship-2026/bets-placed.md
+const OPEN_CARD = [
+    { num: 1, player: "Jon Rahm", market: "Outright", terms: "Win", odds: "+2200", book: "betMGM", stake: 20, placed: "Jul 12", comp: "Highest-conviction convergent: independent #2 + hausbauer #3 + DG baseline + Andy Lack's #1 bet. Best price of 4 books.", toReturn: 460, status: "Open", result: "" },
+    { num: 2, player: "Collin Morikawa", market: "Outright", terms: "Win", odds: "+3100", book: "DraftKings", stake: 10, placed: "Jul 12", comp: "Cleanest value: independent #6 vs market #11. Accuracy/iron RSG-champ prototype. Best win price of 4 books.", toReturn: 320, status: "Open", result: "" },
+    { num: 3, player: "Collin Morikawa", market: "Prop", terms: "Top 20 (incl ties)", odds: "+120", book: "DraftKings", stake: 20, placed: "Jul 12", comp: "Higher-floor play on the #6 independent read. Incl-ties = correct structure vs FD excl-ties +150.", toReturn: 44, status: "Open", result: "" },
+    { num: 4, player: "Justin Thomas", market: "Outright", terms: "E/W 1/5 10pl", odds: "+4000", book: "bet365", stake: 10, placed: "Jul 12", comp: "The SILENCE play: independent #7, undiscussed by all 5 sources. Correct b365 E/W structure (post-Scottish lesson).", toReturn: 250, status: "Open", result: "" },
 ];
 
 const VALERO_CARD = [
@@ -337,31 +372,28 @@ const VALERO_CARD = [
 
 // Player rotation data
 const PLAYERS = {
+    // Records RECOMPUTED 2026-07-12 from bet-level card data (+ early winners folded). Rotation = current decisions.
     active: [
-        { name: "Russell Henley", bets: 4, wins: 2, pl: 40.40, roi: 67, note: "Masters T3. Double-cash. Season MVP." },
-        { name: "Collin Morikawa", bets: 6, wins: 2, pl: 35, roi: 50 },
-        { name: "Ricky Castillo", bets: 3, wins: 1, pl: 270, roi: 1080 },
-        { name: "Maverick McNealy", bets: 4, wins: 1, pl: 12.89, roi: 43, note: "Masters R3 parlay cashed. DG edge validated." },
-        { name: "Keith Mitchell", bets: 7, wins: 1, pl: -42, roi: -38 },
-        { name: "Nicolai Hojgaard", bets: 8, wins: 1, pl: 17, roi: 11, note: "Masters MC but RBC Heritage early dart placed." },
+        { name: "Wyndham Clark", bets: 2, wins: 1, pl: 615.00, roi: 3075, note: "US OPEN CHAMPION (+615, 100/1 E/W) — season's biggest single win. Was benched pre-US Open; fully vindicated." },
+        { name: "Ricky Castillo", bets: 1, wins: 1, pl: 275.00, roi: 1375, note: "Puerto Rico winner (+275, E/W 1/4 5pl)." },
+        { name: "Steven Fisk", bets: 1, wins: 1, pl: 206.25, roi: 1031, note: "ISCO winner (playoff). Narrative-silent DG-only read — E/W both legs paid." },
+        { name: "Collin Morikawa", bets: 4, wins: 2, pl: 65.00, roi: 108, note: "Genesis + Arnold Palmer Top-10 cashes. On the current Open card (value lean)." },
+        { name: "Ryan Gerard", bets: 5, wins: 1, pl: 40.00, roi: 40, note: "Memorial P2 placed (+70). Reconsidered OFF hard rotation." },
+        { name: "J.J. Spaun", bets: 6, wins: 1, pl: 11.25, roi: 19, note: "Memorial FRL DH win+place. 2025 US Open champ pedigree." },
     ],
     onNotice: [
-        { name: "Tommy Fleetwood", bets: 5, wins: 1, pl: -22.60, consec: 2, reason: "Masters T33. R4 76 collapse. Was T4 after R2." },
-        { name: "Patrick Reed", bets: 4, wins: 1, pl: -1.25, consec: 0, reason: "Masters T12. FRL placed T3 R1. Faded R3-R4." },
-        { name: "Sepp Straka", bets: 3, wins: 0, pl: -25, consec: 3, reason: "T8 Players near-miss" },
-        { name: "Ryo Hisatsune", bets: 3, wins: 0, pl: -7.50, consec: 3, reason: "T13 Players near-miss" },
-        { name: "Pierceson Coody", bets: 3, wins: 0, pl: -15, consec: 2, reason: "Model backing strong" },
-        { name: "Haotong Li", bets: 4, wins: 0, pl: -12.50, consec: 2, reason: "WD risk" },
+        { name: "Russell Henley", bets: 8, wins: 2, pl: -74.60, consec: 0, reason: "Most-backed name of the season (8 bets). Masters T3 double-cash, but cold and net-negative since — elite talent, poor ROI." },
+        { name: "Min Woo Lee", bets: 5, wins: 0, pl: -40.00, consec: 0, reason: "Scottish SOLO 2ND on a win-only ticket (no cash). Reconsidered off hard rotation — the loss was structure, not the player." },
+        { name: "Tommy Fleetwood", bets: 2, wins: 0, pl: -40.00, consec: 2, reason: "R4 fade pattern; 0-for since Masters. On the current Open card (home links angle)." },
+        { name: "Sepp Straka", bets: 4, wins: 0, pl: -35.00, consec: 4, reason: "Repeated near-misses, no cash." },
     ],
     benched: [
-        { name: "Kurt Kitayama", bets: 8, wins: 0, pl: -80, consec: 8, reason: "0-8 all markets. T60 Houston." },
-        { name: "Min Woo Lee", bets: 4, wins: 0, pl: -40, consec: 4, reason: "0-4 all markets" },
-        { name: "Ryan Gerard", bets: 4, wins: 0, pl: -30, consec: 4, reason: "0-4 all markets" },
-        { name: "Si Woo Kim", bets: 3, wins: 0, pl: -30, consec: 3, reason: "Putting liability" },
-        { name: "Max McGreevy", bets: 4, wins: 0, pl: -36, consec: 4, reason: "Over-exposed Cognizant" },
-        { name: "Michael Brennan", bets: 3, wins: 0, pl: -17.50, consec: 3, reason: "Long darts not connecting" },
-        { name: "Max Greyserman", bets: 1, wins: 0, pl: -10, consec: 1, reason: "MC Houston. Course history thesis failed." },
-        { name: "Wyndham Clark", bets: 1, wins: 0, pl: -10, consec: 1, reason: "MC Houston. Form signal didn't translate." },
+        { name: "Akshay Bhatia", bets: 6, wins: 0, pl: -60.00, consec: 6, reason: "0-for-6 — biggest losing volume on the book." },
+        { name: "Keith Mitchell", bets: 4, wins: 0, pl: -50.00, consec: 4, reason: "0-for-4 despite elite-APP course fits." },
+        { name: "Kurt Kitayama", bets: 3, wins: 0, pl: -35.00, consec: 3, reason: "Scottish: overrode our putting board for sharp-consensus → T44. Vindicated the fade." },
+        { name: "Si Woo Kim", bets: 2, wins: 0, pl: -30.00, consec: 2, reason: "Putting liability." },
+        { name: "Maverick McNealy", bets: 3, wins: 0, pl: -30.00, consec: 3, reason: "DG-edge plays not converting." },
+        { name: "Alex Smalley", bets: 3, wins: 0, pl: -25.00, consec: 3, reason: "Deep model darts, no cash." },
     ]
 };
 

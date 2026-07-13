@@ -61,7 +61,9 @@ const VENUE_HISTORY = {
     }
 };
 
-// Source attribution data (from tracker source tags)
+// Source attribution — from manual per-bet source tags. Directional (which reads earn), not bet-for-bet
+// reconstructable like P/L, since source tags aren't structured in the card data. Coverage ~through mid-season.
+// Big hits are reliable: Rabbit Hole/Echavarria +320, Titanic/Smotherman +425, Multi-Consensus/Castillo.
 const SOURCE_PERFORMANCE = [
     { source:"DataGolf", tagged:42, wins:3, places:2, pl:85, staked:380, bestHit:"Mitchell +2500 Cognizant" },
     { source:"Rabbit Hole", tagged:35, wins:4, places:1, pl:320, staked:310, bestHit:"Echavarria +5000 Cognizant" },

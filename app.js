@@ -1818,19 +1818,23 @@ document.getElementById('course-grid').addEventListener('click', e => {
 });
 
 // ═══ BETTING SECTION ═══
+// Unit formatters (1u = $20) — greenbook measures in units, not dollars.
+function uSigned(v){ return (v<0?'−':'+')+(Math.abs(v)/20).toFixed(1)+'u'; }
+function uStake(v){ return (+(v/20).toFixed(2))+'u'; }
+function uAxis(v){ return (v<0?'−':'')+(Math.abs(v)/20).toFixed(0)+'u'; }
 
-new Chart(document.getElementById('tournament-pl-chart'), { type:'bar', data:{labels:TOURNAMENTS.map(t=>t.name),datasets:[{data:TOURNAMENTS.map(t=>t.pl),backgroundColor:TOURNAMENTS.map(t=>t.pl>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:v=>'$'+v}},x:{grid:{display:false}}}} });
+new Chart(document.getElementById('tournament-pl-chart'), { type:'bar', data:{labels:TOURNAMENTS.map(t=>t.name),datasets:[{data:TOURNAMENTS.map(t=>t.pl),backgroundColor:TOURNAMENTS.map(t=>t.pl>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:uAxis}},x:{grid:{display:false}}}} });
 
 const cumPL=[]; let run=0; TOURNAMENTS.forEach(t=>{run+=t.pl;cumPL.push(run);});
-new Chart(document.getElementById('cumulative-pl-chart'), { type:'line', data:{labels:TOURNAMENTS.map(t=>t.name),datasets:[{data:cumPL,borderColor:'#2A7A4B',backgroundColor:'rgba(42,122,75,0.1)',fill:true,tension:0.3,pointRadius:4,pointBackgroundColor:cumPL.map(v=>v>=0?'#2A7A4B':'#C0392B')}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:v=>'$'+v}},x:{grid:{display:false}}}} });
+new Chart(document.getElementById('cumulative-pl-chart'), { type:'line', data:{labels:TOURNAMENTS.map(t=>t.name),datasets:[{data:cumPL,borderColor:'#2A7A4B',backgroundColor:'rgba(42,122,75,0.1)',fill:true,tension:0.3,pointRadius:4,pointBackgroundColor:cumPL.map(v=>v>=0?'#2A7A4B':'#C0392B')}]}, options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:GRID_COLOR},ticks:{callback:uAxis}},x:{grid:{display:false}}}} });
 
-new Chart(document.getElementById('market-chart'), { type:'bar', data:{labels:MARKETS.map(m=>m.type),datasets:[{data:MARKETS.map(m=>m.pl),backgroundColor:MARKETS.map(m=>m.pl>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:GRID_COLOR},ticks:{callback:v=>'$'+v}},y:{grid:{display:false}}}} });
+new Chart(document.getElementById('market-chart'), { type:'bar', data:{labels:MARKETS.map(m=>m.type),datasets:[{data:MARKETS.map(m=>m.pl),backgroundColor:MARKETS.map(m=>m.pl>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:GRID_COLOR},ticks:{callback:uAxis}},y:{grid:{display:false}}}} });
 
 new Chart(document.getElementById('ew-chart'), { type:'bar', data:{labels:EW_TERMS.map(e=>e.terms),datasets:[{data:EW_TERMS.map(e=>e.roi),backgroundColor:EW_TERMS.map(e=>e.roi>=0?GREEN_BAR:RED_BAR),borderRadius:4}]}, options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:GRID_COLOR},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}} });
 
-document.getElementById('winners-table').innerHTML = WINNERS.map(w => `<tr><td>${w.tournament}</td><td>${w.player}</td><td>${w.market}</td><td>${w.odds}</td><td>$${w.stake.toFixed(2)}</td><td>$${w.ret.toFixed(2)}</td><td class="pos">+$${w.pl.toFixed(2)}</td></tr>`).join('');
+document.getElementById('winners-table').innerHTML = WINNERS.map(w => `<tr><td>${w.tournament}</td><td>${w.player}</td><td>${w.market}</td><td>${w.odds}</td><td>${uStake(w.stake)}</td><td>${uStake(w.ret)}</td><td class="pos">${uSigned(w.pl)}</td></tr>`).join('');
 
-function renderPlayers(list, id) { const el=document.getElementById(id); list.forEach(p=>{ el.innerHTML += `<span class="player-tag">${p.name} <span class="${p.pl>=0?'pos':'neg'}">${p.pl>=0?'+':''}$${p.pl}</span></span>`; }); }
+function renderPlayers(list, id) { const el=document.getElementById(id); list.forEach(p=>{ el.innerHTML += `<span class="player-tag">${p.name} <span class="${p.pl>=0?'pos':'neg'}">${uSigned(p.pl)}</span></span>`; }); }
 
 // Source Attribution table
 (function() {
@@ -1929,7 +1933,7 @@ function renderBetCard(data, tbodyId, book) {
         const bk = d.book || book || 'bet365';
         const placed = d.placed || '';
         totalStake += d.stake || 0;
-        tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>$${d.stake.toFixed(2)}</td><td style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">${placed}</td><td class="${sc}">${d.status}</td></tr>`;
+        tb.innerHTML += `<tr><td><strong>${d.player}</strong></td><td>${betType}</td><td>${bk}</td><td>${d.odds}</td><td>${uStake(d.stake)}</td><td style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cream-500)">${placed}</td><td class="${sc}">${d.status}</td></tr>`;
     });
     tb.innerHTML += `<tr style="border-top:2px solid var(--brass-500);font-weight:700"><td colspan="4" style="text-align:right;font-family:var(--font-mono);font-size:0.7rem;color:var(--brass-400)">Total Staked</td><td style="font-family:var(--font-mono)">$${totalStake.toFixed(2)}</td><td colspan="2"></td></tr>`;
 }
@@ -1958,8 +1962,8 @@ if (typeof JDC_CARD !== 'undefined') renderBetCard(JDC_CARD, 'ab-jdc', 'bet365')
 (function() {
     var tb = document.getElementById('season-tbody');
     if (!tb || typeof TOURNAMENTS === 'undefined' || typeof SEASON === 'undefined') return;
-    function dollars(v) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-    function money(v) { return (v < 0 ? '-' : '+') + '$' + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function dollars(v) { return (v / 20).toFixed(1) + 'u'; }
+    function money(v) { return (v < 0 ? '−' : '+') + (Math.abs(v) / 20).toFixed(1) + 'u'; }
     var html = '', openRows = '';
     TOURNAMENTS.forEach(function(t) {
         if (t.status === 'open') {
@@ -2012,11 +2016,11 @@ if (typeof JDC_CARD !== 'undefined') renderBetCard(JDC_CARD, 'ab-jdc', 'bet365')
         else m = 'Outright';
         markets[m] = (markets[m] || 0) + (b.stake || 0);
     });
-    var breakdown = Object.entries(markets).map(function(e) { return e[0] + ' $' + e[1]; }).join(' | ');
+    var breakdown = Object.entries(markets).map(function(e) { return e[0] + ' ' + (e[1]/20).toFixed(1) + 'u'; }).join(' | ');
     el.innerHTML =
         '<div class="stat-card" style="border-left:2px solid var(--green-500)"><div class="stat-value">' + openBets.length + '</div><div class="stat-label">Open Bets</div></div>' +
-        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">$' + openStake.toFixed(0) + '</div><div class="stat-label">Total Exposure</div></div>' +
-        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">$' + avgStake.toFixed(0) + '</div><div class="stat-label">Avg Stake</div></div>' +
+        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">' + (openStake/20).toFixed(1) + 'u</div><div class="stat-label">Total Exposure</div></div>' +
+        '<div class="stat-card" style="border-left:2px solid var(--brass-500)"><div class="stat-value">' + (avgStake/20).toFixed(2) + 'u</div><div class="stat-label">Avg Stake</div></div>' +
         '<div class="stat-card"><div class="stat-value" style="font-size:0.7rem">' + breakdown + '</div><div class="stat-label">By Market</div></div>';
 })();
 

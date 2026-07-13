@@ -237,7 +237,7 @@ document.getElementById('calc-btn').addEventListener('click', () => {
             <strong>Breakeven:</strong> Win prob >${(100/(odds+100)).toFixed(1)}% OR place prob >${(totalStake/2 / (placeStake * (placeDecimal-1)) * 100).toFixed(1)}% to be +EV on place leg alone
         </div>
         ${(() => {
-            const bankroll = parseFloat(document.getElementById('calc-bankroll').value) || 400;
+            const bankroll = parseFloat(document.getElementById('calc-bankroll').value) || 40; // units
             const kellyFrac = parseFloat(document.getElementById('calc-kelly').value) || 0.25;
             const edge = winProb - (100/(odds+100))/100;
             if (edge <= 0) return '<div class="calc-breakeven" style="margin-top:0.5rem"><strong>Kelly:</strong> No edge detected. No recommended stake.</div>';
@@ -245,7 +245,7 @@ document.getElementById('calc-btn').addEventListener('click', () => {
             const kellyStake = Math.max(0, bankroll * kellyPct);
             const kellyPctDisplay = (kellyPct * 100).toFixed(2);
             const warn = kellyPct > 0.03 ? ' <span class="neg">(exceeds 3% of bankroll)</span>' : '';
-            return '<div class="calc-breakeven" style="margin-top:0.5rem"><strong>Kelly Stake:</strong> $' + kellyStake.toFixed(2) + ' (' + kellyPctDisplay + '% of $' + bankroll.toFixed(0) + ' bankroll, ' + (kellyFrac === 0.25 ? 'quarter' : kellyFrac === 0.5 ? 'half' : 'full') + ' Kelly)' + warn + '</div>';
+            return '<div class="calc-breakeven" style="margin-top:0.5rem"><strong>Kelly Stake:</strong> ' + kellyStake.toFixed(2) + 'u (' + kellyPctDisplay + '% of ' + bankroll.toFixed(0) + 'u bankroll, ' + (kellyFrac === 0.25 ? 'quarter' : kellyFrac === 0.5 ? 'half' : 'full') + ' Kelly)' + warn + '</div>';
         })()}
     `;
 });
@@ -454,12 +454,12 @@ function renderAnalyzer() {
     filtered.forEach(function(b){staked+=b.stake||0; returned+=b.ret||0; if(b.status==='Won')wins++});
     var pl = returned - staked;
     var roi = staked>0?(pl/staked*100).toFixed(1):'0';
-    document.getElementById('analyzer-summary').innerHTML = '<span>'+filtered.length+' bets</span><span>$'+staked.toFixed(2)+' staked</span><span class="'+(pl>=0?'pos':'neg')+'">'+(pl>=0?'+':'')+'$'+pl.toFixed(2)+'</span><span>'+wins+' winners</span><span>'+roi+'% ROI</span>';
+    document.getElementById('analyzer-summary').innerHTML = '<span>'+filtered.length+' bets</span><span>'+(staked/20).toFixed(1)+'u staked</span><span class="'+(pl>=0?'pos':'neg')+'">'+(pl>=0?'+':'−')+(Math.abs(pl)/20).toFixed(1)+'u</span><span>'+wins+' winners</span><span>'+roi+'% ROI</span>';
     var tb = document.getElementById('analyzer-body');
     tb.innerHTML = '';
     filtered.slice(0,50).forEach(function(b){
         var sc = b.status==='Won'?'pos':b.status==='Lost'?'neg':'';
-        tb.innerHTML += '<tr><td>'+(b.tournament||'')+'</td><td>'+b.player+'</td><td>'+(b.market||'')+'</td><td>'+b.odds+'</td><td>$'+b.stake.toFixed(2)+'</td><td class="'+sc+'">'+b.status+'</td><td>'+(b.ret?'$'+b.ret.toFixed(2):'-')+'</td></tr>';
+        tb.innerHTML += '<tr><td>'+(b.tournament||'')+'</td><td>'+b.player+'</td><td>'+(b.market||'')+'</td><td>'+b.odds+'</td><td>'+(+(b.stake/20).toFixed(2))+'u</td><td class="'+sc+'">'+b.status+'</td><td>'+(b.ret?(+(b.ret/20).toFixed(2))+'u':'-')+'</td></tr>';
     });
 }
 ['analyzer-book','analyzer-market','analyzer-status'].forEach(function(id){document.getElementById(id).addEventListener('change',renderAnalyzer)});
