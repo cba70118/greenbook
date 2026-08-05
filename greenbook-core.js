@@ -165,6 +165,7 @@ const GB = (function(){
     const meta = S ? `Season <b class="${S.pl>=0?'pos':'neg'}">${units(S.pl)}</b> · ${S.roi}% ROI · ${S.winners} winners` : '';
     const pages = [
       ['index.html','Board','board'],
+      ['card.html','This Week&rsquo;s Card','card'],
       ['players.html','Players','players'],
       ['events.html','Events','events'],
       ['record.html','The Record','record'],

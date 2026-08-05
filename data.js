@@ -1,49 +1,57 @@
-// Season data — last audited Jul 12, 2026 (ISCO settled; The Open now the only open event)
-// ISCO settled: 4 bets E/W 1/4 5pl, $40 staked, $216.25 returned, +$176.25 (+441% ROI).
-//   Steven Fisk WON (playoff) — pure data-first/narrative-silent read + edge structure = both E/W legs paid.
-//   Same-week structure contrast: ISCO E/W 1/4 5pl WON +$176 vs Scottish win-only LOST -$40 (Min Woo 2nd).
-// Settled P/L = +$634.18. ROI = 20.1% (settled only).
-// OPEN: The Open Championship 2026 — 4 bets, $60 (Rahm win $20, Morikawa win $10, Morikawa T20 $20, JT E/W $10).
-//   Detail in the-open-championship-2026/bets-placed.md (logged here to avoid the US-Open-week tracking gap).
-// WINNERS array 30 entries (+Fisk)
+// Season data — last audited Aug 5, 2026 (post-Rocket Classic full reconciliation)
+// RECONCILED Aug 5: The Open + Corales were settled on disk but still flagged OPEN here; 3M + Rocket were missing.
+//   The Open Championship: 15 bets, $224 staked, $471.42 returned, +$247.42.
+//     Books -$63.08 (12 bets/$166: Morikawa T20 +$24, Scheffler>McIlroy H2H +$20, Smalley FRL place +$12.92).
+//     DFS  +$310.50 (3 entries/$58) — the $50 single won by 0.5 FPTS. DFS carried the week. Ryan Fox won -10.
+//   Corales Puntacana: 3 CONFIRMED bets, $40, $0 returned, -$40 (Ventura T14 / Dou CUT / Hossler T42).
+//     NOTE: the earlier "6 bets/$95" line was wrong — operator confirmed NO FRL was placed at Corales.
+//     RESOLVED Aug 5 (operator): Taylor Moore $40 E/W = VOID (pre-tournament WD/DNS). Stake refunded, no P/L impact.
+//     Season stands at +$763.11. Corales effective risk was $40 on the 3 bets that ran; all 3 lost.
+//   3M Open: reads only, NO CARD BUILT — zero ledger impact. (Koivun won -25; we faded him as "rookie short".)
+//   Rocket Classic: 5 bets, $78.49, $0 returned, -$78.49. 0-for-5. Thorbjornsen won +4500.
+//     3x 72h matchups (-$63.49, all 3 sides MC'd/collapsed) + Knapp win $5 (MC) + Ghim E/W 1/5 t10 $10 (T15).
+//     9 independent-board names finished top-20 incl. WINNER (#26) + runner-up (#7); only Ghim got capital.
+// Settled P/L = +$763.11. ROI = 21.8% (settled only).
+// WINNERS array 36 entries (+6 from The Open)
 const SEASON = {
-    totalBets: 303,            // +4 The Open bets registered
-    settled: 297,              // +4 ISCO (settled Jul 12)
-    open: 4,                   // The Open Championship (Rahm, Morikawa x2, JT)
-    voided: 2,
-    staked: 3214.65,
-    settledStaked: 3154.65,    // +$40 ISCO
-    openStaked: 60.00,         // The Open $60
-    returned: 3788.83,         // +$216.25 ISCO (Fisk E/W)
-    pl: 634.18,                // 457.93 + 176.25 (ISCO); settled only
-    roi: 20.1,                 // 634.18 / 3154.65
-    winners: 30                // +Fisk (ISCO E/W)
+    totalBets: 331,            // 320 settled + 8 open (Wyndham) + 3 void
+    settled: 320,              // +15 The Open, +3 Corales, +5 Rocket Classic
+    open: 8,                   // Wyndham Championship (placed Aug 5; +Hubbard T10, +Hughes win & T10 added same day)
+    voided: 3,                 // +Taylor Moore $40 E/W (Corales) — operator-confirmed VOID Aug 5, stake refunded
+    staked: 3577.14,
+    settledStaked: 3497.14,    // 3154.65 + 224.00 (Open) + 40.00 (Corales) + 78.49 (Rocket)
+    openStaked: 80.00,         // Wyndham Championship (8 bets) — exactly at the 4u weekly cap
+    returned: 4260.25,         // 3788.83 + 471.42 (The Open: books 102.92 + DFS 368.50)
+    pl: 763.11,                // 634.18 + 247.42 (Open) - 40.00 (Corales) - 78.49 (Rocket); settled only
+    roi: 21.8,                 // 763.11 / 3497.14
+    winners: 36                // +Morikawa T20, Scheffler>McIlroy H2H, Smalley FRL place, 3x DFS (The Open)
 };
 
 // CURRENT EVENT INTELLIGENCE — the data-first read behind this week's card. Independent scan → overlay → market.
 const CURRENT_INTEL = {
-    event: "The Open Championship 2026",
-    course: "Royal Birkdale",
-    dates: "Jul 16–19",
-    surface: "Fescue links · firm & fast",
-    fingerprint: "Precision links test: driving accuracy + long-iron control + around-the-green creativity. NOT a bomber's course. Slow native greens mute putting. Winning profile = the accurate, wind-savvy iron player.",
+    event: "Wyndham Championship 2026",
+    course: "Sedgefield CC",
+    dates: "Aug 6–9",
+    surface: "Champion Bermuda · Stimp 12.5 · par 70, 7,131 yds",
+    fingerprint: "Short positional Donald Ross test decided ON THE GREENS. Measured RH grades: putting VERY DIFFICULT (the #1 separator), ARG + scrambling from rough AND short grass all DIFFICULT, missed-fairway/rough penalty HIGH (accuracy, not distance — driver usage 56% vs 70% tour). SG:APP grades VERY EASY: 55% of approaches come from 100–175 yds and the field hits 73% of greens, so approach play barely separates anyone. Distance is not a lever.",
     independentTop: [
-        { rank:1, name:"Scheffler" }, { rank:2, name:"Rahm" }, { rank:3, name:"M. Fitzpatrick" },
-        { rank:4, name:"Fleetwood" }, { rank:5, name:"McIlroy" }, { rank:6, name:"Morikawa" },
-        { rank:7, name:"J. Thomas" }, { rank:8, name:"Schauffele" }, { rank:9, name:"Åberg" }, { rank:10, name:"Si Woo Kim" },
+        { rank:1, name:"Cameron Young" }, { rank:2, name:"Ben Griffin" }, { rank:3, name:"M. McNealy" },
+        { rank:4, name:"Hideki Matsuyama" }, { rank:5, name:"Eric Cole" }, { rank:6, name:"Mac Meissner" },
+        { rank:7, name:"Denny McCarthy" }, { rank:8, name:"Alex Norén" }, { rank:9, name:"Sungjae Im" },
+        { rank:10, name:"C. Bezuidenhout" },
     ],
     leans: [
-        { name:"Collin Morikawa", note:"Independent #6 vs market #11 — cleanest value. Accuracy/iron RSG-champ prototype.", bet:true },
-        { name:"Jon Rahm", note:"Independent #2 + DG baseline + Andy Lack's #1 bet. The market's LIV discount IS the edge.", bet:true },
-        { name:"Justin Thomas", note:"The silence play — independent #7, undiscussed by all 5 sources. Taken as b365 E/W.", bet:true },
-        { name:"Tommy Fleetwood", note:"Home links (Southport) — the un-priced angle not one source mentions.", bet:false },
+        { name:"Eric Cole", note:"FanDuel +10000 vs Pinnacle +7414 — a 35% soft-book overlay on top of the model read. Bermuda putting 10, comp-course 6.", bet:true },
+        { name:"Ben Griffin", note:"Bermuda record #1 AND Bermuda putting #2, T11 here, 88% cut probability. Pinnacle agrees with the market, so this is a pure thesis bet.", bet:true },
+        { name:"Denny McCarthy", note:"Bermuda putting #3 on 137 rounds, T11 here — and DataGolf has him only 45th. Named by none of the four sources.", bet:true },
+        { name:"Maverick McNealy", note:"Model #3, Bermuda putting 8, silent everywhere — but Pinnacle is LONGER than our best outright price, so place markets only.", bet:false },
     ],
     fades: [
-        { name:"Cameron Young", note:"Market #9 / independent #18 — coldest top-tier form (−1.16)." },
-        { name:"Chris Gotterup", note:"Market #8 / independent #23 — pedigree bubble." },
-        { name:"Koepka & Bryson", note:"Bombers Birkdale neutralizes; flat form." },
+        { name:"Ryan Gerard", note:"The week's consensus play (all 4 sources + DG #4). Bermuda putting 81. Loses 13.6 pts of top-20 equity when you switch to Bermuda-only putting." },
+        { name:"Justin Thomas", note:"Bermuda putting 133. Loses 18.9 pts on the same switch — the largest mover in the field." },
+        { name:"Doug Ghim / Bud Cauley", note:"DataGolf's only +EV outrights (+6% / +12%) — and Bermuda putting 125 / 119. They are +EV precisely because DG cannot see the surface." },
     ],
-    reconcile: "MacIntyre & Lowry — the skill-only read buries them, but links pedigree + comp-course say HOLD, not fade. The one genuine independent-vs-market conflict, deferred to the draw.",
+    reconcile: "The whole week rests on one axis: putting is the #1 graded separator on Champion Bermuda, and neither DataGolf's fit model (driven by driving accuracy, distance and course history) nor any of the four narrative sources weights it. Noonan published his model weights — there is no putting term in them — then picked two players whose putters he criticises in his own copy. The silence check found 10 of our top 30 unmentioned by any source; 7 are good-to-elite Bermuda putters.",
 };
 
 const TOURNAMENTS = [
@@ -71,7 +79,11 @@ const TOURNAMENTS = [
     { name: "John Deere", bets: 6, staked: 65, returned: 43.34, pl: -21.66, phase: 2, status: "settled" }, // Blair E/W placed (+38.34); all else lost
     { name: "ISCO", bets: 4, staked: 40, returned: 216.25, pl: 176.25, phase: 2, status: "settled" }, // Steven Fisk WON (playoff) — E/W 1/4 5pl both legs paid. +$176.25 (+441% ROI)
     { name: "Scottish Open", bets: 7, staked: 40, returned: 0, pl: -40, phase: 2, status: "settled" }, // Renaissance, settled Jul 12 — 0/7, all win-only; Min Woo Lee 2nd (no cash). Winner Tom Kim -17.
-    { name: "The Open", bets: 4, staked: 60, returned: 0, pl: 0, phase: 2, status: "open" },      // Royal Birkdale Jul 16-19 — Rahm win/Morikawa win+T20/JT E/W. Detail: the-open-championship-2026/bets-placed.md
+    { name: "The Open", bets: 15, staked: 224, returned: 471.42, pl: 247.42, phase: 2, status: "settled" },  // Royal Birkdale Jul 16-19. Ryan Fox won -10. Books -$63.08 (Morikawa T20 +24, Scheffler>McIlroy H2H +20, Smalley FRL place +12.92); DFS +$310.50 ($50 single won by 0.5 FPTS).
+    { name: "Corales Puntacana", bets: 3, staked: 40, returned: 0, pl: -40, phase: 2, status: "settled" },  // Mazzoli -20. Ventura T14/Dou CUT/Hossler T42 all lost. Taylor Moore $40 E/W VOIDED (pre-tournament WD/DNS, operator-confirmed Aug 5) — stake refunded, excluded from staked.
+    { name: "3M Open", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },              // Koivun won -25. Reads only, NO CARD BUILT — zero ledger impact. We faded the winner as "rookie short."
+    { name: "Rocket Classic", bets: 5, staked: 78.49, returned: 0, pl: -78.49, phase: 2, status: "settled" },
+    { name: "Wyndham Championship", bets: 8, staked: 80, returned: 0, pl: 0, phase: 2, status: "open" },   // Sedgefield CC, Aug 6-9. Placed Aug 5. Detail: WYNDHAM_CARD / wyndham-championship-2026/bets-placed.md // Detroit GC, 1st playing post-Tyler-Rae reno. Thorbjornsen won -18 (+4500). 0-for-5: 3x 72h matchup all MC'd (-63.49), Knapp win MC (-5), Ghim E/W 1/5 t10 T15 (-10). 9 board names top-20 incl. winner (#26); only Ghim backed.
 ];
 
 const WINNERS = [
@@ -105,23 +117,28 @@ const WINNERS = [
     { tournament: "US Open", player: "Wyndham Clark", market: "E/W 1/4 5pl WIN", odds: "+10000", stake: 10, ret: 635, pl: 625 },
     { tournament: "John Deere", player: "Zac Blair", market: "E/W 1/5 10pl Placed", odds: "+11000", stake: 5, ret: 43.34, pl: 38.34 },
     { tournament: "ISCO", player: "Steven Fisk", market: "E/W 1/4 5pl WIN (playoff)", odds: "+3300", stake: 10, ret: 216.25, pl: 206.25 },
+    { tournament: "The Open", player: "Collin Morikawa", market: "Top 20 (incl. ties)", odds: "+120", stake: 20, ret: 44, pl: 24 },
+    { tournament: "The Open", player: "Scheffler ▸ McIlroy", market: "72-hole H2H", odds: "-105", stake: 21, ret: 41, pl: 20 },
+    { tournament: "The Open", player: "Alex Smalley", market: "FRL E/W 1/4 5pl Placed (DH)", odds: "+12500", stake: 5, ret: 17.92, pl: 12.92 },
+    { tournament: "The Open", player: "DFS $50 single", market: "DFS (won by 0.5 FPTS)", odds: "-", stake: 50, ret: 346.50, pl: 296.50 },
+    { tournament: "The Open", player: "DFS $4K GPP", market: "DFS GPP", odds: "-", stake: 5, ret: 15, pl: 10 },
+    { tournament: "The Open", player: "DFS $6K GPP", market: "DFS GPP", odds: "-", stake: 3, ret: 7, pl: 4 },
 ];
 
-// MARKETS — RECOMPUTED 2026-07-12 from bet-level card data. Basis: CARDED ERA (Houston→The Open + all majors).
-// Sums to +$603.93 (the carded portion of the +$634.18 season; pre-Houston early season is event-level only).
-// DFS is the season hero; FRL is the confirmed structural leak.
+// MARKETS — RECOMPUTED 2026-08-05 from bet-level card data. Basis: CARDED ERA (Houston -> Rocket + all majors).
+// Now includes The Open, Corales and Rocket Classic bet-level splits (previously missing).
+// Sums to +$732.86 (the carded portion of the +$763.11 season; pre-Houston early season is event-level only).
+// DFS remains the season hero; FRL remains the confirmed structural leak; 72h matchups are a NEW leak (Rocket 0-for-3).
 const MARKETS = [
-    { type: "DFS",                bets: 5,  pl: 693.20,  roi: 508 },  // Masters +641 anchors. Season hero. (+ early AP DFS +124 event-level.)
-    { type: "Outright E/W",       bets: 88, pl: 172.84,  roi: 15 },   // US Open Clark +625 / ISCO Fisk +206 carry a heavy loser tail.
-    { type: "Matchups/Parlays",   bets: 7,  pl: 89.89,   roi: 128 },  // PGA regional 2-pick +85, Masters R3 parlay +33.
+    { type: "DFS",                bets: 8,  pl: 1003.70, roi: 543 },  // Masters +641, The Open +310.50 ($50 single won by 0.5 FPTS). Season hero.
+    { type: "Outright (win + E/W)", bets: 99, pl: 47.84,  roi: 4 },   // US Open Clark +625 / ISCO Fisk +206 vs a heavy loser tail; Open -70, Corales -40, Rocket -15.
+    { type: "Matchups/Parlays",   bets: 11, pl: 46.40,   roi: 42 },   // PGA 2-pick +85, Masters R3 parlay +33, Open Scheffler>McIlroy +20 — MINUS Rocket's 0-for-3 (-63.49).
     { type: "Props (Top 5/Reg)",  bets: 8,  pl: -0.40,   roi: -1 },   // Regional props ~breakeven.
-    { type: "Top 20 prop",        bets: 3,  pl: -19.60,  roi: -33 },  // Masters Henley +20 offset by US Open Henley −20.
-    { type: "Top 10 prop",        bets: 8,  pl: -52.00,  roi: -65 },  // Straka/Spaun/US-Open misses.
+    { type: "Top 20 prop",        bets: 4,  pl: 4.40,    roi: 7 },    // Masters Henley +20, Open Morikawa +24, US Open Henley -20.
+    { type: "Top 10 prop",        bets: 9,  pl: -72.00,  roi: -75 },  // Straka/Spaun/US-Open misses + Open Hovland -20.
     { type: "Pool",               bets: 1,  pl: -50.00,  roi: -100 }, // Masters pool entry.
-    { type: "FRL",                bets: 40, pl: -230.00, roi: -58 },  // Biggest leak. 40 carded FRL, minimal cashes (Memorial Spaun +71).
+    { type: "FRL",                bets: 43, pl: -247.08, roi: -55 },  // Biggest leak. Only cashes: Memorial Spaun +71, Open Smalley place +12.92.
 ];
-// Carded-era checksum: +$603.93. SEASON authoritative (all 297 settled): +$634.18 / 20.1% ROI. Early season = event-level (TOURNAMENTS).
-
 // EW_TERMS — RECOMPUTED 2026-07-12 from bet-level card data. Basis: CARDED ERA (Houston→The Open + all majors,
 // every bet accounted). Early season (pre-Houston, event-level only) excluded for internal consistency.
 // 1/4 5pl is the confirmed structural edge; every other E/W structure is negative. See EW_COVERAGE note.
@@ -343,6 +360,29 @@ const SCOTTISH_CARD = [
 
 // The Open Championship 2026 — Royal Birkdale. Jul 16-19. OPEN card (data-first: independent scan → narrative overlay → market).
 // Structure discipline applied post-Scottish: JT taken E/W, Morikawa hedged win+T20. Detail: the-open-championship-2026/bets-placed.md
+const CORALES_CARD = [
+    { num: 1, player: "Taylor Moore", market: "Outright", terms: "E/W 1/4 5pl", odds: "+4000", book: "b365", stake: 40, placed: "Jul 15", comp: "VOID — pre-tournament WD/DNS, stake refunded (operator-confirmed Aug 5). ANCHOR (2u) as placed. The one edge that survived the line move (Dou/Bauchou top-10 got bet down; Moore held). DG decomposition backs a genuine distance-fit boost (+0.053/rd) on a 7,670y sea-level track; 6-mo driving OTT #3. +21% EV vs DG fair. Caveat: recent APP #110 fights the course's #1 skill - bet is distance-fit + mispricing, not a clean ball-striking read.", toReturn: 1040, status: "VOID (WD/DNS)", result: "Void" },
+    { num: 2, player: "Kristoffer Ventura", market: "Outright", terms: "E/W 1/4 5pl", odds: "+5500", book: "b365", stake: 20, placed: "Jul 15", comp: "DG-only read (DG #15, t10 15.6%) - NOT in our Stage-1 top-20, softest name on the card. +13% EV vs DG fair.", toReturn: 707.50, status: "Open", result: "" },
+    { num: 3, player: "Zecheng Dou", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3500", book: "b365", stake: 10, placed: "Jul 15", comp: "Two-model convergent (our #9 / DG #9). DG distance-fit +0.043/rd, 6-mo APP #11. His top-10 edge died on the move (+27%->+1%) but E/W still +5%.", toReturn: 228.75, status: "Open", result: "" },
+    { num: 4, player: "Beau Hossler", market: "Outright", terms: "E/W 1/4 5pl", odds: "+3300", book: "b365", stake: 10, placed: "Jul 15", comp: "DG #8 (win 2.92%), our #12. Putter/ARG profile. +5% EV vs DG fair.", toReturn: 216.25, status: "Open", result: "" },
+    { num: 5, player: "Taylor Moore", market: "FRL", terms: "E/W (b365 FRL terms - CONFIRM place fraction/places)", odds: "+5500", book: "b365", stake: 10, placed: "Jul 15", comp: "Only FRL name on the board with positive edge (+3% vs DG FRL model, 1.84% prob). Passes 4/5 FRL checklist: DG edge positive, top-10 composite (our #5/DG #10), price +600 or longer, LATE wave (DG favors late for FRL: 1.81% vs 1.55% early top-10 avg). Fails only the 5% edge threshold - discretionary, not a green light.", toReturn: 280, status: "Open", result: "" },
+    { num: 6, player: "Beau Hossler", market: "FRL", terms: "Win (FD does not offer E/W)", odds: "+5500", book: "FanDuel", stake: 5, placed: "Jul 15", comp: "Second FRL bullet, priced at ~fair (-1% vs DG FRL model, 1.78% prob). Early wave (06:56). No edge being paid, but the only other name near fair on a flat FRL board.", toReturn: 280, status: "Open", result: "" },
+];
+
+// Wyndham Championship 2026 — Sedgefield CC. Placed Aug 5 (data-first: Stage 1 board → narrative overlay → market last).
+// House model (scripts/build_own_model.py) fuses 7 layers; the week's thesis is that Bermuda putting is the #1
+// separator here and that neither DataGolf nor any of the 4 narrative sources weights it.
+const WYNDHAM_CARD = [
+    { num: 1, player: "Eric Cole", market: "Outright", terms: "Win only", odds: "+10000", book: "FanDuel", stake: 5, placed: "Aug 5", comp: "BEST BET. FanDuel +10000 vs Pinnacle +7414 — a 35% soft-book overlay independent of our model. House model #5: Bermuda putting 10, comp-course 6, Bermuda record 21. Narrative-silent. EV +80% (blend). Risk: cold form (-0.41), T74 here '25.", toReturn: 505, status: "Open", result: "" },
+    { num: 2, player: "Ben Griffin", market: "Outright", terms: "E/W 1/4 5pl", odds: "+2800", book: "bet365", stake: 20, placed: "Aug 5", comp: "House model #2 and sim #2. Bermuda record #1 AND Bermuda putting #2 in the field, T11 here '25, highest cut prob (88%). NOTE: b365 offered E/W at the FULL +2800 (supplied sheet wrongly showed +2500) — E/W has 4.6x the hit rate of the straight win. EV +32% (blend). Pinnacle +2853 = no price edge; pure thesis bet.", toReturn: 370, status: "Open", result: "" },
+    { num: 3, player: "Eric Cole", market: "Top 10", terms: "Incl. ties", odds: "+650", book: "FanDuel", stake: 10, placed: "Aug 5", comp: "Second Cole ticket (correlated by design). Line moved +850 -> +650 between our odds pull and placement — market came 25% toward the model's favourite name in an hour. Positive CLV signal. EV +13% (blend).", toReturn: 75, status: "Open", result: "" },
+    { num: 4, player: "Denny McCarthy", market: "FRL", terms: "E/W 1/4 5pl", odds: "+8000", book: "bet365", stake: 10, placed: "Aug 5", comp: "Bermuda putting #3 on 137 rounds, T11 here, DG has him only 45th, silent across all 4 sources. AM wave (7:12am) = ahead of Thursday's 2pm storm window. MODELS DISAGREE: our R1 sim +12%, DG FRL model -37%. Place leg (R1 top-5, ~6.5%) is the realistic outcome.", toReturn: 510, status: "Open", result: "" },
+    { num: 6, player: "Mark Hubbard", market: "Top 10", terms: "EXCL. ties (dead-heat)", odds: "+1600", book: "BetMGM", stake: 5, placed: "Aug 5", comp: "Added late. SURFACE SPECIALIST — the split is consistent across 4 cells: Bermuda 5yr TOT #20 / PUTT #26 (96 rds) vs comp-course TOT #83 / PUTT #116; Bermuda 6mo TOT #2 / PUTT #2 vs comp 6mo #136 / #140. DG form ratio 1.56 (hot), T3 at Sedgefield '25, and the LARGEST surface-swap riser in the field (+11.2 pts top-20). Nearly missed because our consolidated form layer is built on comp-course data — i.e. mostly the wrong surface for him. EV +28% blend AFTER the excl-ties dead-heat haircut (was +48% quoted incl-ties; measured cost 13.5% over 120k sims — the 10th place is shared in 69.7% of tournaments, median 4 players for 2 spots). Still +EV. Risk: 62% cut prob; the 6mo Bermuda numbers rest on only 8 rounds.", toReturn: 85, status: "Open", result: "" },
+    { num: 7, player: "Mackenzie Hughes", market: "Outright", terms: "Win only", odds: "+17500", book: "DraftKings", stake: 5, placed: "Aug 5", comp: "Model #14, Bermuda putting #4, ARG #2, silent across all 4 narrative sources. DK was 7% longer than Pinnacle (+16781) at capture. EV +77% blend / +183% model. Straight taken over the recommended b365 E/W (+15000) — more EV, ~5x less often.", toReturn: 880, status: "Open", result: "" },
+    { num: 8, player: "Mackenzie Hughes", market: "Top 10", terms: "— (confirm book)", odds: "+960", book: "DraftKings", stake: 5, placed: "Aug 5", comp: "NEGATIVE CLV (confirmed same-book): DraftKings itself was +1300 at 08:30 CT and +960 at placement — a 26% shortening at the SAME book, so not a book-selection artifact. Edge fell from +52% to +7% blend as the market bet him in. Second negative-CLV event of the day alongside Cole's T10 (+850 -> +650). Process note: pull odds closer to placement.", toReturn: 53, status: "Open", result: "" },
+    { num: 5, player: "Blades Brown", market: "Top 20", terms: "Incl. ties", odds: "+240", book: "FanDuel", stake: 20, placed: "Aug 5", comp: "FLAGGED NEGATIVE (-39% EV blend) and the largest stake. Price needs 29.4%; model gives 15.2% (rank 50). No DG skill ratings exist for him (skill layer median-imputed), only 15 rounds of Bermuda data, 50% cut probability. Strength is RH model consensus (+1.33) + Bermuda putting 17 + both Mayo hosts on him — narrative-driven, not data-driven.", toReturn: 68, status: "Open", result: "" },
+];
+
 const OPEN_CARD = [
     { num: 1, player: "Jon Rahm", market: "Outright", terms: "Win", odds: "+2200", book: "betMGM", stake: 20, placed: "Jul 12", comp: "Highest-conviction convergent: independent #2 + hausbauer #3 + DG baseline + Andy Lack's #1 bet. Best price of 4 books.", toReturn: 460, status: "Open", result: "" },
     { num: 2, player: "Collin Morikawa", market: "Outright", terms: "Win", odds: "+3100", book: "DraftKings", stake: 10, placed: "Jul 12", comp: "Cleanest value: independent #6 vs market #11. Accuracy/iron RSG-champ prototype. Best win price of 4 books.", toReturn: 320, status: "Open", result: "" },

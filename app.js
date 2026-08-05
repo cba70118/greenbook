@@ -133,6 +133,8 @@ function buildTheCut() {
             myrtlebeach: typeof MB_CARD !== 'undefined' ? MB_CARD : [],
             pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
             travelers: typeof TRAVELERS_CARD !== 'undefined' ? TRAVELERS_CARD : [],
+            wyndham: typeof WYNDHAM_CARD !== 'undefined' ? WYNDHAM_CARD : [],
+            wyndhamchampionship: typeof WYNDHAM_CARD !== 'undefined' ? WYNDHAM_CARD : [],
         };
         var cardData = cutCardLookup[currentKey] || [];
         if (currentKey === 'pgachampionship' && typeof FUTURES !== 'undefined') {
@@ -532,6 +534,8 @@ function loadTournament(key) {
                 pga: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
                 pgachampionship: typeof PGA_CARD !== 'undefined' ? PGA_CARD : [],
                 travelers: typeof TRAVELERS_CARD !== 'undefined' ? TRAVELERS_CARD : [],
+                wyndham: typeof WYNDHAM_CARD !== 'undefined' ? WYNDHAM_CARD : [],
+                wyndhamchampionship: typeof WYNDHAM_CARD !== 'undefined' ? WYNDHAM_CARD : [],
             };
             // Also include PGA futures (Fleetwood/Fitz/Henley/Cantlay/Finau pre-week) when on PGA tab
             var actualCard = cardLookup[key] || [];
