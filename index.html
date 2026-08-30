@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="greenbook.css?v=200">
+<link rel="stylesheet" href="greenbook.css?v=202">
 <style>
   /* Board-specific */
   .dna { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:26px 30px; margin-bottom:10px; }
@@ -77,7 +77,7 @@
   <!-- THE BOARD — field ranked by course fit -->
   <section class="sec">
     <div class="sec-label">The Independent Read</div>
-    <div class="sec-title">Who Fits Royal Birkdale</div>
+    <div class="sec-title" id="boardTitle">Who Fits This Course</div>
     <div class="sec-sub">The whole tracked field, ranked by how well each player's game matches what this course rewards — established <em>before</em> any market price or story. Each row leads with the verdict and why; open it for the full strokes-gained breakdown.</div>
     <div class="filters">
       <button class="fbtn on" data-f="top">Top Fits</button>
@@ -91,12 +91,12 @@
 </main>
 <div id="gb-foot"></div>
 
-<script src="data.js?v=200"></script>
-<script src="tournament-data.js?v=200"></script>
-<script src="settled-data.js?v=200"></script>
-<script src="tools-data.js?v=200"></script>
-<script src="player-kb.js?v=200"></script>
-<script src="greenbook-core.js?v=200"></script>
+<script src="data.js?v=202"></script>
+<script src="tournament-data.js?v=202"></script>
+<script src="settled-data.js?v=202"></script>
+<script src="tools-data.js?v=202"></script>
+<script src="player-kb.js?v=202"></script>
+<script src="greenbook-core.js?v=202"></script>
 <script>
 GB.mountChrome('board');
 (function(){
@@ -119,6 +119,10 @@ GB.mountChrome('board');
     <div class="rewards">${topDemands.map(d=>`<span class="rw"><b>${Math.round((d.weight||0)*100)}%</b> ${GB.scrub(d.stat)}</span>`).join('')}</div>
   </div>
   <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--cream-700);margin-top:10px;padding-left:4px">What this course rewards, weighted — the fingerprint every player below is scored against. <a href="events.html?ev=${EV}" style="color:var(--brass-600);text-decoration:none">Full event breakdown ▸</a></div>`;
+
+  /* Board heading follows the event, so repointing EV can never leave a stale course name on screen. */
+  const bt=document.getElementById('boardTitle');
+  if(bt) bt.textContent='Who Fits '+t.course;
 
   /* ---- our card ---- */
   const card = (typeof BMW_CARD!=='undefined') ? BMW_CARD : [];
