@@ -1590,5 +1590,31 @@ const TOURNAMENT_DATA = {
             { type: "process", text: "The Open at Royal Birkdale. 7,156 yds Par 70. Dunes links in Southport, England. Holes routed through towering sand dunes. 10x Open host. Spieth won 2017 at -12 with creative short game. Pot bunkers + willow scrub = penal for misses. SG:ARG is THE separator. Fleetwood is from Southport — this is literally his home course." },
             { type: "process", text: "KEY STATS: SG:ARG (pot bunkers + dune runoffs), SG:APP (fescue greens + wind), driving accuracy (willow scrub unplayable). Links experience critical. European/UK players often have advantage. Spieth archetype: short game wizard who can create shots. FLEETWOOD HOME COURSE — grew up playing Birkdale. Massive narrative + genuine course knowledge edge." },
         ],
+    },
+    // BMW Championship 2026 - Bellerive CC, Aug 20-23. Playoffs 2 of 3, 50 players, NO CUT.
+    // The fingerprint below is MEASURED FROM THE COMPLETED EVENT, not a pre-tournament grade block:
+    // top-10 mean gain and field spread both ranked PUTT #1, APP #2, OTT #3, ARG #4, with driving
+    // accuracy separating nothing at all. Our pre-event house profile weighted APP 30 / OTT 26 /
+    // form 17 / ARG 14 / PUTT 13 - the inverse ordering at the top - and no weighting of the board
+    // beat chance. See bmw-championship-2026/results.md and scripts/score_board.py.
+    bmwchampionship: {
+        name: "BMW Championship 2026",
+        course: "Bellerive Country Club",
+        meta: "7,448 yds | Par 71 | Greens: T1 Bentgrass, rebuilt 2019 | Rough: 3in Fescue | Scoring: Standard | 50 players, NO CUT | Parkland",
+        archetype: "Long parkland: putting + approach, length as a weak tiebreaker",
+        location: "Town and Country, Missouri",
+        frl: [],
+        fingerprint: [
+            { stat: "SG: Putting", weight: 0.32 },
+            { stat: "SG: Approach", weight: 0.28 },
+            { stat: "SG: Off the tee / driving distance", weight: 0.22 },
+            { stat: "SG: Around the green", weight: 0.18 },
+        ],
+        narrative: {
+            description: "Robert Trent Jones Sr. parkland (1960), greens rebuilt to T1 bentgrass in 2019 - so every putting number measured here before 2019 describes a surface that no longer physically exists. The scoring defence is 3-inch fescue rough, but rough avoidance is the MECHANISM of scoring, not the discriminator between the top of a 50-man playoff field. Measured in 2026: putting was the single largest separator (top-10 mean +2.095, field SD 3.049), approach second (+1.413 / 2.939), off the tee third, short game fourth. The top 10 averaged +3.5 yards over the field on driving distance and had ZERO edge in driving accuracy. Winner Wyndham Clark gained +5.03 putting and +4.82 approach at a distance BELOW the top-10 mean.",
+            correlated: "East Lake, Southern Hills, Oak Hill, Firestone South. Long RTJ-era parkland with tree-lined corridors, elevated bentgrass greens and fescue rough. Shared demand: long-iron approach control plus the putter; length helps at the margin but does not decide.",
+            tags: ["Parkland", "Bentgrass", "Rebuilt Greens", "Fescue Rough", "Long Par 71", "Putting Separator", "Approach Separator", "No Cut", "Playoffs"],
+            keyHoles: [],
+        },
     }
 };

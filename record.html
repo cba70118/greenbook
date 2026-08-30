@@ -172,7 +172,9 @@ GB.mountChrome('record');
     document.getElementById('winners').innerHTML=h+'</tbody>'; })();
 
   /* bet history */
-  (function(){ const cards=[['The Open','OPEN_CARD'],['Scottish','SCOTTISH_CARD'],['ISCO','ISCO_CARD'],['John Deere','JDC_CARD'],['Travelers','TRAVELERS_CARD'],['US Open','US_OPEN_CARD'],['Memorial','MEMORIAL_CARD'],['PGA Champ','PGA_CARD'],['Myrtle Beach','MB_CARD'],['Truist','TRUIST_CARD'],['Miami','MIAMI_CARD'],['Zurich','ZURICH_CARD'],['RBC','RBC_CARD'],['Masters','MASTERS_CARD'],['Valero','VALERO_CARD'],['Houston','HOUSTON_CARD']];
+  /* Newest first. Every card block in data.js must appear here or its bets never render.
+     St. Jude has no entry because it has no card block — it was a deliberate no-bet. */
+  (function(){ const cards=[['BMW','BMW_CARD'],['Wyndham','WYNDHAM_CARD'],['Corales','CORALES_CARD'],['The Open','OPEN_CARD'],['Scottish','SCOTTISH_CARD'],['ISCO','ISCO_CARD'],['John Deere','JDC_CARD'],['Travelers','TRAVELERS_CARD'],['US Open','US_OPEN_CARD'],['Memorial','MEMORIAL_CARD'],['PGA Champ','PGA_CARD'],['Myrtle Beach','MB_CARD'],['Truist','TRUIST_CARD'],['Miami','MIAMI_CARD'],['Zurich','ZURICH_CARD'],['RBC','RBC_CARD'],['Masters','MASTERS_CARD'],['Valero','VALERO_CARD'],['Houston','HOUSTON_CARD']];
     let all=[]; const avail=[];
     cards.forEach(([ev,nm])=>{ let arr; try{ arr=window[nm]; }catch(e){ arr=null; } if(Array.isArray(arr)){ avail.push(ev); arr.forEach(b=>all.push({ev,...b})); } });
     const events=['All',...avail];

@@ -100,7 +100,9 @@
 <script>
 GB.mountChrome('board');
 (function(){
-  const EV='openchampionship';
+  /* Most recent event with capital on it. The TOUR Championship (Aug 27-30) was scanned but never
+     carded, so the BMW stays the board's subject until a card is placed. Keep in step with CURRENT_INTEL. */
+  const EV='bmwchampionship';
   const t = (typeof TOURNAMENT_DATA!=='undefined') ? TOURNAMENT_DATA[EV] : null;
   const CI = (typeof CURRENT_INTEL!=='undefined') ? CURRENT_INTEL : null;
   if(!t){ document.getElementById('dnaHost').innerHTML='<div class="card">No event data.</div>'; return; }
@@ -119,7 +121,7 @@ GB.mountChrome('board');
   <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--cream-700);margin-top:10px;padding-left:4px">What this course rewards, weighted — the fingerprint every player below is scored against. <a href="events.html?ev=${EV}" style="color:var(--brass-600);text-decoration:none">Full event breakdown ▸</a></div>`;
 
   /* ---- our card ---- */
-  const card = (typeof OPEN_CARD!=='undefined') ? OPEN_CARD : [];
+  const card = (typeof BMW_CARD!=='undefined') ? BMW_CARD : [];
   document.getElementById('cardHost').innerHTML = card.map(b=>{
     const imp = GB.impliedPct(b.odds);
     const g = GB.findPlayer(b.player);
