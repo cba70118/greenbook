@@ -254,4 +254,5 @@ Zurich (team) skipped -> tracker shows the +$3 gap vs SEASON.
 `<slug>/placed.json`. After the event: `py -3 scripts/backfill_event.py --event-id <id> --slug <slug>` then rebuild the bundle.
 Verify: node + jsdom headless test (scratchpad pattern: load page with Chart.js stubbed, click a board row, run sims).
 
-**NOT DONE YET:** player-page timelines across event files · pipeline skills calling the builder automatically · git push.
+**DONE 2026-11-11:** pushed (f9433dc, 25fbae6). Player timelines (events/players.js, peer-adjusted vs-expectation). Fixed site-wide has() bug (const globals never on window).
+**NOT DONE YET:** pipeline skills calling the builder automatically.
