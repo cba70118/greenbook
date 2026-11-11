@@ -8,7 +8,9 @@
    =================================================================== */
 const GB = (function(){
   const U = 20; // $ per unit
-  const has = n => typeof window[n] !== 'undefined';
+  // Data files declare top-level `const` globals (SEASON, SCOUTING, ...), which never land on `window`.
+  // Resolve the name in global scope instead; window[n] silently missed all of them.
+  const has = n => { try { return typeof (0, eval)(n) !== 'undefined'; } catch (e) { return typeof window[n] !== 'undefined'; } };
   const SCOUT = has('SCOUTING') ? SCOUTING : [];
   const scrub = s => (s||'').replace(/�/g,'—').replace(/�/g,'—');
 

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="greenbook.css?v=210">
+<link rel="stylesheet" href="greenbook.css?v=211">
 <style>
   .dna { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:26px 30px; }
   .dna .ev-when { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--brass-400); }
@@ -107,11 +107,11 @@
 <div id="gb-foot"></div>
 
 <script src="data.js?v=210"></script>
-<script src="greenbook-core.js?v=210"></script>
+<script src="greenbook-core.js?v=211"></script>
 <script id="cardpayload" type="application/json">[{"num": 1, "player": "Wyndham Clark", "market": "Outright win", "terms": "Win only", "book": "DraftKings", "odds": "+3500", "stake": 10, "ret": 360, "ev": "model-negative", "rank": 29, "base": 16, "win": 0.9, "t10": 15, "finish": "WON (-17)", "won": true, "note": "The single largest demotion our Bellerive profile applied - baseline talent had him 16th of 50 and the profile pushed him to 29th, driven by the same putting down-weight the week went on to punish. Backed anyway off the ceiling board (best-of-ball rank 1, short-window putting rank 1) and both robust Rabbit Hole composites. Gained +5.03 putting and +4.82 approach and won by three."}, {"num": 2, "player": "Wyndham Clark", "market": "Winner without Scheffler", "terms": "Win only", "book": "DraftKings", "odds": "+2350", "stake": 10, "ret": 245, "ev": "model-negative", "rank": 29, "base": 16, "win": 0.9, "t10": 15, "finish": "WON", "won": true, "note": "A second ticket on the same player, settling with the first. Logged in its own kill condition before placement as exactly the correlated doubling the portfolio audit exists to catch - it does not diversify the first bet, it doubles it. Scheffler finished T12, so this resolved identically to the outright and both legs paid."}, {"num": 3, "player": "Collin Morikawa", "market": "Outright win", "terms": "Win only", "book": "DraftKings", "odds": "+3600", "stake": 10, "ret": 370, "ev": "model-negative", "rank": 13, "base": 15, "win": 2.6, "t10": 28, "finish": "T4 (-12)", "won": false, "note": "The highest-rated name we actually backed, and the board was right about the golf - he finished T4. Win-only in a 50-man no-cut field left that finish nowhere to pay. An each-way ladder was available here and was not taken; on our own rules a mid-price name at a hard course gets the place leg."}, {"num": 4, "player": "Jake Knapp", "market": "Outright win", "terms": "Win only", "book": "DraftKings", "odds": "+4000", "stake": 10, "ret": 410, "ev": "model-negative", "rank": 18, "base": 24, "win": 1.4, "t10": 20, "finish": "T41 (E)", "won": false, "note": "The one name the profile PROMOTED, 24th to 18th, on distance and a rising form tag. It moved him the wrong way: he finished T41 of 50, the worst result on the card and the clearest single instance of the fit layer subtracting rather than adding."}]</script>
 <script>
 (function(){
-  if (window.GB && GB.mountChrome) GB.mountChrome('board');
+  if (typeof GB !== 'undefined' && GB.mountChrome) GB.mountChrome('board');
   var D = JSON.parse(document.getElementById('cardpayload').textContent);
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }

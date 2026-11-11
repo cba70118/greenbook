@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="greenbook.css?v=210">
+<link rel="stylesheet" href="greenbook.css?v=211">
 <style>
   .phero { background:var(--green-800); color:var(--cream-100); border-radius:8px; padding:26px 30px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
   .phero .ptier { font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--brass-400); }
@@ -61,6 +61,12 @@
       <div id="notes"></div>
     </div>
   </div>
+  <div class="card" id="tlCard" style="margin-top:18px">
+    <div class="card-head"><h3>2026 Season Timeline</h3><span class="note">every start, against what DataGolf expected</span></div>
+    <div id="tlHead"></div>
+    <canvas id="tlChart" height="200"></canvas>
+    <details class="disc"><summary>Every start</summary><div class="tablewrap" id="tlTable"></div></details>
+  </div>
 </main>
 <div id="gb-foot"></div>
 
@@ -69,14 +75,16 @@
 <script src="settled-data.js?v=210"></script>
 <script src="tools-data.js?v=210"></script>
 <script src="player-kb.js?v=210"></script>
-<script src="greenbook-core.js?v=210"></script>
+<script src="greenbook-core.js?v=211"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="events/players.js?v=211"></script>
 <script>
 GB.mountChrome('players');
 (function(){
   const q = new URLSearchParams(location.search);
   const name = q.get('p') || '';
-  const g = GB.findPlayer(name) || (typeof SCOUTING!=='undefined'?SCOUTING[0]:null);
+  // no silent fallback to another player: unknown names get "not found" (the timeline below can still fill the page)
+  const g = GB.findPlayer(name) || (!name && typeof SCOUTING!=='undefined' ? SCOUTING[0] : null);
   if(!g){ document.getElementById('phero').innerHTML='<div class="card">Player not found. <a href="players.html">Back to all players ▸</a></div>'; return; }
   document.title = 'Greenbook — '+g.name;
   const F=GB.FIELD;
@@ -150,6 +158,45 @@ GB.mountChrome('players');
     <div style="font-family:var(--font-mono);font-size:9px;color:var(--green-600);letter-spacing:.08em">STRENGTHS</div>${GB.scrub(g.strengths||'—')}
     <div style="font-family:var(--font-mono);font-size:9px;color:var(--scarlet);letter-spacing:.08em;margin-top:10px">WEAKNESSES</div>${GB.scrub(g.weaknesses||'—')}
     ${g.notes?`<div style="font-family:var(--font-mono);font-size:9px;color:var(--brass-600);letter-spacing:.08em;margin-top:10px">OBSERVATIONS</div><div style="font-style:italic;color:var(--cream-700)">${GB.scrub(g.notes)}</div>`:''}</div>`;
+})();
+</script>
+<script>
+/* ---------- season timeline (works for any player with event history, scouting entry or not) ---------- */
+(function(){
+  const H = window.GB_PLAYER_HISTORY || {};
+  const pk = n => (n||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
+  const q = new URLSearchParams(location.search).get('p') || '';
+  const flip = n => n.includes(',') ? n.split(',').reverse().join(' ').trim() : n;
+  let h = H[pk(flip(q))];
+  if(!h){ const last=pk(q).split(' ').pop(); const c=Object.entries(H).filter(([k])=>k.split(' ').pop()===last); if(c.length===1) h=c[0][1]; }
+  const card=document.getElementById('tlCard');
+  if(!h){ document.getElementById('tlHead').innerHTML='<p class="muted" style="font-size:13px">No 2026 event history on file for this player.</p>'; document.getElementById('tlChart').remove(); return; }
+  // if the scouting lookup failed above, give the page a usable header
+  const hero=document.getElementById('phero');
+  if(hero && /Player not found/.test(hero.textContent)) hero.innerHTML=`<div class="card"><div class="sec-label">Player</div><h1 class="sec-title">${h.name}</h1><p class="muted" style="font-size:13px">No scouting profile yet; season results below come from the event files.</p></div>`;
+  const R=h.rows, done=R.filter(r=>r.f), up=R.filter(r=>!r.f);
+  const fnum=r=>{ const n=parseInt((r.f||'').replace('T',''),10); return isNaN(n)?null:n; };
+  const made=done.filter(r=>fnum(r)), t10=made.filter(r=>fnum(r)<=10).length, t25=made.filter(r=>fnum(r)<=25).length, wins=made.filter(r=>fnum(r)===1).length;
+  const beat=done.filter(r=>r.vs!=null&&r.vs>0).length, rated=done.filter(r=>r.vs!=null).length;
+  const last4=done.slice(-4).filter(r=>r.vs!=null), recent=last4.length?last4.reduce((s,r)=>s+r.vs,0)/last4.length:null;
+  const chip=recent==null?'':recent>0.08?GB.chip('Hot: beating his rating lately','hot'):recent<-0.08?GB.chip('Cooling: below his rating lately','cooling'):GB.chip('Playing to his rating','neutral');
+  const nxt=up.length?up[up.length-1]:null;
+  document.getElementById('tlHead').innerHTML=`<p style="margin:0 0 6px;font-size:14px"><b>${done.length} starts</b> · ${made.length} cuts made · ${wins?wins+' win'+(wins>1?'s':'')+' · ':''}${t10} top-10s · ${t25} top-25s. Beat similarly rated players in <b>${beat} of ${rated}</b>. ${chip}</p>
+    ${nxt?`<p style="margin:0 0 10px;font-size:13px">This week, <a href="event.html?ev=${nxt.s}">${nxt.e}</a>: DataGolf #${nxt.dr||'—'}${nxt.br?` · our board #${nxt.br}`:''}${nxt.fr?` · recent form #${nxt.fr}`:''}${nxt.bet?` · <b>we backed him at ${nxt.bet>0?'+':''}${nxt.bet}</b>`:''}.</p>`:''}`;
+  if(typeof Chart!=='undefined' && done.length){
+    const lab=done.map(r=>(r.e||'').replace(/ presented by.*| Championship| Tournament| Invitational| Classic/g,'').slice(0,14));
+    const pos=done.map(r=>fnum(r)); const exp=done.map(r=>r.dr||null);
+    new Chart(document.getElementById('tlChart'),{type:'line',data:{labels:lab,datasets:[
+      {label:'Finish',data:pos,borderColor:'#2A7A4B',backgroundColor:done.map(r=>!fnum(r)?'#C0392B':fnum(r)===1?'#C9A046':'#2A7A4B'),pointRadius:5,spanGaps:true,tension:.2},
+      {label:'DataGolf pre-event rank',data:exp,borderColor:'#C9A046',borderDash:[4,4],pointRadius:2,spanGaps:true}]},
+      options:{scales:{y:{reverse:true,min:1,title:{display:true,text:'Position (1 = best). Missed cuts not plotted.'}},x:{ticks:{maxRotation:60,autoSkip:false,font:{size:9}}}},
+        plugins:{legend:{position:'bottom'},tooltip:{callbacks:{afterLabel:t=>{const r=done[t.dataIndex];return `${r.f} of ${r.n}`;}}}}}});
+  }
+  const fc=r=>{ const n=fnum(r); const c=!n?'mc':n===1?'w':n<=10?'t10':n<=25?'t25':''; return `<span class="fin ${c}">${r.f}</span>`; };
+  document.getElementById('tlTable').innerHTML=`<table class="gt"><thead><tr><th style="text-align:left">Event</th><th>Finish</th><th>DataGolf rank</th><th>Our board</th><th>Form rank</th><th>vs similar-rated players</th></tr></thead><tbody>${
+    [...R].reverse().map(r=>`<tr><td class="name"><a href="event.html?ev=${r.s}" style="text-decoration:none">${r.e}</a><br><span class="muted" style="font-size:11px">${r.d||''}${r.bet?` · backed ${r.bet>0?'+':''}${r.bet}`:''}</span></td>
+      <td>${r.f?fc(r):'<span class="muted">this week</span>'}</td><td>${r.dr||'—'}${r.n?` <span class="muted">/ ${r.n}</span>`:''}</td><td>${r.br||'—'}</td><td>${r.fr||'—'}</td>
+      <td class="${r.vs==null?'muted':r.vs>0?'pos':'neg'}">${r.vs==null?'—':(r.vs>0?'+':'')+Math.round(r.vs*r.n)+' places'}</td></tr>`).join('')}</tbody></table>`;
 })();
 </script>
 </body>

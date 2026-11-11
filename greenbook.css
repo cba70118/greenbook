@@ -134,3 +134,8 @@ footer.gb a { color:var(--brass-600); text-decoration:none; }
 .pos { color:var(--green-600); } .neg { color:var(--scarlet); } .muted { color:var(--cream-700); }
 .focusable:focus-visible { outline:2px solid var(--brass-500); outline-offset:2px; }
 @media (prefers-reduced-motion:reduce){ *{ transition:none!important; scroll-behavior:auto!important; } }
+
+/* finish chips (shared: event center, player timeline) */
+.fin { display:inline-block; font-family:var(--font-mono); font-size:10px; padding:2px 6px; border-radius:3px; margin:0 3px 3px 0; background:var(--cream-200); color:var(--cream-700); }
+.fin.w { background:var(--brass-500); color:#fff; } .fin.t10 { background:var(--green-200); color:var(--green-700); }
+.fin.t25 { background:var(--green-50); color:var(--green-600); } .fin.mc { background:var(--scarlet-light); color:var(--scarlet); }
