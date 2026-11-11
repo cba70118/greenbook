@@ -66,13 +66,13 @@
 // Settled P/L = +$763.11. ROI = 21.8% (settled only).
 // WINNERS array 36 entries (+6 from The Open)
 const SEASON = {
-    totalBets: 335,            // 332 settled + 0 open + 3 void
+    totalBets: 338,            // 332 settled + 3 open (Austin) + 3 void
     settled: 332,              // +4 BMW Championship (settled Aug 23)
-    open: 0,                   // NO OPEN POSITIONS. BMW settled Aug 23 (+$565.00). TOUR Championship Aug 27-30 not yet carded.
+    open: 3,                   // AUSTIN CHAMPIONSHIP (Nov 12-15): Power +5200 (30% boost), Bauchou +4000, Smotherman +3500 - all b365 E/W 1/4 5pl, $10 E/W ($20) each. Settle Nov 15.
     voided: 3,                 // Taylor Moore $40 E/W (Corales) — operator-confirmed VOID Aug 5, stake refunded
     staked: 3617.14,
     settledStaked: 3617.14,    // 3577.14 + 40.00 (BMW)
-    openStaked: 0,
+    openStaked: 60,            // Austin: 3 x $20 E/W
     returned: 4882.75,         // 4277.75 + 605.00 (BMW: Clark +3500 = $360, Clark +2350 w/o Scheffler = $245)
     pl: 1265.61,               // 700.61 + 565.00 (BMW); settled only
     roi: 35.0,                 // 1265.61 / 3617.14
@@ -148,6 +148,13 @@ const TOURNAMENTS = [
     { name: "Wyndham Championship", bets: 8, staked: 80, returned: 17.50, pl: -62.50, phase: 2, status: "settled" },   // Sedgefield CC, Aug 6-9. Michael Brennan won -22 (last FedExCup Playoff spot). 0 wins / 1 partial place / 7 losses. Only cash: McCarthy FRL place leg, DEAD-HEAT 1/6 ($105 quoted -> $17.50). Griffin/Blades Brown/Hubbard all MC; Cole/McCarthy/Hughes all T29. Single-thesis card: all 8 tickets Bermuda-putting positives. Detail: WYNDHAM_CARD / wyndham-championship-2026/results.md
     { name: "FedEx St. Jude", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },                   // TPC Southwind, Aug 13-16, Playoffs 1 of 3. DELIBERATE NO BET — a card was written (labelled ATTEMPT) and not placed; it would have gone 0-for-2 for -$20. All 13 price-based rejections were correct: not one finished inside the five-place ladder. Zero ledger impact BY DECISION, not by omission. Detail: fedex-st-jude-championship-2026/results.md
     { name: "BMW Championship", bets: 4, staked: 40, returned: 605, pl: 565, phase: 2, status: "settled" },            // Bellerive CC, Aug 20-23, Playoffs 2 of 3, 50 players no cut. HIGHEST-ROI WEEK ON RECORD (+1,412.5%). Wyndham Clark won -17 and paid BOTH tickets: +3500 outright ($360) and +2350 winner-without-Scheffler ($245). Morikawa +3600 -> T4 and Knapp +4000 -> T41 lost. All four positions were model-negative; Clark was the single largest demotion the Bellerive profile applied (board 16 -> 29). Detail: BMW_CARD / bmw-championship-2026/results.md
+    { name: "TOUR Championship", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },                 // East Lake, Aug 27-30, Playoffs finale. NO BET (operator-confirmed Nov 6) - scanned, never carded. Scheffler won as DG #1. All 8 board weightings at chance. Detail: tour-championship-2026/results.md
+    { name: "Biltmore Championship", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },             // Cliffs at Walnut Cove, Sep 17-20, NEW venue. NO BET (operator-confirmed Nov 6). Bridgeman won (DG #2). Backfilled.
+    { name: "Bank of Utah Championship", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },         // Black Desert, Oct 1-4. NO BET (operator-confirmed Nov 6). Smotherman won -26 (DG #45). Backfilled.
+    { name: "Baycurrent Classic", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },                // Yokohama CC, Oct 8-11. NO BET (operator-confirmed Nov 6). Brennan won -16 (DG #13). Backfilled.
+    { name: "Butterfield Bermuda Championship", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },  // Port Royal, Oct 22-25. NO BET (operator-confirmed Nov 6). Smotherman won -16 (DG #7), his 2nd fall win. Backfilled.
+    { name: "Mexico Open", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },                       // Vidanta Vallarta, Oct 29-Nov 1 (moved to fall). NO BET (operator-confirmed Nov 6). Novak won -25 (DG #8). Backfilled.
+    { name: "World Wide Technology", bets: 0, staked: 0, returned: 0, pl: 0, phase: 2, status: "settled" },             // El Cardonal, Nov 5-8. NO BET (operator-confirmed Nov 11). Blades Brown won (DG #6). Fall-form test h-0018 graded: form-ahead names beat peers by median 22 places (p-0099).
 ];
 
 const WINNERS = [

@@ -1,0 +1,254 @@
+{
+ "sony-open-in-hawaii-2026": {
+  "folder": "sony-open-in-hawaii-2026",
+  "event_id": "6",
+  "name": "Sony Open in Hawaii",
+  "start": "2026-01-15"
+ },
+ "american-express-2026": {
+  "folder": "american-express-2026",
+  "event_id": "2",
+  "name": "The American Express",
+  "start": "2026-01-22"
+ },
+ "farmers-insurance-open-2026": {
+  "folder": "farmers-insurance-open-2026",
+  "event_id": "4",
+  "name": "Farmers Insurance Open",
+  "start": "2026-01-29"
+ },
+ "wm-phoenix-open-2026": {
+  "folder": "wm-phoenix-open-2026",
+  "event_id": "3",
+  "name": "WM Phoenix Open",
+  "start": "2026-02-05"
+ },
+ "pebble-beach-pro-am-2026": {
+  "folder": "pebble-beach-pro-am-2026",
+  "event_id": "5",
+  "name": "AT&T Pebble Beach Pro-Am",
+  "start": "2026-02-12"
+ },
+ "genesis-invitational-2026": {
+  "folder": "genesis-invitational-2026",
+  "event_id": "7",
+  "name": "The Genesis Invitational",
+  "start": "2026-02-19"
+ },
+ "cognizant-2026": {
+  "folder": "2026/cognizant-2026",
+  "event_id": "10",
+  "name": "Cognizant Classic in The Palm Beaches",
+  "start": "2026-02-26"
+ },
+ "arnold-palmer-2026": {
+  "folder": "2026/arnold-palmer-2026",
+  "event_id": "9",
+  "name": "Arnold Palmer Invitational",
+  "start": "2026-03-05"
+ },
+ "puerto-rico-2026": {
+  "folder": "2026/puerto-rico-2026",
+  "event_id": "483",
+  "name": "Puerto Rico Open",
+  "start": "2026-03-05"
+ },
+ "players-2026": {
+  "folder": "2026/players-2026",
+  "event_id": "11",
+  "name": "THE PLAYERS Championship",
+  "start": "2026-03-12"
+ },
+ "valspar-2026": {
+  "folder": "2026/valspar-2026",
+  "event_id": "475",
+  "name": "Valspar Championship",
+  "start": "2026-03-19"
+ },
+ "houston-2026": {
+  "folder": "2026/houston-2026",
+  "event_id": "20",
+  "name": "Texas Children's Houston Open",
+  "start": "2026-03-26"
+ },
+ "valero-2026": {
+  "folder": "2026/valero-2026",
+  "event_id": "41",
+  "name": "Valero Texas Open",
+  "start": "2026-04-02"
+ },
+ "masters-2026": {
+  "folder": "2026/masters-2026",
+  "event_id": "14",
+  "name": "Masters Tournament",
+  "start": "2026-04-09"
+ },
+ "rbc-heritage-2026": {
+  "folder": "rbc-heritage-2026",
+  "event_id": "12",
+  "name": "RBC Heritage",
+  "start": "2026-04-16"
+ },
+ "miami-championship-2026": {
+  "folder": "miami-championship-2026",
+  "event_id": "556",
+  "name": "Cadillac Championship",
+  "start": "2026-04-30"
+ },
+ "truist-championship-2026": {
+  "folder": "truist-championship-2026",
+  "event_id": "480",
+  "name": "Truist Championship",
+  "start": "2026-05-07"
+ },
+ "myrtle-beach-2026": {
+  "folder": "myrtle-beach-2026",
+  "event_id": "553",
+  "name": "ONEflight Myrtle Beach Classic",
+  "start": "2026-05-07"
+ },
+ "pga-championship-2026": {
+  "folder": "pga-championship-2026",
+  "event_id": "33",
+  "name": "PGA Championship",
+  "start": "2026-05-14"
+ },
+ "cj-cup-byron-nelson-2026": {
+  "folder": "cj-cup-byron-nelson-2026",
+  "event_id": "19",
+  "name": "THE CJ CUP Byron Nelson",
+  "start": "2026-05-21"
+ },
+ "charles-schwab-challenge-2026": {
+  "folder": "charles-schwab-challenge-2026",
+  "event_id": "21",
+  "name": "Charles Schwab Challenge",
+  "start": "2026-05-28"
+ },
+ "memorial-tournament-2026": {
+  "folder": "memorial-tournament-2026",
+  "event_id": "23",
+  "name": "the Memorial Tournament",
+  "start": "2026-06-04"
+ },
+ "rbc-canadian-open-2026": {
+  "folder": "rbc-canadian-open-2026",
+  "event_id": "32",
+  "name": "RBC Canadian Open",
+  "start": "2026-06-11"
+ },
+ "us-open-2026": {
+  "folder": "us-open-2026",
+  "event_id": "26",
+  "name": "U.S. Open",
+  "start": "2026-06-18"
+ },
+ "travelers-championship-2026": {
+  "folder": "travelers-championship-2026",
+  "event_id": "34",
+  "name": "Travelers Championship",
+  "start": "2026-06-25"
+ },
+ "john-deere-classic-2026": {
+  "folder": "john-deere-classic-2026",
+  "event_id": "30",
+  "name": "John Deere Classic",
+  "start": "2026-07-02"
+ },
+ "genesis-scottish-open-2026": {
+  "folder": "genesis-scottish-open-2026",
+  "event_id": "541",
+  "name": "Genesis Scottish Open",
+  "start": "2026-07-09"
+ },
+ "isco-championship-2026": {
+  "folder": "isco-championship-2026",
+  "event_id": "518",
+  "name": "ISCO Championship",
+  "start": "2026-07-09"
+ },
+ "the-open-championship-2026": {
+  "folder": "the-open-championship-2026",
+  "event_id": "100",
+  "name": "The Open Championship",
+  "start": "2026-07-16"
+ },
+ "corales-puntacana-2026": {
+  "folder": "corales-puntacana-2026",
+  "event_id": "522",
+  "name": "Corales Puntacana Championship",
+  "start": "2026-07-16"
+ },
+ "3m-open-2026": {
+  "folder": "3m-open-2026",
+  "event_id": "525",
+  "name": "3M Open",
+  "start": "2026-07-23"
+ },
+ "rocket-classic-2026": {
+  "folder": "rocket-classic-2026",
+  "event_id": "524",
+  "name": "Rocket Classic",
+  "start": "2026-07-30"
+ },
+ "wyndham-championship-2026": {
+  "folder": "wyndham-championship-2026",
+  "event_id": "13",
+  "name": "Wyndham Championship",
+  "start": "2026-08-06"
+ },
+ "fedex-st-jude-championship-2026": {
+  "folder": "fedex-st-jude-championship-2026",
+  "event_id": "27",
+  "name": "FedEx St. Jude Championship",
+  "start": "2026-08-13"
+ },
+ "bmw-championship-2026": {
+  "folder": "bmw-championship-2026",
+  "event_id": "28",
+  "name": "BMW Championship",
+  "start": "2026-08-20"
+ },
+ "tour-championship-2026": {
+  "folder": "tour-championship-2026",
+  "event_id": "60",
+  "name": "TOUR Championship",
+  "start": "2026-08-27"
+ },
+ "biltmore-championship-2026": {
+  "folder": "biltmore-championship-2026",
+  "event_id": "557",
+  "name": "Biltmore Championship Asheville",
+  "start": "2026-09-17"
+ },
+ "bank-of-utah-championship-2026": {
+  "folder": "bank-of-utah-championship-2026",
+  "event_id": "554",
+  "name": "Bank of Utah Championship",
+  "start": "2026-10-01"
+ },
+ "baycurrent-classic-2026": {
+  "folder": "baycurrent-classic-2026",
+  "event_id": "527",
+  "name": "Baycurrent Classic",
+  "start": "2026-10-08"
+ },
+ "butterfield-bermuda-championship-2026": {
+  "folder": "butterfield-bermuda-championship-2026",
+  "event_id": "528",
+  "name": "Butterfield Bermuda Championship",
+  "start": "2026-10-22"
+ },
+ "mexico-open-2026": {
+  "folder": "mexico-open-2026",
+  "event_id": "540",
+  "name": "VidantaWorld Mexico Open",
+  "start": "2026-10-29"
+ },
+ "world-wide-technology-championship-2026": {
+  "folder": "world-wide-technology-championship-2026",
+  "event_id": "457",
+  "name": "World Wide Technology Championship",
+  "start": "2026-11-05"
+ }
+}

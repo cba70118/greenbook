@@ -222,3 +222,36 @@ equivalent. Wire new golfer names into the cross-link modal where possible.
 - Backfill `composite`/`radarPlayers` for current-week events so the public deep-dive isn't "pending" during the week.
 - Make war-room timeline data-driven from `TOURNAMENT_DATA` keys (frozen at ~Truist).
 - Push to GitHub Pages (`dashboard/` is its own git repo → `git -C dashboard add/commit/push`) when operator says go.
+
+---
+
+## EVENT FILES + EVENT CENTER + MODEL TRACKER (built 2026-11-11)
+
+Recreates the U.S. Open "Reading the Field" depth for EVERY event, generated, frozen per event, and tracked over time.
+
+**Data layer — one file per event:** `dashboard/events/<slug>.js` (global `GB_EVENTS[slug]`) + `dashboard/events/index.js`
+(`GB_EVENT_INDEX`). JS globals, not JSON, so pages work from `file://`. Built by `scripts/build_event_bundle.py`:
+layers meta · course (RH course-facts) · DG odds · our ranking (independent-ranking.md, else our-model*.csv) · recent form
+(RH SG windows + results-vs-DG over prior 45 days; results-only where no RH windows) · narrative labels (narrative-overlay.md)
+· SIMULATION · market (all odds CSV layouts) · card (`<event>/placed.json`) · ledger (data.js TOURNAMENTS) · results + grading.
+Every layer carries the mtime of its source. Missing layers are simply absent; pages say "pending".
+
+**Simulation:** numpy, 20k sims, integer strokes, 36-hole cut 65+ties, random playoff, dead-heat place payouts.
+**NULL TEST GATE:** DG `final_pred` + `std_deviation` must reproduce DG's own odds (win rank rho >= .95, top-20 MAE <= 3pp) or
+the model sim is WITHHELD (3M Open fails -> stale decompositions; correct behaviour). Runs: model (Stage-1 exp SG) and form
+(50/50 SG blend with the player's form-rank SG). Per-player mean/sd shipped so the page replays tournaments client-side.
+
+**Pages:** `event.html?ev=<slug>` (Event Center: read, course DNA, power rankings with verdict+reasons+expand, card, live sim
+with form-weight slider, edge map, head-to-head, form & markets, results, method). `tracker.html` (Model Tracker: season KPIs,
+board accuracy vs random per event, form test per event, graded table, ledger reconciliation). Nav added in greenbook-core.js.
+Longshot rule: no "Value" call under 0.4% model win (~+25000).
+
+**Season backfill:** `scripts/season_backfill.py --run` maps every DG 2026 event to its folder (root or `2026/x`), creates
+missing folders, pulls DG archive (finishes + pre-event odds) via backfill_event.py. Map: `dashboard/events/_folders.json`.
+Zurich (team) skipped -> tracker shows the +$3 gap vs SEASON.
+
+**WEEKLY RUNBOOK:** after each stage, `py -3 scripts/build_event_bundle.py <slug>`. When bets are placed, write
+`<slug>/placed.json`. After the event: `py -3 scripts/backfill_event.py --event-id <id> --slug <slug>` then rebuild the bundle.
+Verify: node + jsdom headless test (scratchpad pattern: load page with Chart.js stubbed, click a board row, run sims).
+
+**NOT DONE YET:** player-page timelines across event files · pipeline skills calling the builder automatically · git push.

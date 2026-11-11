@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — Model Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=210">
+<style>
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{background:#fff;border:1px solid var(--cream-300);border-radius:6px;padding:16px 18px}
+  .kpi .v{font-family:var(--font-display);font-size:34px;line-height:1;color:var(--green-700)}
+  .kpi .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-700);margin-top:6px}
+  .kpi .s{font-size:12px;color:var(--cream-700);margin-top:6px}
+  .acc{display:inline-block;height:8px;border-radius:4px;vertical-align:middle}
+  @media (max-width:820px){.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+  <section class="sec">
+    <div class="sec-label">Model tracker</div>
+    <h1 class="sec-title">How our reads have held up, event by event</h1>
+    <div class="brass-rule"></div>
+    <div class="sec-sub">Every event file is graded after the final round. The pre-event read stays frozen, so this page compares what we thought with what happened. It grows by one row a week.</div>
+    <div class="kpis" id="kpis"></div>
+  </section>
+  <section class="sec">
+    <div class="sec-label">Accuracy over the season</div>
+    <h2 class="sec-title">Did the favourites finish near the top?</h2>
+    <div class="brass-rule"></div>
+    <div class="sec-sub">For each event: where the eventual top-10 finishers sat on the pre-event board, as a share of the field. Lower is better. 50% is what you'd get picking names at random.</div>
+    <div class="card"><canvas id="accC" height="260"></canvas></div>
+  </section>
+  <section class="sec">
+    <div class="sec-label">The form test ${''}</div>
+    <h2 class="sec-title">Do players in form beat their rating?</h2>
+    <div class="brass-rule"></div>
+    <div class="sec-sub" id="formSub"></div>
+    <div class="card"><canvas id="formC" height="240"></canvas></div>
+  </section>
+  <section class="sec">
+    <div class="sec-label">Every event</div>
+    <h2 class="sec-title">The season, graded</h2>
+    <div class="brass-rule"></div>
+    <div class="card tablewrap" id="tbl"></div>
+  </section>
+</main>
+<div id="gb-foot"></div>
+<script src="data.js?v=210"></script>
+<script src="greenbook-core.js?v=210"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="events/index.js?v=210"></script>
+<script>
+GB.mountChrome('tracker');
+const I=(window.GB_EVENT_INDEX||[]).filter(e=>e.status==='complete').sort((a,b)=>(a.start||a.end||'').localeCompare(b.start||b.end||''));
+const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const share=(m,r)=>m==null||!r?null:m/(2*r-1); // median rank / field size (random median = (n+1)/2)
+const win=e=>(e.winner||[]).map(n=>n.includes(',')?n.split(',').reverse().join(' ').trim():n).join(', ');
+const g=e=>e.grade||{};
+
+/* KPIs */
+const dgS=I.map(e=>share(g(e).dg_top10_median_rank,g(e).random_median)).filter(x=>x!=null);
+const bdS=I.map(e=>share(g(e).board_top10_median_rank,g(e).random_median)).filter(x=>x!=null);
+const ft=I.filter(e=>g(e).form_test&&g(e).form_test.ahead_n>=5&&g(e).form_test.ahead_median_vs_peers!=null);
+const ftPos=ft.filter(e=>g(e).form_test.ahead_median_vs_peers>0).length;
+const pl=I.reduce((s,e)=>s+((e.ledger||{}).pl||0),0), carded=I.filter(e=>e.ledger&&e.ledger.bets>0).length;
+const med=a=>{const s=[...a].sort((x,y)=>x-y);return s.length?s[Math.floor(s.length/2)]:null;};
+document.getElementById('kpis').innerHTML=[
+  [I.length,'Events graded',`${I.filter(e=>e.layers.includes('sim')).length} with our own simulation`],
+  [Math.round(100*med(dgS))+'%','DataGolf board',`Top-10 finishers' median spot, as share of field (random = 50%)`],
+  [bdS.length?Math.round(100*med(bdS))+'%':'—','Our board',`Same measure, ${bdS.length} events with a ranking on file`],
+  [`${ftPos}/${ft.length}`,'Form test',`Events where in-form players beat similarly rated peers`]
+].map(([v,l,s])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+
+/* accuracy chart */
+if(typeof Chart!=='undefined'){
+  const lab=I.map(e=>(e.name||'').replace(/ presented by.*| Championship| Tournament| Invitational| Classic| Open$/g,'').slice(0,18));
+  new Chart(document.getElementById('accC'),{type:'line',data:{labels:lab,datasets:[
+    {label:'DataGolf board',data:I.map(e=>{const v=share(g(e).dg_top10_median_rank,g(e).random_median);return v==null?null:Math.round(v*100);}),borderColor:'#C9A046',backgroundColor:'#C9A046',spanGaps:true,tension:.25},
+    {label:'Our board',data:I.map(e=>{const v=share(g(e).board_top10_median_rank,g(e).random_median);return v==null?null:Math.round(v*100);}),borderColor:'#2A7A4B',backgroundColor:'#2A7A4B',spanGaps:false,showLine:false,pointRadius:6},
+    {label:'Random',data:I.map(()=>50),borderColor:'#D9CDB8',borderDash:[4,4],pointRadius:0}]},
+    options:{scales:{y:{min:0,max:70,title:{display:true,text:'Top-10 finishers: median board spot, % of field'}},x:{ticks:{maxRotation:60,autoSkip:false,font:{size:9}}}},plugins:{legend:{position:'bottom'}}}});
+  new Chart(document.getElementById('formC'),{type:'bar',data:{labels:ft.map(e=>(e.name||'').slice(0,16)),datasets:[
+    {label:'In form, ahead of rating',data:ft.map(e=>Math.round(g(e).form_test.ahead_median_vs_peers)),backgroundColor:ft.map(e=>g(e).form_test.ahead_median_vs_peers>0?'#2A7A4B':'#C0392B')}]},
+    options:{scales:{y:{title:{display:true,text:'Places better (+) or worse (−) than peers'}},x:{ticks:{maxRotation:60,autoSkip:false,font:{size:9}}}},plugins:{legend:{display:false}}}});
+}
+document.getElementById('formSub').innerHTML=`Players whose recent results ran at least 30 places ahead of their DataGolf rating, compared with players rated about the same (median places better or worse). Green bars mean form told you something the rating didn't. <b>Note:</b> most events here use results-only form; weeks with Rabbit Hole strokes-gained windows (Austin onward) use a stronger version, so the two aren't directly comparable.`;
+
+/* table */
+document.getElementById('tbl').innerHTML=`<table class="gt"><thead><tr><th style="text-align:left">Event</th><th style="text-align:left">Winner</th><th>DataGolf board</th><th>Our board</th><th>Form test</th><th>Our bets</th><th>P/L</th></tr></thead><tbody>${
+  [...I].reverse().map(e=>{ const G=g(e), d=share(G.dg_top10_median_rank,G.random_median), b=share(G.board_top10_median_rank,G.random_median), f=G.form_test;
+    const pctc=v=>v==null?'—':`<span class="${v<0.35?'pos':v>0.5?'neg':''}">${Math.round(v*100)}%</span>`;
+    return `<tr><td class="name"><a href="event.html?ev=${e.slug}" style="text-decoration:none">${esc(e.name)}</a><br><span class="muted" style="font-size:11px">${esc(e.start||e.end||'')}</span></td>
+      <td class="name">${esc(win(e))}</td><td>${pctc(d)}</td><td>${pctc(b)}</td>
+      <td class="${f&&f.ahead_median_vs_peers>0?'pos':f&&f.ahead_median_vs_peers<0?'neg':'muted'}">${f&&f.ahead_n>=5&&f.ahead_median_vs_peers!=null?(f.ahead_median_vs_peers>0?'+':'')+Math.round(f.ahead_median_vs_peers):'—'}</td>
+      <td>${e.ledger?e.ledger.bets:'—'}</td><td class="${e.ledger?GB.clsOf(e.ledger.pl):'muted'}">${e.ledger?(e.ledger.pl>=0?'+$':'−$')+Math.abs(e.ledger.pl).toFixed(0):'—'}</td></tr>`; }).join('')}</tbody></table>
+  <p class="muted" style="font-size:12px;margin-top:10px">Board columns: where the top-10 finishers sat on the pre-event board, as a share of the field (lower is better; 50% = random). P/L from the greenbook ledger. Ledger total for these events: ${(pl>=0?'+$':'−$')+Math.abs(pl).toFixed(2)} across ${carded} carded events.${typeof SEASON!=='undefined'&&Math.abs(SEASON.pl-pl)>0.005?` Season ledger is ${(SEASON.pl>=0?'+$':'−$')+Math.abs(SEASON.pl).toFixed(2)}; the ${(SEASON.pl-pl>=0?'+$':'−$')+Math.abs(SEASON.pl-pl).toFixed(2)} gap is team events (Zurich Classic), which aren't graded here.`:''}</p>`;
+</script>
+</body>
+</html>

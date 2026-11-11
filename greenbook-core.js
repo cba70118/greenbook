@@ -165,9 +165,11 @@ const GB = (function(){
     const meta = S ? `Season <b class="${S.pl>=0?'pos':'neg'}">${units(S.pl)}</b> · ${S.roi}% ROI · ${S.winners} winners` : '';
     const pages = [
       ['index.html','Board','board'],
+      ['event.html','Event Center','event'],
       ['card.html','This Week&rsquo;s Card','card'],
       ['players.html','Players','players'],
       ['events.html','Events','events'],
+      ['tracker.html','Model Tracker','tracker'],
       ['record.html','The Record','record'],
     ];
     const head = document.getElementById('gb-head');

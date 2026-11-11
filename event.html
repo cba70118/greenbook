@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbook — Event Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="greenbook.css?v=210">
+<style>
+  .gb-sel{font-family:var(--font-mono);font-size:13px;padding:9px 12px;border:1px solid var(--cream-300);border-radius:5px;background:#fff;color:var(--green-800);cursor:pointer;max-width:100%}
+  .hero{background:var(--green-800);color:var(--cream-100);border-radius:8px;padding:24px 28px}
+  .hero h1{font-family:var(--font-display);font-weight:400;font-size:34px;line-height:1.05;margin:2px 0;color:var(--cream-50)}
+  .hero .sub{font-family:var(--font-display);font-size:18px;color:var(--green-200);font-style:italic}
+  .hero .meta{font-family:var(--font-mono);font-size:11px;color:var(--green-300);margin-top:10px;line-height:1.7}
+  .layers{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .lyr{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.04em;border-radius:12px;padding:3px 10px;border:1px solid var(--green-600);color:var(--green-200)}
+  .lyr.off{border-style:dashed;color:var(--green-600)}
+  .read p{margin:0 0 10px;font-size:15px;max-width:74ch}
+  .read b{color:var(--green-700)}
+  .kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:2px 18px}
+  .kv div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--cream-200);padding:6px 0;font-size:12.5px}
+  .kv span:first-child{font-family:var(--font-mono);font-size:10.5px;color:var(--cream-700)}
+  .warn{background:var(--brass-100);border-left:3px solid var(--brass-500);padding:10px 14px;font-size:13px;border-radius:3px;margin-bottom:14px}
+  .frow{display:grid;grid-template-columns:34px minmax(150px,1.2fr) 118px minmax(180px,2fr) 150px;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid var(--cream-200)}
+  .frow .r{font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--brass-500);text-align:right}
+  .frow .n a{font-family:var(--font-display);font-size:16.5px;font-weight:600;color:var(--green-800);text-decoration:none}
+  .frow .n a:hover{color:var(--brass-600)}
+  .frow .n .sm{display:block;font-family:var(--font-mono);font-size:10px;color:var(--cream-700)}
+  .frow .why{font-size:12px;color:var(--cream-900);line-height:1.45}
+  .frow .why .rs{display:block}
+  .pp{display:grid;grid-template-columns:44px 1fr 38px;gap:6px;align-items:center;font-family:var(--font-mono);font-size:10.5px}
+  .pp .t{height:7px;background:var(--cream-200);border-radius:4px;overflow:hidden}.pp .t>div{height:100%}
+  .detail{grid-column:1/-1;background:var(--cream-50);border:1px solid var(--cream-200);border-radius:5px;padding:14px 16px;margin:4px 0 8px}
+  .detail .grid3>div h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-600);margin:0 0 6px}
+  .fin{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 6px;border-radius:3px;margin:0 3px 3px 0;background:var(--cream-200);color:var(--cream-700)}
+  .fin.w{background:var(--brass-500);color:#fff}.fin.t10{background:var(--green-200);color:var(--green-700)}.fin.t25{background:var(--green-50);color:var(--green-600)}.fin.mc{background:var(--scarlet-light);color:var(--scarlet)}
+  .ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:14px;font-family:var(--font-mono);font-size:11px}
+  .ctl input[type=range]{width:180px;accent-color:var(--green-500)}
+  .btn{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--green-600);color:#fff;border:0;border-radius:4px;padding:9px 14px;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--green-700);border:1px solid var(--cream-300)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .lb{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .lb .col h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-600);margin:0 0 6px}
+  .lb .ln{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px solid var(--cream-100)}
+  .lb .ln.me{background:var(--brass-100)}
+  .lb .ln.cut{border-top:2px dashed var(--scarlet)}
+  .champ{font-family:var(--font-display);font-size:24px;color:var(--green-700);margin-top:12px}
+  .h2h{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+  .h2h .side{text-align:center}.h2h .big{font-family:var(--font-display);font-size:38px;color:var(--green-700)}
+  .pending{color:var(--cream-500);font-style:italic;font-size:13px}
+  @media (max-width:860px){.frow{grid-template-columns:30px 1fr;}.frow .why,.frow .pv,.frow .vd{grid-column:2}.lb{grid-template-columns:1fr 1fr}.h2h{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="gb-head"></div>
+<main class="wrap">
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+    <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-600)">Event</span>
+    <select id="evSel" class="gb-sel" style="min-width:280px"></select>
+  </div>
+  <div id="app"><div class="card pending">Loading event file…</div></div>
+</main>
+<div id="gb-foot"></div>
+
+<script src="data.js?v=210"></script>
+<script src="greenbook-core.js?v=210"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="events/index.js?v=210"></script>
+<script>
+/* ===================================================================
+   EVENT CENTER — renders any event from dashboard/events/<slug>.js
+   Built by scripts/build_event_bundle.py. Verdict first, depth on expand.
+   =================================================================== */
+GB.mountChrome('event');
+Object.assign(GB.GLOSSARY,{
+  deadheat:"When players tie for the last paying place, the payout is split between them. Our simulation scores in whole strokes, so ties happen and place bets are paid the way books actually pay them.",
+  nulltest:"Before we trust our simulation, we feed it DataGolf's own inputs and check it reproduces DataGolf's own odds. If it can't, any 'edge' it shows is the simulator talking, not the golf. Failed tests withhold the numbers.",
+  overround:"How much the book's prices add up to beyond 100%. The extra is the house margin. We remove it before comparing the market's view to ours.",
+  formrun:"A second simulation that gives recent form (last ~6 weeks) half the weight and long-term skill the other half. Use the slider to choose your own weight.",
+  ewterm:"Each-way terms: '1/5 · 8 places' means the place half pays one-fifth of the odds if the player finishes in the top 8."
+});
+const IDX = window.GB_EVENT_INDEX || [];
+const $ = s => document.querySelector(s);
+const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pc = p => p==null ? '—' : (p>0 && p<0.01 ? '<1%' : Math.round(p*100)+'%');
+const pc1 = p => p==null ? '—' : (p*100<10 ? (p*100).toFixed(1)+'%' : Math.round(p*100)+'%');
+const am = o => o==null ? '—' : (o>0?'+':'')+o;
+const fair = p => !p ? '—' : (p>=0.5 ? Math.round(-100*p/(1-p)) : '+'+Math.round(100*(1-p)/p));
+const am2p = a => a>0 ? 100/(a+100) : -a/(-a+100);
+const evTxt = e => e==null ? '—' : (e>=0?'+':'')+Math.round(e*100)+'%';
+const evCls = e => e==null ? 'muted' : e>=0.05 ? 'pos' : e<=-0.10 ? 'neg' : 'muted';
+const MKT = {'win':'Win','top5':'Top 5','top10':'Top 10','top20':'Top 20',
+  'ew_quarter_5pl':'E/W ¼ · 5 places','ew_fifth_3pl':'E/W ⅕ · 3 places','ew_fifth_8pl':'E/W ⅕ · 8 places','ew_fifth_10pl':'E/W ⅕ · 10 places','ew_fifth_12pl':'E/W ⅕ · 12 places'};
+const BOOK = {dk:'DraftKings',fd:'FanDuel',b365:'bet365'};
+const mlab = k => { const [b,m]=k.split(':'); return `${BOOK[b]||b} ${MKT[m]||m}`; };
+
+/* ---------- event selector + loader ---------- */
+function pickDefault(){
+  const q = new URLSearchParams(location.search).get('ev');
+  if(q && IDX.find(e=>e.slug===q)) return q;
+  const up = IDX.filter(e=>e.status!=='complete').sort((a,b)=>(a.start||'').localeCompare(b.start||''));
+  return (up[0]||IDX[0]||{}).slug;
+}
+const sel = $('#evSel');
+sel.innerHTML = IDX.map(e=>`<option value="${e.slug}">${esc(e.name)}${e.start?' · '+e.start:''}${e.status==='complete'?' · final':''}</option>`).join('');
+sel.onchange = () => { history.replaceState(null,'','?ev='+sel.value); load(sel.value); };
+function load(slug){
+  if(!slug){ $('#app').innerHTML='<div class="card pending">No event files yet. Run scripts/build_event_bundle.py.</div>'; return; }
+  sel.value = slug;
+  if(window.GB_EVENTS && GB_EVENTS[slug]) return render(GB_EVENTS[slug]);
+  const s=document.createElement('script'); s.src=`events/${slug}.js?v=${Date.now()%1e6}`;
+  s.onload=()=>render(GB_EVENTS[slug]); s.onerror=()=>{$('#app').innerHTML='<div class="card pending">Could not load that event file.</div>';};
+  document.body.appendChild(s);
+}
+
+/* ---------- derived per-player read ---------- */
+function marketWinP(E,f){ // de-vigged market win chance from the deepest win book
+  const bk = ['dk:win','fd:win'].find(k=>f.odds&&f.odds[k]!=null&&E.market.books[k]);
+  return bk ? am2p(f.odds[bk])/E.market.books[bk].overround : null;
+}
+const TAIL = 0.004; // below ~+25000 the sim's win chance is spread-sensitive: no value calls there
+function bestEV(f,run){ if(!f.ev || !f.sim || f.sim.model.win < TAIL) return null; let best=null;
+  for(const [k,v] of Object.entries(f.ev)){ if(v[run]==null) continue; if(!best||v[run]>best.ev) best={k,ev:v[run]}; } return best; }
+function verdict(E,f){
+  const bm=bestEV(f,'model'), bf=bestEV(f,'form');
+  if(!bm) { const r=(f.s1||{}).rank; return r&&r<=10?GB.chip('Top 10 read','top'):r&&r<=30?GB.chip('Contender','strong'):GB.chip('Field','neutral'); }
+  if(bm.ev>=0.05) return GB.chip('Value','value');
+  if(bf && bf.ev>=0.10) return GB.chip('Value on form','solid');
+  if(bm.ev>=-0.10) return GB.chip('Fair price','neutral');
+  return GB.chip('Priced short','trap');
+}
+function reasons(E,f){
+  const out=[], fr=(f.form||{}).rank, dr=f.dg_rank, s1=(f.s1||{}).rank;
+  if(s1) out.push(`#${s1} on our board${dr?` (DataGolf #${dr})`:''}.`);
+  if(fr && dr && dr-fr>=25) out.push(`<b>Playing above his rating</b>: recent form #${fr} vs DataGolf #${dr}.`);
+  else if(fr && fr<=10) out.push(`<b>Hot</b>: #${fr} on recent form.`);
+  else if(fr && dr && fr-dr>=30) out.push(`<b>Cooling</b>: recent form #${fr}, well below his rating.`);
+  const n=f.narrative; if(n){ const L=n.label.toLowerCase();
+    out.push(L.startsWith('silent')?'Sources are quiet on him.':L.startsWith('convergent')?'Sources agree with our read.':L.startsWith('divergent')?'Sources disagree with our read.':'Sources lukewarm.'); }
+  const mp=marketWinP(E,f), mw=f.sim&&f.sim.model.win;
+  if(mp&&mw){ const r=mw/mp; if(r>=1.25) out.push('Market prices him longer than we do.'); else if(r<=0.8) out.push('Market prices him shorter than we do.'); }
+  return out.slice(0,3);
+}
+function finChip(r){ const n=parseInt((r.finish||'').replace('T',''),10);
+  const c=r.finish==='MC'||r.finish==='CUT'||isNaN(n)?'mc':n===1?'w':n<=10?'t10':n<=25?'t25':'';
+  return `<span class="fin ${c}" title="${esc(r.event)} · DataGolf #${r.dg_rank} of ${r.field}">${esc(r.finish)}</span>`; }
+
+/* ---------- render ---------- */
+let CH=[];
+function render(E){
+  CH.forEach(c=>c.destroy()); CH=[];
+  const m=E.meta, L=E.layers||{};
+  const all=['course','dg','ranking','narrative','sim','market','card','results'];
+  const lname={course:'Course facts',dg:'DataGolf odds',ranking:'Our ranking',narrative:'Narrative check',sim:'Simulation',market:'Market prices',card:'Our card',results:'Results'};
+  const field=E.field||[];
+  const H=[];
+  H.push(`<section class="sec"><div class="hero">
+    <div class="sec-label" style="color:var(--brass-400)">${m.status==='complete'?'Final':'This week'} · ${esc(m.start||'')}</div>
+    <h1>${esc(m.name)}</h1><div class="sub">${esc(m.course_name||m.course_id||'')}</div>
+    <div class="meta">${field.length} players · greens ${esc(m.surface||'—')} · file built ${esc(E.built)}</div>
+    <div class="layers">${all.map(k=>`<span class="lyr ${L[k]?'':'off'}" title="${L[k]?'as of '+L[k]:'not on file yet'}">${lname[k]}${L[k]?'':' · pending'}</span>`).join('')}</div>
+  </div></section>`);
+
+  H.push(renderRead(E));
+  H.push(renderCourse(E));
+  H.push(renderBoard(E));
+  H.push(renderCard(E));
+  H.push(renderSim(E));
+  H.push(renderEdge(E));
+  H.push(renderH2H(E));
+  H.push(renderForm(E));
+  H.push(renderResults(E));
+  H.push(renderMethod(E));
+  $('#app').innerHTML=H.join('');
+  wireBoard(E); wireSim(E); wireH2H(E); drawEdge(E);
+}
+
+function renderRead(E){
+  const f=E.field, top=f.filter(x=>x.s1).slice(0,3).map(x=>x.name);
+  const lines=[];
+  if(E.course&&E.course.warnings&&E.course.warnings.length) lines.push(`<p><b>The course:</b> ${esc(E.course.warnings[0])}</p>`);
+  if(top.length) lines.push(`<p><b>Our top three:</b> ${top.join(', ')}. ${E.sim&&E.sim.null_test&&E.sim.null_test.passed?'Win chances come from our own simulation, which passed its accuracy check against DataGolf.':''}</p>`);
+  const above=f.filter(x=>x.form&&x.form.rank&&x.dg_rank&&x.dg_rank-x.form.rank>=25).sort((a,b)=>a.form.rank-b.form.rank).slice(0,4).map(x=>x.name);
+  if(above.length) lines.push(`<p><b>Playing above their rating:</b> ${above.join(', ')}. Books price off long-term skill, so recent form is where they're most likely to be wrong.</p>`);
+  const val=f.map(x=>({x,b:bestEV(x,'model')})).filter(o=>o.b&&o.b.ev>=0.05).sort((a,b)=>b.b.ev-a.b.ev).slice(0,3);
+  if(val.length) lines.push(`<p><b>Best prices on the model:</b> ${val.map(o=>`${o.x.name} (${mlab(o.b.k)} ${am(o.x.odds[o.b.k])}, ${evTxt(o.b.ev)} edge)`).join('; ')}.</p>`);
+  const sil=f.filter(x=>x.narrative&&/silent/i.test(x.narrative.label)).map(x=>x.name).slice(0,3);
+  if(sil.length) lines.push(`<p><b>Nobody's talking about:</b> ${sil.join(', ')}.</p>`);
+  if(E.card&&E.card.bets) lines.push(`<p><b>We backed:</b> ${E.card.bets.map(b=>`${b.player} ${am(b.price)}`).join(', ')}.</p>`);
+  return `<section class="sec read"><div class="sec-label">The read</div><h2 class="sec-title">What matters this week</h2><div class="brass-rule"></div>${lines.join('')||'<p class="pending">Not enough on file yet for a read.</p>'}</section>`;
+}
+
+function renderCourse(E){
+  const c=E.course||{};
+  const facts=Object.entries(c.facts||{}), grades=Object.entries(c.grades||{});
+  if(!facts.length&&!c.length_line) return '';
+  return `<section class="sec"><div class="sec-label">Course DNA ${GB.info('dna')}</div><h2 class="sec-title">What this course rewards</h2><div class="brass-rule"></div>
+    ${(c.warnings||[]).map(w=>`<div class="warn">${esc(w)}</div>`).join('')}
+    <div class="card">
+      ${c.length_line?`<p style="margin:0 0 6px"><b>Length:</b> ${esc(c.length_line)}</p>`:''}
+      ${c.surface_line?`<p style="margin:0 0 14px"><b>Surface:</b> ${esc(c.surface_line)}</p>`:''}
+      <div class="kv">${facts.map(([k,v])=>`<div><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join('')}</div>
+      <details class="disc"><summary>How hard each part of the game plays here (Rabbit Hole grades)</summary>
+        ${grades.length?`<div class="kv">${grades.map(([k,v])=>`<div><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join('')}</div>
+        <p class="muted" style="font-size:12px">Grades describe how hard a category plays for the whole field. They are not a ranking of what separates winners.</p>`:'<p class="pending">No grades: no tour history at this course.</p>'}
+        ${c.correlated&&c.correlated.length?`<p style="font-size:13px"><b>Similar courses:</b> ${c.correlated.map(esc).join(', ')}</p>`:''}
+        ${c.past_winners&&c.past_winners.length?`<p style="font-size:13px"><b>Past winners:</b> ${c.past_winners.map(w=>`${w.year} ${esc(w.winner)}`).join(' · ')}</p>`:''}
+        ${c.course_file?`<p class="muted" style="font-size:11px">Full course file: <code>${esc(c.course_file)}</code></p>`:''}
+      </details>
+    </div></section>`;
+}
+
+function renderBoard(E){
+  const f=E.field.filter(x=>x.s1||x.dg);
+  const rows=f.slice(0,60).map((x,i)=>{
+    const mw=x.sim?x.sim.model.win:(x.dg||{}).win, mp=marketWinP(E,x), scale=0.08;
+    const bar=(p,col)=>`<div class="t"><div style="width:${Math.min(100,(p||0)/scale*100)}%;background:${col}"></div></div>`;
+    return `<div class="frow" data-i="${i}">
+      <div class="r">${(x.s1||{}).rank||x.dg_rank||'—'}</div>
+      <div class="n"><a href="player.html?p=${encodeURIComponent(x.name)}">${esc(x.name)}</a><span class="sm">${x.odds&&x.odds['dk:win']?'DK '+am(x.odds['dk:win']):''}</span></div>
+      <div class="vd">${verdict(E,x)}</div>
+      <div class="why">${reasons(E,x).map(r=>`<span class="rs">${r}</span>`).join('')}</div>
+      <div class="pv"><div class="pp"><span>Ours</span>${bar(mw,'var(--green-500)')}<span>${pc1(mw)}</span></div>
+        ${mp!=null?`<div class="pp"><span>Market</span>${bar(mp,'var(--brass-500)')}<span>${pc1(mp)}</span></div>`:''}</div>
+    </div>`; }).join('');
+  return `<section class="sec"><div class="sec-label">Power rankings</div><h2 class="sec-title">The field, ranked by our read</h2><div class="brass-rule"></div>
+    <div class="sec-sub">Ranked by our independent read, not by fame or odds. The bars compare our win chance with the market's (house margin removed ${GB.info('overround')}). Click a row for the full breakdown.</div>
+    <div class="card" id="board">${rows}</div></section>`;
+}
+function detailHtml(E,x){
+  const sk=x.skill||{}, s=x.sim, ev=x.ev||{};
+  const bars=['ott','app','arg','putt'].map(k=>GB.mbar(GB.label(k,{tech:false}),null,GB.sg(sk[k]),{diverging:true,z:(sk[k]||0)/0.5})).join('');
+  const probs=s?`<table class="gt"><thead><tr><th style="text-align:left">Chance</th><th>Model</th><th>Form view</th><th>DataGolf</th><th>Fair odds</th></tr></thead><tbody>
+    ${[['win','Win'],['t5','Top 5'],['t10','Top 10'],['t20','Top 20'],['mc','Make cut']].map(([k,l])=>`<tr><td class="name">${l}</td><td>${pc1(s.model[k])}</td><td>${pc1(s.form[k])}</td><td>${pc1((x.dg||{})[k])}</td><td>${fair(s.model[k])}</td></tr>`).join('')}</tbody></table>`:'<p class="pending">No simulation for this event.</p>';
+  const evr=Object.keys(ev).length?`<table class="gt"><thead><tr><th style="text-align:left">Bet</th><th>Price</th><th>Edge (model)</th><th>Edge (form)</th></tr></thead><tbody>
+    ${Object.entries(ev).sort((a,b)=>(b[1].model||-9)-(a[1].model||-9)).map(([k,v])=>`<tr><td class="name">${mlab(k)}</td><td>${am(x.odds[k])}</td><td class="${evCls(v.model)}">${evTxt(v.model)}</td><td class="${evCls(v.form)}">${evTxt(v.form)}</td></tr>`).join('')}</tbody></table>`:'<p class="pending">No prices on file.</p>';
+  const rec=x.form&&x.form.recent&&x.form.recent.length?x.form.recent.map(finChip).join(''):'<span class="pending">No recent starts on file.</span>';
+  const s1=x.s1;
+  return `<div class="detail"><div class="grid3">
+    <div><h4>Skill (DataGolf)</h4>${bars}<p class="muted" style="font-size:11px">Overall ${GB.sg(sk.total)} per round.</p>
+      ${s1?`<p style="font-size:12px;margin:6px 0 0">Our expected ${GB.sg(s1.exp_sg)}/round = skill ${GB.sg(s1.baseline)} + form ${GB.sg(s1.form_delta)} + fit ${GB.sg(s1.fit_adj)}.${s1.flags?` <span class="muted">${esc(s1.flags)}</span>`:''}</p>`:''}</div>
+    <div><h4>Chances ${GB.info('formrun')}</h4>${probs}</div>
+    <div><h4>Recent form ${GB.info('form')}</h4><div>${rec}</div>
+      ${x.form?`<p style="font-size:12px">Form rank ${x.form.rank||'—'} · last 16 rounds #${x.form.r16||'—'} · last 24 #${x.form.r24||'—'}</p>`:''}
+      ${x.narrative?`<p style="font-size:12px"><b>Sources:</b> ${esc(x.narrative.label)}. <span class="muted">${esc(x.narrative.who)}</span></p>`:''}</div>
+  </div><h4 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-600);margin:14px 0 6px">Every price ${GB.info('edge')}</h4>${evr}</div>`;
+}
+function wireBoard(E){
+  const f=E.field.filter(x=>x.s1||x.dg);
+  document.querySelectorAll('#board .frow').forEach(r=>r.addEventListener('click',ev=>{
+    if(ev.target.closest('a')) return;
+    const nx=r.nextElementSibling; if(nx&&nx.classList.contains('detail')){nx.remove();return;}
+    r.insertAdjacentHTML('afterend',detailHtml(E,f[+r.dataset.i]));
+  }));
+}
+
+function renderCard(E){
+  if(!E.card||!E.card.bets) return '';
+  const rows=E.card.bets.map(b=>{ const f=E.field.find(x=>x.name.toLowerCase()===b.player.toLowerCase());
+    const res=f&&f.result?f.result.finish:'—';
+    return `<tr><td class="name"><b>${esc(b.player)}</b><br><span class="muted" style="font-size:11.5px">${esc(b.thesis||'')}</span></td>
+      <td>${esc(BOOK[b.book]||b.book)} ${esc(b.terms||b.market)}${b.boost?`<br><span class="muted">${esc(b.boost)}</span>`:''}</td><td>${am(b.price)}</td><td>${GB.ustk(b.stake_total)}</td>
+      <td class="${evCls((b.ev||{}).model)}">${evTxt((b.ev||{}).model)}</td><td class="${evCls((b.ev||{}).form)}">${evTxt((b.ev||{}).form)}</td><td>${esc(res)}</td></tr>`;}).join('');
+  const tot=E.card.bets.reduce((s,b)=>s+(b.stake_total||0),0);
+  return `<section class="sec"><div class="sec-label">The card</div><h2 class="sec-title">What we actually bet</h2><div class="brass-rule"></div>
+    <div class="sec-sub">Edges include dead-heat payouts ${GB.info('deadheat')}. "Form" is the edge if recent form deserves half the weight.</div>
+    <div class="card tablewrap"><table class="gt"><thead><tr><th style="text-align:left">Player</th><th>Bet</th><th>Price</th><th>Stake</th><th>Edge (model)</th><th>Edge (form)</th><th>Finish</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="muted" style="font-size:12px;margin-top:10px">Total staked ${GB.ustk(tot)} ($${tot}).</p></div></section>`;
+}
+
+/* ---------- live simulation (client-side, same engine as the builder) ---------- */
+function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function gauss(r){ let u=0,v=0; while(!u)u=r(); while(!v)v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function simPlayers(E){ return E.field.filter(x=>x.sim_inputs).map(x=>({name:x.name,m:x.sim_inputs.mean_model,f:x.sim_inputs.mean_form,sd:x.sim_inputs.sd})); }
+function meanAt(p,w){ return p.m + 2*w*(p.f-p.m); }  // w=0 model, w=.5 the stored form run, w=1 pure form
+function oneTournament(P,w,r){
+  const sc=P.map(p=>{ const mu=meanAt(p,w); return [0,1,2,3].map(()=>Math.round(72-mu+p.sd*gauss(r))); });
+  const s36=sc.map(s=>s[0]+s[1]); const cut=[...s36].sort((a,b)=>a-b)[Math.min(65,P.length)-1];
+  const made=s36.map(v=>v<=cut);
+  const tot=sc.map((s,i)=>made[i]?s.reduce((a,b)=>a+b,0):Infinity);
+  return {sc,made,tot,cut};
+}
+function renderSim(E){
+  if(!E.sim) return `<section class="sec"><div class="sec-label">Live simulation</div><h2 class="sec-title">Play it out</h2><div class="brass-rule"></div><div class="card pending">No simulation on file for this event.</div></section>`;
+  if(!E.sim.null_test.passed) return `<section class="sec"><div class="sec-label">Live simulation</div><h2 class="sec-title">Play it out</h2><div class="brass-rule"></div><div class="warn">${esc(E.sim.withheld)}</div></section>`;
+  const names=simPlayers(E).map(p=>p.name).sort();
+  return `<section class="sec"><div class="sec-label">Live simulation ${GB.info('nulltest')}</div><h2 class="sec-title">Play it out</h2><div class="brass-rule"></div>
+    <div class="sec-sub">Each run plays four rounds for the whole field in whole strokes, with a 36-hole cut (top 65 and ties). Slide the form weight to see how much recent form changes the picture ${GB.info('formrun')}.</div>
+    <div class="card">
+      <div class="ctl"><label>Recent form weight <input type="range" id="fw" min="0" max="100" step="10" value="0"> <b id="fwv">0%</b></label>
+        <label>Follow <select id="follow" class="gb-sel" style="font-size:11px;padding:5px 8px"><option value="">—</option>${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select></label>
+        <button class="btn" id="go1">Simulate one tournament</button><button class="btn ghost" id="goN">Run 5,000 and show odds</button></div>
+      <div id="simOut"><p class="pending">Press a button to run the simulation.</p></div>
+    </div></section>`;
+}
+function wireSim(E){
+  if(!E.sim||!E.sim.null_test.passed) return;
+  const P=simPlayers(E); const fw=$('#fw'); fw.oninput=()=>$('#fwv').textContent=fw.value+'%';
+  $('#go1').onclick=()=>{ const w=fw.value/100, r=rng(Date.now()%1e9), t=oneTournament(P,w,r), me=$('#follow').value;
+    const cols=[0,1,2,3].map(R=>{ const cum=P.map((p,i)=>({i,s:t.sc[i].slice(0,R+1).reduce((a,b)=>a+b,0)})).filter(o=>R<2||t.made[o.i]).sort((a,b)=>a.s-b.s);
+      const lead=cum[0].s, show=cum.slice(0,10); const mi=me?cum.find(o=>P[o.i].name===me):null;
+      if(mi && !show.includes(mi)) show.push(mi);
+      return `<div class="col"><h4>After round ${R+1}${R===1?' · cut':''}</h4>${show.map((o,k)=>`<div class="ln ${P[o.i].name===me?'me':''}"><span>${cum.indexOf(o)+1}. ${esc(P[o.i].name)}</span><span class="tnum">${o.s-72*(R+1)>0?'+':''}${o.s-72*(R+1)===0?'E':o.s-72*(R+1)}</span></div>`).join('')}</div>`; });
+    const best=Math.min(...t.tot), tied=P.filter((p,i)=>t.tot[i]===best); const champ=tied[Math.floor(Math.random()*tied.length)];
+    const meRes=me?(()=>{ const i=P.findIndex(p=>p.name===me); if(!t.made[i]) return `${esc(me)} missed the cut.`; const pos=1+t.tot.filter(v=>v<t.tot[i]).length; const tie=t.tot.filter(v=>v===t.tot[i]).length>1; return `${esc(me)} finished ${tie?'T':''}${pos}.`; })():'';
+    $('#simOut').innerHTML=`<div class="lb">${cols.join('')}</div><div class="champ">Champion: <b>${esc(champ.name)}</b> (${best-288>0?'+':''}${best-288})${tied.length>1?` · won a ${tied.length}-man playoff`:''}</div><p>${meRes}</p>`; };
+  $('#goN').onclick=()=>{ const btn=$('#goN'); btn.disabled=true; btn.textContent='Running…';
+    setTimeout(()=>{ const w=fw.value/100, r=rng(12345), N=5000, win=new Float64Array(P.length), t10=new Float64Array(P.length);
+      for(let k=0;k<N;k++){ const t=oneTournament(P,w,r); const best=Math.min(...t.tot); const tie=[]; t.tot.forEach((v,i)=>{if(v===best)tie.push(i)});
+        tie.forEach(i=>win[i]+=1/tie.length); const srt=[...t.tot].sort((a,b)=>a-b), thr=srt[9];
+        const nb=t.tot.filter(v=>v<thr).length, ne=t.tot.filter(v=>v===thr).length;
+        t.tot.forEach((v,i)=>{ if(v<thr)t10[i]+=1; else if(v===thr&&isFinite(v)) t10[i]+=(10-nb)/ne; }); }
+      const rows=P.map((p,i)=>({p,w:win[i]/N,t:t10[i]/N})).sort((a,b)=>b.w-a.w).slice(0,20);
+      $('#simOut').innerHTML=`<p>5,000 tournaments at ${fw.value}% form weight.</p><div class="tablewrap"><table class="gt"><thead><tr><th style="text-align:left">Player</th><th>Win</th><th>Fair win odds</th><th>Top 10</th></tr></thead><tbody>${rows.map(o=>`<tr><td class="name">${esc(o.p.name)}</td><td>${pc1(o.w)}</td><td>${fair(o.w)}</td><td>${pc(o.t)}</td></tr>`).join('')}</tbody></table></div>`;
+      btn.disabled=false; btn.textContent='Run 5,000 and show odds'; },30); };
+}
+
+/* ---------- edge map ---------- */
+function renderEdge(E){
+  if(!E.market||!E.sim) return '';
+  return `<section class="sec"><div class="sec-label">Edge map ${GB.info('edge')}</div><h2 class="sec-title">Where we disagree with the market</h2><div class="brass-rule"></div>
+    <div class="sec-sub">Each dot is a player: market win chance (margin removed) across, ours up. Dots above the line are players we like more than the books do.</div>
+    <div class="card"><canvas id="edgeC" height="320"></canvas></div></section>`;
+}
+function drawEdge(E){
+  const c=$('#edgeC'); if(!c||typeof Chart==='undefined') return;
+  const pts=E.field.map(x=>({x:marketWinP(E,x),y:x.sim?x.sim.model.win:null,n:x.name})).filter(p=>p.x&&p.y).map(p=>({x:+(p.x*100).toFixed(2),y:+(p.y*100).toFixed(2),n:p.n}));
+  const mx=Math.max(...pts.map(p=>Math.max(p.x,p.y)))*1.05;
+  CH.push(new Chart(c,{type:'scatter',data:{datasets:[{data:pts,backgroundColor:pts.map(p=>p.y>p.x*1.2?'#2A7A4B':p.y<p.x*0.8?'#C0392B':'#C9A046'),pointRadius:4},
+    {type:'line',data:[{x:0,y:0},{x:mx,y:mx}],borderColor:'#D9CDB8',borderDash:[4,4],pointRadius:0}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:t=>t.raw.n?`${t.raw.n}: ours ${t.raw.y}% · market ${t.raw.x}%`:''}}},
+      scales:{x:{title:{display:true,text:'Market win chance (%)'},min:0,max:mx},y:{title:{display:true,text:'Our win chance (%)'},min:0,max:mx}}}}));
+}
+
+/* ---------- head to head ---------- */
+function renderH2H(E){
+  if(!E.sim||!E.sim.null_test.passed) return '';
+  const names=simPlayers(E).map(p=>p.name);
+  const opts=n=>names.map(x=>`<option ${x===n?'selected':''}>${esc(x)}</option>`).join('');
+  return `<section class="sec"><div class="sec-label">Head-to-head</div><h2 class="sec-title">Who finishes higher?</h2><div class="brass-rule"></div>
+    <div class="card"><div class="h2h"><div class="side"><select id="hA" class="gb-sel">${opts(names[0])}</select><div class="big" id="hpA">—</div></div>
+    <div class="muted">vs</div><div class="side"><select id="hB" class="gb-sel">${opts(names[1])}</select><div class="big" id="hpB">—</div></div></div>
+    <p class="muted" style="font-size:12px;text-align:center">72-hole result from 5,000 simulated tournaments (model view). If both miss the cut, or they tie, it's a push. A missed cut loses to a made cut.</p></div></section>`;
+}
+function wireH2H(E){
+  if(!$('#hA')) return; const P=simPlayers(E);
+  const run=()=>{ const a=P.find(p=>p.name===$('#hA').value), b=P.find(p=>p.name===$('#hB').value); if(!a||!b||a===b) return;
+    const r=rng(99); let wa=0,wb=0; const N=5000;
+    for(let k=0;k<N;k++){ const s=[a,b].map(p=>[0,1,2,3].map(()=>Math.round(72-p.m+p.sd*gauss(r))));
+      // approximate the cut with each player's own cut odds from the full-field sim
+      const fa=E.field.find(x=>x.name===a.name).sim.model.mc, fb=E.field.find(x=>x.name===b.name).sim.model.mc;
+      const ma=r()<fa, mb=r()<fb; const ta=ma?s[0].reduce((x,y)=>x+y,0):1e9, tb=mb?s[1].reduce((x,y)=>x+y,0):1e9;
+      if(ta<tb) wa++; else if(tb<ta) wb++; }
+    const tot=wa+wb; $('#hpA').textContent=Math.round(100*wa/tot)+'%'; $('#hpB').textContent=Math.round(100*wb/tot)+'%'; };
+  $('#hA').onchange=run; $('#hB').onchange=run; run();
+}
+
+/* ---------- form & markets ---------- */
+function renderForm(E){
+  const f=E.field.filter(x=>x.form&&x.form.rank).sort((a,b)=>a.form.rank-b.form.rank).slice(0,25);
+  if(!f.length) return '';
+  const rows=f.map(x=>{ const gap=x.dg_rank?x.dg_rank-x.form.rank:null;
+    return `<tr><td>${x.form.rank}</td><td class="name"><a href="player.html?p=${encodeURIComponent(x.name)}" style="text-decoration:none">${esc(x.name)}</a></td>
+      <td style="text-align:left">${(x.form.recent||[]).map(finChip).join('')}</td><td>${x.dg_rank||'—'}</td>
+      <td class="${gap>=25?'pos':gap<=-25?'neg':'muted'}">${gap==null?'—':(gap>0?'+':'')+gap}</td><td>${x.odds&&x.odds['dk:win']?am(x.odds['dk:win']):'—'}</td></tr>`; }).join('');
+  return `<section class="sec"><div class="sec-label">Form & markets ${GB.info('form')}</div><h2 class="sec-title">Who's playing well right now</h2><div class="brass-rule"></div>
+    <div class="sec-sub">Recent form combines the last 16 and 24 rounds of strokes gained with results against expectation over the last six weeks (${(E.form_events||[]).length} events). "Gap" is how far form runs ahead (+) or behind (−) the DataGolf rating.</div>
+    <div class="card tablewrap"><table class="gt"><thead><tr><th>Form</th><th style="text-align:left">Player</th><th style="text-align:left">Recent finishes</th><th>DataGolf</th><th>Gap</th><th>DK win</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
+
+/* ---------- results + grading ---------- */
+function renderResults(E){
+  const R=E.results; if(!R) return `<section class="sec"><div class="sec-label">Results</div><h2 class="sec-title">How the read held up</h2><div class="brass-rule"></div><div class="card pending">Results get added here when the event ends, and the pre-event read above stays frozen so we can grade it.</div></section>`;
+  const g=[];
+  if(R.winner&&R.winner.length) g.push(`<p><b>Winner:</b> ${R.winner.map(n=>esc(n.includes(',')?n.split(',').reverse().join(' ').trim():n)).join(', ')}</p>`);
+  if(R.board_top10_median_rank!=null) g.push(`<p>The top-10 finishers sat at a median <b>#${R.board_top10_median_rank}</b> on our board (pure chance would be #${R.random_median}).</p>`);
+  if(R.dg_top10_median_rank!=null) g.push(`<p>On DataGolf's board they sat at a median <b>#${R.dg_top10_median_rank}</b>.</p>`);
+  if(R.form_test&&R.form_test.ahead_n) g.push(`<p>Players in form ahead of their rating (${R.form_test.ahead_n}) finished a median <b>${R.form_test.ahead_median_vs_peers>0?'+':''}${Math.round(R.form_test.ahead_median_vs_peers)}</b> places better than similarly rated peers. Those behind (${R.form_test.behind_n}): ${R.form_test.behind_median_vs_peers==null?'—':Math.round(R.form_test.behind_median_vs_peers)}.</p>`);
+  return `<section class="sec read"><div class="sec-label">Results</div><h2 class="sec-title">How the read held up</h2><div class="brass-rule"></div><div class="card">${g.join('')}</div></section>`;
+}
+
+function renderMethod(E){
+  const s=E.sim, nt=s&&s.null_test;
+  return `<section class="sec"><details class="disc"><summary>Method, sources and accuracy check</summary><div class="card" style="font-size:13px">
+    ${s?`<p><b>Simulation:</b> ${s.n_sims.toLocaleString()} tournaments, ${esc(s.scoring)}, cut ${esc(s.cut)}. Round-to-round spread from ${esc(s.sd_source)}.</p>
+    <p><b>Accuracy check ${GB.info('nulltest')}:</b> ${nt.passed?'passed':'FAILED'} — ${esc(nt.rule)}. ${Object.entries(nt.errors).map(([k,v])=>`${k}: off by ${v.mae_pp} pts on average, rank correlation ${v.rho}`).join(' · ')}.</p>
+    <p><b>Model run:</b> ${esc((s.runs||{}).model||'—')}. <b>Form run:</b> ${esc((s.runs||{}).form||'—')}.</p>
+    <p><b>Longshot rule:</b> no "Value" call for players under a ${TAIL*100}% model win chance (about +25000). Out there the simulated chance depends heavily on the spread assumption, so big edges are usually the model, not the golf.</p>`:'<p>No simulation.</p>'}
+    ${E.market?`<p><b>Books ${GB.info('overround')}:</b> ${Object.entries(E.market.books).map(([k,v])=>{ const m=k.split(':')[1].match(/^top(\d+)$/); const n=m?+m[1]:1;
+      return `${mlab(k)} (${m?'per paying place, ':''}prices add up to ${Math.round(v.overround/n*100)}%)`; }).join(' · ')}.</p>`:''}
+    <p><b>Data layers, as of:</b> ${Object.entries(E.layers).map(([k,v])=>`${k} ${esc(v)}`).join(' · ')}.</p>
+    <p class="muted">File: dashboard/events/${esc(E.meta.slug)}.js · schema ${E.schema} · built by scripts/build_event_bundle.py</p></div></details></section>`;
+}
+
+load(pickDefault());
+</script>
+</body>
+</html>
